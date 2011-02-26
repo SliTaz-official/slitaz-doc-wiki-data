@@ -1,0 +1,63 @@
+====== Virtualbox ======
+
+===== SliTaz GNU/Linux with VirtualBox =====
+
+You can now play with SliTaz GNU/Linux on Windows with VirtualBox.
+Required:
+
+    * [[http://virtualbox.wordpress.com/2008/06/27/slitaz-gnulinux-is-here/|SliTaz GNU/Linux Image]], the virtual machine.
+    * [[http://www.virtualbox.org/wiki/Downloads|Oracle VirtualBox]] software, binaries for Windows.
+    * [[http://www.7-zip.org/fr/download.html|7-Zip]], needed to decompress the file.
+
+===== Step 1 - Downloads and installation. =====
+
+    * Download and install 7-Zip - necessary to decompress the files.
+    * Download and install the Oracle VitualBox software.
+    * Download and decompress the virtual machine somewhere on your local hard drive.
+
+===== Step 2 - Play the virtual machine. =====
+
+Before running SliTaz GNU/Linux virtual machine you need to configure a new virtual machine in the VirtualBox software.
+
+  -     Run virtualbox [//Start/Programms/Oracle xVM VirtualBox/VirtualBox//].
+  -     Add a new Machine: Click on [//New//] toolbar button.
+  -     Click [//Next//] in the “ Create New Virtual Machine ” dialog box.
+  -     Give a name to your new virtual machine ( i.e: SliTaz GNU/Linux ), and select Linux 2.6 in OS Type list and click [//Next//] .
+  -     Select the amount of memory for the virtual machine. 256MB default should be sufficient.
+  -     In the “ //Virtual Hard Disk// ” dialog box click on the [//Existing//] button to use your SliTaz virtual disk.
+  -     The Virtual Disk Manager start. Click the [//Add//] toolbar button, locate and select the VDI file (i.e: slitaz-1.9-x86.vdi ).
+  -     Click on [//Next//] and [//Finish//].
+
+You can now play with your new SliTaz GNU/Linux virtual machine.
+
+<note>
+VirtualBox can use VMware virtual disks as well.
+</note>
+
+===== Virtualbox-OSE =====
+
+You can install the open source edition of virtualbox (free software) in SliTaz with the package virtualbox-ose:
+<code>
+# tazpkg get-install virtualbox-ose
+</code> 
+This is a restricted version without USB support.
+
+===== Slitaz get-virtualbox =====
+
+You can install virtualbox (full, but non-free version) in Slitaz with the get-virtualbox package:
+<code># tazpkg get-install get-virtualbox ; get-virtualbox</code>
+
+Other virtualization (free software) is also available such as lguest or qemu.
+---- 
+\\
+^  Page Review Section  ^^ 
+|Quality| Low |
+|Review| Major Updates FIXME |
+|Priority| Medium |
+|Problems| add a [[http://forum.slitaz.org|forum post link]]|
+|:::     | OR add a [[http://labs.slitaz.org/issues |lab issue tracker link ]]|
+|How to Improve| We have get-virtualbox pkg now? Can we remove linux-source dependency from get-virtualbox like nvidia?|
+|:::|  |
+
+\\
+----

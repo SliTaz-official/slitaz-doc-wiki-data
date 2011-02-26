@@ -1,0 +1,13 @@
+This category is to provide useful linux references/articles/bookmarks. Please feel free to add any topic that you think may be useful for the community. 
+
+===== Development ======
+
+  * Writing Shell scripts: http://linuxcommand.org/
+  * ... 
+
+===== Linux References =====
+
+  * [[http://www.digilife.be/quickreferences/QRC/The%20One%20Page%20Linux%20Manual.pdf | One Page Manual]] (Not everything applies to Slitaz)
+  * [[http://www.pixelbeat.org/cmdline.html|Another command line reference]]
+  * Have a .tar.gz file? [[http://www.tuxfiles.org/linuxhelp/softinstall.html|Compiling Software in Linux]] - note you will probably need the //slitaz-toolchain// and a few //*-dev// packages (a few useful ones can be installed as //slitaz-dev-pkgs//.
+  * [[http://www.howtogeek.com/tag/linux/|Linux How-To Articles, Tips, and Guides]] :: How-To Geek

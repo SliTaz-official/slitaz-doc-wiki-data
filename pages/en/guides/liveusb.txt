@@ -1,0 +1,42 @@
+====== LiveUSB ======
+
+===== From SliTaz =====
+
+Download > Burn > Boot a SliTaz ISO image. Open Terminal > type in (change ///dev/sda// if needed):
+
+<code>
+$ su root
+# tazusb format
+</code>
+Enter a name such as /dev/sda1 or type 'list'... wait ...
+<code>
+# tazusb gen-liveusb /dev/sda1
+</code>
+
+Wait…. and then reboot!
+
+===== From Windows =====
+
+A SliTaz Live USB installation or a Frugal Install  can be performed using [[http://unetbootin.sourceforge.net/|UNetbootin]].
+
+You may either choose: 
+  * the standard version ([[http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe|Windows]] | [[http://unetbootin.sourceforge.net/unetbootin-linux-latest|Linux]]) : select SliTaz ISO from the Distribution list in unetbootin, or 
+  * a custom SliTaz version ([[http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe|Windows]] | [[http://unetbootin.sourceforge.net/unetbootin-linux-latest|Linux]]).
+
+To create a Live USB, select “USB Drive” under installation type.
+
+You can also choose to do frugal install. To perform a Frugal Install, select “Hard Disk” under installation type;
+
+---- 
+\\
+^  Page Review Section  ^^ 
+|Quality| Good  |
+|Review| Minor Updates  |
+|Priority| Medium |
+|Problems| add a [[http://forum.slitaz.org|forum post link]]|
+|:::     | OR add a [[http://labs.slitaz.org/issues |lab issue tracker link ]]|
+|How to Improve| Add tazusb.exe, a SliTaz alternative to unetbootin |
+|::: |   |
+
+\\
+----

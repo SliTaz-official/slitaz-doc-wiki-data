@@ -1,0 +1,11 @@
+===== S =====
+[[en:start|^]] [[en:terms:a]] - [[en:terms:b]] - [[en:terms:c]] - [[en:terms:d]] - [[en:terms:e]] - [[en:terms:f]] - [[en:terms:g]] - [[en:terms:h]] - [[en:terms:i]] - [[en:terms:j]] - [[en:terms:k]] - [[en:terms:l]] - [[en:terms:m]] - [[en:terms:n]] - [[en:terms:o]] - [[en:terms:p]] - [[en:terms:q]] - [[en:terms:r]] - [[en:terms:s]] - [[en:terms:t]] - [[en:terms:u]] - [[en:terms:v]] - [[en:terms:w]] - [[en:terms:x]] - [[en:terms:y]] - [[en:terms:z]]
+
+====Scratch ====
+  * see [[en:devnotes:cook-flavor-from-scratch?&#Explanation]]
+  * scratch is a computer freak slang to say ‘from the source code and without tools’
+
+====Source (code) ====
+  * see [[en:devnotes:cook-flavor-from-scratch?&#Explanation]] and search ‘scratch’
+  * more [[http://en.wikipedia.org/wiki/Source_code|wikipedia]]
+

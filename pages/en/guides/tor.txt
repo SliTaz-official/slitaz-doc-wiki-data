@@ -1,0 +1,42 @@
+====== The Tor Install Guide without blah-blah ======
+
+===== Installation =====
+<code>
+# tazpkg get-install tor
+# tazpkg get-install privoxy
+# echo 'forward-socks4a /        127.0.0.1:9050   .' >> /etc/privoxy/config
+# sed -r '/RUN_DAEMONS/s/(" *)$/ privoxy\1/' -i /etc/rcS.conf 
+# echo 'tor > /dev/tty2 & ' >> /etc/init.d/local.sh
+</code>
+
+Use Bridges to get tor working if the options above are not working.
+
+<code>
+# echo '
+UseBridges 1
+UpdateBridgesFromAuthority 1
+bridge 66.160.141.98:6085 ' >> /etc/tor/torrc
+</code>
+
+===== Reboot system and relogin. =====
+
+Login to tty2 (Ctrl+Alt+F2 gets you into tty2; Alt+F7 back to the Desktop) to check if it works or not.
+If it shows Success... then this means it works.
+
+Then install the "tor button" plugin for Firefox.
+
+Over the Wall, you can touch everywhere in the world.
+
+---- 
+\\
+^  Page Review Section  ^^ 
+|Quality| Medium  |
+|Review| Minor Updates  |
+|Priority| Low |
+|Problems| add a [[http://forum.slitaz.org|forum post link]]|
+|:::     | OR add a [[http://labs.slitaz.org/issues |lab issue tracker link ]]|
+|How to Improve| Introduction is missing|
+|::: |  |
+
+\\
+----

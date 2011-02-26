@@ -1,0 +1,32 @@
+====== Cookbook ======
+
+The Cookbook brings together information about the project management, operation and development of the distribution. It talks about creating packages, receipts, the wok, and scripts that start SliTaz.
+
+At the base of the Cookbook is the [[en:scratchbook:start|Scratchbook]], this contains instructions to create your own LiveCD by describing the creation of the first ever public version of SliTaz in March 2007. The Cookbook is modified by the SliTaz community and steadily improved, it provides technical instructions about the project useful to developers and advanced users. 
+
+==== Table of contents ====
+
+    * [[en:cookbook:devcorner|Developer's Corner]]  - ReadMe page for Developers.
+    * [[en:cookbook:receipt|Receipts]]  - Receipts (recipes) for creating (cooking) SliTaz packages.
+    * [[en:cookbook:wok|Wok]]  - Creating SliTaz packages from source using Tazwok. (Uses a receipt.)
+    * [[en:cookbook:buildbot|Build Bot]] - Automated cooking, testing and reporting of Wok packages.
+    * [[en:cookbook:buildhost|Build Host]]  - The SliTaz host.
+    * [[en:cookbook:slitaztools|SliTaz Tools]]  - The Toolbox.
+    * [[en:cookbook:advancedhg|Advanced usage of Mercurial]] - Add extensions to Mercurial and use MQ.
+    * [[en:cookbook:releasetasks|Release Tasks]]  - List of things to do before publishing a new version.
+    * [[en:cookbook:bootscripts|Boot Scripts]]  - The start-up and shut-down scripts.
+    * [[en:cookbook:rootcd|Root cdrom (rootcd)]]  - Descriptions of files contained on the cdrom.
+
+---- 
+\\
+^  Page Review Section  ^^ 
+|Quality| Medium  |
+|Review| Minor Updates FIXME |
+|Priority| Medium |
+|Problems| add a [[http://forum.slitaz.org|forum post link]]|
+|:::     | OR add a [[http://labs.slitaz.org/issues |lab issue tracker link ]]|
+|How to Improve| Make all pages in cookbook current as of 3.0|
+|::: |  |
+
+\\
+----

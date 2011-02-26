@@ -1,0 +1,89 @@
+====== SliTaz Build Host (tank) ======
+
+SliTaz build host info and howto. 
+
+===== Folders in: /home/slitaz =====
+
+    * cooking/ - Cooking chroot and flavors.
+    * stable/ - Stable tree.
+    * repos/ - All the project repos (where the commits are pushed).
+    * www/ - Virtual hosts (website, hg, boot, people, etc).
+
+===== Using tazdev =====
+
+To help maintain the mirror, flavors and other services, the tazdev command is used. It is mostly configured for the cooking version. Usage:
+
+<code>
+ $ tazdev usage
+</code>
+
+===== Cooking undigest packages =====
+
+You can use the undigest wok in the chroot environment to cook some non supported packages. If you maintain official packages and they cook successfully on tank, then you can test on your local machine and commit in the official wok. Mirror maintainers will then rebuild and upload the packages on mirror.slitaz.org.
+
+To build packages in the undigest wok and in the chroot environment: commands are sometimes better than a long text:
+
+<code>
+ $ ln -s /home/slitaz/cooking/chroot/home/undigest .
+</code>
+
+You can copy files with gFTP-sftp-scp directly into the wok or from the current directory:
+
+<code>
+ $ cp -a package undigest/wok
+ $ su -c "tazdev chroot"
+ /# cd home/undigest
+ /# tazwok cook package
+ /# exit
+ $ ls undigest/packages
+</code>
+
+===== Cooking official packages =====
+
+Maintainers have root access and some have write access to the main mirror at mirror.slitaz.org, if you want to help in this task please contact one of the active developers (check hg repos).
+
+Everything is cooked in a chroot environment, the default path for the build wok is $CHROOT/home/slitaz/wok. Some changes can be made directly in this wok: the real Hg is copied into the chroot by tazbb (Build Bot). To chroot in cooking:
+
+<code>
+ # tazdev chroot
+</code>
+
+Cook all the last commited packages or cook everything with 'cook-all', note that comparison it not required if you know which packages to cook. If you want to force the cooking of some of the packages by tazbb, you can then clean with tazwok. By default tazbb cooks only the last commit:
+
+<code>
+ /# tazbb cook-commit
+</code>
+
+If needed (tazbb does this automatically), you can remove all the old packages and then rebuild the lists manually:
+
+<code>
+ /# tazbb clean-up
+ /# tazwok gen-list --text
+ /# exit
+</code>
+
+If you have write access to the mirror, you can make a dry-push to check and then upload; push will also remove any old packages on the mirror.
+
+===== Stable packages =====
+
+Packages for the stable release are also built in a chroot environment like the Cooking packages:
+
+<code>
+ # tazdev chroot stable
+</code>
+
+===== Upload by hand on mirror.slitaz.org =====
+
+Mirror maintainers can upload by hand with tazdev (-dp for a dry push):
+
+<code>
+ # tazdev -p $USER
+</code>
+
+===== Update website by hand ======
+
+The Website and packages web interface are updated nightly by cron and can also be updated by hand (used on the day of release for example):
+
+<code>
+ # tazdev update-www
+</code>

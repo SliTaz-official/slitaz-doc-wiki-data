@@ -1,0 +1,59 @@
+====== Build Bot (tazbb) ======
+
+The goal of Tazbb is to automate, test and report packages built inside a wok. Run tazbb usage for the list of available commands with a short description. The Status of the Tank Build Bot via a Tazbb web interface is at bb.slitaz.org and for collaboration, use the [[http://labs.slitaz.org/wiki/distro/Tazbb|Tazbb Wiki]]. 
+
+===== How it works =====
+
+Tazbb can be run by a cron job and checks the last commit done by contributors and then cooks the modified packages. Runnning 'tazbb cook-commit' will just rebuild the last modified packages. To rebuild all missing, modified or unbuilt packages you must use the 'tazbb cook-all' command.
+
+Generating a report will source all the receipts in the wok and check if a package file exists, if not we add the package name to the current cooklist. For existing packages we compare all the files' dates in the Hg wok (receipt, stuff) against the package.tazpkg file date, if it differs we add the package to the cooklist.
+
+Tazbb must also look in the chroot wok to check if the package is already built, (there should be a taz/ directory), if not we log it and add it also to the cooklist. All packages are cooked with a 'script'. Logs for cooked packages are stored in $LOG_DIR and a link exists for the web interface so that developers can easily check for bugs.
+
+When run with the option 'cook' - Tazbb will also remove old and corrupted packages and then execute <nowiki> 'tazwok genlist --text' </nowiki> to rebuild all the packages lists. To work properly, the Tazwok and Tazbb configured paths must match. The Tazbb system wide configuration file is: ///etc/slitaz/tazbb.conf//
+
+===== Commands =====
+
+Tazbb can be installed on your machine and run manually from the command line - just type 'tazbb usage' for a list of available functions. Tazbb can be run in report mode and made to display more information with the //<nowiki>'--verbose'</nowiki>// option.
+
+===== Hg and chroot Wok =====
+
+Tazbb uses 2 woks: a clean Hg wok and a wok to build packages in a chroot environment. Each time Tazbb is called; the Hg wok is updated and copied to the build wok, so we avoid messing with build results and can also manually modify receipts or patches directly without affecting the main Hg. If configured correctly 'tazdev update-wok' can also update the Hg wok and copy files.
+
+===== Log files =====
+
+Tazbb uses existing tools such as tazwok to build packages, but generates its own log files and has its own database stored in a text file. The log files are available through the web interface and the default path for the files is: ///var/log/tazbb//
+
+===== Web interface =====
+
+Tazbb logs all its activity to log files and a cooklist. This information can be displayed through a nice web interface so developers can have a quick overview of the last build results. The Tazbb package provides a PHP web interface, CSS stylesheets and images installed by default in ///var/lib/tazbb/web//. A symlink is created in ///var/www/vhosts// by a package, it provides easy access to the generated log files through a virtual host or you can use: http://localhost/vhosts/bb
+
+===== Hg hook =====
+
+Mercurial offers a powerful mechanism to perform automated actions in response to events that occur in a repository. The name Mercurial uses for one of these actions is a hook. So Tazbb can be run each time a commit is done in the wok through a simple hook in the .hgrc file of the repository. Example:
+
+<file>
+[hooks]
+commit = tazbb cook-commit
+</file>
+
+===== Cron Job =====
+
+Tazbb can also be run by a cron tab, so each new commit in the wok will cook the correct package any time you want. Cron can also be used to refresh the report or run a full cook. If the last cook is not yet finished or if tazbb has been run by hand (and is still running), it will exit due to a lock file in ///var/lock//. Example of a cron job to 'tazbb cook commit' every 2 hours and cook all missing, modified or unbuilt packages each night:
+
+<file>
+*/2 * * * * /usr/bin/tazbb cook-commit
+03 02 * * * /usr/bin/tazbb cook-all
+</file>
+
+===== Database Files =====
+
+    * blocked : List of blocked packages
+    * cooklist : Current or next cooklist
+    * corrupted : Corrupted packages list
+    * packaged : All packages from the build wok
+    * removed : Last removed packages
+    * report : Last report from check_{wok,commit}
+    * running : Current task running
+    * summary : Last summary for the web interface
+    * unbuilt : List of unbuilt packages

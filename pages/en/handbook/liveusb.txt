@@ -1,0 +1,36 @@
+====== LiveUSB media ======
+===== Tazusb - Live USB Tool =====
+
+Tazusb is a tool that can create bootable usb media with a few simple commands. It can also compress and backup the entire current filesystem to the media, thus preserving all modifications for future use. Type //tazusb usage// for a full list of commands or read the [[http://hg.slitaz.org/tazusb/raw-file/tip/doc/tazusb.en.html|TazUSB manual]].
+
+=== Generate your own LiveUSB media ===
+
+To generate your own LiveUSB media, first you need to login as //root// with //su// and locate your usb storage device using the command:
+
+<code># fdisk -l     # normally /dev/sdb1 </code>
+
+Then format and label your device (Warning: this will erase all data, make sure you specify the right device):
+
+<code> # tazusb format /dev/sdb1 </code> 
+
+And finally generate your LiveUSB media device:
+
+<code> # tazusb gen-liveusb /dev/sdb1 </code>
+
+And that's all you need to do, you can now boot SliTaz from usb media (providing your computer bios supports this method).
+
+=== Maintaining system settings ===
+
+When you finish your LiveUSB session, make sure you maintain your installed packages, system settings, etc, by backing up the entire current filesystem with one the following commands:
+
+    * fast compression, average filesize: <code> # tazusb writefs gzip </code>
+    * slow compression, smaller filesize: <code> # tazusb writefs lzma </code>
+    * no compression, larger filesize: <code> # tazusb writefs none </code>
+
+Each of these writes everything to a '//rootfs.gz//' archive to be loaded the next time you boot.
+
+If anything should go wrong when writing your filesystem, you can simply rollback to your previous filesystem by typing '//previous//' at the '//boot://' prompt. Older backups are named '//rootfs.gz.unixtimestamp//' and can be safely deleted from the ///home// folder to save disk space using //tazusb clean//.
+
+=== Tazusb Manual ===
+
+The official Tazusb manual can be found in the SliTaz [[http://hg.slitaz.org/tazusb/raw-file/tip/doc/tazusb.en.html|Web site documentation]]; this contains a lot more useful information. The manual is also available through the documentation menu on the LiveCD.

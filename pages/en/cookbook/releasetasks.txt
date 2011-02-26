@@ -1,0 +1,18 @@
+====== Release tasks ======
+
+Things to do before publishing a new version.
+
+===== Check list =====
+
+    * Release version is specified by ///etc/slitaz-release//, this file is controlled by slitaz-base-files. Base files are tagged just before a stable release to change the version string and let Tazpkg use the new packages.
+    * Check that the SliTaz version specified in ///etc/issue// message is the same as displayed in isolinux.msg.
+    * Add and check that documents and images are in the root of the CD - ie. README, index.html, style.css and the directory of images. All files are in the slitaz-tools archive; just copy the //addfiles/// and regenerate the ISO.
+    * Test, test, and test ...
+    * Prepare the website announcement and RSS feeds. The Mailing list is used for translation and any text should be submitted 1 or 2 days before release.
+
+===== Stable documentation =====
+
+SliTaz stable release provides the release notes on the LiveCD through the package slitaz-doc, the repos are tagged just before release and are archived on the mirror. After the wok has been copied to wok-stable, the docs are back to a cooking cycle and just provide an index with basic information. On the system, docs are located in ///usr/share/doc/slitaz//, a desktop file and icon are provided in the sources package and can be used to have quick access to the documentation.
+
+    * [[http://hg.slitaz.org/slitaz-doc/ | SliTaz Doc repo]]
+    * [[http://labs.slitaz.org/wiki/slitaz-doc | SliTaz Doc on the Labs]]

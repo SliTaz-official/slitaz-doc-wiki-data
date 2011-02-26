@@ -1,0 +1,4 @@
+===== Hardware Guide =====
+
+^  Laptop  ^  Harddisk  ^  Graphics  ^  Display  ^  Sound  ^  WiFi  ^  Wired  ^  Keyboard  ^
+|Lenovo T61  |160GB ATA  |Nvidia NVS 140M\\ Driver: nv (xorg)  |1400 x 900  |Intel Corporation 82801H\\ Driver: snd-hda-intel  |Intel Corporation PRO/Wireless 4965 AG\\ Driver: n/k  |Intel Corporation 82566MM\\ Driver: e1000  |standard  |

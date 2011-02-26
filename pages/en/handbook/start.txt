@@ -1,0 +1,64 @@
+====== Handbook ======
+
+Note: The current Handbook is still on the main web site and will be migrated after 3.0 is released. Here we have a copy of the livecd page (to help translators) and some new pages to improve and complete the current Handbook: http://www.slitaz.org/en/doc/handbook/
+
+===== General =====
+
+  * [[livecd|LiveCD usage]] - How to boot and set options at the command prompt.
+  * [[desktop|Desktop]] - Configure the Desktop and Window Managers.
+  * [[commands|Commands]] - List of useful commands.
+  * [[installation|Installation]] - HD install instructions.
+  * [[accessibility|Accessibility]] - Assistive technologies.
+
+
+===== Desktop Applications =====
+
+    * [[utilities|Utilities]] - Calculator, Text editor, Create CD/DVDs and ISOs.
+    * [[office|Office]] - Word processor, Personal organizer and PDF reader.
+    * [[internet|Internet]] - Web browsers, IRC chat client, mail client, BitTorrent and FTP.
+    * [[graphics|Graphics]] - Computer graphics and Image management.
+    * [[development|Development]] - SHell scripts, Perl, Python and Toolchain.
+    * [[multimedia|Multimedia]] - Sound, music and video.
+    * [[systemtools | System Tools]] - File & Disk managers and other tools.
+    * [[wm|Window Managers]] - Openbox, Pekwm, JWM, Enlightenment, dwm and others.
+
+
+
+===== System Administration =====
+
+     * [[packages|Packages]] - Install more software, keep system up-to-date.
+    * [[networkconf|Network configuration]] - Ethernet, DHCP, static IP or PPP dialup connection, Firewall.
+    * [[systemutils|System administration]] - Mount devices, manage users and groups, adjust system time.   
+    * [[xwindow|X Window System]] - Xvesa & Xorg servers, Slim Login and Window managers.   
+    * [[security|Security]] - SliTaz and system security.
+
+===== Flavor ======
+    * [[genlivecd|Generate a LiveCD flavor]] - Generate your own LiveCD flavor using Tazlito.
+    * [[liveusb|LiveUSB media]] - Create bootable USB media using TazUSB.
+    * [[hacklivecd|Hacking LiveCD]] - Manipulate and play with the ISO image of LiveCD.    
+    * [[chroot|Chroot Environment]] - Build a chroot to protect the host system.
+
+===== Server Applications =====
+  * [[server-apps|Server applications]] - Install and config of CMS, Wiki, etc.
+  * [[webserver|Web server]] - Configure and use the LightTPD web server.
+  * [[ssh|Secure SHell (SSH)]] - Secure login using Dropbear SSH client/server.
+
+
+
+===== About this Handbook =====
+
+This is the SliTaz GNU/Linux English Handbook, a collection of instructions and manuals about the distribution. This book is a community effort to provide high quality documentation for SliTaz users, the first page was created on the 26 of February 2008. The SliTaz Handbook is always in development and follows the distribution changes and improvements. 
+
+---- 
+\\
+^  Page Review Section  ^^ 
+|Quality| Medium  |
+|Review| Major Updates FIXME |
+|Priority| Medium |
+|Problems| add a [[http://forum.slitaz.org|forum post link]]|
+|:::     | OR add a [[http://labs.slitaz.org/issues |lab issue tracker link ]]|
+|How to Improve| Make all pages current as of 3.0|
+|::: |  |
+
+\\
+----

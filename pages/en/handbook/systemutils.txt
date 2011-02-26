@@ -1,0 +1,157 @@
+====== System Administration ======
+
+===== Devices and disk access =====
+
+With Linux your disks and USB media are seen as devices. To access them you must first mount a device on a mount point (directory). On SliTaz you can graphically mount devices by using mountbox or the command line. To mount the first disk of a local hard disk on ///mnt/disk//:
+
+<code>
+ # mkdir -p /mnt/disk
+ # mount /dev/hda1 /mnt/disk
+</code>
+
+To mount a cdrom or an USB media you should use mount points located in ///media//. Note that for a cdrom, you just have to specify the device path. For a flash key, the mount point already exists:
+
+<code>
+ # mount /dev/cdrom
+ # mount /dev/sda1 /media/flash
+</code>
+
+=== ntfs filesystem ===
+
+If you need read/write access to Windows ntfs filesystems you must install a few additional packages from the mirror. The ntfs-3g driver provides stable access to ntfs partitions and ntfsprogs provides manipulation tools dependent on fuse. Note that you can format, move or resize ntfs partitions graphically with Gparted.
+
+===== Users, groups and passwords =====
+
+To manage users and groups on your SliTaz system you must use the command line, but file permissions can be changed graphically using the PCmanFM file manager. To add or remove users and groups you must be root. Root can also change all user passwords and a single user can only change his/her own password. To add or remove a user named linux:
+
+<code>
+ # adduser linux
+ # deluser linux
+</code>
+
+To add or remove a group you must use addgroup or delgroup. To change the current user password or change the password of a specific user, you must use the passwd command:
+
+<code> $ passwd
+ # passwd username </code>
+
+=== Audio group ===
+
+If you want a new user to be able to listen to music he must be in the audio group. To add an existing user to the audio group:
+
+<code> # adduser -G audio user_name </code>
+
+===== Language and keyboard layout =====
+
+SliTaz saves the configuration of the default locale in ///etc/locale.conf// which is read by ///etc/profile// on each login and the keyboard setting is stored in ///etc/kmap.conf//. These two files can be edited with your favorite editor or configured respectively with //tazlocale// and //tazkeymap//. You can modify the settings you chose on the first boot by typing as root administrator:
+
+<code> # tazlocale
+ Or:
+ # tazkeymap </code>
+
+To check all available locales or your current configuration, you can use the command locale as a single user or root (C for English):
+
+<code>
+ $ locale -a
+ $ locale
+</code>
+
+===== Bash Shell =====
+
+On SliTaz you have the ash and sh shell with a link to Ash, this shell is provided by Busybox. If you wish to use the Bash (Bourne Again SHell), first as root install bash, copy the //.profile// found in your home directory and rename it //.bashrc//, then edit the ///etc/passwd// file with your favorite text editor and change your shell to :///bin/bash//
+
+<code>
+ # tazpkg get-install bash
+ # cp /home/hacker/.profile home/hacker/.bashrc
+ Note root user: cp /home/hacker/.profile ~/.bashrc
+ # nano /etc/passwd   ~ :/bin/bash
+</code>
+
+The next time you login bash will be your default shell, you can confirm this by typing env on the command line.
+
+===== Editors =====
+
+Busybox supplies a clone of vi for normal text editing, but it does have its limitations. You can install the full vim editor with the command:
+
+<code> # tazpkg get-install vim </code>
+
+Or alternatively if you prefer emacs, SliTaz offers a tiny version:
+
+<code> # tazpkg get-install emacs </code>
+
+===== Sudo =====
+
+The sudo command can be applied on SliTaz:
+
+<code> # tazpkg get-install sudo </code>
+
+Note that the configuration file ///etc/sudoers//, should always be edited by the //visudo// command which locks the file and checks for errors.
+
+===== System Time =====
+
+To know the current system time, you can simply type date. On SliTaz, the timezone configuration file is saved in ///etc/TZ//, you can edit with your favorite text editor or simply echo the changes. To view the available timezones, you can look in the ///usr/share/zoneinfo// directory. Here's an example using the timezone Europe/London:
+
+<code> # echo "Europe/London" > /etc/TZ </code>
+
+=== Rdate ===
+
+To syncronize the system clock with a network time server, you can (as root) use the //rdate -s// command:
+
+<code> # rdate -s tick.greyware.com </code>
+
+To display the time on the remote server, use the //rdate -p// command.
+
+<code> $ rdate -p tick.greyware.com </code>
+
+=== Hwclock ===
+
+//Hwclock// allows you to syncronize the time of your hardware clock to the system clock or vice versa.
+
+Syncronize the system clock to the hardware clock (<nowiki> --utc = universal time, -l = local time </nowiki>):
+
+<code> # hwclock -w --utc </code>
+
+Syncronize the hardware clock to the system clock:
+
+<code> # hwclock -s --utc </code>
+
+===== Execute scheduled commands =====
+
+The daemon 'crond' allows you to run commands automatically at a scheduled specific date or time. This is very useful for routine tasks such as system administration. The directory cron uses is ///var/spool/cron/crontabs//.
+
+Each user of the system can have his/her own tasks, they are defined in the file: ///var/spool/cron/crontabs/user//. The crontab utility allows you (amongst other things), to list the tasks specific to the user. The syntax of the files is as follows:
+
+<file> mm hh dd MMM DDD command > log </file>
+
+We will create a file with root priviledges and test the daemon 'crond' with a task performed every minute - writing the date to a file ///tmp/crond.test//. It should be noted that the utility has an option crontab for editing cron file using 'vi', this is not provided by SliTaz. In its place you can use GNU nano (<Ctrl+X> to save & exit):
+
+<code> # nano /var/spool/cron/crontabs/root </code>
+
+Add the line:
+
+<file> * * * * * date >> /tmp/crond.test </file>
+
+Launch crond with the option //-b// (background), configured via ///etc/daemons.conf// and using the startup script:
+
+<code> # /etc/init.d/crond start </code>
+
+You can wait a few minutes and view the contents of the file: ///tmp/crond.test//... OK:
+
+<code> # cat /tmp/crond.test </code>
+
+To stop or restart the daemon crond:
+
+<code>
+ # /etc/init.d/crond stop
+ Or :
+ # /etc/init.d/crond restart
+</code>
+
+=== Invoke the daemon crond on every boot ===
+
+To launch the daemon 'crond' each time you boot the system, just add it to the variable START_DAEMONS in the configuration file ///etc/rcS.conf//, either before or after the web server or SSH server.
+
+===== Add commands to be executed at boot =====
+
+During the boot process, various scripts are executed to configure services, such as the start of the web server, networking, etc. On SliTaz there is a script ///etc/init.d/local.sh// which allows you to add commands to be launched at system startup. You can also create new scripts in ///etc/init.d//, their links in ///etc/rc.scripts// for shell scripts and use// /etc/rc.d// for links to the startup script daemon in /etc/rcS.conf:
+
+<code> # nano /etc/init.d/local.sh </code>

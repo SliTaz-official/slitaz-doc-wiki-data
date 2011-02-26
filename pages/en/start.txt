@@ -1,0 +1,39 @@
+====== English documentation ======
+
+
+This site provides SliTaz GNU/Linux official and community documentation.
+
+We believe that SliTaz users all over the world want to share their knowledge and experiences through writing. This is an open wiki that anybody can contribute to. We are very grateful to those who want to lend a hand to make SliTaz even easier to use. Welcome!
+
+
+===== Newsletter ======
+
+  * [[en:newsletter:start|Newsletter]] - The SliTaz Monthly Newsletter, news, tips and tricks.
+
+===== Guides ====== 
+
+  * [[en:guides:start|Guides]] - Small and concise guides from the community.
+  * [[en:references:start|References]] - Any interesting linux article/how-to/material you may want to share.
+  * [[en:devnotes:start|Development notes]] - Information about the development version (cooking).
+  * [[en:forum:start|Forum posts]] - Supplementary documentation from the user forums.
+
+==== Books ====
+
+  * [[en:handbook:start|Handbook]] - SliTaz Handbook. LiveCD usage,  package management, network or system administration and specific instructions. This Handbook is a community effort to provide high quality documentation for SliTaz users. It will help you get started with SliTaz GNU/Linux and show you how to configure the system to your own needs and preferences. This is the documentation that we advise you to read, learn and consult first.
+  * [[en:cookbook:start|Cookbook]] - SliTaz Cookbook. Information regarding the management, operation and development of the distribution. Instructions on how to use the wok and package receipts, descriptions of boot scripts and rootcd files, and various tools.
+  * [[en:scratchbook:start|Scratchbook]] - SliTaz Scratchbook. Describes the stages of creating the very first SliTaz distribution commencing with instructions on compiling the Linux kernel, installing the graphical server (Xvesa) and GTK applications, etc. It contains techniques requiring time and motivation that enable you to build a GNU/Linux system from source.
+
+
+==== Manuals ====
+
+All SliTaz related manuals are installed on each SliTaz distribution and can also be viewed online via the Mercurial web interface.
+
+  * [[http://hg.slitaz.org/tazpkg/raw-file/tip/doc/tazpkg.en.html|Tazpkg manual]] - SliTaz Package Manager.
+  * [[http://hg.slitaz.org/tazlito/raw-file/tip/doc/tazlito.en.html|Tazlito manual]] - SliTaz LiveCD utility.
+  * [[http://hg.slitaz.org/tazusb/raw-file/tip/doc/tazusb.en.html|TazUSB manual]] - SliTaz LiveUSB utility.
+  * [[http://hg.slitaz.org/tazwok/raw-file/tip/doc/tazwok.en.html|Tazwok manual]] - SliTaz Package Cooker.
+  * [[http://hg.slitaz.org/slitaz-tools/raw-file/tip/doc/burnbox.html|Burnbox manual]] - SliTaz utility to burn CD/DVDs
+
+==== SliTaz Terms & Dictionary ====
+
+[[en:terms:a]] - [[en:terms:b]] - [[en:terms:c]] - [[en:terms:d]] - [[en:terms:e]] - [[en:terms:f]] - [[en:terms:g]] - [[en:terms:h]] - [[en:terms:i]] - [[en:terms:j]] - [[en:terms:k]] - [[en:terms:l]] - [[en:terms:m]] - [[en:terms:n]] - [[en:terms:o]] - [[en:terms:p]] - [[en:terms:q]] - [[en:terms:r]] - [[en:terms:s]] - [[en:terms:t]] - [[en:terms:u]] - [[en:terms:v]] - [[en:terms:w]] - [[en:terms:x]] - [[en:terms:y]] - [[en:terms:z]]

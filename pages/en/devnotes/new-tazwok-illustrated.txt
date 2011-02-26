@@ -1,0 +1,270 @@
+====== The new tazwok illustrated! ======
+
+Some items in revenue no longer needed with the new version of tazwok. During migration, a number of problems appear.The information on these two points are available below, with examples.
+
+By simplifying the writing of recipes, we simplify the work and contribution that benefits everyone! 
+
+==== DEPENDS/BUILD_DEPENDS : ====
+Tazwok now uses the dependent variable for finding the necessary compilation dependencies. 
+Here's how it works:
+
+	* Tazwok tree list of all dependencies from the dependent variable
+	* For each package, if there is a shareholder *-dev package, it adds it to the dependencies
+	* Tazwok done the same for BUILD_DEPENDS.
+
+So far, when a packet was both dependency and build dependency, the recipe looked like this:
+
+<file>
+DEPENDS="pkgX"
+BUILD_DEPENDS="pkgX pkgX-dev"
+</file>
+Now that is enough:
+<file>
+DEPENDS="pkgX"
+</file>
+Where there were trees more complex dependencies, the recipe looked like this:
+<file>
+# pkgY depend's on pkgX
+DEPENDS="pkgY"
+BUILD_DEPENDS="pkgY pkgY-dev pkgX pkgX-dev"
+</file>
+Now that is enough:
+<file>
+DEPENDS="pkgY"
+</file>
+
+The recipes also contain many redundancies in the definition of addiction, for example:
+<file>
+# pkgY depend's on pkgX
+DEPENDS="pkgY pkgX"
+</file>
+Here, needless to say since pkgX will be installed along pkgY anyway (Tazpkg manages dependencies automatically!).
+
+By following these three councils, it appears that about half the packages in DEPENDS / BUILD_DEPENDS can be removed without changing the revenue system behavior, it is not nothing!
+
+<note tip>An automated cleaning using some scripts is expected, after all recipes have been compiled at least once successfully using the new version of tazwok; In the meantime, these tips can be applied to writing new recipe for simplicity or manually with existing revenues when updating / corrections.</note>
+
+**Examples:**
+	* graveman: http://hg.slitaz.org/wok/rev/7f0604e0bde0
+	* enlightenment & cie: http://hg.slitaz.org/wok/rev/85cd798d6997
+
+==== TARBALL/WGET_URL/SOURCE/download from the VCS ====
+
+This is important: always put the necessary tools to download / decompression sources in DEPENDS or BUILD_DEPENDS. This allows to define tazwok right firing order (do not try to cook a package that needs wget wget before himself).
+
+//The packets affected by this://
+	* wget url for https, ftps and some URLs that busybox does not include
+	* mercurial/subversion/git: they are used to obtain the source
+	* tar/unzip: sometimes necessary to unpack the sources.
+
+By default, tazwok re-sources in compact format .tar.lzma. He calls PACKAGE-VERSION.tar.lzma or SOURCE-VERSION.tar.lzma if SOURCE is defined. Note: Choose the name of the archive is now the only function of the variable SOURCE!
+
+Tazwok now supports files or "weird" URL (download.php?version=foo&blah=Idontknowwhat). The logic is: if WGET_URL does not end with tarball, then names the file downloaded tarball.
+
+Tazwok also supports the use of mercurial/subversion/git in WGET_URL. The syntax is:
+<file>WGET_URL="subversion|svn://svn.mplayerhq.hu/mplayer/trunk</file>
+An optional variable is BRANCH: it allows to specify the revision /tag/branch to use (see examples below). Where BRANCH is used, it is important that $VERSION is part of its definition.
+
+Note that the sources will be obtained through the requested tool, then packaged in .tar.lzma. The archive will be named as explained above. This means that the variable source can be used to ensure that many recipes use the same repository without creating multiple archives.
+
+First, it helps to know what revision is installed when using the package manager. Second, it allows to differentiate tazwok compressed sources. Indeed, if the archive keeps the same name, it will not be re-downloaded, which is undesirable when trying to update the package.
+
+**Examples:**
+	* Here was necessary wget: http://hg.slitaz.org/wok/rev/012847ddd0cb
+	* Tinyproxy did not report the URL of its source code is corrected: http://hg.slitaz.org/wok/rev/25967da0e1af
+	* WGET_URL now supports xpi: http://hg.slitaz.org/wok/rev/37738b3ee08f
+	* WGET_URL with a "weird" URL:  http://hg.slitaz.org/wok/rev/102de15fea8d
+	* WGET_URL using git: http://hg.slitaz.org/wok/rev/e06d60ae03eb
+	* WGET_URL using subversion: http://hg.slitaz.org/wok/rev/c4c54646489a
+	* WGET_URL using mercurial: http://hg.slitaz.org/wok/rev/756ed4b1daac
+	* It was difficult to choose how to define BRANCH and VERSION for aufs: http://hg.slitaz.org/wok/rev/67231cfc5475
+	* Here are two sources of records were in conflict, resolved by SOURCE: http://hg.slitaz.org/wok/rev/b891cba4f48e
+	* slitaz-dev-tools contains the sources for SliTaz tools that contain very little code, using SOURCE="slitaz-dev-tools" in recipes that use this deposit to avoid having duplicate tarballs: http://hg.slitaz.org/wok/rev/808826645cc2
+
+==== Exceptions dependencies cooking ====
+In some cases, no dependence cooking is installed:
+	* For recipes with WANTED
+	* For recipes without compile_rules()
+
+Note that packets may be required to obtain / decompressing the source code will still be installed if they are in DEPENDS / BUILD_DEPENDS. These are wget, mercurial, subversion, git, tar and unzip.
+
+If you do not compile_rules() but want to force the installation of all dependencies of cooking, there is a little hack:
+<file>
+compiles_rules()
+{
+	:
+}
+</file>
+
+**Examples:**
+	* Removal of compiles_rules() to avoid installing unnecessary dependencies Cooking: http://hg.slitaz.org/wok/rev/f579356b437f
+	* Remove a hack with fake compiles_rules was useless ... http://hg.slitaz.org/wok/rev/5b4581f8e476
+
+==== Define src/_pkg & move in the right place (hacks in the recipe) ====
+
+By default, the new sources in place tazwok $WOK/$PACKAGES/$PACKAGE-$VERSION: it renames the parent directory of sources if necessary. So far, $src was not properly defined for recipes using both SOURCE and WANTED. Many recipes implement their own solution in different ways, which is difficult to consider a standardized way and can cause compatibility problems.
+
+If tazwok detects src=/_pkg= in a recipe, it continues to use the old behavior to ensure compatibility (this produces errors in some cases). It is no longer necessary and not ideal.
+
+The hacks in the recipe source that move in the right place are no longer needed either, and can also cause problems.
+
+In conclusion, it is better to consider that $src/$_pkg are defined by default and try to rely as much as possible.
+
+** Examples: **
+	* Removing src= by Godane: http://hg.slitaz.org/wok/rev/a1c1d35d9f92
+	* src=/_pkg= can / should also be removed from WANTED: http://hg.slitaz.org/wok/rev/07adb7cbd0c8
+	* Here, an old hack was the problem: http://hg.slitaz.org/wok/rev/62f6142d9fb3
+	* Sources are now //always// placed in a sub-directory $src http://hg.slitaz.org/wok/rev/e64069568fe7
+	* Another case: call the configure script from a folder separate compilation (*-build): http://hg.slitaz.org/wok/rev/7461a0c31d62
+	* Fixed dmraid: http://hg.slitaz.org/wok/rev/f5b7e0c47763 http://hg.slitaz.org/wok/rev/59ea9409ad8a
+
+==== Set the default paths in configure: ====
+<note tip>See /etc/slitaz/slitaz.conf, /etc/config.site and the new revenue model in place by New tazwok tree</note>
+
+The new version of tazwok attempts to pass the default paths to configure using the environment variable CONFIG_SITE calling /etc/config.site, which works in most cases. Nevertheless configure scripts are specific to each source and sometimes CONFIG_SITE not be supported. For this reason, the best way to remove the definitions of paths is unnecessary to do so on a case by case, when the updated recipe, and make sure everything works.
+
+In rare cases, this new product functionality problems. It happens that some recipes that did not use the default paths used by CONFIG_SITE now, and an update function genpkg_rules() is then mandatory.
+
+** Examples: **
+	* A file or did not install properly in acl is corrected by CONFIG_SITE: http://hg.slitaz.org/wok/rev/f831ecb652a6
+	* Another example: http://hg.slitaz.org/wok/rev/259214792e30
+
+<note tip>CONFIG_SITE= can be used in recipes to use a different file than the default (can be useful for packages gnome or something like that ...)</note>
+
+==== DESTDIR=$PWD/_pkg ====
+
+DESTDIR is passed to make install using the environment variable of the same name. The new path for installation is $ WOK/$PACKAGE/install. This will remove the source folder after packaging, it does not contain any file used by a recipe in his genpkg_rules().
+
+Most recipes still use DESTDIR=$PWD/_pkg. However, if no revenue is redefining the variables src/_pkg, automatically move to the tazwok $WOK/$PACKAGE/install.
+
+In some cases, as with other variables, DESTDIR is not taken into account or the package is not installed by make. In these cases, the variable $DESTDIR is available to define the installation directory in the recipe.
+
+In rare cases, this behavior causes incompatibilities. This happens when revenues define the path to the installation folder without using src/_pkg. The solution is not to set these paths in revenue (that calling the main recipe with WANTED included), make sure the installation is done well in $WOK/$PACKAGE/install and trust the variables provided by tazwok.
+
+** Examples: **
+	* Remove _pkg= & DESTDIR= same time for this to work: http://hg.slitaz.org/wok/rev/cf088243a4a5
+	* Remove references "useless" to $src to the sources are withdrawn: http://hg.slitaz.org/wok/rev/0731792c3994 http://hg.slitaz.org/wok/rev/5d6340961543
+	* Bash does not take into account DESTDIR environment variable: http://hg.slitaz.org/wok/rev/fa7b7514e1d8
+ 	* acl attr does not include DESTDIR (in this installation the destination was still $PWD/_pkg): http://hg.slitaz.org/wok/rev/fa7b7514e1d8
+
+==== MAKEFLAGS ====
+
+MAKEFLAGS also increased to make using environment variables, and again this does not always work. In most cases, -j4 can be removed. In some cases it is necessary to use MAKEFLAGS directly to make the recipe:
+make $MAKEFLAGS
+
+Tazwok automatically sets the value for $MAKEFLAGS in the number of heart that contains the processor -j4 should be removed from all the recipes can be compiled on computers that have more resources (4 cores can use -j5)
+
+**Problems MAKEFLAGS:**
+
+So far, only recipes with-j4 compiled using the multi-threaded, whereas now all make and make install use. This behavior can cause errors. Some sources do not support multi-threaded compilation but do not disable. This is the most common problem associated with the changes explained here.
+
+//Problem in compiling://
+
+During compilation, it happens that rely on other libraries compiled with the same sources. If they are compiled at the same time, this causes an error about a missing library. In this case, we see in the compilation text that the library in question has begun to be built few lines earlier, but that this process was not finished yet. To resolve this problem, add -j1 to make. It is the most common mistake, there are other more rare that take a similar form.
+
+//Problem in installation://
+
+The characteristic of this error is that the installation stops and an error message says that it is impossible to create a folder because it already exists: a parallel process is actually creating it. In this case, add-j1 to make install.
+
+** Examples: **
+	* Several changes explained here in the recipe for gettext: http://hg.slitaz.org/wok/rev/9411655af0e2
+
+==== Variables $stuff, $wanted_stuff and $fs ====
+
+Now the variable $stuff is available and returns the record stuff in the recipe, it uses an absolute path. The variable $wanted_stuff refers to the file defined in the package stuff WANTED, if any. The variable $fs refers to the future content of the package in taz/*/fs, as before, the difference is that now $fs uses an absolute path
+
+** Examples: **
+	* A commit with several changes regarding the variable $stuff: http://hg.slitaz.org/wok/rev/be13f25e790b
+	* A correction necessary when we have made an absolute path $fs: http://hg.slitaz.org/wok/rev/8c897d2542ab
+
+==== Do not use 'exit' but 'return' ====
+
+Now when cooking several packages with a list tazwok does not call for new tazwok cook. There is only one session tazwok so that the execution is faster. If a recipe uses exit, it leaves tazwok and following list is not cooked.
+
+**Example:**
+	* Removing all exit the wok recipes: http://hg.slitaz.org/wok/rev/0b4cf0d9e1b5
+
+==== Conclusion - What to do when updating a recipe: ====
+
+	* Remove src=/_pkg= recipe and those who declare as WANTED.
+	* Remove DESTDIR=$PWD/_pkg and if it does not work, or if the means to define the installation directory is not + make DESTDIR, rather than using $ DESTDIR $PWD/_pkg.
+	* Remove the definition of default paths and see if it works, otherwise leave.
+	* Remove-j4 and see if it works; If the mutli-threaded does not work, re-activate using $MAKEFLAGS; if multi-threading causes problems, add-j1 to the right place.
+	* Remove BUILD_DEPENDS / DEPENDS redundant.
+	* Check that packages are created correctly, otherwise update the paths in genpkg_rules().
+	* Try to declare all sources of revenue in that SliTaz can be compiled without internet connection (requires to download any source before).
+	* Check that the package needed to download / extract the source code are defined in BUILD_DEPENDS.
+	* Check as EXIT is not used in the recipe.
+
+==== Some more complex cases ... ====
+
+I put them there in the end because there are already too many to be integrated:)
+The items below correspond to specific cases.
+
+== Variable COOK_OPT ==
+
+This new variable can contain options that alter the behavior of tazwok. They are useful in very special cases.
+
+**genpkg=**
+
+In the recipe PACKAGE defines a priority order for the revenue package containing WANTED="PACKAGES" (and only them!). If you include multiple packages, separate them with double points ':'. If packets are not defined in this option, they will be packaged later, in alphabetical order (default)
+
+Used in glibc: http://hg.slitaz.org/wok/file/tip/glibc/receipt
+
+**!repack_src**
+
+Disable re-compression format sources .tar.lzma.
+
+Ruby-pkgconfig used for the sources remain in gem: http://hg.slitaz.org/wok/file/tip/ruby-pkgconfig/receipt
+
+**!unpack**
+
+Prevents decompression of the archive-source in the wok.
+
+This is used by ruby-pkgconfig as well (see link above)
+
+This is the only case yet!
+
+==== Cooking the toolchain ====
+
+To cook the toolchain SliTaz, we use a temporary toolchain. Some recipes use specific rules in this step. When cooking this toolchain temporarily affected software packaged but are not directly installed in the chroot purpose built. The affected packages are listed in the variable SLITAZ_TOOLCHAIN configuration file /etc/slitaz/slitaz.conf
+
+Additional features are:
+	* Precook_tmp_toolchain() - Used only by gcc & binutils for the moment, because they are cooked twice during the preparation of the temporary toolchain.
+	* Cook_tmp_toolchain() - Used by the most packets SLITAZ_TOOLCHAIN to define how they should be compiled for the temporary toolchain. When cook_tmp_toolchain() is absent, compile_rules() is used instead. This avoids writing two identical functions. Note that in this case. ./configure does not set the default paths in the recipe, because the temporary toolchain must be able to do it via the environment variable CONFIG_SITE. Indeed, packets compiled during this stage are not installed in the usual place but in /tools.
+
+** Examples: **
+	* Binutils: http://hg.slitaz.org/wok/file/tip/binutils/receipt
+	* Gettext: http://hg.slitaz.org/wok/file/tip/gettext/receipt
+	* Bash: http://hg.slitaz.org/wok/file/tip/bash/receipt
+	* Patch does not need cook_tmp_toolchain(): http://hg.slitaz.org/wok/file/tip/patch/receipt
+	* Autoconf either: http://hg.slitaz.org/wok/file/tip/autoconf/receipt
+
+== tazwok get-src / report in recipes ==
+
+Report is a module libtaz for organizing the display commands in the terminal and create logs available including http://bb.slitaz.org interface. It can be used in recipes, as follows (that is abstract, the following examples of actual application):
+
+<file>
+compile_rules() # Per example
+{
+	report open-bloc #compiles_rules is a step, declaring that there will substeps
+	report step "Action machin"
+		...
+	report step "Action truc"
+		.. 
+	report close-bloc #Close the open block previously
+}
+</file>
+
+Specifically, there is one case where we use it: when using get-src tazwok PACKAGE --target=... . This command creates a new step (postponement step). We need to open a block before and after the close, as well as adding several other deferral step "..." to log and display in the terminal is correct. Each farm deferral step the previous step, if we do not open the block, get-src shut tazwok step "Executing compiles rules"
+
+Delaying closed block must be completely executed, otherwise the log/display will be broken. That's why we use { report-block closed; return 1; } return rather than alone.
+
+The practical use of this tazwok get-src is that you can unpack the sources of designated PACKAGE at target.
+
+In the examples below, observe the correlation between the delay step and displayed in the log. Observe also the correlation between tazwok get-src and the message "Checking for source tarball ..." in the log. You learn how to carry report open-bloc/closed block create a subset in genpkg_rules (named "Executing compile_rules" in the log). If it were not for open-bloc/close-bloc, the new steps would be posted to the result of "Executing compile_rules" This is not what we wanted.
+
+** Examples (recipe + log): **
+	* Linux needs patches contained in the sources of aufs, Godane took the opportunity to improve the log. Recipe: http://hg.slitaz.org/wok/file/tip/linux/receipt; log: http://bb.slitaz.org/log.php?version=cooking&package=linux
+	* Gcc uses several other sources of packages during the cooking of the temporary toolchain. Recipe: http://hg.slitaz.org/wok/file/tip/gcc/receipt; log: http://bb.slitaz.org/log.php?version=cooking&package=tmp-toolchain-gcc
+	* mingw32-gcc was corrected using this approach, it also allowed to declare all sources used. Commit: http://hg.slitaz.org/wok/rev/fd43246b4613; log: http://bb.slitaz.org/log.php?version=cooking&package=mingw32-gcc
