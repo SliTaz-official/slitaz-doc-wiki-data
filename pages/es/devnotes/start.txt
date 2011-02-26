@@ -1,0 +1,11 @@
+====== Notas de desarrollo ======
+
+Esta página contiene información de desarrollo acerca de la versión "cooking". Algunas páginas irán a las guías o libros cuando la siguiente versión estable sea liberada. Otras son páginas temporales que coordinan el trabajo de desarrollo.
+
+===== Información para usuarios ===== 
+
+  * [[xorgserver-user|xorg-server-1.8]] - Actualizar la configuración
+
+===== Información para contribuyentes =====
+
+  * [[xorgserver-contrib|xorg-server-1.8 ]] - Pre-configuración de controladores

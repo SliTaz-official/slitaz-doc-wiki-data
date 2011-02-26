@@ -1,0 +1,46 @@
+Bienvenido/a a la wiki en español de SliTaz!
+A medida que se pueda, la comunidad irá renovando todo el contenido y añadiendo artículos!
+SliTaz es un sistema libre que, como su logo indica, es una pequeña araña. Sigilosa, con un poder de construcción inmenso y una destreza increíble, esta distribución comparte muchas cualidades con este arácnido. Y es que SliTaz trae mucho a los usuarios y los usuarios traen mucho a SliTaz. Y es así, todos trabajamos en una distribución, dudando, preguntando, creando fondos de escritorio o paquetes para uso diario. Esto es SliTaz, una distro-comunidad.
+
+<note>¡La guía no está terminada!</note>
+
+Índice de la Handbook:
+ 
+    - Instalación
+    - ¿Qué es un .tazpkg?
+    - No existe un .tazpkg de mi programa favorito ¿qué hago?
+    - Los sources de los programas
+    - Conexión a internet: Modems 3G, ADSL y WiFi
+    - Drivers: vídeo y sonido 
+
+Instalación
+
+SliTaz viene en dos versiones: Cooking y Estable. La versión Cooking contiene las últimas versiones de sus programas, y a pesar de ser estable, puede no serlo en algunos casos. Si te gusta la innovación, esta es tu versión. Ahora bien, puede que te guste más lo que está más testeado y sea estable como una roca. Para esto, utiliza la versión Estable, toda la comunidad ha probado la estabilidad de la versión.
+
+En este ejemplo se utilizará la versión Cooking, pero sirve para la versión Stable.
+Comenzando, descargamos el LiveCD de nuestra versión preferida, en
+ 
+[[http://www.slitaz.org/es/get]]
+
+Luego, grabamos la imagen de disco que hemos descargado en un CD. Cabe destacar que tanto la versión Stable como la Cooking poseen una imagen de disco con los paquetes disponibles para la distribución, que repasan el GB de tamaño.
+Una vez grabado, debemos reiniciar la PC y luego bootear desde el cd (Esto puede ser automático, o quizás debas configurar la BIOS presionando F11 o F8 y hacer que intente bootear desde el CD-ROM). Una vez iniciado, nos encontraremos con una pantalla con el logo de SliTaz en francés. Si queremos un booteo en francés, escriban fr y presionen Enter, si desean en español, esperen unos segundos.
+Aparecerán varios menús a medida que vaya solicitando información.
+Hora, distribución del teclado, lenguaje, etc. Siempre elige la que tu desees.
+Luego de todo esto, tendremos un SliTaz cargado, listo para funcionar en LiveCD.
+Hacemos click en el menú de abajo a la izquierda, luego vamos a herramientas del sistema y veremos SliTaz Installer, clickeamos ahí.
+Nos aparecerá una ventana pidiendo el password, que en el liveCD es root, así como el usuario es tux.
+Seleccionamos Install, y nos va a ir preguntando algunas cosas:
+
+  * Contraseña de root que vas a utilizar
+  * Usuario con el que vas a logearte (pon el nombre que quieras)
+  * Partición en la que vas a instalar SliTaz:
+
+Para esto, si no tienes ya la partición en la que la vas a instalar, abre Gparted (en el mismo menú que hoy comentamos), y haz la partición que quieras, con un tamaño mínimo de 200 Mb.
+Indica el nombre de la partición y sigue.
+Te preguntará sobre el GRUB, eso depende, si ya tienes una distribución GNU/LInux puedes no instalarlo, y después de reiniciar entrar a ella y hacer update-grub como root, para que identifique SliTaz. O también puedes instalar GRUB si lo deseas o simplemente tienes un sistema operativo que no pueda dar un menú para iniciar otros sistemas.
+Y listo!, tendremos SliTaz instalado en nuestro PC.
+
+¿Qué es un tazpkg?
+
+Es un paquete que contiene determinados archivos que tazpkg (aplicación) interpretará para distribuir los binarios contenidos. Es similar a los conocidos deb o rpm, sólo que más simple.
+

@@ -1,0 +1,34 @@
+====== Documentación en español ======
+
+Este sitio provee la documentación oficial y de la comunidad de SliTaz GNU/Linux.
+
+Creemos que los usuarios SliTaz de todo el mundo quieren compartir su conocimiento y experiencias mediante la escritura. Esta es una wiki abierta en la que cualquiera puede contribuir. Estamos muy agradecidos a aquellos que quieran echar una mano para hacer SliTaz más fácil de usar. Bienvenido!
+
+
+===== Boletín ======
+
+  * [[es:newsletter:start|Boletín]] - Boletín mensual de SliTaz, noticias, consejos y trucos.
+ 
+
+===== Guías ====== 
+
+  * [[es:guides:start|Guías]] - Guías de la comunidad pequeñas y concisas.
+  * [[es:references:start|Referencias]] - Cualquier artículo, material o how-to interesante sobre Linux que quiera compartir.
+  * [[es:devnotes:start|Notas de desarrollo]] - Información acerca de la versión de desarrollo (cooking).
+  * [[en:forum:start|Mensajes del foro]] - Documentación complementaria de los usuarios del foro. 
+
+===== Libros =====
+
+  * [[en:handbook:start|Manual]] - Manual de SliTaz. Uso del LiveCD, administración de paquetes, administración de red o del sistema e instrucciones específicas. Este manual es un esfuerzo comunitario para proveer documentación de alta calidad para los usuarios de SliTaz. Le ayudará a iniciarse con SliTaz GNU/Linux y le mostrará cómo configurar el sistema según sus propias necesidades y preferencias. Esta es la documentación que le invitamos a leer, aprender y consultar primero.
+  * [[en:cookbook:start|Recetario]] - Recetario de SliTaz. Información relativa a la administración, operación y desarrollo de la distribución. Instrucciones de cómo usar el wok y recepción de paquetes, descripción de los scripts de arranque y archivos rootcd y varias herramientas.
+  * [[en:scratchbook:start|Desde cero]] - SliTaz desde cero. Describe las etapas de creación de una distribución SliTaz muy básica comenzando con instrucciones de compilación del kernel de Linux, instalación del servidor de gráficos(Xvesa) y aplicaciones, etc. Contiene técnicas que requieren tiempo y motivación que le permiten crear un sistema GNU/Linux desde el código fuente.
+
+===== Manuales =====
+
+Todos los manuales realcionados con SliTaz se instalan en cada distribución SliTaz y se pueden ver en línea también mediante la interfaz web Mercurial.
+
+  * [[http://hg.slitaz.org/tazpkg/raw-file/tip/doc/tazpkg.en.html|Manual de Tazpkg]] - Administrador de Paquetes de SliTaz.
+  * [[http://hg.slitaz.org/tazlito/raw-file/tip/doc/tazlito.en.html|Manual de Tazlito]] - Utilidad LiveCD de SliTaz.
+  * [[http://hg.slitaz.org/tazusb/raw-file/tip/doc/tazusb.en.html|Manual de TazUSB]] - Utilidad LiveUSB de SliTaz.
+  * [[http://hg.slitaz.org/tazwok/raw-file/tip/doc/tazwok.en.html|Manual de Tazwok]] - SliTaz Package Cooker.
+  * [[http://hg.slitaz.org/slitaz-tools/raw-file/tip/doc/burnbox.html|Manual de Burnbox]] - Utilidad para quemar CD/DVDs de SliTaz.

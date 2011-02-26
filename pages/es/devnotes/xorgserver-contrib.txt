@@ -1,0 +1,63 @@
+====== xorg-server-1.8 ======
+
+===== Introducción =====
+
+Con xorg-server-1.8, el archivo ///etc/X11/xorg.conf// queda en desuso. A pesar de que en realidad se reserva para que el usuario lo modifique, ya no se edita de forma automática.
+
+Los archivos de configuración están ahora en ///etc/X11/xorg.conf.d//. Para asegurar que la configuración de los usuarios no se eliminará en una actualización del sistema, aquí hay una sugerencia de números y contenido. Los archivos de configuración se leen en orden alfanumérico y sus nombres tienen que terminar con .conf:
+
+  * 00 - ServerFlag
+  * 05 - ServerLayout Tweaks
+  * 10 - ServerLayout
+  * 15 - Files Tweaks
+  * 20 - Files
+  * 25 - Modules Tweaks
+  * 30 - Modules
+  * 35 - InputClass/InputDevice Tweaks
+  * 40 - InputClass/InputDevice
+  * 45 - Monitor Tweaks
+  * 50 - Monitor
+  * 55 - Device Tweaks
+  * 60 - Device
+  * 65 - Screen Tweaks
+  * 70 - Screen 
+  * 75 - Modes Tweaks
+  * 80 - Modes
+  * 85 - DRI Tweaks
+  * 90 - DRI
+  * 95 - Extension Tweaks
+  * 100 - Extension
+
+Some of the x0 sections are configured by tazx xorg-config using a template //xorg.conf// file (generated with Xorg -configure). You can find more information about this in the function [[http://hg.slitaz.org/slitaz-tools/file/ca6804d9b56b/tinyutils/tazx#l27|xorg_conf_d]] of tazx. 
+
+If you want add a configuration file to a package, please take care to use a name different from those specified by tazx or this file will be erased when booting in live mode. You can use the same number (x0) with a different name if this configuration doesn't conflict with those used by default. Otherwise, use (x-1)5 for that configuration overwriting the default one.
+
+Ejemplos:
+
+  * [[http://hg.slitaz.org/wok/file/c29991cef110/xorg-xf86-input-evdev/stuff/40-evdev.conf|40-evedev.conf]] - Default configuration for all devices
+  * [[http://hg.slitaz.org/wok/file/c29991cef110/xorg-xf86-input-synaptics/stuff/35-synaptics.conf|35-synaptics.conf]] - Advanced configuration for touchpad devices, overwriting the default configuration for these devices
+  * hwsetup, section [[http://hg.slitaz.org/slitaz-tools/file/ca6804d9b56b/tinyutils/hwsetup#l685|nvidia]] and [[http://hg.slitaz.org/slitaz-tools/file/ca6804d9b56b/tinyutils/hwsetup#l753|ati]] - Add a file 55-DeviceTweaks.conf configuring a graphic driver other than vesa
+
+===== Lista de archivos de configuración =====
+
+Para evitar nombrar dos archivos con el mismo nombre, puede usar estos en ///etc/X11/xorg.conf.d/readme// para usuarios de la versión 4.0.
+
+tazx :
+  * 10-ServerLayout.conf
+  * 20-Files.conf
+  * 30-Module.conf
+  * 40-Keyboard.conf
+  * 50-Monitor.conf
+  * 60-Device.conf
+  * 70-Screen.conf
+tazhw :
+  * 55-DeviceTweaks.conf
+xorg-xf86-input-evdev :
+  * 40-evdev.conf
+xorg-xf86-input-synaptics :
+  * 35-synaptics.conf
+
+===== Por hacer =====
+
+  * Mejorar la herramienta de auto-configuración en tazx: algunas fuentes y módulos no se necesitan cargar por defecto o no existen. Algunos de estos elementos se pueden configurar mediante su paquete original.
+  * Pre-configurar algunos controladores para hacerlos funcionar "out-of-the-box".

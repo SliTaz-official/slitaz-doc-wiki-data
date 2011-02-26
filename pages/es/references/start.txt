@@ -1,0 +1,13 @@
+Esta categoría tiene por obejtivo proveer referencias/artículos/marcadores útiles para Linux. Por favor siéntase libre de agregar cualquier otro tópico que piense que pueda serle útil a la comunidad. 
+
+===== Desarrollo ======
+
+  * Escribiendo Shell scripts: http://linuxcommand.org/
+  * ... 
+
+===== Referencias de Linux =====
+
+  * [[http://www.digilife.be/quickreferences/QRC/The%20One%20Page%20Linux%20Manual.pdf | Manual de una sola página]] (No todo se aplica a Slitaz)
+  * [[http://www.pixelbeat.org/cmdline.html|Otra referencia de la línea de comandos]]
+  * ¿Tiene un archivo .tar.gz? [[http://www.tuxfiles.org/linuxhelp/softinstall.html|Compilando software en Linux]] - advierta que probablemente necesite //slitaz-toolchain// y unos pocos paquetes //*-dev// (unos pocos útiles se pueden instalar como //slitaz-dev-pkgs//.
+  * [[http://www.howtogeek.com/tag/linux/|Artículos How-To, Consejos y Guías]] :: How-To Geek
