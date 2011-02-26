@@ -1,0 +1,151 @@
+====Segredos do arquivo /etc/init.d/network.sh (versão cooking)====
+(Por linea)
+
+===Introdução===
+
+O SliTaz executa o ///etc/init.d/network.sh// durante o boot para iniciar a rede. Ele configura o nome do host, a interface loopback e a conexão à internet.
+
+Também é possível rodar este script enquanto o SliTaz está sendo executado, e utilizá-lo para abrir ou fechar a conexão à internet. Por exemplo, o netbox e qualquer outro programa que esteja ligado ao pacote get-wifi-firmware (get-ipw2100-firmware, get-b43-firmware, etc) usam o script.
+
+===Utilização===
+
+Por padrão o ///etc/init.d/network.sh// utiliza o arquivo ///etc/network.conf// como arquivo de configuração. Os parâmetros encontrados neste arquivo são utilizados para configurar a conexão de rede padrão. 
+
+Para iniciar a conexão padrão (a mesma ação que é feita durante o boot) execute:
+
+<code>
+# /etc/init.d/network.sh start
+</code>
+
+A opção //start// deve ser usada somente como usuário root.
+
+Para parar a conexão:
+
+<code>
+# /etc/init.d/network.sh stop
+</code>
+
+Para parar e reiniciar:
+
+<code>
+# /etc/init.d/network.sh restart
+</code>
+
+Porém, o mais interessante é que o arquivo ///etc/init.d/network.sh// pode usar outro arquivo de configuração. E útil se você usa um laptop, por exemplo, de forma que você possa utilizar várias configurações para múltiplos pontos de acesso.
+
+Por exemplo, podemos criar um diretório ///etc/network//, contendo alguns arquivos de configuração, da seguinte forma:
+
+    * **Home**, para utilizar em casa, usando uma conexão ethernet e ip estático.
+    * **Desktop**, para o destkop, usando wifi, encriptação wep e ip estático.
+    * **Univ**, conexão wifi sem encriptação, usando dhcp (ip dinâmico).
+
+Para conectar na conexão nomeada **Home**, depois na **Desktop** e finalmente na **Univ**, e então parar a conexão, basta fazer o seguinte:
+
+<code>
+# /etc/init.d/network.sh restart /etc/network/Home
+# /etc/init.d/network.sh restart /etc/network/Desktop
+# /etc/init.d/network.sh restart /etc/network/Univ
+# /etc/init.d/network.sh stop
+</code>
+
+===Sudo===
+
+Como o arquivo ///etc/init.d/network.sh// deve ser usado somente como root, se você quer que um usuário comum o utilize, deve instalar o sudo:
+
+<code>
+# tazpkg get-install sudo
+</code>
+
+E então configurá-lo:
+
+<code>
+# visudo
+</code>
+
+Para o usuário tux, que deve usar o arquivo network.sh de qualquer host, sem informar a senha, deve-se adicionar a seguinte linha no arquivo que será aberto pelo comando visudo:
+
+<code bash>
+tux  ALL=NOPASSWD: /etc/init.d/network.sh,
+</code>
+
+Para o usuário tortux, que só podo conectar a partir do host local, e deve informar uma senha a cada acesso, deve-se adicionar ao arquivo mencionado anteriormente:
+
+<code bash>
+tortux my_hostname=PASSWD: /etc/init.d/network.sh,
+</code>
+
+Se você esqueceu o nome do host, execute:
+
+<code>
+$ cat /etc/hostname
+</code>
+
+Uma ajuda rápida para o comando visudo:
+
+    * **i** modo de inserção (escrever no arquivo).
+    * **Esc** sair do modo de inserção.
+    * **:wq** gravar e sair.
+    * **:q!** sair sem gravar.
+
+===Com o Openbox===
+
+Tudo o que foi visto até agora realmente não foi muito fácil e claro para a maioria dos usuários... 
+
+Esta é a razão pela qual eu vou revelar o truque perfeito:
+
+Uma maneira de integrar tudo isto ao menu do Openbox!
+
+Criaremos o script ///usr/lib/openbox/network-menu.sh// e vamos colocar nele o seguinte: 
+
+<code bash>
+#!/bin/sh
+#
+# openbox pipe menu to start network connections
+# (This script is only useful if sudo is installed, and correctly configured)
+
+echo ''
+
+# for default file:
+echo ''
+echo ''
+echo 'sudo /etc/init.d/network.sh restart'
+echo ''
+
+# for others files:
+for file in $(ls /etc/network/)
+	do
+	echo -e ""
+	echo ''
+	echo "sudo /etc/init.d/network.sh restart /etc/network/$file"
+	echo ''
+	done
+
+# To stop connections:
+echo ''
+echo ''
+echo 'sudo /etc/init.d/network.sh stop'
+echo ''
+
+echo ''
+</code>
+
+Agora, devemos torná-lo executável:
+
+<code sh>
+# chmod +x /usr/lib/openbox/network-menu.sh
+</code>
+
+E agora deve-se adicionar as seguinte linhas ao arquivo //~/.config/openbox/menu.xml//:
+
+<code bash>
+ menu id="network-menu" label="Network" 
+	execute="/usr/lib/openbox/network-menu.sh" />
+</code>
+
+E então reconfigurar o Openbox:
+ 
+<code>
+$ openbox --reconfigure
+</code>
+
+Aproveite!

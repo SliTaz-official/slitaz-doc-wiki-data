@@ -1,0 +1,101 @@
+====== LiveCD para sistemas com pouca memória RAM ======
+
+O requisito mínimo de memória para o Live CD padrão do SliTaz é de 160 MB (era de 128MB para a versão 1.0). Vários aplicativos gráficos não serão executados com menos memória do que isso, então a opção de boot 
+**screen=text** é recomendável caso seja necessária.
+
+os pacotes //slitaz-loram, slitaz-loram-http ou slitaz-loram-cdrom// são usados para construir um Live CD para sistemas com memórias RAM de 64MB, 32MB ou 24MB, respectivamente.
+
+    * //slitaz-loram// irá comprimir o diretório ///usr// e todo o sistema continuará a ser carregado na memória RAM. Não serão utilizados cdrom, disco rígido ou mídia usb durante a execução do sistema.
+    * //slitaz-loram-http// irá usar o diretório ///usr// a partir de uma imagem iso construída com o pacote //slitaz-loram-cdrom// e armazenada em http://mirror.slitaz.org/. Para usar esta função utilize a opção 'tiny' ao usar boot via web.
+    * //slitaz-loram/cdrom// irá usar o diretório ///usr// a partir de um cdrom local.
+
+Em todos os casos o diretório ///usr// estará disponível apenas para leitura. Se os pacotes //funionfs// ou //aufs// estiverem instalados então será possível ter acesso de escrita em ///usr//.
+
+Os pacotes descritos acima modificam o arquivo ///etc/init.d/rcS// de forma a montar o diretório ///usr// e instalar dois scripts em ///etc/tazlito//:
+
+    * //loram.rootfs// é usado pelo comando //tazlito gen-distro// para comprimir ou mover ///usr//.
+    * //loram.extract// é usado pelo //instalador do SliTaz// para descomprimir ou mover ///usr// e instalar a distribuição como se fosse um Live CD padrão do SliTaz.
+
+===== slitaz-loram-cdrom =====
+
+Iniciamos o computador com o Live CD padrão e instalamos o pacote //slitaz-loram-cdrom//:
+
+<code># tazpkg get-install slitaz-loram-cdrom</code>
+
+O comando //tazlito gen-distro// criará uma imagem ISO com os pacotes listados no arquivo ///etc/tazlito/distro-packages.list// ou //./distro-packages.list//. Como mais pacotes estão instalados, removemos estes arquivos para forçar o tazlito a utilizar todos os pacotes instalados:
+
+<code># rm -f /etc/tazlito/distro-packages.list ./distro-packages.list</code>
+
+Agora podemos criar a imagem ISO...
+
+<code># tazlito gen-distro</code>
+
+...e gravá-la em um cdrom:
+
+<code># wodim dev=1,0,0 /home/slitaz/distro/slitaz-hacked.iso</code>
+
+===== as variações slitaz-loram & slitaz-loram-cdrom =====
+
+//slitaz-loram// comprime o diretório ///usr// com o //cromfs// por padrão (maior compressão, porém mais lenta). Pode-se usar o //squashfs// em vez do //cromfs//:
+
+    * Durante a instalação do pacote //slitaz-loram//, recuse a instalação do //cromfs//:
+
+<code># yes n | tazpkg get-install slitaz-loram</code>
+
+    * Instale o //squashfs// e suas dependências:
+
+<code># yes y | tazpkg get-install squashfs</code>
+
+//slitaz-loram-cdrom// move o diretório ///usr// descomprimido para o cdrom e produz uma ISO com 90MB. Se o //cromfs// ou o //squashfs// forem usados o diretório ///usr// será comprimido no cdrom e a imagem ISO ficará com algo em torno de 25MB a 35MB.
+
+==== Criação da imagem slitaz-loram-cdrom-sqfs.iso ====
+
+Iniciamos o sistema pelo Live CD e instalamos os pacotes //slitaz-loram/cdrom// e //squashfs// (sqfs): 
+
+<code># tazpkg get-install slitaz-loram-cdrom
+# yes y | tazpkg get-install squashfs
+</code>
+
+Então, podemos dar início ao processo:
+
+<code># rm -f /etc/tazlito/distro-packages.list ./distro-packages.list
+# tazlito gen-distro
+# wodim dev=1,0,0 /home/slitaz/distro/slitaz-hacked.iso
+</code>
+
+==== slitaz-loram-cdrom e memória com grande capacidade ====
+
+Quando o Live CD slitaz-loram-cdrom detecta memória suficiente durante o boot, o diretório ///usr// é copiado do cdrom para a memória RAM. Pode-se então ejetar o Live CD e usar o drive de cdrom normalmente. O sistema pode se comportar das seguintes formas:
+
+    * Como um Live CD comum (o diretório ///usr/ não será comprimido a partir do cdrom)
+    * Como um Live CD slitaz-loram (///usr/ estará compresso no cdrom pelo //squashfs// ou //cromfs//
+
+==== slitaz-loram-cdrom e memória com pouca capacidade ====
+
+A linha de comando durante o boot geralmente se apresenta da seguinte maneira:
+
+<code>boot: slitaz args...</code>
+
+O SliTaz pode ser utilizado em sistemas com ao menos 9MB de RAM disponível com o seguinte comando durante o boot:
+
+<code>boot: loram single root=/dev/hdc</code>
+
+Onde ///dev/hdc// é o drive de cdrom. A opção de boot loram evita a criação de um ramdisk (disco virtual na memória RAM) e a detecção de cdrom. O próximo passo é a criação de um swap. Deve-se ter ao menos 10MB de memória RAM disponível para utilizar os scripts de boot usando a opção:
+
+<code>boot: loram root=/dev/hdc</code>
+
+Neste último caso, pode-se usar outros argumentos como kmap=, config=, etc.
+
+==== auto extração do slitaz-loram ====
+
+Cada variante slitaz-loram* pode ser extraída na RAM durante o processo de boot (se houver memória suficiente), utilizando-se o argumento //extract-loram//. Será necessário uma variante padrão sendo executada sem restrições de escrita para o diretório ///usr//. 
+
+Exemplo, assumindo que o boot foi realizado com a variante slitaz-loram-cdrom-sqfs:
+
+<code>boot: slitaz extract-loram</code>
+
+Que terá os seguinte resultados:
+
+    * ///usr// somente para leitura com squashfs no cdrom para memórias com pouca capacidade.
+    * ///usr// somente para leitura com squashfs na RAM com memórias de capacidade mediana (como o slitaz-loram).
+    * ///usr// com tmpfs disponível para leitura e escrita na RAM com memórias de grande capacidade (como o slitaz-core, ou padrão).

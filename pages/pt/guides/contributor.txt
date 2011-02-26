@@ -1,0 +1,54 @@
+====== Contribuindo com o SliTaz ======
+
+Há várias formas pelas quais você pode contribuir com a comunidade do SliTaz. Caso tenha tempo livre qualquer contribuição será apreciada, desde a criação de pacotes até a criação de arte para a distribuição.  
+
+Poste uma mensagem no fórum ou na lista de discussão se você estiver inseguro ou com dúvidas sobre como contribuir.
+
+<note tip>Possuimos um [[http://community.slitaz.org/|Site da comunidade]] no qual você pode escrever posts de blogs, compartilhar
+papéis de parede e imagens, etc. Recomendamos a utilização deste site da comunidade àqueles que queiram contribuir com o SliTaz e mostrar o seu trabalho!</note>
+
+===== Desenvolvedores e hackers =====
+
+==== Criação de pacotes ====
+
+Caso você não tenha dificuldades com o processo de compilação de programas linux (//configure, make, make install//), pode contribuir criando pacotes para o SliTaz. A distribuição possui uma ferramenta que automatiza a compilação de programas a partir dos fontes chamada [[http://hg.slitaz.org/tazwok/raw-file/tip/doc/tazwok.pt.html|tazwok]]. Todos os pacotes do SliTaz possuem um arquivo [[pt:cookbook:receipt|receipt]], pelo qual se controla o processo de compilação utilizando-se algumas variáveis e funções. Você pode clonar o [[pt:cookbook:wok|wok]] para ter acesso aos arquivos //receipt// e compreender o seu funcionamento. Leia também a página para [[pt:cookbook:devcorner|desenvolvedores]] antes de iniciar seu trabalho.
+
+Quando se sentir pronto, acesse a [[http://labs.slitaz.org/wiki/13/Pkgscooklist|lista de pacotes]] a serem incluídos, escolha um e tente empacotá-lo. Você pode enviar seus arquivos //receipt// para a lista de discussão ou entrar em contato com algum desenvolvedor da distribuição, para que possamos revisar seu trabalho e fornecer a você acesso aos repositórios.
+
+==== Teste de pacotes e notificação de bugs ====
+
+Outra forma de colaborar é testando pacotes e avisando sobre possíveis bugs na página sobre [[http://labs.slitaz.org/issues|notificação de bugs]]. Possuímos, também, algumas diretivas para [[http://labs.slitaz.org/wiki/packages|teste de pacotes]] (em inglês). Para colaborar, utilize a página de notificação de bugs, o fórum ou a lista de discussão, informando-nos sobre dependências não presentes, falhas na execução de programas, erros de configuração, etc. 
+
+===== Escritores e tradutores =====
+
+Leia as [[pt:guidelines|Orientações sobre documentação do SliTaz]], aprenda a [[pt:wiki:syntax|sintaxe wiki]], escolha uma página e começe o trabalho! No presente momento, precisamos de colaborações que posteriormente serão revisadas e atualizadas. Preparamos um **Mutirão da documentação**, onde concentramos esforços especiais na documentação, por isso sinta-se à vontade para contribuir. 
+
+Algumas formas de contribuição:
+
+  * **Você é um usuário do SliTaz com experiência?**
+  Contribua com os Guias. Eles mostram ao usuário um processo para se obter um determinado objetivo, desde a customização do desktop até a configuração de rede. Se você obteve sucesso com algum procedimento, ou se sente que algum guia existente precisa ser melhorado, crie (ou atualize) a página em questão.
+
+  * **Você é um usuário de linux em geral?**
+  Contribua com o Manual. Vários textos introdutórios sobre o SliTaz, sobre linux ou programas existentes podem ser escrito neste documento. Algumas pessoas gostam de escrever textos mais técnicos e outras de escrever textos com informações mais gerais. Ambos os perfis são bem-vindos, na medida em que podem escrever um texto juntas.  
+
+  * **Você possui certa fluência na língua inglesa?**
+  Traduções são muito importantes para os usuários do mundo inteiro que procuram o SliTaz. Precisamos de tradutores para garantir aos usuários da distribuição documentação em sua língua materna. Caso queira ajudar, procure os textos não traduzidos na [[en:start|documentação em inglês]] e traduza-a para o português.
+
+  *  **Você possui um bom domínio da língua portuguesa?**
+  Revisões posteriores da tradução são a peça chave para garantir a qualidade da documentação! Precisamos de revisores para trabalhar em todas as páginas já existentes - [[pt:guides:start|guias]], [[pt:handbook:start|manual]] e [[[pt:cookbook:start|livro de receitas]] - e nas que ainda estão para ser traduzidas.
+
+===== Artistas e Designers =====
+
+Os [[http://community.slitaz.org/image/tid/2|Papéis de parede]] criam um grande impacto no primeiro contato que o usuário tem com a distribuição. Use o site da comunidade, o fórum ou a lista de discussão para mostrar o seu trabalho!
+
+---- 
+\\
+^  Seção de revisão das páginas  ^^ 
+|Qualidade| Baixa  |
+|Revisão| Atualizações principais FIXME  |
+|Prioridade| Alta |
+|Problemas| Adicione um [[http://forum.slitaz.org|link para um tópico no fórum]]|
+|:::     | OU adicione um [[http://labs.slitaz.org/issues |link para um tópico no SliTaz Labs ]]|
+|Como melhorar| Faça sugestões breves, por exemplo:|
+|::: | [[pt:guides:start | Adicione um link]]|
+|::: | Adicione novas linhas como essa ;-)  |

@@ -1,0 +1,91 @@
+====== Geração de uma variante do LiveCD ======
+
+A criação de uma versão personalizada de um LiveCD do SliTaz por meio do Tazlito é uma tarefa bastante rápida, podendo ser escolhidos um a um os pacotes de software que se pretende que fiquem associados ao sistema. O suporte a variantes permite gerar um LiveCD personalizado, recorrendo a uma lista de pacotes criada pela comunidade SliTaz. O Tazlito é uma ferramenta de linha de comandos que não exige grandes conhecimentos por parte do usuário, que permite gerar uma imagem ISO com apenas dois comandos e gravá-la num CD com apenas um.
+
+A criação de um LiveCD exige um mínimo de 256 MB de RAM, e a compressão do sistema com o LZMA pode demorar algum tempo. É possível criar uma distribuição quer a partir do LiveCD quer a partir de um sistema instalado. No modo LiveCD, é aconselhável usar uma mídia de forma a gravar dados persistentemente ou um drive USB para armazenar os arquivos gerados e poupar espaço na RAM.
+
+O Tazlito é a ferramenta usada pelos desenvolvedores para gerar o LiveCD oficial. O único pré-requisito é que o Tazlito esteja instalado, algo que já está predefinido no SliTaz, mas que pode ser gerado para qualquer outra distribuição em formato LiveCD, desde que os pacotes necessários estejam disponíveis ou possam ser baixados da Internet.
+
+===== Instalar o Tazlito em outra distribuição =====
+
+O Tazlito não gera uma árvore de dependências para o LiveCD, dependendo contudo do Cdrkit para gravar a imagem em CD e do Tazpkg para regenerar pacotes do SliTaz que não estejam previamente instalados. Para obter e instalar o Tazlito, devem ser seguidas as instruções do arquivo README no código fonte do Tazlito.
+===== Um LiveCD em 2 comandos =====
+
+  - Obtenha uma variante (flavor): //tazlito get-flavor core//. (Opcional: altere a lista de pacotes ou adicione arquivos).
+  - Gere a distribuição: //tazlito gen-distro//
+
+Tendo terminado, a imagem ISO do LiveCD pode ser encontrada em ///home/slitaz/distro//.
+
+Para outras instruções veja o [[pt:guides:genlivecdsimple|Guia Simples]].
+
+===== Obtenha uma variante =====
+
+Uma variante (flavor) consiste num arquivo //.flavor// que contém todas as informações necessárias para a criação do CD. A variante provê a lista de pacotes (distro-packages.list) e arquivos adicionais para a variante escolhida. Uma lista de variantes pode ser baixada e atualizada com o Tazlito:
+
+<code># tazlito list-flavors</code>
+
+Ou:
+
+<code># tazlito list-flavors --recharge</code>
+
+Será automaticamente exibida uma lista de variantes, apresentando o tamanho do LiveCD e uma descrição sumária. Para as tarefas restantes, o comando //get-flavor// permitirá baixar o arquivo que define a variante, extrair automaticamente a lista de pacotes e a respectiva descrição na pasta atual e guardar os arquivos adicionais na pasta ///home/slitaz/distro/addfiles//. Para armazenar as variantes, sugere-se que seja usada uma pasta específica, por exemplo ///home/slitaz/flavors//, o que pode ser feito pelo usuário, devendo então entrar-se nessa pasta:
+
+<code># mkdir -p /home/slitaz/flavors
+# cd /home/slitaz/flavors
+</code>
+
+Para baixar e/ou extrair arquivos de uma variante em particular:
+
+<code># tazlito get-flavor particular-flavor</code>
+
+A descrição de uma variante pode ser obtida com o comando //show-flavor//. Uma vez que a variante escolhida estiver baixada, pode-se iniciar a geração da distribuição
+
+===== Gere a distribuição =====
+
+Para sua primeira imagem ISO, nós o alertamos que faça um teste sem modificar a listagem original. Após ter criado a primeira ISO, você pode adicionar ou deletar pacotes à vontade. Mas cuidado! Os pacotes //base// do sistema são essenciais. O comando //gen-distro// gera uma imagem ISO com todos os pacotes da lista: deve ser executado como root e no mesmo diretório em que se encontram a lista e o arquivo de configuração. Para gerar um LiveCD:
+
+<code># tazlito gen-distro</code>
+
+Voilà, sua primeira imagem ISO é gerada no diretório ///home/slitaz/distro//.
+
+==== Limpar e recriar a distro ====
+ 
+Continuando, você pode simplesmente adicionar um ou dois pacotes à lista, limpar a distro e recriar o sistema de arquivos raiz, gerando uma nova imagem ISO:
+
+<code># tazlito clean-distro
+# tazlito gen-distro
+</code>
+
+O Tazlito também oferece várias possibilidades, como gravar a ISO para um CD ou copiar arquivos adicionais no sistema ou diretamente para o cdrom. O [[http://hg.slitaz.org/tazlito/raw-file/tip/doc/tazlito.pt.html|Manual do Tazlito]] fornece maiores informações.
+
+===== Crie uma variante (flavor) =====
+
+O Tazlito permite a criação de sua própria variante a partir dos resultados obtidos na geração da distribuição (gen-distro). O arquivo conterá todos os arquivos adicionais da variante, uma descrição e uma lista de pacotes que pode ser utilizada posteriormente e atualizada de acordo com a versão dos pacotes. Para gerar sua própria variante, respondendo a uma ou duas perguntas:
+
+<code># tazlito gen-flavor new-flavor</code>
+
+Uma vez que a variante esteja totalmente funcional e bem testada, você pode enviá-la para o site www.slitaz.org para torná-la disponível a todos, podendo ser listada pelo comando //list-flavor// e utilizável por meio do comando //get-flavor//. Para enviar uma variante você dispõe de diversos meios, como por exemplo anuncia-la na lista de discussão, salvar o arquivo num servidor online e enviar o link para o fórum de discussão ou mandar por email para algum contribuidor do projeto.
+
+===== Arquivos adicionais =====
+
+Os arquivos contendo variantes geralmente possuem arquivos adicionais copiados diretamente no sistema de arquivo ou na raíz do cdrom. O caminho para os arquivos usados é especificado no arquivo de configuração //tazlito.conf// - que se encontra, por padrão, no diretório ///home/slitaz/distro/addfiles//. Os arquivos adicionais que a variante padrão fornece são, por exemplo, os que se referem ao gerenciador de janelas JWM e alguns papéis de parede. É fácil modificar, adicionar ou apagar arquivos no sistema de arquivos raiz (rootfs) ou na raiz do CD (rootcd) e recriar a distribuição. Para limpar e recriar a distribuição:
+
+<code># tazlito clean-distro
+# tazlito gen-distro
+</code>
+
+===== Pacotes Usados =====
+
+Para criar sua própria distro você precisa dos pacotes do SliTaz. O Tazlito e o Tazpkg permitem a recriação de pacotes de um sistema SliTaz em operação ou a obtenção de pacotes diretamente, dependendo da variante escolhida. Por padrão, os pacotes do SliTaz estão localizados no diretório ///home/slitaz/packages//, mas você pode mudar isso através do arquivo de configuração do Tazlito (tazlito.conf).
+
+Se você quiser obter os pacotes manualmente, pode usar um cliente FTP como o gFTP (instalado por padrão no SliTaz) ou pela linha de comando com o wget para o download dos pacotes oficiais. A URL para obtenção dos pacotes é: ftp://download.tuxfamily.org/slitaz/packages/
+
+Você também pode usar seus próprios pacotes, colocando-os no diretório destinado a isso. Se você procura por documentação relacionada à criação de pacotes para o SliTaz, pode consultar o Cookbook.
+
+===== Arquivo de Configuração =====
+
+Por padrão, o Tazlito usa o arquivo de configuração do sistema ///etc/tazlito/tazlito.conf// ou o //tazlito.conf// localizado no diretório corrente. Isto significa que você pode usar o arquivo padrão ou um arquivo de configuração específico para a distro que deseja criar. Este arquivo pode mudar o nome da imagem ISO, o nome do mantenedor e os caminhos para os diretórios de trabalho. Para criar e modificar seu próprio arquivo de configuração, você somente precisa executar o Tazlito com a opção configure a partir do diretório de trabalho da distro. Assumindo que o diretório de trabalho é ///home/slitaz/distro// e que você se encontra nele:
+
+<code>$ tazlito configure</code>
+
+Uma vez respondidas respondidas as questões feitas pelo programa, você pode criar a imagem ISO, reconstruir o sistema de arquivos raiz e a ISO ou gerar uma nova distro com a lista de pacotes.

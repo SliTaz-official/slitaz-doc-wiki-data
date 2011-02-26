@@ -1,0 +1,29 @@
+====== Virtualbox ======
+
+===== SliTaz GNU/Linux com o Virtualbox =====
+
+Você pode testar o SliTaz GNU/Linux no Windows usando o Virtualbox. Requerimentos:
+
+    * [[http://virtualbox.wordpress.com/2008/06/27/slitaz-gnulinux-is-here/|SliTaz GNU/Linux Image]] - máquina virtual do SliTaz
+    * [[http://www.virtualbox.org/wiki/Downloads|SUN VirtualBox]] - O programa VirtualBox para Windows.
+    * [[http://www.7-zip.org/fr/download.html|7-Zip]] - Necessário para descompactar o arquivo da máquina virtual.
+
+==== Passo 1: downloads e instalações ====
+
+    * Baixe e instale o 7-Zip
+    * Baixe e instale o SUN VirtualBox
+    * Baixe e descompacte a máquina virtual em alguma pasta de seu disco rígido
+
+==== Passo 2: execução da máquina virtual ====
+
+Antes de executar a máquina virtual do SliTaz você precisa configurar uma nova máquina virtual no VirtualBox:
+
+  - Execute o VirtualBox [//Start/Programms/Sun xVM VirtualBox/VirtualBox//]
+  - Adicione uma nova máquina: Clique no botão [//Novo//] na barra de ferramentas do programa
+  - Clique em [//Próximo//] na caixa de diálogo "Criar Nova Máquina Virtual"
+  - Nomeie a nova máquina virtual (por exemplo, SliTaz GNu/Linux) e selecione Linux 2.6 na lista de Sistemas Operacionais. Clique em  [//Próximo//]
+  - Selecione a quantidade de memória RAM da máquina virtual. A opção padrão 256MB deve ser suficiente
+  - Na caixa de diálogo "Disco Rígido Virtual" selecione "Utilizar disco rígido existente", indique o arquivo de máquina virtual que você baixou (slitaz-1.9-x86.vdi) e clique em [//Próximo//]
+  - Aparecerá uma caixa de sumário com todas as opções que você selecionou. Clique em [//Finalizar//]
+
+Agora você já pode iniciar sua máquina virtual do SliTaz GNU/Linux. Note que o VirtualBox também pode utilizar discos virtuais do VMWare.

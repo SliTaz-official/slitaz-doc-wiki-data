@@ -1,0 +1,31 @@
+====== Ferramentas do Sistema ======
+
+===== Clex - Gerenciador de arquivos em modo texto =====
+
+Para navegar entre diretórios pode-se usar o comando //cd// na linha de comando ou executar o gerenciador de arquivos Clex. Ele é feito em ncurses sendo rápido e fácil de usar, podendo ser configurado pelos arquivos //~/.clexrc// e //~/.clexbm// (bookmarks) ou por meio do painel (ctrl -g). Para iniciar o clex de um terminal ou console:
+
+<code>$ clex</code>
+
+===== PCmanFM - Gerenciador de Arquivos =====
+
+O PCManFM é um gerenciador de arquivos que fornece diversas funções úteis para tarefas rotineiras, como gerenciar dispositivos, abrir terminais no diretório atual, navegação por abas, arrastar e soltar, criar diretórios ou gerenciar permissões de arquivos. Contém bookmarks (favoritos) que permitem uma navegação mais rápida, procurar funções e muito mais. Ele pode ser executado com algumas opções de linha de comando - que podem, por exemplo, configurar o papel de parede ou abrir diretórios em uma nova aba, etc. Para uma lista completa de opções: //$ pcmanfm --help-all//.
+
+O PCManFM suporta hotkeys (firefox) e o menu de contexto (clique direito em algum arquivo ou diretório) torna fácil descompactar arquivos //.tar.gz//, compactar e criar arquivos.
+
+===== Htop - Visualizador de processos do sistema =====
+
+O Htop é um visualizador de processos do sistema que mostra a carga da cpu, o estado da memória (RAM) e a quantidade de memória swap usada. Pode também mostrar o número de tarefas, o uptime e os PIDs dos processos ativos. Este aplicativo pode ser controlado pelo teclado no modo console, pelo mouse num terminal X (xterm) e oferece opções de configuração por meio da tecla F2. O Htop permiter, também, matar processos e a seleção de items por meio das teclas para cima/para baixo ou por um clique do mouse. Note que o SSH também pode ser usado via SSH para monitorar um servidor remoto:
+
+<code>$ htop</code>
+
+===== Mountbox - Montagem de dispositivos =====
+
+O Mountbox é um pequeno aplicativo GTK+ que monta rapidamente dispositivos como um drive USB, um disco rígido ou um cdrom. Pode ser executado de um terminal ou pelo menu "Ferramentas do Sistema". Simplesmente informe qual o periférico (dispositivo) e o ponto de montagem, isto é, o diretório em que se deseja acessar a mídia em questão. Tipicamente um CD é montado no diretório ///media/cdrom//, uma mídia USB em ///media/flash// e discos rígidos da máquina local em ///mnt//. Note que este Manual oferece maiores informações sobre dispositivos.
+
+===== Gparted - Particionamento de discos =====
+
+O Gparted é um aplicativo gráfico que torna possível o gerenciamento de partições de um disco rígido local ou de uma mídia USB. Permite a reformatação, redimensionamento ou checagem de uma partição de um disco e é a ferramenta ideal que você precisa para preparar uma partição para a instalação do SliTaz. O Gparted suporta os sistemas de arquivo próprios do GNU/Linux (ext2 e ext3) via //mkfs// e o Parted automaticamente trata as dependências.
+
+===== Suporte aos sistemas de arquivo FAT e NTFS =====
+
+Para obter suporte para os sistemas de arquivos do Windows FAT16 e FAT32, deve-se instalar o pacote //dosfstools//. Para habilitar o suporte a leitura e escrita em partições NTFS, é necessária a instalação dos pacotes: //fuse//, //ntfs-3g// e //ntfsprogs//.

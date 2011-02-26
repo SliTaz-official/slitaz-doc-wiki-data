@@ -1,0 +1,59 @@
+====== Virtual Private Network (Rede Privada Virtual) =======
+
+Uma VPN reune redes isoladas por meio de túneis pela internet. Um túnel encripta e encapsula frame (porções individuais) das redes.
+
+    * Os frames são escondidos (dados e cabeçalhos, incluindo informações de roteamento)
+    * O encapsulamento define os túneis como fonte e destino
+    * Somente o volume de tráfego é visível. Porém, pode-se enviar frames falsos
+
+===== Túnel usando SSH e PPP =====
+
+O SliTaz é capaz de criar túneis por padrão (sem adicionar outros pacotes) através do Menu -> Ferramentas do Sistema -> Configuração de Rede. Será necessário ter no servidor remoto:
+
+    * Uma conta de usuário
+    * Acesso SSH
+    * Direitos de executar o daemon pppd (por grupo ou bit setuid)
+    * A estação remota deve ser capaz de rotear os frames pelo túnel (o par é o roteador padrão ou está executando protocolos como rip, ospf, etc)
+
+===== Configuração do túnel =====
+
+    * Execute Menu -> Ferramentas do Sistema -> Configuração de Rede
+    * Selecione a aba //VPN//
+    * Preencha o campo //Par// e atualize o campo //Rota(s)//. Rotas são as redes locais do lado do par que você deseja conectar. Só é necessário atualizar os campos IP Remoto e Local se forem criados múltiplos túneis. Estes campos reflitirão o túnel e os pontos IP
+    * Clique em //Enviar Senha// e informe a senha
+    * Clique em //Conectar//
+
+===== Limitações =====
+
+    * Este túnel não deve ser usado para tráfego em tempo real como VOIP. Como é baseado em TCP, o túnel tenta evitar a perda de dados em vez de respeitar o tempo. Para VOIP deve-se basear túneis baseados em UDP
+    * Somente uma máquina com SliTaz pode ver a rede remota. Outras estações na rede não, até que você adicione as rotas de rede ao par (assumindo que a máquina com o SliTaz é o roteador padrão ou está rodando outros protocolos)
+
+===== OpenSSH =====
+
+O pacote //openssh// está disponível nos repositórios e fornece túneis baseados em TCP.
+
+<code># yes y | tazpkg get-install openssh</code>
+
+Veja http://www.openbsd.org/cgi-bin/man.cgi?query=ssh&sektion=1#SSH-BASED+VIR...
+
+===== OpenVPN =====
+
+O pacote //openvpn// está disponível nos repositórios:
+
+<code># yes y | tazpkg get-install openvpn</code>
+
+Veja a documentação em http://openvpn.net/
+
+===== Cisco EasyVPN =====
+
+O pacote //vpnc// está disponível nos repositórios:
+
+<code># yes y | tazpkg get-install vpnc<code>
+
+Veja a documentação em http://www.unix-ag.uni-kl.de/~massar/vpnc/
+
+===== Outros VPN =====
+
+A ferramenta de busca de pacotes do SliTaz mostra todos os VPN suportados pela distribuição:
+
+http://pkgs.slitaz.org/search.cgi?tags=vpn

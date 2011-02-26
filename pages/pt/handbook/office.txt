@@ -1,0 +1,35 @@
+====== Escritório ======
+
+===== Abiword - Processador de Texto =====
+
+O Abiword é um aplicativo de processamento de textos rico em funcionalidades. Ele possui ferramentas leves - simples, rápidas e intuitivas - e um formato de documentos próprio (.abw), suporta documentos do Open Office e do Microsoft Word e também pode exportar para PDF ou HTML. Para instalar o Abiword no Slitaz execute:
+
+<code># tazpkg get-install abiword</code>
+
+===== Osmo - Organizador Pessoal =====
+
+O Osmo é um pequeno organizador pessoal que provê uma tabela de horários e uma lista de tarefas e contatos, possibilitando a abertura destes diretamente num navegador web - a partir de uma URL - ou de um cliente de e-mail - usando-se um endereço de e-mail. Também oferece um calendário, uma calculadora de datas e a possibilidade de se tomar notas classificadas por dia. Se você utiliza uma mídia USB associada ao LiveCD, seus dados serão mantidos permanentemente. Em um sistema instalado, pode-se sincronizar os dados com uma mídia USB usando o Grsync. O Osmo guarda seus dados no diretório oculto //~/.osmo//.
+
+===== SQLite - Pequena Base de Dados SQL =====
+
+SQLite é uma pequena base de dados relacionais SQL em que todo um banco de dados é arquivado em um único arquivo. É rápida, poderosa, permite acelerar os aplicativos que dela se utilizam e implementa a maioria dos padrões SQL92. SQLite é ideal para o gerenciamento de pequenos websites enquanto estes não precisarem de maiores recursos. O website oficial do projeto é: http://www.sqlite.org/
+
+===== ePDFView - Leve Visualizador de PDF =====
+
+Para visualizar um documento PDF, o SliTaz utiliza-se do pacote ePDFView. Este provê um visualizador de PDF rápido, simples e fácil de usar. O ePDFView usa GTK+ e a biblioteca de renderização poppler, o que possibilita a você a leitura e mudança entre as páginas, navegação pelo índice e busca de palavras.
+
+===== Gnumeric - Editor de Planilhas =====
+
+O Gnumeric é um programa para edição de planilhas livre e possui a capacidade de importar/exportar diversos tipos de arquivos, como CSV, planilhas do Microsoft Excel, Latex, HTML, etc, assim como provê seu próprio formato de arquivo (.gnumeric). Ele é, também, um dos programas para planilhas mais acurado estatisticamente que existe. Para instalá-lo no SliTaz:
+
+<code># tazpkg get-install gnumeric</code>
+
+===== Homebank - Gerenciamento Financeiro =====
+
+O Homebank é um programa útil para gerenciar e comparar contas de banco. Leve, fácil e com várias funções, forma uma suite de escritório fácil de utilizar, em conjunto com o Abiword e o Gnumeric. O Website é: http://homebank.free.fr/. Para instalar este programa, pode-se usar o gerenciador de pacotes gráfico ou pela linha de comando:
+
+<code># tazpkg get-install homebank</code>
+
+===== Notecase - Gerenciador de Notas =====
+
+O Notecase é um programa feito para organizar e gerenciar notas. Permite fazer ligações entre páginas, importar e exportar notas e formatar texto (negrito, itálico, etc). É instalado por padrão no SliTaz e pode ser acessado pelo Menu → Escritório → Gerenciador de Notas Notecase.

@@ -1,0 +1,17 @@
+====== Ferramentas do SliTaz ======
+
+As Ferramentas SliTaz contém scripts úteis que permitem a personalização do SliTaz, como um script para criar um novo initramfs ou uma imagem ISO, Makefile, etc. Também é distribuido porque contem arquivos que podem ser úteis para alguns hackers... As ferramentas estão em constante evolução e continuam a expandir, seguindo o ciclo de mudanças decorrentes das versões Cooking (testes) e Stable (estável).
+
+===== Repositório Mercurial =====
+
+As ferramentas SliTaz possuem seu próprio repositório Mercurial no servidor SliTaz, que pode ser clonado pelo comando:
+
+<code>$ hg clone http://hg.slitaz.org/slitaz-tools/</code>
+
+===== *box =====
+
+Mountbox, Netbox, Bootfloppybox, Tazlocale, etc são ferramentas que usam ou o dialog (ncurses) ou o GTKdialog; os scripts estão localizados no diretório //tinyutils///. A ferramenta Desktopbox é capaz de executar vários "boxes" (//desktopbox usage//) criados com o Glade3.
+
+===== Fontes =====
+
+Você pode baixar os fontes das ferramentas do slitaz (slitaz tools) [[http://download.tuxfamily.org/slitaz/sources/tools/|aqui]].

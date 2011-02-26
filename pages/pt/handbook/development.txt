@@ -1,0 +1,134 @@
+====== Desenvolvimento ======
+
+O SliTaz fornece ferramentas de desenvolvimento para web design, edição de scripts e código fonte. No website, a página Desenvolvimento traz informações gerais sobre os desenvolvedores e as oportunidades de envolvimento.
+
+===== SHell scripts =====
+
+Escrever SHell scripts é a forma mais fácil de se começar a escrever código: eles podem prover resultados rápidos e os únicos pré-requisitos são saber abrir o terminal e usar um editor de texto como o Nano, o Leafpad ou o Geany. SHell scripts são capazes de fazer muitas coisas num sistema GNU/Linux - iniciar o sistema, fazer backups, executar tarefas repetitivas, mostrar informações sobre o sistema, criar ou modificar arquivos, etc. Em um SHell script pode-se usar variáveis, funções ou chamados para incluir um arquivo. Note que você pode nomear um script como quiser e a extensão //.sh// é largamente usada.
+
+==== Crie um SHell script ====
+
+Antes de iniciar um novo SHell script, deve-se prestar atenção ao interpretador usado. A maioria dos SHell scripts usam o interpretador ///bin/sh// por este ser mais portável, porém há muitos scripts que utilizam o ///bin/bash// e este deve estar instalado no sistema. Para um SHell script funcionar, ele deve ser tornado executável pelo usuário atual mudando-se as permissões na linha de comando usando o comando //chmod//. Para criar um script //script.sh// e torná-lo executável:
+
+<code>$ touch script.sh
+$ chmod +x script.sh
+</code>
+
+Agora que você possui um arquivo executável, pode editá-lo. Pode-se optar por continuar no terminal e usar o editor Nano (ctrl + x para salvar & sair) ou usar o IDE Geany para a edição:
+
+<code>$ nano script.sh</code>
+
+Ou:
+
+<code>$ geany script.sh &</code>
+
+Exemplo de um script que contem a variável //NAME// e mostra seu valor com o comando echo:
+
+<code>#!/bin/sh
+
+NAME="kayam"
+
+echo "$NAME is nice."
+</code>
+
+Uma vez criado/modificado seu script //script.sh//, você pode executá-lo para ver o resultado:
+
+<code>$ ./script.sh</code>
+
+Apenas demos uma breve introdução sobre SHell scripts. A internet é cheia de informações que você pode encontrar se deseja conhecer o tema mais profundamente.
+
+==== Dialog ====
+
+O Dialog pode criar Interfaces Gráficas para ferramentas de linha de comando como o 'tazkmap'. Os arquivos de configuração encontram-se em ///etc/dialogrc// e/ou no diretório //~/dialogrc// de cada usuário. Abaixo um simples exemplo de uso do Dialog via um console ou terminal:
+
+<code>$ dialog --title "Hello $USER" \
+   --msgbox "Message made by dialog." 5 54
+</code>
+
+Pode-se encontrar vários scripts de exemplo no diretório ///sample// contido no código fonte do Dialog, que pode ser obtido no endereço: http://invisible-island.net/dialog/dialog.html/. Baixe o código fonte e descompacte:
+
+<code>$ wget ftp://invisible-island.net/dialog/dialog.tar.gz
+$ tar xzf dialog.tar.gz
+</code>
+
+===== IDE Geany =====
+
+Geany é um IDE ou Ambiente de Desenvolvimento Integrado (Integrated Development Environment). Este aplicativo é simples, rápido e leve, oferecendo coloração de sintaxe, abas e auto-completar. Foi usado para criar esta página e a maioria da documentação encontrada no website (sendo o Nano usado também para algumas partes).
+
+==== Executar o Geany ====
+
+Você encontra o Geany no menu --> Desenvolvimento --> Geany. Após sua primeira execução, você pode ajustar suas preferências através da opção de menu Edit --> Preferences. Pode-se também iniciá-lo pelo terminal:
+
+<code>$ geany &</code>
+
+Nota: ao compilar código fonte, o script //./configure// oferece a opção: //-enable-the-force//... Que você pode usar se sentir a necessidade de se tornar um Guerreiro Jedi!
+
+===== Perl ou Microperl - Escreva/use scripts Perl =====
+
+No SliTaz você pode usar a poderosa linguagem de scripts Perl via os binários //perl// ou //microperl//. O Microperl é uma versão reduzida do Perl: compilado a partir dos fontes oficiais, os scripts feitos nesta versão são compatíveis com a versão completa do Perl. Um dos pontos fortes do Perl é sua portabilidade - pode-se usá-lo em qualquer sistema. Outro ponto de destaque é o fato de esta ser uma linguagem interpretada, o que significa que o código não precisa ser compilado e pode ser usado diretamente. No SliTaz tanto o Perl quanto o Microperl não são instalados por padrão no LiveCD. Pode-se, porém, reconstruir a iso ou instalá-los pelo gerenciador de pacotes. Nota: o Microperl possui apenas 1 Mb e não fornece módulo algum:
+
+<code># tazpkg install perl</code>
+
+Ou:
+
+<code># tazpkg install microperl</code>
+
+==== Hello world! ====
+
+O propósito deste script é mostrar na tela a frase Hello World. Você pode começar criando o arquivo e tornando-o executável pela linha de comando e então editá-lo com o IDE Geany. Note que o script é chamado //hello.pl//, mas você pode chamá-lo como quiser ou não usar a extensão .pl:
+
+<code>$ touch hello.pl
+$ chmod +x hello.pl
+$ geany hello.pl &
+</code>
+
+A primeira linha de um script Perl define o caminho para o interpretador Perl, que geralmente se encontra em ///usr/bin/perl//. Para mostrar qualquer texto, use o comando //print//. Deve-se notar que o Perl é "case sensitive" (diferencia minúsculas de maiúsculas) e que cada linha de código sempre deve terminar com um ponto-e-vírgula. Código de exemplo (você pode copiar e colar):
+
+<code>#!/usr/bin/perl
+#
+
+print "Hello World!\n";
+</code>
+
+Para executar e testar o script:
+
+<code>$ ./hello.pl</code>
+
+==== Scripts CGI e o Perl ====
+
+Scripts CGI são projetados para mostrar páginas web geradas dinamicamente. A linguagem Perl associada a um servidor web LightTPD permite a utilização de scripts CGI em sua pasta pessoal de páginas web (public) ou em um host virtual. O Perl é suficientemente adaptado à Web 2.0 e pode gerar páginas xHTML. No SliTaz você deve possuir o Perl ou o Microperl instalados e o servidor LightTPD configurado antes de começar a codificar scripts CGI em Perl. Note que por padrão SHell scripts (.sh) podem ser colocados na pasta ///cgi-bin///.
+
+Uma vez configurado o servidor, você pode colocar seu CGI em na sua pasta //$HOME/Public/cgi-bin// usando as extensões //.pl// ou //.cgi// e visualizá-los localmente ou remotamente. Exemplo de um script CGI escrito em Perl:
+
+<code>#!/usr/bin/perl
+#
+print "content-type : text/html\n\n";
+
+print "Hello World!\n";
+</code>
+
+===== Python =====
+
+A linguagem de programação Python está disponível como um pacote instalável. Uma vez instalada, você pode criar seus próprios scripts/programas e usar aplicações CGI juntamente com o servidor web LightTPD, atentando para configurar o servidor corretamente. Os repositórios Mercurial oficiais do SliTaz são providos por uma interface web escrita utilizando-se GCI/Python - algo perfeito para um produto confiável e robusto. Para instalar o pacote python com o tazpkg:
+
+<code># tazpkg get-install python</code>
+
+===== Ruby =====
+
+A linguagem de programação Ruby está disponível como um pacote instalável. Ela é (segundo o website oficial): "Uma linguagem de programação dinâmica e de código fonte aberto focada em produtividade e simplicidade. Possui uma sintaxe elegante que é natural de se ler e fácil de escrever". O Ruby trata exceções, suporta Programação Orientada a Objetos (Object-Orientated Programming - OOP), possui gerenciamento de memória automático e é altamente portável. Para instalar o pacote ruby com o tazpkg:
+
+<code># tazpkg get-install ruby</code>
+
+===== Toolchain - Bibliotecas, compilador C e ferramentas =====
+
+Para compilar programas a partir dos fontes ou o seu próprio código, você precisa de pelo menos o toolchain básico, constituido do Binutils, Glibc, compilador C, headers (cabeçalhos) do Kernel e o utilitário Make. Note que o toolchain é usado pelos desenvolvedores do SliTaz para compilar todo os sistema a partir dos fontes. Para instalar o meta-pacote e todas suas dependências:
+
+<code># tazpkg get-install slitaz-toolchain</code>
+
+A instalação do "toolchain" permite agora compilar aplicações básicas em modo console sem problemas utilizando o SHell Ash do Busybox, mas alguns outros pacotes não compilam sem o Bash. O GNU Bash está disponível como um pacote assim como várias outras ferramentas de desenvolvimento como o Flex, o M4, bison ou o Pkg-config. Se você procura pelo pkg-config, por exemplo:
+
+<code>$ tazpkg search pkg-config</code>
+
+Se você desejar compilar aplicativos que se utilizem da biblioteca Ncurses, deve instalar o pacote ncurses-dev. Note que este pacote também fornece uma variedade de pequenos programas como o //tic// ou o //tack//:
+
+<code>$ tazpkg search ncurses</code>

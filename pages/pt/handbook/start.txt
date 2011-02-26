@@ -1,0 +1,52 @@
+====== Manual ======
+
+Nota: Este manual ainda está disponível no website principal e será migrado após o lançamento da próxima versão estável (3.0). Disponibilizamos aqui uma cópia da página contida no LiveCD (para ajudar os tradutores) e algumas novas páginas que melhoram e complementam as informações contidas no atual Manual do SliTaz: http://www.slitaz.org/pt/doc/handbook/
+
+===== Informações Gerais =====
+
+  * [[livecd|Live CD]] - Utilização do Live CD e opções de boot em linha de comando.
+  * [[desktop|Desktop]] - Configure o desktop e gerenciadores de janelas.
+  * [[commands|Comandos]] - Lista de comandos úteis.
+  * [[installation|Instalação]] - Instruções de instalação em disco rígido.
+  * [[netstart|Utilização de Rede]]
+  * [[accessibility|Acessibilidade]]
+
+===== Aplicativos =====
+
+  * [[utilities|Utilitários]] - Calculadora, Editor de Texto, Criação de CD, DVD e ISO.
+  * [[office|Escritório]] - Processador de Texto, Organizador Pessoal e Leitor de PDF.
+  * [[internet|Internet]] - Navegadores, Clientes IRC, Clientes de Email, BitTorrent e FTP.
+  * [[graphics|Gráficos]] - Computação Gráfica e Gerenciamento de Imagens.
+  * [[development|Desenvolvimento]] - Scripts SHell, Perl, Python e Toolchain.
+  * [[multimedia|Multimídia]] - Som, música e vídeo.
+  * [[systemtools | Ferramentas do Sistema]] - Gerenciadores de Disco e Arquivos e outras ferramentas.
+  * [[wm|Gerenciadores de Janelas]] - Openbox, Pekwm, JWM, Enlightenment, dwm e outros.
+
+===== Sistema =====
+
+  * [[packages|Pacotes]] - Instale mais programas, mantenha o sistema atualizado.
+  * [[networkconf|Configuração de Rede]] - Ethernet, DHCP, IP estático ou conexão discada, Firewall (Iptables).
+  * [[systemutils|Utilitários do Sistema]] - Monte dispositivos, gerencie usuários e grupos, ajuste o relógio do sistema.
+  * [[printing|Impressão]] - Como imprimir, instalação e configuração do CUPS.
+  * [[xwindow|Servidor Gráfico]] - Servidores Xvesa & Xorg , Slim Login gerenciadores de janelas.   
+  * [[security|Segurança]] - SliTaz e a segurança do sistema.
+
+===== Variantes ======
+
+    * [[genlivecd|Geração de uma variante do LiveCD]] - Crie sua própria variante do LiveCD utilizando o Tazlito.
+    * [[liveusb|Mídia LiveUSB]] - Crie mídias USB bootáveis utilizando o TazUSB.
+    * [[hacklivecd|Hackeando o LiveCD]] - Manipule a imagem ISO do LiveCD.    
+    * [[chroot|Ambiente Chroot]] - Construa um ambiente chroot para protejer o sistema anfitrião.
+
+===== Servidores =====
+
+  * [[server-apps|Aplicativos para servidores]] - Instale e configure gerenciadores de conteúdos (Wiki, CMS etc).
+  * [[database|Bases de Dados]] - SQLite, MySQL e outros gerenciadores de bases de dados.
+  * [[webserver|Servidor Web]] - Configure e use o servidor web LightTP.
+  * [[ssh|SHell Seguro (SSH)]] - Login seguro usando o cliente/servidor SSH Dropbear.
+
+
+
+===== Sobre este manual =====
+
+Este é o Manual do Slitaz GNU/Linux em Português, uma coleção de instruções e manuais sobre a distribuição. Criado pela comunidade para fornecer documentação de alta qualidade para os usuários do SliTaz, sua primeira página foi criada em 26 de fevereiro de 2008. Este manual é um documento em constante desenvolvimento e segue as mudanças e melhorias da distribuição.

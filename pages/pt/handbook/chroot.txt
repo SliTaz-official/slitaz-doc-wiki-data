@@ -1,0 +1,94 @@
+====== Ambiente Chroot ======
+
+Este documento descreve os passos necessários para criar um ambiente chroot, para mudar a raiz do sistema de forma que você possa trabalhar. Isto torna possível compilar, testar e desenvolver SliTaz sem qualquer risco para o sistema anfitrião no qual você está trabalhando. O sistema anfitrião pode ser o próprio SliTaz instalado em um disco rígido ou qualquer outro sistema GNU/Linux como Debian, Fedora, PCLinuxOS e assim por diante. Você também pode criar um ambiente chroot em modo LiveCD associado a uma mídia USB. A única condição prévia é ter uma imagem ISO do SliTaz disponível e um pouco de tempo. Note que todos os comandos são executados como administrador de sistema (root).
+
+===== Preparando o ambiente =====
+
+Para começar, nós temos que extrair os conteúdos da imagem ISO no diretório que servirá como nosso chroot. O diretório pode ser criado em qualquer lugar que você escolher, nós usaremos o diretório ///home/slitaz/chroot-env//. Para extrair os conteúdos de uma imagem ISO, nós temos que montá-la em loop em um diretório e então temos que copiar o sistema de arquivos raiz comprimido (rootfs.gz) no diretório chroot. Assumindo que a ISO está no diretório atual:
+
+<code># mkdir /tmp/loop
+# mount -o loop slitaz-cooking.iso /tmp/loop
+# mkdir -p /home/slitaz/chroot-env
+# cp /tmp/loop/boot/rootfs.gz \
+  /home/slitaz/chroot-env
+# umount /tmp/loop
+</code>
+
+Agora que nós temos uma cópia do sistema de arquivos comprimido, precisamos extrai-lo e descomprimi-lo (este é um arquivo //cpio// comprimido com //gzip// ou //lzma//). Para completar esta fase, nós podemos remover o rootfs que já não é necessário:
+
+<code># cd /home/slitaz/chroot-env
+# (zcat rootfs.gz 2>/dev/null || lzma d rootfs.gz -so) | cpio -id
+# rm rootfs rootfs.gz
+</code>
+
+Se descomprimir o arquivo //rootfs// comprimido com //lzma// falhar você pode usar o método seguinte:
+
+<code># unlzma rootfs.gz -S .gz 
+# cat rootfs | cpio -id
+</code>
+
+===== Usando o ambiente =====
+
+Para começar a usar o ambiente chroot, você só precisa montar alguns sistemas de arquivos virtuais e usar o comando //chroot//. Para simplificar as coisas, podemos escrever um script pequeno que automatiza o processo. Exemplo usando o diretório chroot ///home/slitaz/chroot-env// e criando o script //chroot_in_env.sh// em ///home/slitaz//. Em qualquer sistema que não seja o SliTaz você pode descomentar as linhas que se referem aos diretórios ///dev// e ///tmp// - Note que você pode copiar e colar o texto seguinte:
+
+<code># cat > /home/slitaz/chroot_in_env.sh << "EOF"
+#!/bin/sh
+# Chroot in SliTaz to hack.
+#
+ROOTFS="/home/slitaz/chroot-env"
+
+# Mount virtual Kernel file systems and chroot.
+#
+#mount --bind /dev $ROOTFS/dev
+#mount --bind /tmp $ROOTFS/tmp
+mount -t proc proc $ROOTFS/proc
+mount -t sysfs sysfs $ROOTFS/sys
+mount -t devpts devpts $ROOTFS/dev/pts
+mount -t tmpfs shm $ROOTFS/dev/shm
+
+echo "Chrooting into $ROOTFS... "
+chroot $ROOTFS /bin/sh --login
+
+# Unmount virtual Kernel file systems on exit.
+#
+umount $ROOTFS/dev/shm
+umount $ROOTFS/dev/pts
+umount $ROOTFS/sys
+umount $ROOTFS/proc
+#umount $ROOTFS/tmp
+#umount $ROOTFS/dev
+
+echo "Exiting $ROOTFS chroot environment... "
+
+EOF
+</code>
+
+Para terminar e testar o ambiente, você só precisa tornar o script executável e executá-lo:
+
+<code># chmod +x /home/slitaz/chroot_in_env.sh
+# sh /home/slitaz/chroot_in_env.sh
+</code>
+
+==== Ativar a internet ====
+
+Para ter a internet pronta para baixar e instalar alguns pacotes de desenvolvimento, apenas inicie o cliente DHCP na interface correta. Exemplo usando eth1:
+
+<code># udhcpc -i eth1</code>
+
+==== Instalando pacotes ====
+
+Se a internet estiver funcionando, apenas recarregue a lista de pacotes e use o comando //tazpkg get-install// para instalar. Se uma conexão não for possível, você pode baixar os pacotes de outro sistema, copiando-os para o ambiente chroot e instalando-os com o comando //tazpkg install//. Para instalar as ferramentas básicas de compilação:
+
+<code># tazpkg recharge
+# tazpkg get-install slitaz-toolchain
+</code>
+
+Estando o ambiente configurado, você pode compilar aplicações a partir do código-fonte para criar pacotes, scripts de teste etc. O Cookbook (Livro de receitas) deve ajudá-lo nesta parte:
+
+==== Encerrando o ambiente ====
+
+Para encerrar o ambiente chroot, apenas digite //exit//, o script //chroot_in_env.sh// terminará, desmontando os sistemas de arquivos virtuais do Kernel Linux:
+
+<code># exit
+#
+</code>

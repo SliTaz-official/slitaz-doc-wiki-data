@@ -1,0 +1,55 @@
+====== Pacotes ======
+
+===== Tazpkg - Gerenciador de pacotes =====
+
+O SliTaz fornece um pequeno gerenciador de pacotes que pode instalar facilmente mais pacotes no sistema. O Tazpkg é leve e gerencia arquivos //.tazpkg//, tendo sido escrito completamente em SHell script. Funciona bem em conjunto com o shell Ash do Busybox e também com o Bash. Este aplicativo permite a listagem, instalação, remoção, download, extração, empacotamento, busca ou obtenção de informações sobre pacotes disponíveis ou instalados. Pode-se também re-empacotar um pacote já instalado e fazer o upgrade automático de todos os pacotes instalados. No SliTaz digite //tazpkg usage// em um terminal para obter uma lista de todos os comandos possíveis descritos brevemente em inglês. Você também pode ler o manual.
+
+==== Lista de pacotes ====
+
+O Tazpkg permite a listagem de todos os pacotes instalados, divididos por categorias ou pode mostrar uma lista de pacotes disponíveis no mirror. Para mostrar uma única lista com todos os pacotes instalados no sistema digite:
+
+<code>$ tazpkg list</code>
+
+Para mostrar todos as categorias ou pacotes divididos por categoria, deve-se utilizar a opção //cat// ou informar a categoria. Exemplos:
+
+<code>$ tazpkg list cat
+$ tazpkg list base-system
+</code>
+
+O Tazpkg também pode gerar uma bela lista de todos os pacotes instalados em formato xHTML (o padrão é: //installed-packages.html//) localizada no diretório local.
+
+<code>$ tazpkg xhtml-list</code>
+
+Para obter uma listagem simples de todos os pacotes disponíveis no mirror pode-se usar o comando //list-mirror//. Você pode, então, examinar a lista em seu editor favorito ou pela interface do website.
+
+==== Instale pacotes ====
+
+Para instalar novos aplicativos como o GIMP, Abiword, ePDFView, Perl ou Python, deve-se primeiro recarregar a lista de pacotes disponíveis no mirror e só então proceder à instalação. Se as dependências de um pacote não estiverem instaladas, o Tazpkg as instalará para você. Por exemplo, para instalar o Gparted (um editor GTK+ de partições que usa o GNU parted):
+
+<code># tazpkg recharge
+# tazpkg get-install gparted
+</code>
+
+==== Upgrade de pacotes instalados ====
+
+Para manter o sistema atualizado e seguro após a recarga da lista de pacotes, pode-se instalar automaticamente todas as novas versões de pacotes e atualizações de segurança disponíveis no mirror com o comando:
+
+<code># tazpkg upgrade</code>
+
+==== Manual Tazpkg ====
+
+O [[http://hg.slitaz.org/tazpkg/raw-file/tip/doc/tazpkg.pt.html|Manual]] do Tazpkg contem diversas outras informações úteis.
+
+===== Tazwok & o wok =====
+
+Todos os pacotes do SliTaz são construídos com a ferramenta chamada Tazwok e com uma "receita" (arqvuio //receipt//) encontrada no wok. Esta receita provê todas as informações necessárias para a construção de um pacote adequado para instalação pelo Tazpkg, o que inclui variáveis contendo o nome do pacote, fonte em formato tarball, URL de download, etc. Dada uma receita a função //compile_rules// possui todos os comandos necessários para configurar, construir e instalar o pacote em um diretório específico. Após a compilação, o Tazwok executa a função //genpkg_rules// para obter somentes os arquivos necessários ou requeridos e gera um pacote //.tazpkg// (que na verdade é um arquivo //cpio//). No SliTaz você encontra todas as receitas dos pacotes instalados no diretório ///var/lib/tazpkg/installed// - sinta-se livre para examiná-los ou até mesmo usar um como exemplo.
+
+O Tazwok procura, por padrão, por um wok no diretório ///home/slitaz/wok// e coloca os pacotes gerados em ///home/slitaz/packages//. Estes caminhos são definidos pelo arquivo de configuração do Tazwok que pode ser localizado em ///etc/tazwok.conf// ou no diretório atual, o que é útil se você trabalha com múltiplos woks. Agora, se o //slitaz-toolchain// está instalado, você pode começar a criar e construir um pacote que não necessita de muitas dependências. Pequeno exemplo:
+
+<code># tazwok new-tree pkgname --interactive</code>
+
+Assim que uma nova árvore de pacote e uma receita são criadas no wok, você pode editar a receita com seu editor favorito (o Geany fornece código belamente colorizado), modificar as regras de funções, adicionar dependências na variável DEPENDS, se necessário, e tentar sua primeira geração (cook) de pacote:
+
+<code># tazwok cook pkgname</code>
+
+Note que você pode agora navegar pelos pacotes gerados, modificar a receita de geração novamente ou apenas reconstruir o pacote com o comando //tazwok genpkg//. Quando você estiver feliz com seu trabalho você pode instalar o pacote criado com o comando //tazpkg install// e então testar o aplicativo ou biblioteca.

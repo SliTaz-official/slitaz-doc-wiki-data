@@ -1,0 +1,83 @@
+====== Instale os mais recentes drivers não livres da Nvidia ======
+
+===== Leitura Necessária =====
+
+    * Manual (Handbook) - [[http://www.slitaz.org/pt/doc/handbook/x-window.html#xorg|Instalação do Xorg]]
+    * Guia Rápido - [[pt:guides:kernel|Compile seu kernel personalizado]]
+
+===== Preparação =====
+
+    * Baixe o instalador da Nvidia [[http://www.nvidia.com/object/unix.html|website]]. A última versão é 190.53
+    * Instale o servidor gráfico Xorg:
+
+<code># tazpkg get-install xorg-server</code>
+
+    * Instale o pacote //linux-source// e as ferramentas de desenvolvimento. Veja [[http://community.slitaz.org/node/14|aqui]]
+
+<code># tazpkg get-install linux-source</code>
+
+===== Instalação do Driver =====
+
+Para esta parte talvez você precise de papel e caneta para anotar os passos, visto que vamos trabalhar em modo texto sem um servidor gráfico rodando. Quando estiver pronto pressione alt-ctrl-del, o que vai terminar o servidor gráfico e levar à linha de comando.
+
+    * Para configurar o servidor Xorg e copiar o arquivo //xorg.conf// gerado:
+
+<code># Xorg -configure
+# cp /root/xorg.conf.new /etc/X11/xorg.conf
+</code>
+
+    * Preparação do kernel:
+
+<code># cd /usr/src/linux
+# make oldconfig && make prepare
+# make menuconfig (passo não necessário, mas faça caso queira mudar algo)
+# make bzImage
+# make modules 
+# make modules_install
+</code>
+
+    * Agora criaremos o executável e instalaremos o driver da Nvidia. Mude para o diretório do instalador:
+
+<code># chmod +x NVIDIA-Linux-x86-177.80.pkg1.run
+# ./NVIDIA-Linux-x86-177.80.pkg1.run --kernel-source-path=/usr/src/linux
+</code>
+
+    * Copie a imagem de kernel para ///boot//:
+
+<code># cd /usr/src/linux
+# cp arch/x86/boot/bzImage /boot
+</code>
+
+
+===== Reiniciando o sistema =====
+
+    * Reiniciando o sistema para começar pela linha de comando:
+
+<code># reboot (para quem usa o SliTaz instalado em disco rígido)
+# tazusb writefs gzip && reboot (Para quem usa o LiveUSB)
+</code>
+
+Não se esqueça de usar a opção //screen=text// durante a inicialização do sistema (é possível que o sistema já inicie em modo texto mesmo não informando a opção anterior. Se isso ocorrer, apenas pressione alt-ctrl-del novamente).
+
+    * Carregar o módulo da Nvidia:
+
+<code># modprobe -v nvidia</code>
+
+    * Editar o arquivo de configuração do Slim para carregar o servidor gráfico Xorg:
+
+<code># vi /etc/slim.conf</code>
+
+Encontre as linhas referentes ao servidor gráfico e deixe-as assim:
+
+<code>default_xserver     /usr/bin/Xorg
+#default_xserver     /usr/bin/Xvesa
+#xserver_arguments   -ac -shadow dpms +extension Composite -screen 1024x768x24
+</code>
+
+    * Reiniciar o Slim:
+
+<code># /etc/init.d/slim start</code>
+
+Pronto, é só isso!
+
+(Para carregar o módulo da Nvidia a cada boot, adicione-o à variável LOAD_MODULES no arquivo ///etc/rcS.conf//).

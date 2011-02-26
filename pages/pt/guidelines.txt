@@ -1,0 +1,83 @@
+====== Orientações para documentação do SliTaz ======
+Este documento traz orientações para escrever um artigo wiki e os passos para tornar a documentação do Slitaz atualizada.
+
+===== Mutirão da Documentação =====
+
+    - Centralizar toda a documentação em http://doc.slitaz.org 
+    - Completar a migração do Manual (Handbook) e do Livro de receitas (Cookbook)
+    - Tradução do Manual (Handbook) e do Livro de receitas (Cookbook)
+    - Criar links ou traduzir os artigos wiki do [[http://labs.slitaz.org|site do SliTaz Labs]]
+  - Revisar e atualizar o Manual (Handbook) e o Livro de receitas (Cookbook) para a versão 3.0 do Slitaz
+  - Adicionar novos guias. Uma lista de guias sugeridos já está disponível na  [[http://doc.slitaz.org/pt:guides:start| página inicial dos guias]], como uma referência inicial
+  - Revisar e atualizar os guias já existentes
+
+===== Instruções gerais =====
+
+  * **Adicionar novas páginas** : Sinta-se à vontade para adicionar novas páginas no wiki
+    * __Nomenclatura ou hierarquia de documentação__ : A estrutura da hierarquia de documentação está definida em inglês. Por favor, siga esta padronização, mesmo para as versões em português, para criar páginas. Alguns exemplos:
+      * //pt:handbook:start// : Página inicial do Manual (Handbook)
+      * //pt:handbook:desktop// : "Desktop" é uma página dentro da página inicial do Manual. Todas as páginas do Manual devem ser precedidas pela nomenclatura "pt:handbook:"
+      * //pt:guides:faq// : Todas as páginas dos Guias devem ser precedidas pela nomenclatura "pt:guides". Para criar uma página dentro da "Perguntas mais frequentes" (em inglês, "Frequently Asked Questions", daí a sigla FAQ), simplesmente faça <nowiki> [[faq | FAQ]] </nowiki>. Isto irá criar automaticamente uma página com a nomenclatura pt:guides:faq
+      * //Índice// : Links podem ser utilizados para estabelecer uma estrutura hierárquica
+    * __Adicionar imagens__ : Utilize a barra de ferramentas (no modo edição do wiki) para adicionar imagens em páginas relevantes
+  * **Apagar** : Simplesmente remova todo o conteúdo de uma página para apagá-la
+  * **Revisão** :  Cada página deve conter uma "Seção de revisão". Por exemplo, [[#formatação|veja o final desta página]]. Estas seções são somente tabelas do wiki. Sinta-se à vontade para editar estas tabelas e/ou adicionar linhas, traduzi-las para o seu idioma e também copiar e colar a "Seção de revisão" desta página para qualquer outra página do wiki e editá-la de acordo com a página destino
+
+===== Layout da páginas  =====
+
+As páginas de documentação do SliTaz já trazem alguns estilos predefinidos. Tomando como base estes estilos, nós podemos construir um layout consistente.
+
+=== FAQ - Perguntas mais frequentes ===
+
+Estas instruções são válidas somente para uma página:  [[pt:guides:faq|FAQ - Perguntas mais frequentes]].
+
+  - **Mensagem de erro** - nomeie uma FAQ individual com a descrição mais comum, normalmente a mensagem de erro que é exibida.
+  - **Sintomas** - uma breve descrição do que os usuários devem encontrar quando este FAQ funcionar. Talvez haja mais do que um sintoma. Utilizar a formatação correta para descrever possíveis mensagens na tela, combinações de teclas etc. Uma busca na internet deve resolver o assunto.
+  - **Explicação** - uma explicação não muito técnica da mensagem de erro. Os usuários devem ser capazes de entender o problema e como resolvê-lo de uma forma de alto nível.
+  - **Solução** - como resolver tecnicamente o problema. Incluir breves descrições dos passos que necessitarem de mais do que linhas de comando; isto é importante para entender o que o usuário precisa fazer. Problemas individuais têm soluções ligeiramente diferentes -- utilize vários níveis e marcadores para organizar o conteúdo.
+
+
+=== Guias ===
+
+Estas instruções são para as páginas com nomenclatura <lang>:guides:<tópico>. Elas descrevem o processo para fazer algo funcionar.
+
+  - **Introdução** - Resume o artigo
+  - **Modo gráfico** 
+     * Instruções - Como utilizar uma ferramenta/programa com interface gráfica (se existir) 
+     * Capturas de tela (screenshots) - Uma imagem vale mais que mil palavras
+  - **Modo manual**
+     * Instalação - Define os pacotes necessários e como instalá-los. 
+     * Configuração - Explica como configurar arquivos para uso adequado dos pacotes 
+     * Resumo - Se possível, resumir todos os comandos em um único script para localização de defeitos
+  - **Exemplos e dicas** - Adicione alguns exemplos e dicas avançadas
+  - **FAQ/Localização de defeitos** - Algumas instruções do tipo "faça você mesmo" ou uma subseção sobre problemas, sintomas, soluções, notas ou um link para uma postagem do fórum. Criar links para as FAQ, se respondidas.
+  - **Referências** - Qualquer bom material de referência na internet. Se não houver nenhum, considere escrever uma mensagem requisitando isso!
+
+=== Manual (Handbook) ===
+
+Estas instruções são para as páginas com nomenclatura <lang>:handbook:<tópico>. Elas trazem um resumo do que o SliTaz oferece para um tópico em particular. São resumos e descrições, e não são guias, então devem conter poucas e simples instruções sobre como iniciar e utilizar o sistema.
+
+  - **Sinopse** - descreve o conteúdo da página, em termos de abrangência.
+  - **Tópico** - título do assunto que o usuário deseja consultar, por exemplo, "Processamento de imagens" ou "Temas para área de trabalho"
+  - **Corpo do texto** - um resumo do tópico, com links para os Guias relevantes ou páginas externas da internet.
+  - **Dicas** (opcional) - qualquer problema ou dificuldade que o usuário possa enfrentar. Criar links para as "FAQ - Perguntas mais frequentes", se já respondidas, para tópicos no fórum, para páginas externas na internet que resolvam o problema etc.
+
+===== Formatação =====
+
+Por favor, utilize a formatação correta sempre que possível. Isto proporciona melhor legibilidade e frequentemente diminui ambiguidades entre comandos que deveriam ser inseridos no modo de edição (input) vs. o modo de exibição (output) etc.
+
+  * Aprenda a sintaxe de um wiki [[http://doc.slitaz.org/pt:wiki:syntax| aqui]]. Para testar a sintaxe wiki, utilize a página do  [[http://doc.slitaz.org/en:guides:playground| Playground]]
+
+---- 
+\\
+^  Seção de revisão das páginas  ^^ 
+|Qualidade| Boa  |
+|Revisão | Precisa de revisão  |
+|Prioridade | Média |
+|Problemas| Adicione um [[http://forum.slitaz.org|link para um tópico no fórum]]|
+|:::     | OU adicione um [[http://labs.slitaz.org/issues |link para um tópico no SliTaz Labs]]|
+|Como melhorar| Faça sugestões breves, por ex.,|
+|::: | [[pt:guides:start | Adicione link]]|
+|::: | Adicione novas linhas como essas ;-) |
+\\
+----

@@ -1,0 +1,66 @@
+====== Internet ======
+
+===== Mozilla Firefox - Navegador Web =====
+
+O SliTaz orgulha-se em fornecer o Mozilla Firefox, um dos melhores navegadores web do mundo. Ele é seguro, rápido, atende aos padrões e é customizável por meio de um sistema de plugins. Para executar o Firefox no SliTaz simplesmente selecione-o no menu ---> Internet --> Mozilla Firefox. As configurações do navegador são armazenadas no diretório oculto //~/.mozilla/firefox//.
+
+Dica: quando você combina a utilização do LiveCD com uma mídia USB, você pode manter seus bookmarks e plugins aonde quer que for.
+
+===== Midori - Um Leve Navegador Web =====
+
+O Midori é um navegador web leve que oferece rápida renderização de páginas graças ao motor de renderização Webkit. É uma séria alternativa ao Firefox para sistemas de poucos recursos ou para aqueles que buscam programas rápidos e leves. Ele Suporta a maioria dos padrões web, folhas de estilo CSS e imagens. É configurável por uma pequena interface gráfica e, quando instalado, localiza-se no menu "Internet".
+
+===== Retawq - Navegador web em modo texto =====
+
+Todas as versões do SliTaz fornecem o navegador web em modo texto Retawq. Você pode executar 'retawq' a partir do console, de um terminal gráfico ou no X pelo menu ---> Internet --> Retawq. Para iniciar o retawq de um terminal, digite (com ou sem uma url):
+
+<code>$ retawq
+$ retawq http://www.slitaz.org/pt
+</code>
+
+Os arquivos de configuração são armazenados em //~/.retawq// e se pode editá-los com um editor de textos. Ao se digitar a tecla <b> os bookmarks (bookmarks.html) serão mostrados e a tecla <h> mostra a página inicial.
+
+===== Links - Navegador web em modo gráfico e texto =====
+
+O Links foi o primeiro navegador web em modo gráfico no LiveCD SliTaz. Ele foi substituído pelo Firefox, mas sempre estará disponível como um pacote instalável.
+
+<code># tazpkg get-install links</code>
+
+Links é um navegador web tanto em modo gráfico quanto em modo texto. Para usar o modo gráfico, utilize a opção //-g//.
+
+<code>$ links -g &
+$ links -g http://www.slitaz.org/pt &
+$ links
+</code>
+
+Os arquivos de configuração são armazenados em //~/.links//, porém recomenda-se não modificá-los. Entretanto, o Links fornece uma interface de configuração por meio de sua barra de ferramentas no topo, em que se pode configurar linguagem, bookmarks, etc. Quando há mudança de alguma opção, deve-se salvá-la acessando-se o menu --> Configuration --> Save options.
+
+===== LostIRC - Cliente IRC =====
+
+O LostIRC é um simples e ao mesmo tempo poderoso cliente IRC que suporta múltiplos servidores e adesão automática a servidores/canais. Os arquivos de configuração encontram-se em //~/.lostirc//. Simplesmente selecione no menu --> Internet --> LostIRC. A documentação no website contém diversas informações úteis.
+
+**Canal SliTaz**: irc.toile-libre.org / #slitaz
+
+===== Ghost In The Mail - Cliente de e-mail =====
+
+Para enviar mensagens rapidamente sem a necessidade de configurar uma conta de e-mails, pode-se usar o Ghost In The Mail (gitmail). Este cliente de e-mail minimalista oferece uma interface GTK simples e suporta anexos. Permite a você enviar mensagens usando o protocolo SMTP de sua conta de e-mails existente. Você encontra o gitmail no menu --> Internet --> Ghost In The Mail.
+
+===== Sylpheed - Cliente de Email =====
+
+Se a preferência for utilizar um cliente de email com vários recursos, pode-se instalar o Sylpheed. Ele é simples, confiável e fácil de usar, oferecendo recursos poderosos de busca e filtros, assim como controle de emails não desejados.
+
+<code># tazpkg get-install sylpheed</code>
+
+===== Transmission - Leve cliente BitTorrent =====
+
+O Transmission é um cliente BitTorrent em GTK+ que é rápido, leve e fácil de usar. Oferece a opção 'Preferences' que permite limitar a taxa de transferência de uploas/downloads, especificar a porta, fazer o download de pastas, etc. Pode-se encontrá-lo pelo menu --> Internet --> Transmission. Website do projeto: http://transmission.m0k.org/
+
+===== gFTP - Simples cliente FTP =====
+
+O aplicativo gFTP é um rápido e simples cliente para transferências FTP. Ele pode reiniciar transferências interrompidas, gerenciar favoritos (bookmarks) e proxies FTP ou HTTP. Além disso suporta "drag and drop" (arrastar) arquivos entre janelas, faz diversas transferências ao mesmo tempo, compara janelas, armazena senhas e pode até mesmo definir aplicativos externos para visualização e edição de arquivos. No SliTaz, o gFTP é encontrado no menu --> Internet --> gFTP.
+
+===== gtk-gnutella - Cliente P2P =====
+
+O gtk-gnutella é um aplicativo para compartilhamento de arquivos que utiliza a rede P2P Gnutella. É escrito em C e requer muito menos recursos do que outros clientes do mesmo tipo. Suporta o uso de buscas e filtros, recursos para fazer o download de arquivos grandes e controle de banda. Para instalar:
+
+<code># tazpkg get-install gtk-gnutella</code>

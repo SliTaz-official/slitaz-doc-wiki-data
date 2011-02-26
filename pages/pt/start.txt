@@ -1,0 +1,33 @@
+~~NOTOC~~
+
+====== Documentação em Português ======
+
+Este site apresenta a **documentação oficial** e **contribuíções da comunidade** do SliTaz GNU/Linux.
+
+Acreditamos que os usuários do SliTaz ao redor do mundo desejam compartilhar seu conhecimento e suas experiências de forma escrita. Esta é uma wiki aberta que qualquer pessoa pode contribuir para sua construção. Somos muito gratos àqueles que queiram ajudar a fazer do SliTaz uma distribuição ainda mais fácil de utilizar. Seja bem-vindo!
+
+<note>Estamos organizando um **Mutirão da Documentação**. Caso queira colaborar criando páginas, traduzindo ou revisando as já existentes, consulte: [[pt:guides:contributor|contribuindo para o SliTaz]], [[pt:guidelines|orientações para documentação]] e [[pt:wiki:syntax|sintaxe wiki]].</note>
+
+===== Newsletter =====
+
+  * [[en:newsletter:start|Newsletter]] - Boletim informativo mensal do SliTaz, notícias, dicas e truques (em inglês).
+
+===== Guias =====
+
+  * [[pt:guides:start|Guias]] - Guias curtos e concisos, criados pela comunidade do SliTaz.
+  * [[pt:references:start|Referências]] - Materiais diversos sobre Linux.
+
+===== Livros =====
+
+  * [[pt:handbook:start|Handbook]] - O Manual do SliTaz. Utilização do LiveCD, gerenciamento de pacotes, administração de rede ou do sistema e outras instruções específicas. Este manual é um esforço da comunidade para fornecer uma documentação de alta qualidade para os usuários do SliTaz. Ele ajuda nos primeiros passos na utilização da distribuição e mostra como configurar o sistema para atingir as necessidades e preferências de cada um. Recomendamos que este documento seja lido, aprendido e consultado antes de se recorrer a outras documentações.
+  * [[pt:Cookbook:start|Cookbook]] - Livro de Receitas do SliTaz. Informações sobre o gerenciamento, operação e desenvolvimento da distribuição. Instruções de como utilizar o wok e os arquivos de criação de pacotes, as receitas (receipts), explicações sobre os scripts de boot, arquivos do rootcd (raiz do cd) e várias ferramentas.
+
+===== Manuais =====
+
+Todos os manuais relacionados ao SliTaz são instalados junto com a distribuição e também podem ser consultados online via a interface web do Mercurial.
+
+  * [[http://hg.slitaz.org/tazpkg/raw-file/tip/doc/tazpkg.pt.html|Manual do Tazpkg]] - Gerenciador de Pacotes do SliTaz.
+  * [[http://hg.slitaz.org/tazlito/raw-file/tip/doc/tazlito.pt.html|Manual do Tazlito]] - Utilitário de LiveCD do SliTaz.
+  * [[http://hg.slitaz.org/tazusb/raw-file/tip/doc/tazusb.pt.html|Manual do TazUSB]] - Utilitário de LiveUSB do SliTaz.
+  * [[http://hg.slitaz.org/tazwok/raw-file/tip/doc/tazwok.pt.html|Manual do Tazwok]] - Criador de Pacotes do SliTaz.
+  * [[http://hg.slitaz.org/slitaz-tools/raw-file/tip/doc/burnbox.pt.html|Manual do Burnbox]]- Utilitário de Gravação de CD/DVD do SliTaz

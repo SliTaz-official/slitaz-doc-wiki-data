@@ -1,0 +1,57 @@
+====== PCLisTaz ======
+\\
+A razão dessa página existir é o fato de termos um local para conhecimento público sobre o potencial da instalação do SliTaz e suas respectivas configurações de Hardware Suportado.
+
+===== Padrão =====
+
+Se faz necessário seguir o padrão inicial abaixo em forma de Tabela, para garantir uma melhor visualização de todos o visitantes :
+
+
+
+^           Configuração xxxxxxxxxxx                                                           ^^
+^ Configuração PC      | velocidade, memoria, placa mãe, etc.                                   |
+^ Versão do SliTaz     | 3.0                                                                    |
+^ Tempo de instalação  | X minuto e XX segundos                                                 |
+^ Desempenho           | Lento / Médio / Rápido. Travando : Sim / Não. Possível descrição.      |
+^ Problemas            | Sim / Não. Possível descrição.                                         |
+
+
+
+
+===== Dúvidas =====
+Caso de dúvidas sobre a formatação de seu texto consulte a página de sintax .[[http://doc.slitaz.org/pt:wiki:syntax|{{wiki:dokuwiki-128.png?25}}]]
+
+
+**Faça já sua contribuição !!!**
+\\
+\\
+\\
+<code></code>
+====== Início da lista feita por Usuários ======
+
+\\
+\\
+^           Configuração 00000000000                                                           ^^
+^ Configuração PC      | AMD Duron 850 Mhz, 256Mb ram DIM, placa mãe pc-chips.                  |
+^ Versão do SliTaz     | 3.0                                                                    |
+^ Tempo de instalação  | 1 minuto e 12 segundos                                                 |
+^ Desempenho           | Médio. Indo para melhor, se aumentar a capacidade de ram, parece que vai ficar excelente. Não está travando, até então.|
+^ Problemas            | Sim. Quando adicionei mais um usuário (modo gráfico), não iniciou o Xserver (aquele que inicia a parte gráfica) com esse usuário, só com funciona com o usuário padrão da instalação. Talvez possa ser alguma configuração não criada " /home/usuario/. (arquivos ocultos de configurações) ".|
+
+^           Configuração 00000000001                                                           ^^
+^ Configuração PC      | Intel Pentium III 501 Mhz, 128Mb ram DIM, placa mãe pc-chips.          |
+^ Versão do SliTaz     | 3.0                                                                    |
+^ Tempo de instalação  | 5 minutos (aproximadamente)                                            |
+^ Desempenho           | Lento. Trava algumas vezes, mesmo colocando mais ram. Na maior parte do tempo os programas demoram a abrir e funcionam perfeitamente (com a limitação da velocidade).|
+^ Problemas            | Sim. Na instalação de novas aplicações ou uso de tocadores multimídia algumas vezes é necessário resetar, pois o micro para de responder.|
+
+^           Configuração 00000000002                                                           ^^
+^ Configuração PC      | AMD Duron 1200, memória 256 mb, placa mãe pcchips com vídeo onboard SiS.|
+^ Versão do SliTaz     | 3.0                                                                    |
+^ Tempo de instalação  | 2 minutos                                                              |
+^ Desempenho           | Bom desempenho, inclusive aceleração gráfica usando o driver SiS do Xorg. Fica lento com Firefox, por isso uso o Midori.|
+^ Problemas            | Nenhum relacionado à distribuição, alguma lentidão ocorre devido ao hardware obsoleto.|
+
+\\
+* Edição : //Copie o código da tabela acima e essa frase e cole abaixo, e adicione suas novas informações, apague essa frase. Preserve este texto para o próximo usuário e assim sucessivamente. Seja ético, preserve o trabalho anterior. Grato !//
+

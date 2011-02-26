@@ -1,0 +1,56 @@
+====== "Sexy Desktop": Aplicativos e configurações ======
+
+Este guia fornece informações sobre a criação de um desktop bonito, feito com aplicativos encontrados nos repositórios do SliTaz e por configurações e truques diversos.
+
+===== Desktop com o Wbar e o Tint2 =====
+
+Primeiro vamos instalar os pacotes a serem utilizados:
+
+    * wbar
+    * tint2
+    * nitrogen
+    * cairo-clock
+
+Temos que criar, modificar ou configurar 3 arquivos no diretório pessoal (home) do usuário:
+
+    * //~/.wbar//
+    * //~/.config/tint2/tint2rc//
+    * //~/.config/openbox/autostart.sh//
+
+Os arquivos de configuração do //Wbar// e do //Tint2// não existem se estes aplicativos nunca foram executados, porém o script de configuração de aplicativos auto iniciados do Openbox existe, visto que ele é o Gerenciador de Janelas padrão. Salve os arquivos anexos logo abaixo em seus respectivos diretórios.
+
+O relógio análogo do cairo necessita da que a extensão "Composite" esteja ativada e que o gerenciador de composição de desktop esteja rodando (ambos estão ativados por padrão no SliTaz). Se você usar o Xorg você deve editar o arquivo //xorg.conf//. O gerenciador de composição que usamos no SliTaz chama-se //xcompmgr//, pois é leve e possui algumas capacidades como sombras, etc.
+
+Para executar automaticamente todos os aplicativos no início de uma sessão gráfica deve-se editar o arquivo de configuração de aplicativos auto iniciados do Openbox com o seu editor de texto favorito ou usando o aplicativo gráfico //($desktopbox autostart)// para adicionar as seguintes linhas:
+
+<code># Start the Freedesktop standard menu panel.
+#lxpanel &
+
+# Tint2 - Simple and clean panel.
+tint2 &
+
+# Desktop Wallpaper with Nitrogen.
+nitrogen --restore &
+
+# Desktop effects composer (xcompmgr -c -r 10 &).
+xcompmgr &
+
+# Wbar icons panel.
+(sleep 4 && wbar -above-desk -bpress -pos top center -isize 24 -jumpf 0 -zoomf 2.0 -balfa 0) &
+
+# Nice clock for the desktop.
+(sleep 2 && cairo-clock) &
+</code>
+
+Certifique-se de comentar a linha referente ao lxpanel e modificar as preferências do PCmanFM para permitir que o Nitrogen gerencie o plano de fundo do desktop. Para escolher uma imagem:
+
+<code>$ nitrogen /usr/share/images</code>
+
+Agora basta sair e reiniciar a sessão para ativar o seu desktop customizado. Ou então matar os processos atuais e reiniciar os aplicativos:
+
+<code>$ killall lxpanel
+$ tint2 &
+$ wbar -above-desk -bpress -pos top center -isize 24 -jumpf 0 -zoomf 2.0 -balfa 0 &
+</code>
+
+{{:en:guides:image:wbar-tint2-desktop.preview.png?100|Clique para ver a imagem}}

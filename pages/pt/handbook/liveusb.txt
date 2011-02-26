@@ -1,0 +1,29 @@
+====== Mídia LiveUSB ======
+
+O utilitário Tazusb cria, com apenas alguns comandos, mídias usb bootáveis. Pode, também, comprimir e fazer backup de todo um sistema de arquivos para a mídia, preservando assim todas as modificações para uso posterior. Digite //tazusb// para uma lista completa de comandos ou leia o [[http://hg.slitaz.org/tazusb/raw-file/tip/doc/tazusb.pt.html|Manual TazUSB]].
+
+===== Crie sua própria mídia LiveUSB =====
+
+Para gerar uma mídia LiveUSB você precisa, primeiramente, logar-se como root com o comando //su// e localizar seu dispositivo de armazenamento usb, digitando no terminal:
+
+<code># fdisk -l     # normalmente /dev/sda1</code>
+
+Então formate e defina uma nome para o dispositivo: (cuidado: isto irá apagar todos os dados existentes, certifique-se de que você tenha especificado o dispositivo correto):
+
+<code># tazusb format /dev/sda1</code>
+
+Finalmente crie a mídia USB com o comando:
+
+<code># tazusb gen-liveusb /dev/sda1</code>
+
+Seguidos estes passos, você pode iniciar o SliTaz a partir da mídia usb (desde que a bios de seu computador ofereça esta opção).
+
+===== Manutenção das configurações do sistema =====
+
+Ao término de sua sessão LiveUSB, certifique-se de que os pacotes instalados e configurações modificadas sejam mantidas, criando um backup de todo o sistema de arquivos:
+
+<code># tazusb writefs gzip</code>
+
+Este comando comprime e faz backup de todos os arquivos do sistema para o arquivo 'rootfs.gz', que será carregado no próximo boot.
+
+Se algo der errado durante o processo de backup, você pode simplesmente retornar para o sistema de arquivos utilizado anteriomente, digitando 'previous' no prompt de boot. Backups antigos são nomeados 'rootfs.gz.dataehoraunix' e podem ser deletados de forma segura de sua localização - na pasta ///home//.

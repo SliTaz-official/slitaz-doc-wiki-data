@@ -1,0 +1,33 @@
+====== Geração de Variantes ======
+
+===== Tazlito - Ferramenta Live do SliTaz =====
+
+O Tazlito é uma ferramenta que ajuda a gerar e configurar uma imagem ISO do LiveCD do SliTaz. Pode-se criar uma distribuição personalizada em dois comandos a partir de uma lista de pacotes e de uma variante (flavor), extrair uma ISO existente para modificá-la, criar um novo initramfs e/ou uma nova ISO. A maioria dos comandos devem ser executados como root, exceto o de estado e o de manipulação do arquivo de configuração. Assim como outras ferramentas do SliTaz, pode-se usar o comando tazlito usage em um terminal para obter uma lista de todos os comandos com uma curta descrição em inglês.
+
+===== Obtenha uma variante (flavor) =====
+
+O LiveCD do SliTaz pode ser facilmente reconstruido usando o suporte a variantes (flavors) do Tazlito. Uma variante do LiveCD pode ser reconstruída a partir do LiveCD ou da RAM ou a partir de um sistema instalado no HD. Para reconstruir o SliTaz a partir do LiveCD são necessários ao menos 256 MB de memória RAM e recomenda-se que o arquivo gerado seja guardado numa mídia persistente (o HD, uma mídia USB, etc). Para iniciar deve-se obter um arquivo flavor a partir de um mirror do SliTaz: abre-se o Xterm, torna-se administrador root e obtem-se o sistema básico padrão:
+
+<code># tazlito get-flavor core</code>
+
+===== Gerar uma distribuição personalizada =====
+
+O comando //get-flavor// irá baixar uma variante básica, fornecendo uma descrição e uma lista de pacotes no diretório atual com alguns arquivos adicionais em ///home/slitaz/distro/addfiles// (JWM menu, wallpapers, hacker files). Pode-se, então, adicionar ou remover pacotes da lista (distro-packages.list), modificar os arquivos de configuração (tazlito.conf) e, opcionalmente, modificar os arquivos adicionais. Então, para gerar uma imagem ISO de LiveCD:
+
+<code># tazlito gen-distro</code>
+
+A imagem ISO do LiveCd, o sistema de arquivos raiz (rootfs) e o conteúdo do cd (rootcd) estão em ///home/slitaz/distro//. Todos os pacotes reempacotados ou baixados são armazenados, por padrão, em ///home/slitaz/packages//. Pode-se criar um ambiente chroot no rootfs para preconfigurar o sistema, adicionar mais arquivos no diretório rootcd e adicionar usuários, devendo-se reconstruir o initramfs e a imagem ISO para gerar um novo LiveCD:
+
+<code># tazlito gen-initiso</code>
+
+===== Gravar a imagem ISO e gerar um arquivo flavor =====
+
+O Tazlito pode gravar o LiveCD e/ou criar um arquivo flavor para manter as modificações atuais:
+
+<code># tazlito burn-iso
+# tazlito gen-flavor
+</code>
+
+===== Instruções detalhadas =====
+
+Para maiores informações, consulte a página do manual [[pt:handbook:genlivecd|"Geração de uma variante do LiveCD"]].

@@ -1,0 +1,45 @@
+====== Shell Seguro usando o Dropbear ======
+
+Controle e administre remotamente com o servidor de shell seguro (SSH) Dropbear. Este aplicativo é um pequeno cliente/servidor SSH que suporta SSH 2. É compatível com OpenSSH e usa o arquivo //~/.ssh/authorized_keys// para a administração de chaves públicas. O Dropbear também provê sua própria versão do comando //scp//, permitindo-lhe copiar arquivos entre máquinas de uma maneira segura.
+
+Website do projeto: http://matt.ucc.asn.au/dropbear/dropbear.html
+
+===== Conectando a um host remoto com o dbclient =====
+
+Os arquivos de configuração para o cliente SSH ficam situados dentro do diretório //~/.ssh// de cada usuário, e nele encontram-se os arquivos //authorized_keys// e //known_hosts//. O diretório //~/.ssh// e o arquivo //known_hosts// são criados automaticamente na primeira vez você executa o cliente Dropbear (dbclient).
+
+Conectar a um host remoto utilizando o usuário e nome de máquina:
+
+<code>$ dbclient usuário@máquina.org</code>
+
+Você pode conectar também usando o endereço IP máquina:
+
+<code>$ dbclient usuário@192.168.0.2</code>
+
+===== Transferência de arquivos remotos com o scp =====
+
+Para copiar um arquivo de um computador para outro, o scp pode ser usado dos seguintes modos. 
+
+Para copiar um arquivo chamado //page.html// para um diretório remoto do usuário (não esqueça o //:// depois do nome de máquina ou endereço IP):
+
+<code>$ scp page.html usuário@máquina.org:caminho/para/diretório/remoto</code>
+
+Copiar um arquivo de uma máquina remota para sua máquina local:
+
+<code>$ scp usuário@máquina.org:caminho/do/diretório/remoto/page.html /caminho/para/diretório/local</code>
+
+===== Gerando chaves rsa/dss com o dropbearkey =====
+
+O Dropbear provê o comando //dropbearkey// para gerar as chaves protegidas //rsa// e //dss//. Note que quando você iniciar o servidor pela primeira vez, serão geradas chaves seguras automaticamente se elas já não existirem. Você pode usar o dropbearkey com os seguintes argumentos:
+
+<code># dropbearkey -t rsa -f /etc/dropbear/dropbear_rsa_host_key
+# dropbearkey -t dss -f /etc/dropbear/dropbear_dss_host_key
+</code>
+
+===== Iniciar, parar e reiniciar o servidor SSH =====
+
+Por padrão o SliTaz não iniciará o servidor SSH no boot. Para ser iniciado automaticamente, o dropbear deve ser acrescentado à variável RUN_DAEMONS no arquivo ///etc/rcS.conf//. Para iniciar, parar ou reiniciar o servidor SSH, use os comandos seguintes: ///etc/init.d/dropbear// [start|stop|restart]. Exemplo para iniciar o servidor:
+
+<code># /etc/init.d/dropbear start</code>
+
+Note que o servidor suporta várias opções quando iniciado. Para mudar os valores padrão, simplesmente modifique o arquivo de configuração dos daemons (/etc/daemons.conf).

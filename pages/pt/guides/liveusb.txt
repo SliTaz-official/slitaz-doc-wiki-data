@@ -1,0 +1,20 @@
+====== LiveUSB ======
+
+===== Usando o SliTaz =====
+
+Faça o download de uma imagem iso do SliTaz. Grave-a em CD e execute-a num computador. Abra o terminal e digite o seguinte (se necessário, mude a partição de ///dev/sda// para outra que reflita a localização de sua mídia USB):
+
+<code>su
+root
+tazusb format
+</code>
+
+Neste ponto, entre com a partição como /dev/sda1 ou digite 'list' para listar as partições de mídia USB existentes. Aguarde. Continuando:
+
+<code>tazusb gen-liveusb /dev/sda1</code>
+
+Aguarde e então reinicie o sistema já utilizando a mídia LiveUSB.
+
+===== Usando o Windows =====
+
+Uma instalação LiveUSB ou frugal pode ser feita usando o [[http://unetbootin.sourceforge.net/|UNetbootin]]. Veja [[http://doc.slitaz.org/pt:guides:frugal#metodo-automatizado-em-modo-grafico-usando-o-unetbootin|como usar o UNetbootin]].

@@ -1,0 +1,24 @@
+====== Instalação do TOR ======
+
+<code>#tazpkg get-install tor
+#tazpkg get-install privoxy
+#echo 'forward-socks4a /        127.0.0.1:9050   .' >> /etc/privoxy/config
+#sed -r '/RUN_DAEMONS/s/(" *)$/ privoxy\1/' -i /etc/rcS.conf 
+#echo 'tor > /dev/tty2 & ' >> /etc/init.d/local.sh
+</code>
+
+Usa bridges para fazer o tor funcionar se as opções acima não derem certo:
+
+<code>
+#echo '
+UseBridges 1
+UpdateBridgesFromAuthority 1
+bridge 66.160.141.98:6085 ' >> /etc/tor/torrc
+</code>
+===== Reinicie o sistema e faça o login =====
+
+Faça o login no tty2 (Ctrl+Alt+F2 acessa o tty2, Ctrl+Alt+F7 acessa o desktop novamente) para checar se tudo funciona ou não, sendo mostrada a mensagem //Success...// em caso de sucesso.
+
+Instale então o plugin para Firefox [[http://www.torproject.org/torbutton/|torbutton]].
+
+Agora você pode navegar na internet anonimamente.

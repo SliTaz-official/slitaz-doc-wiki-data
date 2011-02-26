@@ -1,0 +1,33 @@
+====== Gráficos ======
+
+===== Gcolor2 - Selecione e gerencie cores =====
+
+O Gcolor2 é uma ferramenta para selecionar e manter uma paleta de cores. Pode ser útil para a criação de temas para o SliTaz, por exemplo. Pode ser encontrado na categoria "Gráficos" ou ser executado pela linha de comando:
+
+<code>$ gcolor2 &</code>
+
+===== Gimp - Manipule e crie imagens =====
+
+O GIMP (GNU Image Manipulation) é um programa que pode manipular imagens em um nível muito alto de qualidade. Oferece tudo aquilo que se espera de um aplicativo que processa imagens, ou seja, camadas, filtros, adição de funcionalidades por meio de scripts, etc. o GIMP suporta um grande número de formatos de imagem, tais como: PNG, JPEG, XPM, PPM, TIFF, PostScript, PSD, além de oferecer seu próprio formato de imagens (o XCF). Para instalá-lo:
+
+<code># tazpkg get-install gimp</code>
+
+O GIMP é escalonável e pode ser configurado através da interface principal - seus arquivos de configuração, pincéis e scripts pessoais estão localizados no diretório //~/.gimp-2.2//.
+
+===== GQview - Gerenciador de imagens =====
+
+O GQview é muito rápido e leve e permite a você navegar rapidamente por imagens pela seleção de arquivos em uma árvore de diretórios por um simples clique do mouse. Suporta slideshows, rotação de imagens, adição de palavras-chave e tags, "drag and drop" (arrastar) e pode exibir informações EXIF. Também permite a edição de imagens por meio de um programa de sua escolha (Mtpaint ou o GIMP, por exemplo). Para instalar o GQview:
+
+<code># tazpkg get-install gqview</code>
+
+===== jpeg - Ferramentas JPEG em linha de comando =====
+
+Para permitir o uso de aplicativos que utilizam JPEG para funcionar, bibliotecas interligadas devem ser fornecidas pelo pacote jpeg-6b, que contém também alguns pequenos utilitários que podem ser usados pela linha de comando como o //cjpeg// e o //djpeg//. Para modificar imagens JPEG pela linha de comando pode-se usar o //jpegtran//, instalado por padrão no SliTaz. Este utilitário permite a rotação de imagens por meio da opção //-rotate//. Para encontrar todas as opções disponíveis para estas ferramentas, utilize-se da opção //--help//. Exemplo:
+
+<code>$ cjpeg --help</code>
+
+===== mtPaint - Processamento de imagens =====
+
+O mtPaint é um aplicativo para a criação e retoque de imagens em formato PNG, TIFF, XPM e BMP. Oferece muitas funções que são simples, leves e rápidas, como captura de tela (screenshot), a qual pode ser acessada pelo menu --> Gráficos --> Captura de Screenshots, ou pelo terminal:
+
+<code>$ mtpaint -s</code>

@@ -1,0 +1,80 @@
+====== Conspy : aplicativo screen leve ou VNC ======
+
+O SliTaz fornece o //conspy// (10Kb) para acessar remotamente consoles virtuais Linux. Veja http://ace-host.stuart.id.au/russell/files/conspy/
+
+A distribuição abre 6 consoles virtuais que podem ser acessados usando Ctrl-Alt-F1 até Ctrl-Alt-F6. Você pode conectar ao console 1 usando //conspy 1// e ao console n usando //conspy n// ou conectar ao console ativo atualmente usando //conspy// (somente usuário root).
+
+Para sair do conspy (e do console virtual) pressione a tecla //ESC// 3 vezes rapidamente.
+
+===== Conspy como screen (gerenciador de sessão) =====
+
+O Linux suporta até 63 consoles virtuais. Pode-se, então, abrir 62 duas sessões (63 - Console 7 que roda o ambiente gráfico). Seis sessões já são abertas pelo SliTaz por padrão. 
+Você pode abrir um novo console / nova sessão (digamos, console 28) usando o comando //openvt -c 28 /bin/login// ou //openvt -c 28 /bin/ash//.
+Pode-se fechar este console usando o comando //deallocvt 28//.
+
+Examplo:
+
+<code>home$ ssh tux@slitazbox
+box$ su
+box# openvt -c 28 /bin/ash
+box# conspy 28
+# some commands
+...
+# <ESC><ESC><ESC>
+box# exit
+box$ exit
+</code>
+
+Depois:
+
+<code>home$ ssh tux@slitazbox
+box$ su
+box# conspy 28
+# more commands
+...
+# <ESC><ESC><ESC> 
+box# exit
+box$ exit
+</code>
+
+Para fechar a sessão:
+<code>home$ ssh tux@slitazbox
+box$ su
+box# conspy 28
+# exit
+<ESC><ESC><ESC>
+box# deallocvt 28
+box# exit
+box$ exit
+</code>
+
+Se você preferir usar o screen, veja http://www.gnu.org/software/screen:
+
+<code># tazpkg get-install screen
+$ screen -S MySession
+</code>
+===== Conspy como VNC (console compartilhado) =====
+
+Você pode compartilhar consoles virtuais entre dois ou mais usuários. Digamos que o UsuárioRemoto quer mostrar alguns comando ao UsuárioSlitaz usando uma MáquinaSlitaz.
+O UsuárioRemoto seleciona o console do UsuárioSlitaz usando o comando //chvt//:
+
+<code>home$ ssh SlitazBox
+SlitazBox$ su
+SlitazBox# chvt 1
+SlitazBox# conspy 1
+</code>
+
+Agora ambos os usuários estão no mesmo terminal. Um terceiro usuário também pode usar o comando //conspy 1//.
+
+Se você preferir compartilhar o ambiente gráfico, instale os pacotes //x11vnc// (Servidor VNC) e //x11vnc-extra// (Cliente VNC em java). Veja http://www.karlrunge.com/x11vnc/:
+
+<code>SlitazBox# tazpkg get-install x11vnc
+SlitazBox# tazpkg get-install x11vnc-extra
+SlitazBox# /etc/init.d/x11vnc start
+</code>
+
+<code>home$ su
+home# get-java-jre
+home# exit
+home$ firefox http://SlitazBox:5800/ultrasigned.vnc
+</code>

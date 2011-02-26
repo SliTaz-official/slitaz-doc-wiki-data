@@ -1,0 +1,238 @@
+====== Configuração de Redes Wifi - Método Fácil ======
+
+===== Introdução =====
+
+Para instalar suporte a redes wifi no Linux, há dois métodos possíveis:
+
+    * Usar o módulo de kernel específico para sua placa de rede wifi
+    * Usar o módulo Ndiswrapper para instalar um driver do Windows
+
+Aqui vamos escrever sobre a utilização do módulo específico do kernel para sua placa (a utilização do Ndiswrapper será discutida em outra página desta wiki).
+
+Para usar um módulo específico, você precisa:
+
+    - Conhecer o modelo de sua placa wifi
+    - Saber qual módulo sua placa usa
+    - Instalar este módulo e, possivelmente, um firmware
+    - Configurar a conexão ao ponto de acesso
+    - Conectar à web
+
+O Netbox é a ferramenta que pode ajudar a cumprir estes passos em alguns cliques. Porém, é possível configurar a rede wifi a partir da linha de comando.
+
+===== Configurar a Rede Wifi por meio das ferramentas gráficas netbox/wifibox =====
+
+Com o //netbox// ou o //wifibox// você pode configurar sua rede wifi com apenas alguns cliques de mouse. Como você já deve saber o módulo que precisa, é mais fácil usar o //wifibox//:
+
+<code>$ subox wifibox</code>
+
+O //Wifibox// irá instalar todos os programas necessários e iniciará a rede wifi. Assim, você não precisa instalar manualmente o suporte a wifi.
+
+Os passos necessários para usar o //wifibox// são:
+
+    * Primeiro, vá até a aba "Drivers" e instale o módulo que você precisa. O SliTaz irá carregar o firmware (caso necessário), o módulo de kernel e vai configurar a rede wifi, conectando ao ponto de acesso.
+    * Então, na aba "Configuation" deve-se clicar "start" para configurar. Se você não sabe quais opções escolher, verifique o arquivo /etc/network.conf (o wifibox usa os mesmos parâmetros). Clique em "start".
+    * Se tudo der certo, você já pode navegar na web!
+
+===== Configuração Manual da Rede Wifi =====
+
+Se você deseja entender como o suporte a wifi funciona no SliTaz, então deve tentar configurar sua rede wifi manualmente.
+
+Porém se você quer saber como o wifi funciona geralmente no Linux, ou se o seu módulo de kernel não está nesta lista, você deveria ler o guia passo a passo sobre wifi.
+
+Um resumo dos passos necessários para a configuração manual:
+
+    * Saber qual é a sua placa de rede wifi
+    * Checar se sua placa precisa de um firmware, e instalá-lo
+    * Carregar o módulo de kernel específico para sua placa      
+    * Checar se sua placa é detectada e se o módulo está carregado
+    * Configurar o arquivo /etc/network.conf
+    * Carregar a interface de rede wifi
+    * Iniciar o daemon /etc/init.d/network.sh
+
+Os próximos comandos correspondem a todos os passos anteriores. Também é a maneira mais fácil:
+
+<code># instale o firmware se necessário (instruções abaixo)
+tazhw detect-pci
+/etc/init.d/network.sh restart
+</code>
+
+===== Instruções Detalhadas =====
+
+==== Identificando seu hardware (Qual placa de rede wifi eu tenho?) ====
+
+Você pode listar seu hardware usando o terminal. É útil para saber qual placa de rede wifi você possui.
+
+Se a placa de rede wifi for integrada:
+
+<code>$ lspci | grep -i network</code>
+
+Se for uma placa usb, você vai precisar do comando //lsusb// que é disponibilizado pelo pacote //usbutils//:
+
+<code># tazpkg get-install usbutils
+$ lsusb
+</code>
+
+Em ambos os caso, a saída do comando vai ser parecida com esta:
+
+<code>02:02.0 Network controller: Intel Corporation PRO/Wireless LAN 2100 3B Mini PCI Adapter (rev 04)</code>
+
+Que nos diz o seguinte:
+
+    * //Intel Corporation// é a empresa que fez a placa
+    * A placa é uma //PRO/Wireless Lan 2100 3B//
+    * O chipset é o //IPW 2100 (Intel Pro Wireless 2100)//
+    * A interface é //Mini PCI//
+
+==== Que módulo eu preciso? Vou precisar de um firmware? ====
+
+O kernel Linux do SliTaz é construído para ser leve. Alguns módulos de software, especialmente aqueles necessários para placas de rede wifi não são instalados por padrão, necessitando ser instalados pelo usuário que os necessite.
+
+Muitas placas de rede wifi funcionarão se o módulo correto for carregado. A forma mais fácil é deixar que o SliTaz detecte automaticamente seu hardware.
+
+Para placas de rede wifi integradas:
+<code># tazhw detect-pci</code>
+
+Para placas usb:
+<code># tazhw detect-usb</code>
+
+Algumas vezes, no entanto, somente o módulo não é suficiente. Alguns tipos de placas (da Intel, por exemplo) também precisam de um firmware. Este componente não é software livre, então não podemos distribuí-lo como parte do SliTaz. Você deve obtê-lo a partir do website do fabricante de sua placa e copiá-lo para a pasta ///lib/firmware//. Você vai ver que em alguns casos o próprio SliTaz faz isso por você!
+
+=== Para os módulos de kernel b43, b43legacy, ipw2100 ou ipw2200 ===
+
+Se o módulo de kernel que você precisa é o b43, b43legacy, ipw2100 ou ipw2200, também haverá a necessidade de instalar o pacote //get-wifi-firmware//. Deve ser instalado da seguinte maneira:
+
+<code># tazpkg get-install get-wifi-firmware</code>
+
+==== Iniciar a rede wifi ====
+
+O pacote //get-wifi-firmware// irá instalar alguns comandos chamados get-"//nome do módulo//"-firmware. Para ver uma lista dos disponíveis:
+
+<code># ls /usr/bin/get-*-firmware</code>
+
+Execute o comando que corresponde ao seu módulo:
+
+<code># get-meu_modulo-firmware</code>
+
+Por exemplo, digamos que você possua o módulo ipw2200:
+
+<code># get-ipw2200-firmware</code>
+
+Este comando irá:
+
+    - Obter o firmware necessário para "//meu_modulo//", criar o pacote "//meu_modulo-firmware//" e instalá-lo.
+    - Obter programas úteis para suporte a redes wifi (iwconfig, wpa_supplicant se necessário...)
+    - Carregar o módulo "//meu_modulo//" no kernel Linux.
+    - Executar o arquivo ///etc/init.d/network.sh restart//, que inicia a rede wifi.
+  
+Se o ///etc/network.conf// estiver devidamente configurado, já se pode navegar na web!
+
+A maneira mais fácil de seguir os passos anteriores é fazer o download do firmware por meio da ferramenta gráfica Wifibox (Gerenciador de Redes Wifi do SliTaz). Este utilitário possui uma aba chamada "Driver" que pode cumprir os procedimentos necessários, a partir do momento que você selecione o módulo correto (digamos ipw2200) e clique em "install").
+
+===== Verificação de Erros em Conexões Wifi =====
+
+Vejamos um resumo de todos os passos necessários (repetimos novamente para compreensão):
+
+Here is a quick summary of the steps needed (Repeated again for understanding):
+
+    * Saber qual é a sua placa de rede wifi
+    * Checar se sua placa precisa de um firmware, e instalá-lo
+    * Carregar o módulo de kernel específico para sua placa      
+    * Checar se sua placa é detectada e se o módulo está carregado
+    * Configurar o arquivo /etc/network.conf
+    * Carregar a interface de rede wifi
+    * Iniciar o daemon /etc/init.d/network.sh
+
+Os próximos comandos correspondem a todos os passos anteriores. Também é a melhor maneira de verificar por algum problema. Se houver problemas, poste a saíde de cada um destes comandos no fórum:
+
+<code bash>lspci | grep -i network
+modprobe seu_modulo
+dmesg | tail 
+lsmod 
+nano /etc/network.conf
+ifconfig eth1 up 
+ifconfig -a 
+iwconfig 
+/etc/init.d/network.sh restart 
+ifconfig -a 
+</code>
+
+===== Configure o arquivo /etc/network.conf =====
+
+O SliTaz carrega a rede wifi utilizando o script ///etc/init.d/network.sh//. Este script utiliza o arquivo de configuração ///etc/network.conf//. Você deve, primeiramente, editar este arquivo de configuração utilizando as informações que podem ser encontradas nele próprio. Encontre maiores informações [[network-script|aqui]].
+
+Agora seu módulo deve ser carregado a cada boot. Para automatizar o processo, adicione "//meu_modulo//" à linha //LOAD_MODULES// no arquivo ///etc/rcS.conf//. Exemplo:
+
+<code># geany /etc/rcS.conf</code>
+
+LOAD_MODULES="nls_utf8 meu_modulo"
+
+==== Arquivo de exemplo /etc/network.conf com comentários ====
+
+<code bash># start wifi on boot "yes" or "no"
+WIFI="yes"
+ 
+# wifi interface,  (usually "wlan0" or "eth0")
+WIFI_INTERFACE="wlan0"
+
+ 
+# ESSID of access point: "my_essid" or "any"
+# if any is chosen, slitaz will try to connect to the first access point
+# Be careful:
+# In some states (in France for example), you are not allowed to connect
+# to a private access point if it is not secured.
+# WIFI_ESSID="any" 
+
+ 
+# type of connection:
+# you can chose between:
+# ad-hoc : Connect to one cell without access point.
+# managed : One or more cell, with access point.
+# master : Your card is a master card
+# repeater : Your card acts as a repeater.
+#          Useful for long distances.
+# secondary : Your card is a backup for master or repeater
+# monitor : Your card only receives messages.
+# For most of the time, you'll use managed.
+# (Home, cyber-coffe, work, university...)
+WIFI_MODE="managed"
+
+
+# Key
+WIFI_KEY="ma8clef8de8chiffrement8difficilement8déchiffrable"
+
+ 
+# Key type wep or wpa or any or none
+# If you're using WPA-EAP (at work for example),
+# try any.
+WIFI_KEY_TYPE="wpa"
+
+ 
+# driver needed by wpa_supplicant.
+# It depends on your kernel module.
+# The possible drivers are:
+#  wext = Linux wireless extensions (in most cases, use this one.)
+#  hostap = Host AP driver (Intersil Prism2/2.5/3)
+#  atmel = ATMEL AT76C5XXx (USB, PCMCIA)
+#  wired = wpa_supplicant wired Ethernet driver
+WPA_DRIVER="wext"
+
+ 
+# Wifi channel. Leave it blank, if you don't know what it is.
+WIFI_CHANNEL=""
+
+ 
+# More args to pass to iwconfig.
+# Look at iwconfig man page for more information.
+WIFI_IWCONFIG_ARGS=""
+</code>
+
+===== Informações Extras =====
+
+Primeiro execute "lspci" para saber qual placa você possui. Uma vez que já sabe a placa, deve-se procurar na internet qual módulo ela precisa e se também precisa de algum firmware. Para ajudá-lo, alguns links úteis: 
+
+
+    * [[http://linux-wless.passys.nl/|Linux wireless LAN support]] (A coluna à direita diz onde baixar o firmware, se necessário)
+    * [[http://help.ubuntu.com/|Ubuntu documentation]] (Procure a página sobre wifi na documentação do ubuntu)
+    * [[http://www.google.com/|Google]] pesquise "//o nome de sua placa de rede wifi//" + "//modprobe//" ou "//linux//"
+
+Após alguma pesquisa, ficamos sabendo que a placa //Intel Corporation PRO/Wireless LAN 2100 3B Mini PCI Adapter// funciona com o módulo //IPW2100// e que seu firmware está disponível em http://ipw2100.sourceforge.net/.

@@ -1,0 +1,106 @@
+====== 3G-UMTS =======
+
+===== Introdução =====
+
+Pequeno howto sobre conexões à internet usando modem (3g e conexões discadas).
+
+O sinal # significa que os comandos devem ser executados como root a partir de um console:
+
+<code># tazpkg get-install wvdial
+# tazpkg get-install linux-dialup</code>
+
+Antes de continuar, deve-se desativar a rede para que não haja problemas de roteamento:
+
+<code># ifconfig eth0 down
+# ifconfig eth1 down</code>
+
+Deve-se carregar o módulo do seu modem:
+
+<code># modprobe modulo (Huawei E220, E160g)</code>
+
+Há uma lista de modems suportados pelo pacote linux-dialup em http://labs.slitaz.org/issues/show/149. Para automatizar o processo de carregamento do módulo utilize o SliTaz Control Box.
+
+===== wvdial.conf =====
+
+Verifique se o modem encontra-se em /dev/ttyUSB* ou /dev/ttyACM* (por exemplo, usando o comando dmesg) e edite o arquivo wvdial.conf (a seguir um exemplo):
+
+<code># leafpad /etc/wvdial.conf</code>
+
+<code>[Dialer pin]
+Modem = /dev/ttyUSB0
+Init1 = AT+CPIN=1234...................,.....!!Indique seu Pin!!
+
+[Dialer umts]
+Modem = /dev/ttyUSB0
+ISDN = off
+Modem Type = USB Modem
+Baud = 460800
+Init = ATZ
+Init2 = ATQ0 V1 E1 S0=0 &C1 &D2 +FCLASS=0
+Dial Prefix =
+Dial Attempts = 1
+Dial Command = ATM1L3DT
+Ask Password = off
+Auto Reconnect = off
+Abort on Busy = off
+Carrier Check = on
+Check Def Route = on
+Abort on No Dialtone = on
+Stupid Mode = off
+Idle Seconds = 0
+Init3 = AT+CGDCONT=1,"IP","drei.at".....!!Indique a string de discagem!!
+Username = drei.at...........................!!Indique seu nome de usuario!!
+Password = drei.at...........................!!Indique sua senha!!
+Phone = *99#.................................!!Indique o numero para discagem!!</code>
+
+Os dados necessarios podem ser encontrados nos seguintes links:
+
+Austria, Alemanha e Suica: http://linux.frankenberger.at/Huawei_E220_Daten.html
+
+Resto do mundo: http://www.flexispy.com/Mobile%20APN%20Setting%20to%20use%20GPRS.htm
+
+Voce tambem pode buscar na net usando o nome de seu provedor mais a palavra wvdial.conf, e e bem possivel que voce realmente deva fazer isso.
+
+Para conectar:
+
+<code># wvdial pin
+# wvdial umts</code>
+
+Voce pode indicar o pin em conjunto com o comando umts, porem havera um erro caso se perca a conexao e seja necessaria uma reconexao. Por isso, utilize o comando wvdial pin uma vez assim que conectar o modem.
+
+So resta agora editar o DNS no arquivo /etc/resolv.conf:
+
+<code># leafpad /etc/resolv.conf</code>
+
+<code>nameserver 213.94.78.16........................!!Indique seu DNS!!</code>
+
+Se quiser conectar como usuario comum e nao como root, adicione seu nome de usuario ao grupo "dialout" (cat /etc/group) e defina as permissoes para o wvdial e o wvdial.conf.
+
+Para automatizar todo esse processo pode-se criar um script executavel em /usr/local/bin chamado "umts-connect". Este script nao foi testado, mas deve funcionar na maioria dos casos.
+
+<code bash>#! /bin/bash
+ifconfig eth0 down
+ifconfig eth1 down
+wvdial pin
+wvdial umts</code>
+
+Este script e somente para conectar. Nao use para uma reconexao.
+
+===== Entrada de Menu =====
+
+Pode-se criar uma entrada de menu para a conexao em /usr/share/applications chamada umts.desktop:
+
+<code>[Desktop Entry]
+Encoding=UTF8
+Name=UMTS connection
+Name[de]=UMTS-Verbindung
+Name[pt]=Conexao UMTS
+Comment=UMTS-Verbindung
+Type=Application
+Exec=/usr/local/bin/umts-connect
+Icon=/usr/share/icons/.................!!Indique um icone que quiser!!
+Categories=Application;Network;</code>
+
+Certique-se de que o script /usr/local/bin/umts-connect possui as devidas permissoes.
+
+Postagem do forum sobre esse tipo de conexao (em ingles): http://forum.slitaz.org/index.php/discussion/comment/440/#Comment_440

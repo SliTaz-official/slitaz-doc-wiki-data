@@ -1,0 +1,81 @@
+====== Multimídia ======
+
+O SliTaz em modo LiveCd fornece suporte a som mas nenhum reprodutor de vídeo, no entanto você pode assistir vídeos do Youtube instalando o pacote //get-flash-plugin//. Para assistir vídeos você pode usar o Xine, que suporta a maioria dos formatos de vídeo como avi, mov, mpeg, etc. Note que o Xine também pode ser utilizado como um reprodutor de áudio. Em relação a som, tanto um mixer (alsamixer) como um reprodutor de audio (alsaplayer) são instalador por padrão no LiveCd oficial. O SliTaz também provê ferramentas para configurar a placa de som.
+
+===== Configure a placa de som =====
+
+No modo LiveCd o SliTaz configura automaticamente a placa de som executando um diálogo. Na maioria dos casos a placa de som é reconhecida instantâneamente e você pode simplestemte teclar ENTER para proceder ao login e ter o som funcionando. No entanto, algumas vezes sua placa pode não ser reconhecida na inicialização ou simplesmente não suportada. Antes de se jogar de um prédio, você pode tentar configurar a placa manualmente solicitando ajuda na lista de discussão ou na área de hardware do fórum de suporte.
+ 
+==== Soundconf ====
+
+Para configurar ou reconfigurar a placa de som, o SliTaz fornece um script (soundconf): este utilitário é usado na inicialização e não requisita do usuário nenhuma informação, suporta os módulos corretos e configura automaticamente o arquivo ///etc/rsS.conf//, permitindo que o driver certo seja carregado a cada novo início de sistema. O Soundconf ajusta os níveis de volume automaticamente - você pode mudar as configurações a partir do mixer e do //alsactl//. Para iniciar a interface de configuração do som, você deve possuir privilégios de administrador e digitar:
+
+<code># soundconf</code>
+
+==== Alsactl ====
+
+O Alsactl controla o alsa e pode armazenar configurações ou recuperar o som, por exemplo, mantendo as preferências a cada novo início de sistema. Ao se configurar o som com o soundconf, os volumes são ajustados automaticamente. Pode-se usar o alsamixer como root para mudar os valores e então executar o alsactl para guardar a configuração:
+
+<code># alsactl store</code>
+
+Para recuperar a configuração, você pode usar o comando //alsactl restore// ou para recuperar suas preferências a cada início de sistema você pode editar o arquivo ///etc/init.d/local.sh// com seu editor de texto favorito ou simplesmente utilizando o comando "echo":
+
+<code># echo 'alsactl restore' > /etc/init.d/local.sh</code>
+
+===== Alsamixer =====
+
+O Alsamixer é o mixer oficial do projeto Alsa. Ele é simples e eficaz e pode ser executado a partir do menu ou diretamente pelo terminal. Os volumes podem ser regulados com as setas para cima/para baixo ou tornados mudos ao se teclar //m//. Para iniciá-lo de um terminal Linux:
+
+<code>$ alsamixer</code>
+
+===== Alsaplayer =====
+
+O reprodutor de áudio Alsaplayer é desenvolvido para ser simples, limpo e intuitivo. O Alsaplayer no SliTaz oferece suporte para ogg, mp3 (via libmad) e arquivos wav, listas de reprodução, visualizações para se acompanhar o som graficamente e a habilidade de ajustar timbre e volume. Uma vez iniciado pelo menu apenas clique no botão "play" ou carrege uma lista de reprodução para iniciar a reprodução de som.
+
+===== Asunder - Ripador de CDs de audio =====
+
+O Asunder obtém e codifica faixas de áudio de um CD. O kit de ferramentas é simples e fácil de usar, as faixas são codificadas em wav, ogg ou mp3 (por meio do pacote lame). Ele pode efetuar buscar em um banco de dados CDDB, criar listas de reprodução e editar nomes de arquivos. Você encontra o Asunder na categoria "Multimídia" no menu.
+
+===== MPD - Music Player Daemon =====
+
+O MPD é um pequeno porém poderoso reprodutor de música que se utiliza da arquitetura cliente/servidor, o que significa que ele pode ser executado remotamente e sem a necessidade de um servidor gráfico X. Para instalar o MPD no SliTaz: //tazpkg get-install mpd//. Não há necessidade de privilégios de root para iniciar o servidor mpd, então pode-se iniciá-lo com:
+
+<code>$ mpd</code>
+
+E pará-lo com:
+
+<code>$ mpd --kill</code>
+
+Simplesmente coloque seus arquivos de som na pasta //~/music// (ou crie um link simbólico para ela) e então execute //mpd --create-db// como root para atualizar a base de dados. Após isso, pode-se usar um dos vários clientes disponíveis para acessar os arquivos. O comando //mpd --version// fornece uma lista com todos os formatos de entrada e saida disponíveis.
+
+===== MPC - Music Player Client =====
+
+O MPC é um cliente para o MPD bem popular. Para carregar todos os arquivos da base de dados do MPD para o MPC e executá-los, instale-o com: //tazpkg get-install mpc// e execute:
+
+<code>$ mpc add /
+$ mpc play
+</code>
+
+O comando //mpc --help// fornece uma lista completa de opções disponíveis que permitem editar a lista de execução (playlist), habilitar o efeito de crossfade, ajustar volume, tocar as faixas em modo shuffle, etc.
+
+===== mpg123 =====
+
+O mpg123 é um reprodutor de áudio de linha de comando e também um conversor de arquivo. Isto significa que você pode ouvir música ou converter arquivos a partir de um terminal. Para mostrar a ajuda, use a opção //--help//. Para reproduzir um arquivo mp3, execute mpg123 seguido do nome do arquivo de áudio:
+
+<code>$ mpg123 sound.mp3</code>
+
+O mpg123 também pode codificar um arquivo em outro formato. Pode-se, por exemplo, converter um arquivo wav em um arquivo mp3. Exemplo:
+
+<code>$ mpg123 -w sound.mp3 sound.wav</code>
+
+===== Mplayer =====
+
+O Mplayer é um reprodutor de filmes bem conhecido para Linux que suporta vários formatos de arquivos, incluindo DVD, VCD, mpeg, wmv, realvideo, etc. Também suporta vários codecs de áudio como aac, wma, realaudio, assim como ogg, flac, etc. É configurado com um menu acessado por um clique do botão direito e pode ser customizado por meio de várias skins e interfaces gráficas, que permitem a fácil configuração de drivers de vídeo, dispositos de saída e outras opções.
+
+===== Xine =====
+
+O Xine é um projeto de multimídia que provê vários reprodutores de vídeo e áudio. O SliTaz fornece bibliotecas e um reprodutor de mídia pelo pacote //xine-ui//. O Xine usa a interface Xlib, um painel de controle, um menu acessado por clique no botão direito do mouse e vários plugins. Pode reproduzir os codecs de áudio ogg, mp3 e flac e os formatos de vídeo mov, avi e mpg. Para instalar o Xine e suas dependências:
+
+<code># tazpkg get-install xine-ui</code>
+
+[[http://xinehq.de/index.php/home|Website]] oficial do Xine.

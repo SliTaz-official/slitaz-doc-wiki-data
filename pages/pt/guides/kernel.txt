@@ -1,0 +1,64 @@
+====== Compile um kernel personalizado para o seu SliTaz ======
+
+===== Preparação do sistema =====
+
+  * Instale o meta pacote //slitaz-toolchain//, pois ele fornece os arquivos básicos necessários.
+    * binutils
+    * linux-headers
+    * glibc-dev
+    * gcc
+    * make
+
+<code># tazpkg get-install slitaz-toolchain</code>
+
+  * Instale os pacotes necessários para configurar e compilar os fontes do kernel.
+    * ncurses-dev
+    * perl
+
+<code># tazpkg get-install ncurses-dev
+# tazpkg get-install perl
+</code>
+
+  * O SliTaz fornece o pacote //linux-source// que, ao ser instalado, baixa os fontes do kernel a partir de um mirror, instala-os no diretório ///usr/src/linux-<VERSION>// e modifica-os para ser usado no SliTaz.
+
+<code># tazpkg get-install linux-source
+# ls -l /usr/src
+lrwxrwxrwx    1 root     root           21 Jul 21 21:27 linux -> linux-2.6.25.5-slitaz
+drwxrwxr-x   23 root     root         4096 Jul 21 22:41 linux-2.6.25.5-slitaz
+-rw-r--r--    1 root     root     48589640 Jul 21 21:28 linux-2.6.25.5.tar.bz2
+</code>
+
+===== Configure e compile =====
+
+Os fontes do kernel agora já devem estar prontos para serem configurados e compilados.
+
+  * Vá até o diretório onde se encontram os fontes.
+
+<code># cd /usr/src/linux</code>
+
+  * Prepare a configuração.
+
+<code># make oldconfig && make prepare</code>
+
+  * Modifique a configuração do kernel para atender suas preferências e compile.
+
+<code># make menuconfig
+# make bzImage
+# make modules 
+# make modules_install
+# cp arch/x86/boot/bzImage /boot
+</code>
+
+  * Configure o Gerenciador de Boot (opcional).
+
+<code># leafpad /boot/grub/menu/lst</code>
+
+  * Adicione as seguintes linhas ao arquivo mencionado anterioremente.
+
+<code># My kernel:
+title 	SliTaz GNU/Linux (cooking) (Kernel <VERSION>)
+		root (hd0,1)
+		kernel /boot/bzImage root=/dev/sda2
+</code>
+
+Você pode usar este guia e adaptá-lo às suas necessidades.

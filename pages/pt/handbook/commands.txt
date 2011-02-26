@@ -1,0 +1,197 @@
+====== Comandos ======
+
+===== Introdução aos comandos =====
+
+Este documento é planejado como uma referência rápida para usar comandos no SliTaz por um terminal Linux ou um terminal gráfico (xterm). Existem muitos comandos GNU/Linux para manipulação de arquivo, manutenção de sistema ou administração de rede. Você também pode navegar na internet, conversar no IRC, baixar arquivos, editar scripts ou até mesmo jogar em modo de texto. Note que é necessário operar como root (administrador) para montar o disco rígido ou cdrom. Você pode usar o comando //su// para se tornar o administrador do sistema.
+
+===== Ajuda e lista dos comandos disponíveis =====
+
+A maioria dos comandos de sistemas do GNU/Linux têm uma opção para fornecer informação sobre o seu uso. Para suporte no uso de um comando é necessário digitar o comando seguido pela opção //--help//. Exemplo usando o comando //cp// (que serve para copiar arquivos):
+
+<code>$ cp --help</code>
+
+Para listar todos os comandos disponíveis no sistema, você pode simplesmente pressionar duas vezes o botão Tab na esquerda do teclado. Para comandos providos pelo utilitário Busybox você pode digitar:
+
+<code>busybox --help</code>
+
+===== Liste arquivos de um diretório =====
+
+Para listar os arquivos e pastas contidas em um diretório, você pode usar o comando ls. Para todas as opções lembre-se de usar a opção --help. Para simplesmente listar os arquivos diretório atual:
+
+<code>$ ls</code>
+
+Liste todos os arquivos com a opção -al:
+
+<code>$ ls -al</code>
+
+Liste um diretório:
+
+<code>$ ls /home/slitaz</code>
+
+===== Mova-se entre diretórios =====
+
+Para navegar entre os arquivos você pode usar o comando cd:
+
+<code>$ cd /usr/share/doc</code>
+
+Voltar para o diretório anterior:
+
+<code>$ cd ..</code>
+
+Entrar no diretório do usuário root (///root//):
+
+<code>$ cd</code>
+
+Ou:
+
+<code>$ cd ~</code>
+
+Ou:
+
+<code>$ cd $HOME</code>
+
+===== Copie arquivos =====
+
+O comando cp copia arquivos ou pastas. O exemplo copia o arquivo //info.txt// que está no diretório atual para o diretório //Documents//:
+
+<code>$ cp info.txt Documents/</code>
+
+Copie um diretório inteiro. Aqui o comando copia o diretório Templates em ///home/tux//:
+
+<code>$ cp -a Templates /home/tux</code>
+
+===== Crie um novo diretório =====
+
+Este comando criará um diretório novo. O comando seguinte cria um diretório chamado //Projects//. Será criado no diretório ///home// do usuário atual ou no diretório atual. Note que você pode exibir seu diretório de funcionamento atual com o comando //pwd//:
+
+<code>$ mkdir Projects</code>
+
+Criação de um diretório chamado //script-1.0// na pasta //Projects//:
+
+<code>$ mkdir Projects/script-1.0</code>
+
+Você também pode criar uma árvore de diretórios com a opção -p:
+
+<code>$ mkdir -p one/two/three/four</code>
+
+===== Remova arquivos ou diretórios =====
+
+O comando //rm// apaga um arquivo. Vamos remover o arquivo //work.txt// que está no diretório atual:
+
+<code>$ rm work.txt</code>
+
+O comando //rm// possui várias opções. Para apagar um diretório e seu conteúdo, nós usamos a opção //-rf//. Exemplo:
+
+<code>$ rm -rf /home/tux/Templates</code>
+
+Note que você também pode usar a opção //-i// para remover arquivos ou diretórios e o seu conteúdo de forma interativa:
+
+<code>$ rm -ir /home/tux/Templates</code>
+
+===== Visualize arquivos =====
+
+Para ler os conteúdos de um arquivo ou script, você pode usar os comandos //less//, //more//, //cat// ou o navegador web //Retawq//. Exemplos com os arquivos //README//, //essential.tx//t e //script.sh//:
+
+<code>$ less -EM essential.txt</code>
+
+ou:
+
+<code>$ more README</code>
+
+ou:
+
+<code>$ cat /path/to/script.sh</code>
+
+Exiba um arquivo de texto ou html com o navegador web Retawq:
+
+<code>$ retawq /usr/share/doc/index.html</code>
+
+===== Edite arquivos =====
+
+A edição de arquivos de texto, scripts, arquivos de configuração, etc, pode ser feita facilmente usando-se o editor de texto GNU Nano em um console ou terminal gráfico. Exemplo com um arquivo //bookmarks.html// (<Ctrl+X> para salvar e sair):
+
+<code>$ nano Public/bookmarks.html</code>
+
+===== Cat =====
+
+Você pode usar o comando //cat// para criar vários arquivos de texto. //EOF// significa Final de Arquivo (End Of File, em inglês) que é onde o arquivo acaba. Exemplo com um arquivo //packages.list//, isto remove os conteúdos atuais do arquivo e o deixa adicionar algum texto novo:
+
+<code>$ cat > packages.list << "EOF"
+O texto...
+e mais texto
+
+EOF
+</code>
+
+Para juntar ao arquivo de texto seguinte, ponha dois sinais de maior que (>>) depois de cat. Exemplo:
+
+<code>$ cat >> packages.list << "EOF"
+O texto...
+ 
+EOF
+</code>
+
+===== Navegue na web =====
+
+Surfe na web com rapidez e de forma simples com o web-browser modo-texto 'retawq'. Note que você também pode usar o browser local. Você pode navegar então facilmente com as setas em seu teclado - links estão na cor azul e podem ser seguidos apertando <ENTER>:
+
+<code>$ retawq http://www.slitaz.org/pt</code>
+
+ou:
+
+<code>$ retawq http://localhost/</code>
+
+===== Converse no IRC =====
+
+Para discutir e transferir arquivos pelos muitos servidores de IRC disponíveis, o SliTaz provê o aplicativo Rhapsody. Este cliente de IRC é simples, rápido e leve, fornecendo um menu de configuração em ncurses agradável e fácil de controlar. Para iniciar o aplicativo de um terminal conectado ao servidor (irc.toile-libre.org) e entrar no canal #slitaz:
+
+<code>$ rhapsody
+/connect irc.freenode.net
+/join #slitaz
+</code>
+
+===== Baixe arquivos =====
+
+Para baixar vários formatos de arquivo da internet, você tem o comando //wget//. Para baixar uma página html simples, os conteúdos de uma pasta ou um website inteiro:
+
+<code>$ wget http://www.slitaz.org/pt/doc/handbook/</code>
+
+===== Liste as partições disponíveis =====
+
+Para listar as partições em um disco rígido interno ou externo, você pode usar //cat// para exibir os conteúdos de ///proc/partitions// ou usar o utilitário //fdisk// com a opção //-l//, que significa lista (do inglês list). Você pode montar a/as partição/partições que deseja usar:
+
+<code>$ cat /proc/partitions</code>
+
+ou:
+
+<code># fdisk -l</code>
+
+===== Monte uma partição, CD ou drive USB =====
+
+Para montar uma partição local no sistema de arquivos do SliTaz, nós recomendamos que você use o diretório ///mnt//. Exemplo criando o diretório necessário e montando a partição //hda6// do primeiro disco rígido local em ///mnt/hda6//:
+
+<code># mkdir -p /mnt/hda6
+# mount -t ext3 /dev/hda6 /mnt/hda6
+</code>
+
+SliTaz funciona carregado na memória RAM, então você pode montar o mesmo cdrom ou pode removê-lo para montar outro (///dev/cdrom// é um link para o primeiro drive de cdrom). Note que um cdrom é uma mídia removível e deveria ser montado em ///media//:
+
+<code># mount -t iso9660 /dev/cdrom /media/cdrom</code>
+
+Para montar um drive flash ou USB você tem que especificar o sistema de arquivos apropriado. Normalmente um drive USB é formatado em FAT32 que pode ser lido em GNU/Linux e sistemas operacionais Windows. Em um sistema GNU/Linux ele geralmente é reconhecido como o dispositivo sda1 - nós faremos agora um link para //sda1// no flash para facilitar a tarefa. Note que ele também é uma mídia removível e deveria ser montado em ///media//:
+
+<code># mount -t vfat /dev/flash /media/flash</code>
+
+===== Desligue ou reinicie o sistema =====
+
+Para parar ou reiniciar o SliTaz, você pode usar os comandos //halt//, //reboot// ou a combinação de teclas <Ctrl+Alt+Delete> que habilita uma reinicialização do sistema. No caso de qualquer problema você pode usar a opção //-f//, que significa forçado (do inglês, forced):
+
+<code># halt</code>
+
+Reiniciar:
+
+<code># reboot</code>
+
+ou:
+
+<code># reboot -f</code>

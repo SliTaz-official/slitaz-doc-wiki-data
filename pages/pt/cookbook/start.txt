@@ -1,0 +1,17 @@
+====== Livro de Receitas (cookbook) ======
+
+Este livro de receitas traz informações sobre o gerenciamento do projeto, operação e desenvolvimento da distribuição. Discorre sobre criação de pacotes, arquivos de descrição de pacotes (receitas ou "receipts"), sobre o wok (local se localizam as receitas dos pacotes) e scripts que iniciam o SliTaz.
+
+A base deste livro de receitas é o [[pt:scratchbook:start|Scratchbook]], ou livro de rascunhos, que contém instruções em informações importantes e descreve a criação da primeira versão pública do SliTaz, lançada em março de 2007. O livro de receitas é mantido pelos colaboradores do projeto e constantemente melhorado. Aqui estão informações úteis para desenvolvedores e usuários avançados.
+
+===== Conteúdo =====
+
+  * [[wok|Wok & Ferramentas]] - Ferramentas de Pacotes do SliTaz.
+  * [[receipt|Receitas]] - Receitas para a criação de pacotes para o SliTaz.
+  * [[devcorner|Desenvolvedores]] - Orientações para desenvolvedores. 
+  * [[buildhost|Build Host]] - Servidor de Compilação (tank).
+  * [[buildbot|Build Bot]] - Robô de Compilação (tazbb).
+  * [[bootscripts|Scripts de Inicialização]] - Scripts de inicialização e finalização.
+  * [[slitaztools|Ferramentas do SliTaz]] - A caixa de ferramentas.
+  * [[releasetasks|Release Tasks]] - Lista de tarefas a serem cumpridas antes do lançamento de uma nova versão.
+  * [[rootcd|Root cdrom (rootcd)]] - Descrição dos arquivos contidos no cdrom.

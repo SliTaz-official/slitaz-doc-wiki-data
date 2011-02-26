@@ -1,0 +1,73 @@
+====== Build Host ======
+
+Howto e informações sobre o Servidor de Compilação (Build Host).
+
+===== Pastas em: /home/slitaz =====
+
+  * //cooking/// - Ambiente chroot da versão Cooking (testes) e das variantes (flavors).
+  * //stable/// - Árvore de diretórios da versão estável (Stable).
+  * //repos/// - Repositórios do projeto (onde as modificações são gravadas).
+  * //www/// - Servidores virtuais (website, hg, boot, people, etc).
+
+===== Usando o tazdev =====
+
+O Comando tazdev é utilizado na manutenção do mirror, das variantes e outros serviços. É basicamente configurado para atender a versão de testes. Utilização:
+
+<code>$ tazdev usage</code>
+
+==== Compilando Pacotes Não Oficiais (undigest) ====
+
+Pode-se utilizar o wok não oficial (undigest) em um ambiente chroot para compilar (cook) alguns pacotes não suportados. Se você mantem pacotes oficiais e se eles compilam com sucesso no Tank, pode testá-los na sua máquina local e adicioná-los no wok oficial. Mantenedores do mirror irão então recompilar o pacote e gravar as mudanças em mirror.slitaz.org.
+
+Para compilar pacotes no wok undigest em um ambiente chroot, pode-se seguir os comandos:
+
+<code>$ ln -s /home/slitaz/cooking/chroot/home/undigest .</code>
+
+Pode-se copiar os arquivos via gFTP-sftp-scp diretamente para o wok ou a partir do diretório atual:
+
+<code>$ cp -a package undigest/wok
+$ su -c "tazdev chroot"
+# cd home/undigest
+# tazwok cook package
+# exit
+$ ls undigest/packages
+</code>
+
+==== Compilando Pacotes Oficiais ====
+
+Mantenedores possuem acesso root e/ou possuem permissão de escrita ao mirror principal localizado em mirror.slitaz.org. Se alguém manifestar a vontade de ajudar no projeto pode contactar um dos desenvolvedores (pode-se checar os repositórios hg para tanto).
+
+Todos os pacotes são compilados em um ambiente chroot. O caminho (path) para o wok de compilação é, por padrão, //$CHROOT/home/slitaz/wok//. Algumas mudanças podem ser feitas diretamente neste wok: o repositório hg real é copiado para o ambiente chroot pelo tazbb (Build Bot). Para criar o ambiente no cooking:
+
+<code># tazdev chroot</code>
+
+Pode-se compilar todos os últimos pacotes adicionados ou todos os existentes no ambiente chroot com o comando 'cook-all'. Por padrão, o tazbb compila apenas pacotes adicionados ou modificados pelo último commit no repositório:
+
+<code># tazbb cook-commit</code>
+
+Pode-se remover, quando necessário, todos os pacotes antigos e então gerar uma nova lista de manualmente (processo que o tazbb executa automaticamente):
+
+<code># tazbb clean-up
+# tazwok gen-list --text
+# exit
+</code>
+
+Se se possuir permissão de escrita ao mirror, pode-se executar o comando 'tazbb dry-push' para fazer uma verificação de quais arquivos serão adicionados ao mirror e então executar 'tazbb push' para gravar as mudanças definitivamente no mirror. A opção 'push' também remove pacotes obsoletos do mirror.
+
+===== Pacotes Estáveis =====
+
+Os pacotes que fazem parte da versão estável do SliTaz também são compilados em um ambiente chroot, assim como os da versão de testes (cooking):
+
+<code># tazdev chroot stable</code>
+
+===== Upload manual para mirror.slitaz.org =====
+
+Mantenedores do mirror podem fazer uploads manuais utilizando o tazdev (a opção //-dp// faz um //dry-push//, ou seja, uma checagem antes de um upload definitivo):
+
+<code># tazdev -p $USER</code>
+
+===== Atualização manual do website =====
+
+O website do projeto e a interface web para busca de pacotes são atualizados toda noite por um cron job e também podem ser atualizados manualmente (isso é utilizado em dias em que há algum lançamento, por exemplo):
+
+<code># tazdev update-www</code>

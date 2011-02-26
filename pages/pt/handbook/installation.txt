@@ -1,0 +1,103 @@
+====== Instalação ======
+
+===== Introdução =====
+
+Este documento fornece informações e instruções necessárias sobre como instalar o SliTaz em um disco rígido - isto deve levar aproximadamente 10 minutos. O LiveCD do SliTaz se expande a 80 Mb, assim nós sugerimos um mínimo de 120 Mb de espaço livre. Deste modo você poderá instalar mais alguns pacotes. Se você puder usar o LiveCD, você provavelmente pode instalar o SliTaz.
+
+===== Instalação Usando o Slitaz Installer =====
+
+O SliTaz provê um instalador simples de usar que pode ser iniciado do menu //Ferramentas do Sistema//. As mensagens do instalador do SliTaz 2.0 estão disponíveis em inglês, mas usuários de outras línguas deverão estar aptos a usá-lo com estas instruções complementares.
+
+==== Tipo de instalação ====
+
+O primeiro passo lhe permite escolher o tipo de instalação: nova instalação ou upgrade de sistema. Na maioria dos casos você irá querer uma instalação nova e limpa. Confirmando isto o instalador irá montar o dispositivo de cdrom master e procurará o sistema de arquivos comprimido (rootfs.gz). Se nenhum sistema de arquivos for achado, então a instalação será abortada.
+
+Se você tiver dificuldades porque o sistema de arquivos comprimido não foi achado, por favor confira se o CD do SliTaz está no dispositivo de CD/DVD master. Se o problema persistir você pode usar uma imagem ISO baixada da internet e montá-la em ///media/cdrom// onde o HD Installer espera encontrá-la:
+
+<code># mount -o loop slitaz-2.0.iso /media/cdrom</code>
+
+==== Partição alvo ====
+
+O segundo passo é a configuração de partição. Se você já tem uma partição livre você pode usá-la diretamente, se não você terá que criar uma em modo gráfico com o Gparted ou a partir da linha de comando com fdisk. Por exemplo, se você quer instalar o SliTaz na primeira partição do primeiro disco reconhecido como //hda//:
+
+<code>/dev/hda1</code>
+
+==== Formatação ====
+
+O próximo passo o permite formatar a partição alvo em ext3. O Ext3 é um sistema de arquivos robusto, estável e com suporte a journaling. Se a partição já estiver formatada, você pode pular este passo, se não só confirme. Aviso: Formatar uma partição destruirá todos os dados atuais.
+
+==== Hostname (Nome do host) ====
+
+A configuração de Hostname o deixa colocar o nome da máquina. O hostname é internamente usado para identificar a máquina na rede. Este valor pode ser mudado depois do sistema ser instalado.
+
+==== Gerenciador de Boot - GRUB ====
+
+Quando o processo de instalação é finalizado você tem a opção para instalar o gerenciador de boot GRUB que é capaz de dar boot em quase qualquer tipo de sistema operacional. Se você quer usar uma instalação existente do GRUB, pule este passo e acrescente as linhas corretas para o arquivo de configuração do GRUB (menu.lst). Note que o Instalador do SliTaz cria um arquivo de configuração no local especificado que pode ser usado como um exemplo (///mnt/target/boot/grub/menu.lst//).
+
+==== Fim da instalação ====
+
+Quando o Instalador finalmente terminar seu trabalho você tem a opção de sair ou diretamente reiniciar seu novo sistema operacional GNU/Linux SliTaz. O primeiro boot é semelhante ao LiveCD, você será questionado sobre linguagem, teclado, placa de som e seleção de tela. Reinicios futuros não pedirão mais detalhes de configuração, mas todos os valores ou podem ser mudados manualmente ou com as ferramentas do projeto como //tazlocale// ou //tazx//.
+
+===== Instalação manual =====
+
+O SliTaz também pode ser instalado manualmente a partir da linha de comando. Para a instalação manual do SliTaz você pode usar um cdrom ou uma imagem ISO. Os comandos seguintes podem ser copiados/colados do Firefox para Xterm.
+
+A primeira coisa que você tem que fazer é preparar uma partição alvo e montá-la. Exemplo que usa partição ///dev/hda1//:
+
+<code># mkdir /mnt/target
+# mount /dev/hda1 /mnt/target
+</code>
+
+==== Montagem do cdrom ou imagem ISO ====
+
+Agora você tem que montar o cdrom:
+
+<code># mount /dev/cdrom /media/cdrom</code>
+
+Ou uma imagem ISO:
+
+<code># mount -o loop slitaz-2.0.iso /media/cdrom</code>
+
+==== Instalar e extrair ====
+
+A meta agora é copiar os arquivos necessários da mídia na partição alvo e então extrair o sistema de arquivos comprimido (rootfs.gz). Crie um diretório de boot e instale o Kernel Linux:
+
+<code># mkdir /mnt/target/boot
+# cp -a /media/cdrom/boot/vmlinuz-* /mnt/target/boot
+</code>
+
+Copie o rootfs:
+
+<code># cp /media/cdrom/boot/rootfs.gz /mnt/target</code>
+
+Agora que os arquivos necessários estão presentes, você pode mudar (cd) para o diretório alvo e descomprimir o sistema de arquivos com //lzma// e //cpio//:
+
+<code># cd /mnt/target
+# lzma d rootfs.gz -so | cpio -id 
+# rm rootfs.gz init
+</code>
+
+Isso é tudo, o SliTaz está instalado. Antes de reiniciar seu novo GNU/Linux SliTaz por favor cheque se você tem um gerenciador de boot (GRUB ou Lilo) e adicione as linhas necessárias para dar boot no SliTaz.
+
+===== Gerenciador de boot GRUB =====
+
+O GRUB é um gerenciador de boot universal capaz de dar boot em quase qualquer sistema operacional, como Linux, BSD ou Windows. O GRUB usa um único arquivo de configuração nomeado //menu.lst//, se você usou o instalador do SliTaz e instalou o GRUB não precisa instalar o GRUB manualmente, só reinicie.
+
+Instalação do GRUB no mbr, usando o diretório raiz ///mnt/target// (a partição alvo montada) e o disco nomeado hda:
+
+<code># grub-install --root-directory=/mnt/target /dev/hda</code>
+
+Agora você pode criar um arquivo de configuração do GRUB e adicionar as linhas que darão boot no SliTaz. O arquivo //menu.lst// pode ser editado com seu editor de texto favorito como Nano ou Leafpad:
+
+<code># leafpad /mnt/target/boot/grub/menu.lst</code>
+
+==== /boot/grub/menu.lst - Exemplo ====
+
+<code>title    SliTaz GNU/Linux 2.0 (Kernel 2.6.25.5-slitaz)
+root     (hd0,0)
+kernel   /boot/vmlinuz-2.6.25.5-slitaz root=/dev/hda1 vga=normal
+</code>
+
+Verifique novamente se tudo está no lugar antes de reiniciar:
+
+<code># reboot</code>

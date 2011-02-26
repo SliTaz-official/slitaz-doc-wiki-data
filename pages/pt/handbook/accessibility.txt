@@ -1,0 +1,47 @@
+====== Accessibilidade ======
+
+===== Aumento de Tela =====
+
+O SliTaz fornece um software de aumento de telas modificável que aumenta em até 16 vezes. Este software também fornece ferramentas gráficas que habilitam modificações nos valores RGB, posições de pixel e reticulado da tela. Pode-se instalá-lo com o comando: 
+
+<code># tazpkg get-install magnifier</code>
+
+===== Espeak - Text to speech (TTS) =====
+
+O //espeak// é um sintetizador de fala que roda na linha de comando e pode "falar" texto escrito em um arquivo ou informado pelo teclado e suporta várias linguagens. O Espeak pode ajustar a amplitude, altura, intervalo entre palavras, velocidade, etc. Ele também pode escrever sua saída para um arquivo wav em vez de somente "falar" o texto. Digite //espeak --help// para uma lista de opções disponíveis:
+
+<code> # tazpkg get-install espeak</code>
+
+Exemplo de uso:
+
+<code> $ espeak -f example.txt</code>
+
+===== Teclado Virtual =====
+
+Um teclado virtual (//xvkbd//) pode ser usado para escrever caracteres em algum programa de sua escolha. O menu pode ser usado para mudar o layout de teclado, teclas de função, etc. Suporta completar palavras, remover teclas não desejadas e conectar a um display remoto. O arquivo de configuração pode ser encontrado em //~/.Xdefaults//:
+
+<code># tazpkg get-install xvkbd</code>
+
+===== Yasr - Leitor de Tela =====
+
+O //Yasr// é um leitor de tela em linha de comando que funciona por meio de um speech-dispatcher (interface de controle de discurso) e usa o espeak como sintetizador:
+
+<code># tazpkg get-install yasr</code>
+
+Para configurar o speech-dispatcher:
+
+<code># spd-conf</code>
+
+O speech-dispatcher pode ser iniciado ou parado como um daemon:
+
+<code># speech-dispatcher
+# killall speech-dispatcher
+</code>
+
+Utilização:
+
+<code>$ yasr
+$ exit
+</code>
+
+O arquivo de configuração pode ser encontrado em nos diretórios ///etc/speech-dispatcher// ou //~/.speech-dispatcher// e o arquivo de configuração do yasr está localizado em ///usr/share/yasr//.

@@ -1,0 +1,7 @@
+====== Como Instalar o Adobe Flash Player ======
+
+Abra um terminal. Torne-se usuário root. Após isto, digite o seguinte:
+
+<code># get-flash-plugin </code>
+
+Nota: Não digite 'tazpkg get-flash-plugin' ou 'tazpkg get-install get-flash-plugin'.

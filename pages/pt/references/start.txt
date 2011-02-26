@@ -1,0 +1,14 @@
+====== Referências ======
+
+Esta seção pretende fornecer referências, artigos, links para páginas interessantes e úteis. Sinta-se livre para adicionar qualquer tópico que você considere útel para a comunidade do SliTaz GNU/Linux.
+
+===== Desenvolvimento =====
+
+  * Escrevendo Scripts Shell: http://linuxcommand.org/
+  * 
+  * 
+
+===== Referências sobre Linux =====
+
+  * [[http://www.digilife.be/quickreferences/QRC/The%20One%20Page%20Linux%20Manual.pdf | Manual de uma página]] (Nem tudo se aplica ao SliTaz)
+  * [[http://www.pixelbeat.org/cmdline.html|Outra referência para a linha de comando]]

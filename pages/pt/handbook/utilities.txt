@@ -1,0 +1,86 @@
+====== Utilitários ======
+
+===== Calculadora =====
+
+Operações matemáticas podem ser feitas com a calculadora em modo texto //bc//. Abra um terminal e digite diretamente //bc//. Para sair, simplesmente digite //quit//:
+
+<code>$ bc
+23+45 <ENTER>
+68
+
+quit
+</code>
+
+===== Cdrkit - Gravar e manipular CD/DVD-R ou RW =====
+
+Para gravar e manipular CD/DVD-R ou RW o SliTaz fornece o utilitário //Cdrkit// e a interface gráfica //burnbox//, que pode ser encontrada no menu. As ferramentas do //wodim// tornam possível gravar CD/DVD e apagar CD/DVD-RW. Quando usado junto com o //genisoimage//, pode criar também imagens no formato ISO 9660. Gravar na linha de comando exige que saibamos o nome do dispositivo de gravação (device/writer) e o wodim provê várias possibilidades para saber qual drive usar e especificar isto ao gravar nas mídias ópticas. Se você rodar o //wodim// com a opção //-device// ele automaticamente procurará um dispositivo válido e irá exibí-lo; a opção //-checkdrive// lhe permite checar o dispositivo reconhecido e a //-scanbus// exibirá informações sobre o barramento do sistema. Exemplos (como root):
+
+<code># wodim -devices</code>
+
+ou:
+
+<code># wodim -checkdrive</code>
+
+para o barramento: 
+
+<code># wodim -scanbus</code>
+
+==== Crie uma imagem ISO 9660 ====
+
+Para gravar dados em um CD/DVD, você tem que ter uma imagem ISO primeiro. Para começar nós temos que criar um diretório para conter todos os arquivos a serem gravados. Você pode copiar seus arquivos na linha de comando com //cp//, com o gerenciador de arquivos //Clex// ou em modo gráfico com o //emelFM2//. Para criar um diretório nomeado //iso/// na raiz do espaço de usuário e copiar todos os arquivos contidos em //Documents///:
+
+<code>$ mkdir ~/iso 
+$ cp -a Documents/* ~/iso
+</code>
+
+Cria uma imagem ISO nomeada //image.iso//, usando a ferramenta //genisoimage// e especificando o diretório raiz que contém os arquivos a serem incluídos na ISO:
+
+<code>$ genisoimage -o image.iso ~/iso</code>
+
+Note que há muitas opções que você pode usar para criar ISOs, uma das amplamente usadas é a extensão //-R//, que significa //Rock ridge//, isto permite o uso de nomes de até 255 caracteres (com algumas exceções), também tem suporte a links simbólicos e permissões de arquivo. Para ver todas as opções disponíveis, simplesmente digite //-help//. Exemplo de criação de uma imagem ISO que usa a opção //-R//:
+
+<code>$ genisoimage -o image.iso -R ~/iso</code>
+
+==== Grave uma imagem ISO ====
+
+Para gravar uma imagem ISO no formato 9660, seja ela criada por você ou baixada da internet, você tem que usar o //wodim// especificando o dispositivo apropriado (dev) para gravar o CD/DVD. Exemplo usando o modo //verbose// (-v), com o dispositivo //hdc// e dados contidos em uma imagem ISO nomeada //image.iso//:
+
+<code># wodim -v dev=/dev/hdc image.iso</code>
+
+Outro exemplo que fixa a velocidade de gravação (speed) em 8x:
+
+<code># wodim -v speed=8 dev=/dev/hdc image.iso</code>
+
+==== Apague um CD-RW/DVD-RW ====
+
+Você pode apagar rapidamente um CD-RW/DVD-RW usando o //wodim// com a opção //blank=fast//. Exemplo que usa o dispositivo //hdc// em modo //verbose//:
+
+<code># wodim -v blank=fast dev=/dev/hdc</code>
+
+Ou você pode apagar completamente usando a opção //blank=all// (isto levará um pouco de tempo):
+
+<code># wodim -v blank=all dev=/dev/hdc</code>
+
+===== Nano =====
+
+O editor de texto padrão do SliTaz é o Nano. Uma vez iniciado você pode usar <Ctrl + g> para o menu de ajuda. Para iniciar o Nano, você pode digitar //nano// no console ou em um terminal xterm ou a partir do Menu --> Utilitários --> Nano GNU Editor.
+
+O arquivo de inicialização ///etc/nanorc// inclui os arquivos de colorização de sintaxe encontrados em ///usr/share/nano//. O arquivo de configuração de usuário é //~/nanorc//. Para editar um arquivo diretamente, apenas digite //nano// precedido pelo nome do arquivo. Exemplo (<Ctrl+x> para salvar & sair):
+
+<code>$ nano Templates/script-shell.sh</code>
+
+===== LeafPad =====
+
+Leafpad é um editor de texto em modo gráfico muito leve e rápido, perfeito para tomar notas ou editar arquivos de configuração. Você vai achá-lo no menu ou pode rodá-lo diretamente em um arquivo pelo terminal:
+
+<code>$ leafpad Templates/script-shell.sh</code>
+
+===== ISO Master - Crie e edite ISOs =====
+
+ISO Master é uma ferramenta gráfica que lhe permite editar, manipular e criar imagens ISO que podem ser armazenadas e gravadas depois, é simples e intuitivo e lhe permite criar imagens ISO do tamanho que você quiser.
+
+Site Web : http://littlesvr.ca/isomaster/
+
+===== Xpad - Mini aplicativo de anotações =====
+
+Xpad é uma aplicação pequena pela qual você pode tomar notas rápidas através de um "sticky note" (papel autocolante para pequenas anotações) exibido no desktop. Cada um consiste em um bloco de notas que você pode esconder e pode personalizar por um click com o botão direito na janela em questão. Uma vez iniciado você pode fechar o Xpad pelo dock localizado na barra de tarefas do gerenciador de janelas. As notas são armazenadas em seu diretório e estão disponíveis em cada sessão (se você usa mídia USB com o LiveCD ou em um sistema instalado).

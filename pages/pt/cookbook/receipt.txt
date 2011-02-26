@@ -1,0 +1,100 @@
+====== Receitas ======
+
+Este documento descreve as oportunidades oferecidas pelas "receitas" (arquivos de descrição de pacotes) usadas pelo Tazwok para compilar e gerar pacotes para o SliTaz e o Tazpkg por meio do wok e ferramentas. A receita para um pacote é também usada pelo Tazpkg para instalar/desinstalar e prover informações sobre um pacote .tazpkg. Cada receita começa com um comentário em inglês:
+
+<code># SliTaz package receipt.</code>
+
+===== Variáveis =====
+
+As 5 primeiras variáveis devem sempre estar presentes e definidas. Elas, respectivamente, configuram o pacote ($PACKAGE), sua versão, sua categoria, fornecem uma curta descrição e o nome do mantenedor. Exemplo para um pacote, o gerenciador de arquivos Clex:
+
+<code>PACKAGE="clex"
+VERSION="3.16"
+CATEGORY="base-apps"
+SHORT_DESC="Text mode file manager."
+MAINTAINER="pankso@slitaz.org"
+</code>
+
+===== Variáveis opcionais =====
+
+O Tazwok também lida com diversas variáveis opcionais. Pode, por exemplo, usar o nome de outro pacote fonte. Também há variáveis que são usadas pelo Tazpkg para gerenciar dependências ou prover informações sobre o pacote.
+
+  * **$DEPENDS**: Define dependências - pode haver muitas dependências separada por um espaço ou por linhas. Esta variável é usada principalmente pelo Tazpkg ao instalar o pacote e pelo Tazwok para construir grandes pacotes como o Xorg. Exemplo para o Clex que depende do ncurses:
+
+<code>DEPENDS="ncurses"</code>
+
+  * **$BUILD_DEPENDS**: Define as dependências de compilação, novamente separadas por espaços ou por linhas. Esta variável é usada pelo Tazwok durante a geração de um pacote. Exemplo:
+
+<code>BUILD_DEPENDS="ncurses-dev"</code>
+
+  * **$TARBALL** : O arquivo é um fonte com a extensão (tar.gz, tgz ou tar.bz2). Em geral, as variáveis $PACKAGE e $VERSION são usadas somente para mudar a extensão, ajudando a atualizar o pacote sem mudar a variável $VERSION. Um exemplo genérico (veja também o exemplo para a variável $SOURCE):
+
+<code>TARBALL="$PACKAGE-$VERSION.tar.gz"</code>
+
+  * **$WEB_SITE** : O website oficial do pacote. Pode ocorrer que algumas bibliotecas não possuam um website, neste caso não há necessidade de especificar uma URL. Note que tanto o Tazwok e o Tazpkg esperam encontram uma URL completa:
+
+<code>WEB_SITE="http://www.clex.sk/"</code>
+
+  * **$WGET_URL** : URL para baixar o arquivo fonte. Em geral, a variável $TARBALL pode ser usada para facilitar a atualização de um pacote sem mudar a variável $VERSION. Usando o arquivo de configuração, o Tazwok pode também configurar por padrão 3 mirrors: $GNU_MIRROR para o mirror GNU, $SF_MIRROR para o SourceForge e $XORG_MIRROR para o mirror do servidor gráfico Xorg. Exemplo para o Clex:
+
+<code>WGET_URL="http://www.clex.sk/download/$TARBALL"</code>
+
+  * **$WANTED** : Os pacotes do SliTaz normalmente dependem da compilação de um pacote fonte. Algumas vezes a receita de um pacote não depende de compilação de regras, então a variável $WANTED é usada para copiar arquivos do fonte para outro pacote usando a variável $src.
+
+  * **$SOURCE** : Pode ocorrer de o nome do pacote .tazpkg ser diferente do nome do pacote fonte. Um exemplo é o dos pacotes Xorg: o nome da biblioteca X11 é "xorg-libX11" e o nome do pacote fonte é "libX11". Esta variável permite usar as variáveis $src e $_pkg durante a geração de um pacote. Pode-se notar que no caso da libX11, o nome do arquivo fonte torna-se $SOURCE-$VERSION.tar.gz.
+
+===== Variáveis usadas em funções =====
+
+O Tazwok configura diversas variáveis que facilitam a compilação e construção de pacotes .tazpkg. Estas são controladas automaticamente pelo Tazwok usando as informações contidas na receita: elas podem ser usadas pela funções //compile_rules// e //genpkg_rules// descritas no capítulos Funções.
+
+  * **$src** : Define o caminho para o diretório de fontes ainda não arquivados.
+  * **$_pkg** : Define o caminho para os binários compilados instalados via "make DESTDIR=$PWD/_pkg install". Esta variável é usada para copiar os arquivos gerados e criar pacotes .tazpkg.
+  * **$fs** : Define o caminho para o pseudo sistema de arquivos (fs) em cada pacote. O "fs" de cada pacote corresponde à raiz do sistema, como se, por exemplo, o Clex estivesse em $fs/usr/bin/clex. Note a necessidade de criar os diretórios necessários por meio da função //genpkg_rules()// antes de copiar os arquivos.
+  * **$CONFIGURE_ARGS** : Variável definida no arquivo de configuração do Tazwok (tazwok.conf). Permite que sejam especificados argumentos de otimização genéricos durante a construção do pacote. O padrão é o argumento para a arquitetura i486.
+
+===== Funções =====
+
+Uma receita deve conter 4 funções. O Tazwok lida com as funções contendo as regras de compilação (compile_rules) e as regras usadas para gerar um pacote (genpkg_rules). Estas funções podem conter todos os tipos de comandos padrão GNU/Linux, como sed, awk, patch e variáveis automaticamente configuradas.
+
+==== compile_rules() ====
+
+Para compilar um pacote pode-se usar a variável //$src// para mudar (cd) o diretório de fontes e usar a variável //$CONFIGURE_ARGS// para incluir argumentos do arquivo de configuração do Tazwok. Para construir um pacote normalmente se roda o "make" sem argumentos, e para instalar um pacote no diretório //_pkg// é necessário usar o comando "make DESTDIR=$PWD/_pkg install". Um exemplo genérico:
+
+<code># Regras para configurar e criar um pacote.
+compile_rules()
+{
+    cd $src
+    ./configure --prefix=/usr --infodir=/usr/share/info \
+    --mandir=/usr/share/man $CONFIGURE_ARGS
+    make
+    make DESTDIR=$PWD/_pkg install
+}
+</code>
+
+==== genpkg_rules() ====
+
+Para gerar um pacote .tazpkg deve-se especificar comandos na função //genpkg_rules//. Neste exemplo criamos um pseudo diretório //usr/// no sistema de arquivos do pacote, copiamos todos os binários e por fim usamos "strip" para limpar os arquivos:
+
+<code># Rules to gen a SliTaz package suitable for Tazpkg.
+genpkg_rules()
+{
+    mkdir -p $fs/usr
+    cp -a $_pkg/usr/bin $fs/usr
+    strip -s $fs/usr/bin/*
+}
+</code>
+
+==== pre_install() e post_install() ====
+
+Estas duas funções são iniciadas pelo Tazpkg ao instalar algum pacote. Elas devem ser definidas antes da geração do pacote .tazpkg pelo Tazwok. Se nenhuma regra é passada a estas funções, não há razão para mantê-las e elas podem ser removidas. Exemplo usando o comando "echo" para mostrar algum texto (nenhuma função pode estar vazia):
+
+<code># Comandos de pré e pós-instalação para o Tazpkg.
+pre_install()
+{
+    echo "Processing pre-install commands..."
+}
+post_install()
+{
+    echo "Processing post-install commands..."
+}
+</code>

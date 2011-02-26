@@ -1,0 +1,18 @@
+====== Release Tasks ======
+
+Tarefas a serem cumpridas antes do lançamento de uma nova versão do SliTaz.
+
+===== Lista de Verificação =====
+
+  * A versão do lançamento é especificada em ///etc/slitaz-release//, arquivo que é controlado pelo pacote //slitaz-base-files//. Os arquivos básicos (base files) são 'etiquetados' com o número de versão antes de um lançamento estável de forma a permitir que o tazpkg utilizar os pacotes referentes à versão.
+  * Verificar se a versão especificada na mensagem escrita em /etc/issue seja a mesma que é mostrada pelo arquivo isolinux.msg.
+  * Adicionar e verificar os documentos e imagens contidos na raiz do CD, ou seja, os arquivos README, index.html, style.css e diretório de imagens. Estes arquivos estão no pacote slitaz-tools, bastando apenas copia-los para o diretório 'addfiles' e gerar a ISO.
+  * Testar, testar e testar...
+  * Preparar o anúncio para o website e para os feeds RSS. A lista de discussão é utilizada para as traduções e todos os textos devem ser enviados 1 ou 2 dias antes do lançamento.
+
+===== Documentação da Versão Estável =====
+
+O lançamento de uma versão estável do SliTaz é acompanhada pelas notas de lançamento que é incluida no LiveCD por intermédio do pacote //slitaz-doc//. Os repositórios são etiquetados antes do lançamento e arquivado nos mirrors. Após o wok ter sido copiado para o wok-stable ( wok estável) os documentos voltam para o ciclo de testes e modificações (cooking) e somente disponibilizam um arquivo index.html com informações básicas. A localização dos documentos no sistema é : ///usr/share/doc/slitaz//, sendo que um ícone na área de trabalho é utilizado para o fácil acesso à essa documentação.
+
+  * [[http://hg.slitaz.org/slitaz-doc/|Repositório dos Documentos do SliTaz]].
+  * [[http://labs.slitaz.org/wiki/slitaz-doc|Documentos do SliTaz no Slitaz Labs]].

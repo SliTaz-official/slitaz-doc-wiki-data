@@ -1,0 +1,131 @@
+====== Guias ======
+
+Aqui podem ser encontrados guias rápidos e guias completos criados pela comunidade do SliTaz GNU/Linux. Estes guias são específicos sobre certo tema, tais como software, hardware ou configurações do sistema e pretendem fornecer instruções corretas e concisas. Normalmente eles tratam de um exemplo preciso e não pretendem ser um documento para problemas mais gerais.
+
+
+<note>Esta página está em desenvolvimento e está sujeita a mudanças durante o [[http://listengine.tuxfamily.org/lists.tuxfamily.org/slitaz/2010/04/msg00063.html| Mutirão da Documentação]]. As informações aqui apresentadas são válidas, embora nem sempre são 100% testadas.</note>
+
+
+===== Guias gerais =====
+   * [[newbie | Guia para novatos no SliTaz]]
+   * [[contributor | Contribuir para o Slitaz]] - Instruções para se tornar um contribuidor do SliTaz.
+   * [[bugs | Os bugs mais inconvenientes]]
+   * [[faq | FAQ]] - Perguntas mais frequentes
+   * [[testingapps | Como testar pacotes]] - Gerenciamento de qualidade.
+
+===== Instalação, variantes (flavors) e virtualização =====
+  * [[pxe|Boot via PXE]] - Boot a partir da web.
+  * [[lowramcd|LiveCD lowram]] - Utilize o SliTaz em sistemas com pouca memória RAM.
+  * [[frugal|Instalação Frugal]] - Instale o SliTaz em partições Windows.
+  * [[liveusb|LiveUSB]] - Instalação em uma mídia USB.
+  * [[dvd|DVD Offline]] - Todos os recursos do SliTaz em um único DVD. 
+  * [[sdcard|Cartão de memória]] - Como instalar o SliTaz em um cartão de memória flash MMC/SD.
+  * [[pizza | Como criar uma variante (flavor) online utilizando o Pizza]]
+  * [[manyinone | Como criar diversas variantes (flavors) em uma única]]
+  * [[internationalization | Internacionalização ]] - Como adicionar suporte a idiomas e criar uma variante (flavor) para a sua própria língua.
+  * [[qemu | QEMU ]] - Utilização do SliTaz GNU/Linux com o QEMU.
+  * [[vmware| VMware]] - Utilização do SliTaz GNU/Linux com o Vmware.
+  * [[virtualbox | VirtualBox]]- Utilização do SliTaz GNU/Linux com o VirtualBox.
+
+===== Internet e rede  =====
+  * [[wifi-easy|Wifi easy]] - Forma mais fácil de configurar redes wifi.
+  * [[wifi-hard|Wifi hard]] - Forma mais difícil de configurar redes wifi.
+  * [[network-script|O script network.sh]] - O arquivo /etc/init.d/network.sh.
+  * [[vpn|VPN]] - Faça sua própria rede privada virtual.
+  * [[dialup | 3G/Dialup]] - Como fazer o seu modem 3G modem funcionar.
+  * [[modem | Modem]] - Modem de internet discada com ppp ou wvdial.
+  * [[bluetooth|Bluetooth]] - Configurar bluetooth.
+  * [[samba | Rede e compartilhamento de arquivos com o Windows via Samba]]
+  * [[remotedesktop | Área de trabalho remota]]
+
+===== As pequenas e úteis ferramentas do SliTaz =====
+  * [[tazpkgbox | Tazpkgbox]] - Gerenciador de pacotes com interface gráfica.
+  * [[tazctrlbox | Tazctrlbox]] – Administração do sistema com interface gráfica.
+  * [[tazlitobox | Tazlitobox]] - Interface gráfica para criar LiveCD/variantes (flavors)
+  * [[tazusbbox | Tazusbbox]] - Interface gráfica para criar LiveUSB
+  * [[tazhwbox | Tazhw box]] - Identificação e instalação de hardware e drivers.
+  * [[mountbox | Mountbox ]] - Interface gráfica para acessar e montar sistemas de arquivos.
+  * [[burnbox | Burnbox]] - Gravar Cds/VCDs/DVDs.
+  * [[wifibox | Wifibox]] - Configuração de redes sem fio (wireless).
+  * [[netbox | Netbox]] - Configuração de redes Ethernet/PPP/VPN/DHCP/IP estático (Static IP).
+  * [[serverbox | Serverbox]] - Gerenciar servidores e/ou firewall.
+  * [[scpbox | Scpbox]] - Cópias de segurança (backup) utilizando o scp.
+
+===== Aplicativos  =====
+  * [[recommended | Programas Recomendados]] - Aplicativos para se fazer (quase) tudo com o SliTaz.
+  * [[flash|FlashInstall]] - Como instalar o Adobe Flash Player.
+  * [[boottime|Boot super rápido]] – Como tornar o tempo de boot super-rápido.
+  * [[burncd | Gravar CD/DVD]] - Como gravar CDs/DVDs de arquivos, áudio e vídeo.
+  * [[backup| Backup ]] - Como fazer backups em um CD ou em outro computador.
+  * [[Midori|Midori]] - Dicas e truques do navegador web Midori.
+  * [[panels | Configuração do painel e atalhos para aplicativos]]
+  * [[arts | Temas fundos de tela, ícones]]
+  * [[fonts | Fontes úteis]]
+  * [[sexydesktop|Desktop Sexy]]
+  * [[conky | Conky ]]
+  * [[audioplayers | Reprodutores de áudio]]
+  * [[videoplayers | Reprodutores de vídeo]]
+  * [[soundconvert | Conversão de som e vídeo]] - Conversão de som e vídeo, criação de áudio.
+  * [[importphotos | Importar fotos de câmeras digitais]] - Usando o gphoto2.
+  * [[dropbox | Dropbox]]
+  * [[tor|Tor]] - Instalação do Tor.
+  * [[conspy|Conspy]] - Pequeno gerenciador de sessão ou console compartilhado.
+  * [[wicd | Wicd]] - Pequeno gerenciador de redes.
+  * [[grub | Grub e Grub2]]
+
+===== Hardware =====
+  * [[PCLisTaz | PCLisTaz]] – Lista de Hardware Suportado de instalações do SliTaz de vários computadores.
+  * [[xorg/xvesa | Xorg/Xvesa]] – O que fazer se o X (ambiente gráfico) não é iniciado ou não está com a resolução correta.
+  * [[nvidia|Nvidia]] - Instale o mais recente driver não-livre (proprietário) da Nvidia.
+  * [[ati | ATI]] - Instale o mais recente driver não-livre (proprietário) da ATI.
+  * [[webcam | Webcam]] - Fazendo a webcam funcionar.
+  * [[printer | Impressora]] – Configuração de impressão, instalação e configuração do CUPS.
+  * [[scanner | Scanner]] - Utilize scanners no SliTaz.
+  * [[troubleshoot | Troubleshoot]] - Solução de erros.
+  * [[powermgmt | Gerenciamento de energia]]
+
+
+===== Administração do sistema e configurações de servidores  =====
+  * [[apache | Servidor web Apache]]
+  * [[lighttpd | Servidor web Lighttpd]]
+  * [[ssh | Dropbear, Openssh]]
+  * [[mailman | Servidor de e-mails e Mailman]]
+  * [[database|Database engine]] - SQLite, MySQL e outros sistemas de gerenciamento de banco de dados.
+  * [[redmine | Configuração do Redmine]]
+  * [[mercurial | Instalação do Mercurial]]
+  * [[pt:handbook:server-apps#drupal|Drupal]] - Um poderoso CMS que utiliza PHP/MySQL.
+  * [[streaming | Servidor de streaming de mídia]]
+  * [[encryption | Encriptação de arquivos e dispositivos]]
+  * [[firewall | Firewall]]
+  * [[router | Roteadores e portas de comunicação (gateway) de internet]]
+
+===== Gerenciadores de Janelas =====
+  * [[pt:handbook:wm#dwm|DWM]]
+  * [[pt:handbook:wm#pekwm|Pekwm]]
+  * [[fluxbox | Fluxbox]]
+  * [[xfwm | Xfwm (xfce)]]
+
+===== Kernel e sistema de compilação do SliTaz =====
+  * [[kernel|Kernel customizado]] - Compile o seu próprio kernel customizado.
+  * [[linuxpkgs| Pacotes do linux]] - Explicação sobre vários sistemas de pacotes do linux.
+  * [[chroot|Chroot]] – Como configurar um chroot para criar novos pacotes.
+  * [[tazwoktips | Dicas de compilação para o Tazwok ]] - Construa pacotes para o SliTaz de forma mais eficiente.
+
+===== Playground =====
+  * [[playground|Playground]] - Somente para testes.
+
+
+---- 
+\\
+^  Seção de revisão das páginas  ^^ 
+|Qualidade| Baixa  |
+|Revisão | Atualizações principais FIXME  |
+|Prioridade | Média |
+|Problemas| Adicione um [[http://forum.slitaz.org|link para um tópico no fórum]]|
+|:::     | OU adicione um [[http://labs.slitaz.org/issues |link para um tópico no SliTaz Labs]]|
+|Como melhorar| Faça sugestões breves, por ex.,|
+|::: | [[pt:guides:start | Adicione link]]|
+|::: | Adicione novas linhas como essas ;-) |
+
+\\
+----

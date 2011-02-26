@@ -1,0 +1,116 @@
+====== Servidor Gráfico ======
+
+O Sistema de Janelas X Window System, ou X11, disponibiliza um gerenciador de janelas que roda sobre um servidor gráfico (X). O Slitaz usa, por padrão, o servidor gráfico leve Xvesa, proveniente do projeto Xorg (www.x.org). O Xvesa pode ser iniciado a partir do gerenciador de login Slim ou diretamente a partir de terminal com o comando //startx//, mas neste último caso é necessário desativar o gerenciador de login. Para reconfigurar a sessão gráfica você pode usar o //tazx// logado como root (administrador) ou como usuário comum, se tiver iniciado o X a partir da linha de comandos.
+
+===== Tazx - Ferramenta de Configuração do X =====
+
+O Tazx é a ferramenta de configuração que gerencia as sessões X window num sistema SliTaz. Simplesmente selecione a resolução a ser utilizada e pressione OK. Pode-se também selecionar uma sessão do Xorg ao usar um driver de vídeo compatível com o hardware. Após executar o comando 'startx', a configuração é salva nos arquivos executáveis //~/.xsession// e //~/.xinitrc//. Estes arquivos são usados para iniciar uma sessão gráfica pelo comando 'startx' ou pelo gerenciador de login Slim e podem ser editados com algum editor de texto. O Tazx também pode ser utilizado para mudar o gerenciador de janelas padrão. Exemplo: //tazx jwm//.
+
+===== Slim - Simple Login Manager =====
+
+O Slim é um gerenciador de sessões leve, muito fácil de configurar, e que pode ser personalizado usando temas do sistema. O arquivo de configuração encontra-se em ///etc/slim.conf//. Permite definir, a partir da tecla F1, os gerenciadores de janela disponíveis, o usuário ou tema padrão e os parâmetros do sistema de janelas X. O Slim fornece alguns comandos especiais de usuário, como console, que facilitam o gerenciamento da sessão.
+
+No modo LiveCD você pode desabilitar o Slim com a opção de boot //screen=text//. Num sistema já instalado este pacote pode ser removido ou, então, pode-se apagar a entrada slim da variável RUN_DAEMONS em ///etc/rcS.conf//.
+
+Mais detalhes, bem como outros temas, podem ser encontrados no [[http://slim.berlios.de/|website]].
+
+==== Usuário Padrão ====
+
+O Slim permite pré-carregar um usuário no processo de login; por conveniência, 'tux' é o usuário predefinido. Isto pode ser alterado editando-se o arquivo de configuração do Slim ///etc/slim.conf// e alterando a linha //default_user//. Como alternativa, pode-se deixar a linha em branco, evitando assim que seja pré-carregado um nome de usuário. Exemplo:
+
+<code>default_user        tux</code>
+
+===== Xorg =====
+
+O SliTaz traz, por padrão, o mini-servidor gráfico Xvesa. O servidor Xorg pode ser encontrado nos pacotes disponíveis no mirror. O Xorg é um servidor bastante completo, mas consome muito mais recursos do que o Xvesa. Se a resolução do monitor for suportada pelo mini-servidor e a taxa de atualização (refresh rate) for satisfatória, não há qualquer razão para recorrer ao Xorg.
+
+Não existe nenhuma configuração através de interface gráfica, então tudo deverá ser feito pela linha de comando. A instalação e a configuração do servidor são operações relativamente simples e, a qualquer momento, é possível desistir e voltar ao Xvesa. O Xorg é distribuído em módulos, o que significa que é necessário instalar o servidor, alguns arquivos de configuração e o driver adequado para a placa de vídeo. Em todo o caso, o pacote //xorg-server// possui todas as dependências necessárias para funcionar diretamente com o driver //vesa//. Instalação mínima:
+
+<code># tazpkg get-install xorg-server</code>
+
+Depois de instalado, pode-se ir diretamente à configuração ou fazer a instalação adicional do driver adequado para sua placa de vídeo (caso saiba qual). Exemplo, usando o driver Nvidia e listando todos os drivers disponíveis:
+
+<code># tazpkg get-install xorg-xf86-video-nv</code>
+
+Listar:
+
+<code># tazpkg search xorg-xf86-video</code>
+
+==== Configuração automática do servidor ====
+
+Existem duas opções para a configuração do servidor Xorg: //Xorg -configure// ou o script //xorgconfig//. Recomenda-se que, de início, seja usado o comando Xorg com a opção //-configure//. A configuração automática do Xorg tem necessariamente de ser feita em modo de terminal, sem estar em execução uma instância do servidor X; para tanto, todas as aplicações e janelas devem ser encerradas e, então, deve-ser pressionar a combinação de teclas alt-ctrl-del. Feito isto, deve-se estar em modo terminal e pode-se executar-se o Xorg com a opção //-configure//, copiando o novo arquivo que foi gerado para ///etc/X11//:
+
+<code># Xorg -configure
+# cp /root/xorg.conf.new /etc/X11/xorg.conf
+</code>
+
+Por último, altera-se a configuração do Slim para usar o Xorg em vez do Xvesa e reinicia-se o gerenciador de janelas.
+
+==== Usando o Xorg com o Slim ====
+
+No arquivo de configuração do Slim (///etc/slim.conf//), é necessário comentar (utilizando #) as linhas que dizem respeito ao Xvesa e definir o Xorg na variável //default_xserver//:
+
+<code>default_xserver     /usr/bin/Xorg
+#default_xserver     /usr/bin/Xvesa
+#xserver_arguments   -ac -shadow dpms +extension Composite -screen 1024x768x24
+</code>
+
+Neste momento, pode já ser iniciado o Slim para regressar a uma sessão com o servidor X. O Slim funciona tal qual um daemon, podendo ser iniciado ou interrompido a partir do terminal:
+
+<code># /etc/init.d/slim start</code>
+
+==== xorg.conf - Arquivo de Configuração ====
+
+O Xorg usa o arquivo de configuração ///etc/X11/xorg.conf//. Este arquivo pode ser gerado automaticamente e editado com o editor de texto de sua preferência. Está dividido em diversas seções, incluindo a especificação de caminhos (paths), módulos a carregar, monitor padrão, mouse, teclado, etc. Este documento fornece apenas alguns exemplos, sendo aconselhável executar o comando //xorgconfig// uma vez para gerar um arquivo completo que pode ser usado como exemplo.
+
+Teclado (br-abnt2):
+
+<code>Section "InputDevice"
+	Identifier  "Keyboard0"
+	Driver      "kbd"
+	Option      "XkbRules"	 "xorg"
+	Option	    "XkbModel"   "abnt2"
+	Option	    "XkbLayout"  "br"
+	Option	    "XkbVariant" "abnt2"
+EndSection
+</code>
+
+Mouse com protocolo de auto-detecção:
+
+<code>Section "InputDevice"
+	Identifier  "Mouse0"
+	Driver      "mouse"
+	Option	    "Protocol" "auto"
+	Option	    "Device" "/dev/input/mice"
+	Option	    "ZAxisMapping" "4 5 6 7"
+EndSection
+</code>
+
+Extensões "Composite":
+
+<code>Section "Extensions"
+	Option      "Composite" "1"
+EndSection
+</code>
+
+===== Use o Xvesa como um terminal gráfico =====
+
+Pode-se utilizar o Xvesa como um terminal gráfico se houver uma máquina na rede que aceite conexões Xdmcp. Para habilitar essa função, pode-se iniciar o servidor com a opção //-query// seguida do nome da máquina ou o endereço IP. Exemplo usando a máquina 192.168.0.2 na rede local:
+
+<code>$ Xvesa -ac -shadow -screen 1024x768x24 -query 192.168.0.2</code>
+
+O uso de um servidor gráfico remoto pode ser de grande utilidade, embora o tempo de resposta dos aplicativos dependa em muito da velocidade da internet e da capacidade da máquina remota. Esta técnica funciona bem dentro de uma rede local (LAN) e permite controlar aplicativos instalados em uma máquina remota diretamente à partir de uma máquina local pela qual se acessa. Note que a máquina remota pode ter várias contas de usuário em uso simultâneo e/ou em acesso direto.
+
+===== Fontes =====
+
+O gerenciamento das fontes está a cargo do pacote //Fontconfig//. Este pacote disponibiliza um conjunto de ferramentas para adicionar, listar e manipular fontes. As fontes podem ser instaladas no espaço do usuário ou ao nível do sistema, o que significa que cada usuário pode usar o seu conjunto de fontes, podendo o administrador (root) instalar fontes que fiquem disponíveis para todos os usuários do sistema. Se você usa mídias USB associadas ao LiveCD SliTaz, pode facilmente instalar fontes e conservá-las para a próxima vez que utilizar o CD-ROM.
+
+==== Instalando fontes ====
+
+Ao nível do sistema, as fontes estão instaladas na pasta ///usr/share/fonts//. O SliTaz fornece fontes TTF Vera, que ocupam pouco espaço e são adequadamente exibidas no monitor. No espaço do usuário, as fontes podem ser encontradas na pasta oculta //.fonts//, que deve estar na pasta home do usuário. Para criar uma pasta para armazenar novas fontes podem ser usados os gerenciadores de arquivos emelFM2 ou Clex ou, ainda, a linha de comandos:
+
+<code>$ mkdir ~/.fonts</code>
+
+Logo que as fontes estejam instaladas, é necessário executar a ferramenta //fc-cache// para gerar os arquivos de configuração, o que permite assegurar que as fontes fiquem disponíveis para serem usadas em qualquer aplicação:
+
+<code>$ fc-cache</code>

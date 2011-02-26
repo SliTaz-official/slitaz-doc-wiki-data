@@ -1,0 +1,50 @@
+====== Gerenciadores de Conteúdo ======
+
+===== Dokuwiki =====
+
+O Dokuwiki (http://www.dokuwiki.org/) é uma wiki leve e poderosa que utiliza o PHP e arquivos texto para guardar as páginas, sem que seja necessária a utilização de uma base de dados. Para usar este gerenciador de conteúdo, basta instaladar um servidor web (lighttpd ou apache) e o PHP.
+===== Drupal =====
+
+O Drupal é um poderoso CMS (Sistema de gerenciamento de conteúdo) que utiliza o PHP como linguagem de programação que opera no servidor e a base de dados MySQL. Para instalar o Drupal e tê-lo funcionando em alguns minutos é preciso instalar primeiramente o servidor web (lighttpd), o PHP e o MySQL:
+
+<code>
+# tazpkg get-install lighttpd
+# tazpkg get-install php
+# tazpkg get-install mysql
+</code>
+
+Então basta fazer o download da última versão em http://drupal.org/ e criar um domínio virtual ou ir até o diretório público e descomprimir o fonte do Drupal:
+
+<code>
+$ mkdir ~/Public && cd Public
+$ tar xzf drupal-*
+</code>
+
+Agora é preciso modificar a permissão de alguns arquivos para que o Drupal possa ter permissão de escrita no sistema de arquivos durante o processo de instalação e sua execução:
+
+<code>
+$ cd drupal-*/sites
+$ chmod 777 default
+$ cp default/default.settings.php default/settings.php
+$ chmod 666 default/settings.php
+</code>
+
+Deve-se, então, criar uma base de dados MySQL e utilizar o navegador web de sua escolha para instalar o Drupal através de sua interface web. Quando o processo de instalação terminar deve-se modificar novamente as permissões de arquivo e iniciar o aplicativo para personalizá-lo. Para mudar as permissões
+
+<code>
+$ cd ..
+$ chmod 755 sites/default
+$ chmod 644 sites/default/settings.php
+</code>
+
+Para assegurar futuras atualizações da instalação do Drupal deve-se colocar todos os módulos adicionais e temas no diretório: site/all. Para se preparar para futuras adições de módulos e temas:
+
+<code>
+$ mkdir sites/all/modules
+$ mkdir sites/all/themes
+</code>
+
+==== Online ====
+
+    * Módulos do Drupal: http://drupal.org/project/modules
+    * Temas do Drupal: http://drupal.org/project/themes

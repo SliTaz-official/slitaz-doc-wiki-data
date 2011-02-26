@@ -1,0 +1,65 @@
+====== Todos os recursos do SliTaz em um DVD ======
+
+Uma imagem de DVD inicializável com todos os pacotes do SliTaz é gerada todos os dias. Veja em http://www.slitaz.org/pt/get/. Tanto as versões estável e de testes (cooking) do SliTaz possuem tais imagens. Elas possuem:
+
+    * Cópias dos arquivos de boot
+    * Uma cópia do site
+    * Um snapshot do wok (local onde se localizam os arquivos geradores de pacotes do SliTaz)
+    * Todos os pacotes oficiais
+
+Este DVD foi idealizado para pessoas que não possuem conexão à internet possam instalar pacotes e visualizar o site offline.
+
+===== Imagem ISO híbrida =====
+
+A imagem ISO deve ser gravada em uma mídia DVD usando:
+
+<code># wodim -v dev=/dev/dvd packages-cooking.iso</code>
+
+Ela também pode ser gravada numa mídia USB (digamos que seja montada em /dev/usbkey). Utilize o método a seguir com precaução, pois todos os dados da mídia serão apagados:
+
+<code># dd if=packages-cooking.iso of=/dev/usbkey</code>
+
+Após gravar o conteúdo da ISO na mídia USB, pode-se criar partições para aproveitar o espaço disponível:
+
+<code># fdisk /dev/usbkey</code>
+
+A mídia passará a ser inicializável. Se sua BIOS não suporta boot a partir de uma mídia USB, você pode usar um disquete de boot encontrado em http://www.slitaz.org/pt/get/#floppy
+
+===== Gravação em CDROM =====
+
+Os arquivos na imagem ISO estão organizados em 5 grupos:
+
+    - Arquivos de boot
+    - Arquivos de boot para sistemas com pouca memória RAM (loram)
+    - Arquivos do website
+    - Arquivos do wok
+    - Pacotes
+
+Os 4 primeiros grupos encontram-se nos primeiros 100-200MB da imagem ISO. Se você não precisar dos pacotes, então você pode gravar somente os quatro primeiro grupos em um mini-cdrom (8cm/210MB): 
+
+<code># wodim -v dev=/dev/cdrom packages-cooking.iso</code>
+
+Os pacotes estão armazenados em ordem alfabética. O pacote 915resolution estará possivelmente presente se você tentar a gravação em mini-cdrom, mas com certeza o zsh não estará. Os diretório são armazenados no início da imagem e sempre estarão presentes. Se você tentar o carregamento de um pacote não presente (zsh por exemplo) receberá um erro de Entrada e Saída.
+
+=== Dual boot ===
+
+Tanto os arquivos de boot padrão quanto os loram (loram-cdrom) estão armazenados na imagem ISO. A entrada padrão de boot (slitaz) selecionará qual iniciar dependendo do tamanho da RAM. Pode-se forçar a utilização de um ou outro arquivo de boot utilizando as opções //core// ou //loram//:
+
+<code>boot: loram screen=1280x1024</code>
+
+Usando a opção //core//, você pode:
+
+    * Desmontar o DVD (umount /cdrom)
+    * Testar (instalar) pacotes na RAM
+
+Não se pode fazer o mesmo ao usar a opção //loram// porque o diretório ///usr// será montado para leitura no DVD. Pode-se instalar o SliTaz usando ambos os arquivos de boot.
+
+=== Auto instalação ===
+
+Durante o processo de boot ocorre o seguinte:
+
+    * O DVD é montado em /cdrom e o wok em /home/slitaz/wok
+    * O tazpkg passa a utilizar o DVD como repositório
+    * O website do SliTaz é instalado em file:///cdrom/website/index.html//
+
+Nota: O mesmo dito até agora vale para os usuários que prefiram instalar a ISO numa mídia USB.

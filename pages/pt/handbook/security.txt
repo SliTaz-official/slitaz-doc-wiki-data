@@ -1,0 +1,55 @@
+====== Segurança ======
+
+SliTaz leva muito em conta a segurança do sistema. As aplicações são testadas durante muitos meses antes de serem incluídas na distribuição. Durante o boot, um mínimo de serviços são iniciados pelos scripts //rc//. Para uma lista completa de daemons habilitadas, você pode olhar para a variável RUN_DAEMONS no arquivo de configuração ///etc/rcS.conf//:
+
+<code>$ cat /etc/rcS.conf | grep RUN_DAEMONS</code>
+
+Para ver os processos atuais, seu PID e uso de memória, pode usar você o comando 'ps' ou o utilitário 'htop':
+
+<code>$ ps
+$ htop
+</code>
+
+===== Root - O administrador do sistema =====
+
+Em um sistema GNU/Linux, o usuário root é o administrador do sistema. Este usuário tem todos os direitos aos arquivos do sistemas e dos usuários. Nunca é aconselhável logar-se como root usando o comando //su// seguido pela senha para obter direitos absolutos sobre o sistema. Nunca se logue como root e navegue na internet, por exemplo. Isto lhe permite criar uma barreira dupla no caso de um ataque ou intrusão depois de um download e torna mais difícil para um cracker tomar o controle de sua máquina - primeiro ele tem que crackear sua senha e então tem que crackear a senha do root.
+
+Um sistema GNU/Linux é seguro com dois usuários pelo menos, um para trabalhar e um para administrar, configurar ou atualizar o sistema (root). Também é aconselhável confiar a administração do sistema a uma pessoa.
+
+===== Senhas =====
+
+Por padrão no SliTaz o usuário //tux// não tem uma senha e o administrador root vem com a senha definida como //root//. Você pode mudar estas senhas facilmente usando o comando //passwd//:
+
+<code>$ passwd
+# passwd
+</code>
+
+===== Busybox =====
+
+O arquivo //busybox.conf// configura os applets e seus respectivos direitos. No LiveCD do SliTaz os comandos: //su//, //passwd//, //loadkmap//, //mount//, //reboot// e //halt// podem ser executados por todos os usuários - o dono e grupo destes comandos são root (* = ssx root.root). O arquivo //busybox.conf// é legível pelo root, usando os direitos 600. Note que o comando //passwd// não permitirá para os usuários mudarem sua própria senha se não for configurado para //ssx//.
+
+===== Servidor web LightTPD =====
+
+No SliTaz o servidor de internet LightTPD é habilitado por padrão na inicialização do sistema, se você não pretender usar SliTaz em um ambiente de servidor, você pode desabilitar isto seguramente removendo-o da variável RUN_DAEMONS no arquivo de configuração ///etc/rcS.conf// ou cancelar o serviço manualmente:
+
+<code># /etc/init.d/lighttpd stop</code>
+
+===== Servidor SSH =====
+
+Esta seção pequena é um complemento à página SHell Seguro (SSH). No SliTaz o servidor SSH Dropbear não é iniciado por padrão, nós temos que acrescentá-lo à variável RUN_DAEMONS no arquivo de configuração ///etc/rcS.conf// para que seja habilitado no boot do sistema. Ou iniciar o servidor manualmente:
+
+<code># /etc/init.d/dropbear start</code>
+
+Por padrão, Dropbear é iniciado com as seguintes opções:
+
+<code>-w   Disallow root logins.
+-g   Disallow logins for root password.
+</code>
+
+Você pode adicionar opções novas editando o arquivo de configuração de daemons: ///etc/daemons.conf//. Para todas as opções, você pode digitar: //dropbear -h//.
+
+===== Pscan - Ports scanner =====
+
+Pscan é um pequeno utilitário do projeto Busybox que escaneia as portas de sua máquina. Você pode usar o pscan para escanear o localhost ou um host remoto, usando o nome ou o endereço IP da máquina. O pscan testará, por padrão, todas as portas de 1 a 1024 e listará aquelas que estiverem abertas, o protocolo e serviço associado a elas (ssh, www, etc):
+
+<code>$ pscan localhost</code>

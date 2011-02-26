@@ -1,0 +1,149 @@
+====== Wifi, Passo a Passo =======
+
+===== Introdução =====
+
+Se você quer configurar sua rede wifi, esta página não é para você. Veja a página [[wifi-easy|Configuração mais simples de wifi]] que explica como usar as ferramentas encontradas no SliTaz para tal tarefa.
+
+Porém se você quiser saber como usar redes wifi no linux, esta página explica como e ajuda a configurá-la "na mão". Antes de continuar:
+
+    * Você deve saber qual o módulo de kernel necessário para sua placa de rede wifi
+    * Se você precisar de algum firmware, deve saber onde obtê-lo
+
+Neste guia vamos:
+
+    - Instalar os softwares úteis e o firmware
+    - Carregar o módulo do kernel
+    - Configurar a conexão wifi
+    - Configurar uma chave wpa
+    - Conectar à internet e navegar
+    - Desligar a conexão wifi
+
+Observação: No SliTaz, o script ///usr/bin/get-wifi-firmware// executa os passos 1 e 2 e o script ///etc/init.d/network.sh// executa os passos de 3 a 6.
+
+===== Instalação do software necessário =====
+
+Você vai precisar dos módulos de kernel para sua placa wifi e de alguns programas que gerenciam redes wifi. Se você for usar chaves wpa, também vai precisar do pacote wpa_supplicant:
+
+<code># tazpkg get-install linux-wireless
+# tazpkg get-install wireless_tools
+# tazpkg get-install wpa_supplicant
+</code>
+
+Se você precisar de um firmware:
+
+<code># cd /lib/firmware
+# wget http://www.address/of/my/firmware
+</code>
+
+Descompactar para posterior instalação:
+
+<code># tar -xvf my_firmware.tar*
+# rm my_firmware.tar*
+</code>
+
+===== Carregamento do módulo do kernel =====
+
+<code># modprobe -v my_module</code>
+
+Se este comando retornar algum erro, verifique se o firmware está onde deveria e veja a saída do comando dmesg:
+
+<code>$ ls -l /lib/firmware
+$ dmesg
+</code>
+
+Se não houver nenhum erro, pode-se continuar.
+
+===== Configuração da interface de rede =====
+
+Antes de configurar a nova interface, deve-se desativar a interface ethernet padrão:
+
+<code># ifconfig eth0 down</code>
+
+O comando //iwconfig// permite configurar a placa de rede de forma a conectar a um ponto de acesso. Você deve saber o nome de sua interface wifi (geralmente //wlan0// ou //eth1//). Se não souber o nome, apenas rode o //iwconfig//:
+
+<code># iwconfig</code>
+
+Agora podemos configurar a interface wifi e iniciá-la:
+
+<code># ifconfig WIFI_INTERFACE up
+# iwconfig WIFI_INTERFACE txpower on
+</code>
+
+Testaremos se a placa de rede funciona:
+
+<code># iwlist scan</code>
+
+Se você obter uma lista de pontos de acesso pode então informar à interface a qual ESSID se conectar:
+
+<code># iwconfig WIFI_INTERFACE essid MY_ESSID</code>
+
+O comando //iwconfig// também aceita outros argumentos, veja sua man page para conhece-los. 
+
+===== Configuração de uma chave wpa ou wep =====
+
+Pode-se configurar facilmente uma chave wep com o //iwconfig//:
+
+<code># iwconfig WIFI_INTERFACE key minha_chave_wep</code>
+
+Porém você deve **sempre** usar uma chave wpa porque chaves wep são facilmente quebradas com o programa //aircrack//, como mostrado [[http://www.tuto-fr.com/tutoriaux/tutorial-crack-wep-aircrack.php|neste artigo (em francês)]]. O comando //wpa_supplicant// permite usar uma chave wpa (algumas placa de rede podem usar wpa sem a necessidade do //wpa_supplicant//). Este comando necessita de um arquivo de configuração, normalmente ///etc/wpa_supplicant.conf//. Se você estiver usando chave //wpa_psk// (geralmente, você estará), adicione o seguinte ao arquivo:
+
+<code>ap_scan=1
+network={
+	ssid="my_essid"
+	scan_ssid=1
+	proto=WPA
+	key_mgmt=WPA-PSK
+	psk="my_clear_key"
+	priority=5
+}
+</code>
+
+Ou tente:
+
+<code>ap_scan=1
+network={
+	ssid="my_essid"
+	scan_ssid=1
+	key_mgmt=WPA-EAP WPA-PSK IEEE8021X NONE
+	group=CCMP TKIP WEP104 WEP40
+	pairwise=CCMP TKIP
+	psk="my_clear_key"
+	priority=5
+}
+</code>
+
+Agora pode-se executar o //wpa_supplicant//:
+
+<code>wpa_supplicant -B -w -c/etc/wpa_supplicant.conf -DWPA_DRIVER -iWIFI_INTERFACE</code>
+
+WPA_DRIVER é o nome do driver utilizado pelo //wpa_supplicant//. Normalmente o driver é o //wext//, mas algumas vezes algum outro é necessário. Uma lista dos possíveis drivers:
+
+    * //wext// = Linux wireless extensions (generic, should work in most cases)
+    * //hostap// = Host AP driver (Intersil Prism2/2.5/3)
+    * //atmel// = ATMEL AT76C5XXx (USB, PCMCIA)
+    * //wired// = wpa_supplicant wired Ethernet driver
+
+A opção //-B// executa o //wpa_supplicant// como um daemon. Se for necessário terminar este processo:
+
+<code># killall wpa_supplicant</code>
+
+===== Conexão =====
+
+Se você quiser conectar usando um IP dinâmico com o DHCP, execute:
+
+<code># /sbin/udhcpc -b -i WIFI_INTERFACE -p /var/run/udhcpc.WIFI_INTERFACE.pid</code>
+
+Com esse comando, você já poderá navegar na internet.
+
+===== Desligar a conexão wifi =====
+
+Para parar a conexão wifi, deve-se desligar a placa de rede, e parar os daemons //wpa_supplicant// e //udhcpc//:
+
+<code># iwconfig WIFI_INTERFACE txpower off
+# kill `cat /var/run/udhcpc.WIFI_INTERFACE.pid`
+# killall wpa_supplicant
+</code>
+
+Deve-se também descarregar o módulo do kernel:
+
+<code># rmmod my_module</code>

@@ -1,0 +1,82 @@
+====== Instalação Frugal em uma partição Windows ======
+
+Instale o [[http://grub4dos.sourceforge.net/wiki/index.php/Grub4dos_tutorial#Installation|Grub4dos]].
+
+Este artigo assume que o seu drive C: é reconhecido como //(hd0,0)// (primeira partição do primeiro disco).
+Será necessário o mínimo de 160MB de memória RAM para o SliTaz Cooking ou 2.0 (128MB para o 1.0).
+
+Os seguintes passos foram testados no Windows XP instalado em partições FAT32 e NTFS.
+
+Para o Windows XP, 2000 ou NT, copie o arquivo http://mirror.slitaz.org/boot/grldr em C:\ e adicione a seguinte linha ao arquivo C:\boot.ini: 
+
+<code>C:\grldr="Grub4DOS"</code>
+
+===== Instalação Frugal Tradicional =====
+
+Copie os arquivos http://download.tuxfamily.org/slitaz/boot/cooking/bzImage e http://download.tuxfamily.org/slitaz/boot/cooking/rootfs.gz (ambos possuem menos de 30MB) em C:\boot e adicione o seguinte ao arquivo C:\menu.lst:
+
+<code>title SliTaz cooking
+  kernel (hd0,0)/boot/bzImage rw root=/dev/null vga=normal
+  initrd (hd0,0)/boot/rootfs.gz
+</code>
+
+Este método funciona bem no Windows XP instalado em partições FAT32 e NTFS.
+
+===== Instalação usando uma imagem ISO =====
+
+Copie http://download.tuxfamily.org/slitaz/iso/cooking/slitaz-cooking.iso (<30MB) em C:\boot. Faça uma desfragmentação no drive C: e adicione o seguinte texto ao arquivo C:\menu.lst:
+
+<code>title SliTaz cooking
+  map (hd0,0)/boot/slitaz-cooking.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage rw root=/dev/null vga=normal
+  initrd (hd1)/boot/rootfs.gz
+</code>
+
+Este método funciona bem no Windows XP instalado em partições FAT32 e NTFS. Ao se usar a versão 0.4.3 do Grub4dos o arquivo C:\boot\slitaz-cooking.iso DEVE ser desfragmentado.
+
+Você precisa de no mínimo 160MB de RAM para rodar o slitaz-cooking.iso, sendo 256MB o ideal. Se tiver menos RAM disponível, tente as imagens:
+
+http://mirror.slitaz.org/iso/cooking/flavors/slitaz-cooking-base.iso ou
+http://mirror.slitaz.org/iso/cooking/flavors/slitaz-cooking-justX.iso ou
+http://mirror.slitaz.org/iso/cooking/flavors/slitaz-loram.iso
+
+<code>title SliTaz cooking base
+  map (hd0,0)/boot/slitaz-cooking-base.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage rw root=/dev/null vga=normal
+  initrd (hd1)/boot/rootfs.gz
+</code>
+
+Veja [[pt:guides:lowramcd|LiveCD para sistemas com pouca memória RAM]].
+
+===== Instalação com boot via WEB =====
+
+Copie http://download.tuxfamily.org/slitaz/boot/gpxe (<200KB)
+em C:\boot e adicione o seguinte texto ao arquivo C:\menu.lst:
+
+<code>title SliTaz web
+  kernel (hd0,0)/boot/gpxe
+</code>
+
+Isto irá iniciar a versão mais recente disponível do SliTaz. Veja http://boot.slitaz.org/. Este método funciona bem no Windows XP instalado em partições FAT32 e NTFS.
+
+===== Melhorando o processo de boot =====
+
+Parâmetros de boot adicionais podem ser usados. Por exemplo:
+
+<code>title SliTaz cooking
+  map (hd0,0)/boot/slitaz-cooking.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage rw root=/dev/null vga=extended lang=fr_FR kmap=fr-latin1 laptop autologin config=/dev/hda1,boot/slitaz.sh
+  initrd (hd1)/boot/rootfs.gz
+</code>
+
+===== Método automatizado em modo gráfico usando o UNetbootin =====
+
+Uma instalação frugal do SliTaz ou usando um Live USB podem ser feitas usando o [[http://unetbootin.sourceforge.net/|UNetbootin]].
+
+A versão padrão do programa ([[http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe|Windows]] | [[http://unetbootin.sourceforge.net/unetbootin-linux-latest|Linux]]) pode ser usada (selecione //SliTaz// na lista de distribuições), assim como uma versão personalizada do programa para o SliTaz ([[http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe|Windows]] | [[http://unetbootin.sourceforge.net/unetbootin-linux-latest|Linux]]).
+
+Para uma instalação frugal, selecione "Hard Disk" para o tipo de instalação;
+Para criar um Live USB, selecione "USB Drive" para o tipo de instalação.

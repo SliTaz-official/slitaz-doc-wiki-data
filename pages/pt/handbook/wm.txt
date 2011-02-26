@@ -1,0 +1,88 @@
+====== Gerenciadores de Janelas ======
+
+===== Openbox =====
+
+Encontre maiores detalhes sobre o openbox no documento [[desktop|Desktop]].
+
+===== Enlightenment (e17) =====
+
+Enlightenment é um ambiente de desktop completo, completamente configurável com o mouse e que oferece muitos temas. A versão oferecida pelo projeto SliTaz é conhecida como e17 e ainda está em desenvolvimento, porém esta versão é considerada estável o bastante ser incorporada na distribuição. Enlightenment foi projetado para ser usado tanto em sistemas com recursos limitados como também em sistemas mais poderosos. Ele permite papéis de parede, menus, dispositivos animados e interativos e administra desktops virtuais. Para instalar o e17:
+
+<code># tazpkg get-install enlightenment</code>
+
+Faça logout de sua sessão X atual, aperte F1 no login do Slim e escolha e17 para começar o enlightenment.
+
+==== Menu e ícones de desktops ====
+
+O Enlightenment é compatível aos padrões Freedesktop. Aplicações são ordenadas por categoria e ícones aparecem automaticamente se um arquivo do desktop é fornecido. Os arquivos de sistema (.desktop) estão no diretório ///usr/share/applications// ou ocultos em //~/.local/share/applications//. Estes arquivos têm uma sintaxe simples e são editáveis pelo painel ou com um editor de texto simples. Os menus de arquivos exibindo categorias no menu do Enlightenment podem ser achados no pacote //slitaz-menus//:
+
+<code># tazpkg get-install slitaz-menus</code>
+
+==== Um ícone no desktop ====
+
+Para ter um ícone no desktop que lança uma aplicação, você pode criar um arquivo //.desktop// manualmente em seu diretório local //~/Desktop//. Arquivos de desktop colocados neste diretório são reconhecidos automaticamente pelo Enlightenment. Um único arquivo //.desktop// pode conter oito linhas com, respectivamente: - o nome (Name), nome genérico, comentário, o comando para executar (Exec), ícone, tipo e categorias Freedesktop. Exemplo de um arquivo .desktop para ícone do Xterm:
+
+<code>[Desktop Entry]
+Name=XTerm
+GenericName=Terminal
+Comment=Run commands in a shell
+Exec=xterm -bg black -fg white -cr orange -sb -bd violet -rightbar
+Icon=/usr/share/icons/Tango/jwm/utilities-terminal.png
+Type=Application
+Categories=Utility;Terminal;
+</code>
+
+Temas adicionais podem ser encontrados no [[http://www1.get-e.org/Themes/E17/|website]].
+
+===== JWM - Joe's Window Manager =====
+
+O Joe's window manager (Gerenciador de Janelas do Joe) é escrito em C e é rápido, simples, limpo, estável e eficiente. O JWM fornece uma barra de tarefas, um menu e um pager para o gerenciamento de desktops virtuais. A barra de tarefas também pode atuar como um dock. Além do mais, pode ser facilmente configurado por um único arquivo de texto que gerencia o menu, as fontes e seus tamanhos, diferentes cores, etc. Para instalar o jwm no SliTaz:
+
+<code># tazpkg get-install jwm</code>
+
+Saia da sessão gráfica atual, digite F1 na tela de login do Slim e escolha //jwm// para iniciar o JWM. Para fazer do JWM o gerenciador de janelas padrão, digite: //tazx jwm//.
+
+==== Use e configure o JWM ====
+
+O JWM é muito rápido. Para visualizar o menu clique em algum lugar do desktop. Pode-se redimensionar uma janela a partir das bordas ou cantos, minimizar ou passar de um desktop virtual para outro por meio do pager. Pode-se, também, configurar atalhos de teclado para acesso rápido para os aplicativos mais usados. No SliTaz o arquivo de configuração é o ///etc/jwm/system.jwmrc//. Além deste arquivo, cada usuário pode ter seu próprio arquivo de configuração em //~/.jwmrc//: este é um arquivo de texto que usa a sintaxe XML, podendo ser editado com algum editor de texto - as linhas que começam com um <!-- são comentários que permitem compreender o que cada tag significa.
+
+Para facilitar a customização do desktop, o SliTaz copia automaticamente, durante o início da primeira sessão gráfica, o arquivo de configuração para o diretório raiz do usuário atual. Pode-se modificar este arquivo diretamente e testar as alterações sem risco para o sistema. Para editá-lo com seu editor de texto favorito:
+
+<code>$ geany $HOME/.jwmrc &</code>
+
+Para restaurar o arquivo de configuração original, pode-se copiar o arquivo de configuração do sistema e renomeá-lo para //.jwmrc// no diretório raiz do usuário:
+
+<code>$ cp /etc/jwm/system.jwmrc $HOME/.jwmrc</code>
+
+A tag //RootMenu// corresponde ao menu mostrado pelo clique em algum botão do mouse. Para adicionar uma categoria, deve-se usar a tag //Menu// - que contem entrada para vários programas. Qualquer entrada em um menu do JWM deve estar numa linha diferente. Um exemplo usando o GQview:
+
+<code><Program icon="gqview.png" label="GQview">gqview</Program></code>
+
+Há várias maneiras de configurar o //RootMenu// de acordo com os botões do mouse; a escolha do método de movimentação das janelas, criação de grupos, etc. O Manual está disponível online no site oficial do projeto. Para listar as opções de linha de comando, digita-se //jwm -h// em um terminal.
+
+==== Criação de Estilos personalizados para o JWM ====
+
+Criar um estilo personalizado para o JWM é relativamente rápido e fácil, as tags são claras e os atributos possíveis são informados nos comentários do arquivo. Ao se preparar o trabalho, pode-se ver os resultados reiniciando o gerenciador de janelas a partir do menu ou por meio do comando //jwm -restart//. No arquivo de configuração, as tags de estilo começam depois do comentário //<!-- Visual Styles -->//. Para iniciar, aqui há uma curta lista das tags de estilo principais seguidas de uma descrição:
+
+  * //Background// gerencia o papel de parede. Esta tag suporta os atributos //solid//, //gradient//, //image// ou //tile// para, respectivamente: usar uma cor sólida, criar um gradiente, mostrar uma imagem redimensionada ou repetidamente.
+  * //BorderStyle// controla as bordas das janelas.
+  * //TrayStyle// controla a barra de tarefas. A barra de tarefas pode, entre outras coisas, ser automaticamente escondida ou ocupar apenas uma parte da tela, alterando-se o atributo //width//.
+  * //TrayListStyle// controla o estilo de lista de janelas abertas do desktop atual.
+  * //PagerStyle// controla o pager que mostra os diferentes desktops virtuais (4 por padrão).
+  * //MenuStyle// define o estilo do menu.
+
+Os ícones são definidos pela tag //IconPath//. Pode-se usar os próprios ícones especificando o caminho completo para o diretório no qual estão contidos. Note que se pode especificar mais de um caminho, se assim se desejar: é possível usar os próprios ícones e aqueles encontrados nos diretórios ///usr/share/pixmaps// e ///usr/share/icons//. O SliTaz usa ícones do tema [[http://tango.freedesktop.org|Tango]] para o menu. Eles possuem o tamanho de 16x16 e são armazenados em ///usr/share/icons/Tango//. Pode-se adicionar, editar ou deletar esses ícones. Para instalar novos ícones para um usuário, aconselha-se usar os diretórios //~/Picture/Icons// (por padrão) ou //~/.Icons//.
+
+As cores são definidas por seu nome ou número RGB, como #3A4956. Para usar cores em modo gradiente, deve-se especificar duas cores separadas por uma vírgula, como por exemplo #6C0023:#3E1220. Pode-se mudar as fontes e seus tamanhos pela tag //Font//. Há ainda outras coisas que podem ser mudadas para customizar o desktop, como o nome de um item de menu e seu ícone. Antes de reiniciar o JWM com o novo arquivo de configuração, pode-se checar sua sintaxe usando o comando //jwm -p//. Para maiores informações, o manual oficial descreve todas as tags, opções e atributos válidos. Pode-se consulta-lo online no site do JWM.
+
+==== JWM website ====
+
+www.joewing.net/programs/jwm/ - Website oficial do Joe's Window Manager, que fornece notícias e um manual completo.
+#jwm em irc.freenode.net - Canal de discussão do JWM IRC hospedado no servidor IRC Freenode.
+
+===== Pekwm =====
+
+[[http://www.pekwm.org/files/pekwm/doc/0.1.10/html/index.html|Documentação]]
+===== dwm =====
+
+[[http://dwm.suckless.org/tutorial|Documentação]]
