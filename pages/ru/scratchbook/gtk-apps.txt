@@ -1,0 +1,259 @@
+======Приложения GTK+======
+
+Компиляция и установка приложений, использующих GTK+.
+
+
+=====Введение=====
+
+В этой главе описывается компиляция и установка приложений GTK+, входящих в LiveCD SliTaz по умолчанию. Установка библиотек GTK+ описана в [[gtk-libs|предыдущей главе]].
+
+
+===Переменная окружения ($fs)===
+
+Если у вас не указан путь к папке rootfs, экспортируйте следующую переменную окружения:
+
+<code># export fs=$PWD/rootfs</code>
+
+Для проверки наберите
+
+<code># echo $fs</code>
+
+
+=====leafpad-0.8.10 — простой текстовый редактор=====
+
+Сайт программы: [[http://tarot.freeshell.org/leafpad/|tarot.freeshell.org/leafpad/]]. 
+
+<code>
+# wget http://savannah.nongnu.org/download/leafpad/leafpad-0.8.10.tar.gz
+# tar xzf leafpad-0.8.10.tar.gz
+# cd leafpad-0.8.10
+# ./configure --prefix=/usr
+# make
+# make DESTDIR=$PWD/_pkg install
+# strip _pkg/usr/bin/*
+</code>
+
+===Установим его в rootfs:===
+
+<code>
+# cp _pkg/usr/bin/* $fs/usr/bin
+# cp _pkg/usr/share/pixmaps/leafpad.png $fs/usr/share/pixmaps
+# cp -a _pkg/usr/share/locale/ru $fs/usr/share/locale
+</code>
+
+
+=====gitmail-0.4 — Ghost In The Mail, клиент электронной почты=====
+
+
+Ghost in the mail дает возможность легко и быстро отправлять электронные письма по протоколу SMTP. 
+
+Сайт: [[http://gitmail.sourceforge.net/|gitmail.sourceforge.net]].
+
+<code>
+# wget http://switch.dl.sourceforge.net/sourceforge/gitmail/gitmail-0.4.tar.gz
+# tar xzf gitmail-0.4.tar.gz
+# cd GhostInTheMail-0.4
+# ./configure --prefix=/usr
+# make
+# make DESTDIR=$PWD/_pkg \
+  gitmaildocdir=/usr/share/doc/GhostInTheMail \
+  install
+# strip _pkg/usr/bin/*
+</code>
+
+===Установим программу в rootfs:===
+
+<code># cp _pkg/usr/bin/* $fs/usr/bin</code>
+
+
+=====gqview-2.0.4 — просмотр изображений=====
+
+Сайт: [[http://gqview.sourceforge.net/|gqview.sourceforge.net]].
+
+<code>
+# wget http://belnet.dl.sourceforge.net/sourceforge/gqview/gqview-2.0.4.tar.gz
+# tar xzf gqview-2.0.4.tar.gz
+# cd gqview-2.0.4
+# ./configure --prefix=/usr --mandir=/usr/share/man
+# make
+# make DESTDIR=$PWD/_pkg install
+# strip _pkg/usr/bin/*
+</code>
+
+===Установим его в rootfs:===
+
+<code>
+# cp _pkg/usr/bin/* $fs/usr/bin
+# cp _pkg/usr/share/pixmaps/* $fs/usr/share/pixmaps
+# cp -a _pkg/usr/share/locale/ru $fs/usr/share/locale
+</code>
+
+
+=====mtpaint-3.11 — графический редактор=====
+
+Сайт: [[http://mtpaint.sourceforge.net/|mtpaint.sourceforge.net]].
+
+<code>
+# wget http://switch.dl.sourceforge.net/sourceforge/mtpaint/mtpaint-3.11.tar.bz2
+# tar xjf mtpaint-3.11.tar.bz2
+# cd mtpaint-3.11
+# ./configure --cpu=i486 --prefix=/usr intl
+# make
+# strip src/mtpaint
+</code>
+
+===Установим его в rootfs:===
+
+<code>
+# cp src/mtpaint $fs/usr/bin
+# cp po/ru.mo $fs/usr/share/locale/ru/LC_MESSAGES/mtpaint.mo
+# cp src/icons1/icon.xpm $fs/usr/share/pixmaps/mtpaint.xpm
+</code>
+
+
+=====Transmission-0.72 — легкий torrent-клиент=====
+
+Tranmission BitTorrent-клиент — быстрая, легкая и удобная в использовании программа. Пакет, который мы будем компилировать, содержит консольную (transmissioncli) и графическую (transmission-gtk) версии программы. Мы же возьмем только графическую версию, консольная же распространяется в виде отдельного пакета для SliTaz (*.tazpkg).
+
+Сайт программы: [[http://transmission.m0k.org/|transmission.m0k.org]].
+
+<code>
+# wget http://download.m0k.org/transmission/files/Transmission-0.72.tar.gz
+# tar xzf Transmission-0.72.tar.gz
+# mv "Transmission .72" Transmission-0.72
+# cd Transmission-0.72
+# ./configure --prefix=/usr  --disable-openssl
+# make
+# strip gtk/transmission-gtk
+# strip cli/transmissioncli
+</code>
+
+===Установим в rootfs:===
+
+<code>
+# cp gtk/transmission-gtk $fs/usr/bin
+# cp gtk/transmission.png $fs/usr/share/pixmaps
+# cp gtk/po/ru.mo $fs/usr/share/locale/ru/LC_MESSAGES/transmission-gtk.mo
+</code>
+
+
+=====emelfm2-0.3.5 — файловый менеджер=====
+
+emelFM2 — это менеджер файлов, имеющий много полезных функций, среди которых — монтирование устройств, просмотр текстовых файлов, открытие терминала в текущей папке и др.
+
+Сайт: [[http://emelfm2.net/|emelfm2.net]].
+
+<code>
+# cd ..
+# wget http://emelfm2.net/rel/emelfm2-0.3.5.tar.gz
+# tar xzf emelfm2-0.3.5.tar.gz
+# cd emelfm2-0.3.5
+# make PREFIX=/usr
+# make i18n PREFIX=/usr
+# make install PREFIX=$PWD/_pkg/usr
+# make install_i18n PREFIX=$PWD/_pkg/usr
+# strip -v _pkg/usr/bin/*
+# strip -v _pkg/usr/lib/emelfm2/plugins/*
+</code>
+
+===Установим программу в rootfs:===
+
+<code>
+# cp _pkg/usr/bin/* $fs/usr/bin
+# cp -a _pkg/usr/lib/* $fs/usr/lib
+# cp -a _pkg/usr/share/pixmaps $fs/usr/share
+# cp -a _pkg/usr/share/locale/ru $fs/usr/share/locale
+</code>
+
+
+=====geany-0.11 — интегрированная среда разработки=====
+
+Geany — простая, быстрая и легкая среда разработки с поддержкой подсветки синтаксиса, вкладок, автозавершения, средств для написания скриптов и многих других функций. 
+
+Сайт проекта: [[http://geany.uvena.de/|geany.uvena.de]].
+
+Для компиляции и запуска geany в SliTaz потребуются библиотеки libstdc++ и libgcc1, предоставляемые пакетом gcc. Мы их перекомпилировали при сборке gcc-4.1.1, вы же можете взять их из основной системы. 
+
+<note tip>Совет: активируйте опцию //--enable-the-force//, и да пребудет с вами Сила!</note>
+
+<code>
+# wget http://mesh.dl.sourceforge.net/sourceforge/geany/geany-0.11.tar.gz
+# tar xzf geany-0.11.tar.gz
+# cd geany-0.11
+# ./configure --prefix=/usr --mandir=/usr/share/man \
+  --disable-vte --enable-the-force
+# make
+# make DESTDIR=$PWD/_pkg install
+# strip -v _pkg/usr/bin/*
+</code>
+
+===Установим программу в rootfs:===
+
+<code>
+# cp _pkg/usr/bin/* $fs/usr/bin
+# cp -a _pkg/usr/share/geany $fs/usr/share
+# cp _pkg/usr/share/pixmaps/geany.png $fs/usr/share/pixmaps
+# cp -a _pkg/usr/share/locale/ru $fs/usr/share/locale
+</code>
+
+
+=====gftp-2.0.18 — простой и быстрый клиент FTP=====
+
+Приложение gFTP — это быстрый и эффективный FTP-клиент на основе графического интерфейса GTK+. Обратите внимание, что при компиляции программы мы отключим консольную версию и поддержку SSL.
+
+Сайт: [[http://www.gftp.org/|www.gftp.org]].
+
+<code>
+# wget http://www.gftp.org/gftp-2.0.18.tar.gz
+# tar xzf gftp-2.0.18.tar.gz
+# cd gftp-2.0.18
+# ./configure --prefix=/usr --mandir=/usr/share/man \
+  --disable-ssl --disable-textport \
+  --build=i486-pc-linux-gnu --host=i486-pc-linux-gnu
+# make
+# make DESTDIR=$PWD/_pkg install
+# strip _pkg/usr/bin/*
+</code>
+
+===Установим программу в rootfs===
+
+На SliTaz CD-ROM представлена только графическая версия gFTP. Интересно, что сама программа представляет собой всего лишь простой скрипт, который определяет окружение для запуска (консольный или графический режим работы) и запускает соответствующий интерфейс.
+
+<code>
+# cp _pkg/usr/bin/gftp $fs/usr/bin
+# cp _pkg/usr/bin/gftp-gtk $fs/usr/bin
+# cp -a _pkg/usr/share/gftp $fs/usr/share
+# cp -a _pkg/usr/share/pixmaps $fs/usr/share
+# cp -a _pkg/usr/share/locale/ru $fs/usr/share/locale
+</code>
+
+Чтобы сберечь немного свободного места и избежать повторения, можно удалить файл COPYING (17 Кб) из папки ///usr/share/gftp//. Лицензия GNU уже находится в папке ///usr/share/licence//, так что при желании на нее можно создать символическую ссылку.
+
+
+=====xpad-2.12 — программа для ведения заметок=====
+
+С помощью приложения Xpad удобно вести заметки в различных настраиваемых окнах GTK+.
+
+Сайт: [[http://xpad.sourceforge.net/|xpad.sourceforge.net]].
+
+<code>
+# wget http://surfnet.dl.sourceforge.net/sourceforge/xpad/xpad-2.12.tar.bz2
+# tar xjf xpad-2.12.tar.bz2
+# cd xpad-2.12
+# ./configure --prefix=/usr --mandir=/usr/share/man \
+  --build=i486-pc-linux-gnu --host=i486-pc-linux-gnu
+# make
+# make DESTDIR=$PWD/_pkg install
+# strip _pkg/usr/bin/*
+</code>
+
+===Установим программу в rootfs:===
+
+<code>
+# cp _pkg/usr/bin/xpad $fs/usr/bin
+# cp -a _pkg/usr/share/pixmaps $fs/usr/share
+# cp -a _pkg/usr/share/locale/ru $fs/usr/share/locale
+</code>
+
+----
+Статью перевел [[http://forum.slitaz.org/index.php/profile/1273/Cyril|Cyril]]

@@ -1,0 +1,95 @@
+======Ежемесячный бюллетень — выпуск 16======
+
+  * от 5 апреля 2010
+
+
+=====Последние новости=====
+
+  * выпущен SliTaz версии 3.0
+
+
+=====Новые пакеты=====
+
+  * busybox-static
+  * ctags
+  * httpfs-fuse-static
+  * nss
+  * perl-net-xwhois
+  * rgzip
+  * samba-common
+  * sslh
+  * vym
+  * xorg-xf86-video-openchrome
+  * yad
+
+
+=====Обновленные пакеты=====
+
+  * bluez => 4.62
+  * cryptsetup => 1.1.0
+  * gtk-gnutella => 0.96.8
+  * isomaster => 1.3.7
+  * libdevmapper => 1.02.44
+  * libgphoto2 => 2.4.8
+  * libsoup => 2.29.91
+  * lighttpd => 1.4.26
+  * lxpanel => 0.5.5
+  * mhwaveedit => 1.4.18
+  * midori => 0.2.4
+  * mplayer-svn => 30817
+  * nano => 2.2.3
+  * ntfs-3g => 2010.1.16
+  * openssh => 5.4p1
+  * ppp-* => 2.4.5
+  * privoxy => 3.0.16-stable
+  * sftp-server => 5.4p1
+  * squid => STABLE25
+  * sudo => 1.7.2p5
+  * task => 1.9.0
+  * tor => 2.1.23
+  * wvdial => 1.61
+  * xorg-xf86-video-intel => 2.7.1
+  * xterm => 256
+
+
+=====Улучшения=====
+
+  * tazlito (3.2) — теперь может генерировать loram и loram/web
+  * slitaz-base-files (3.2) — добавлены примечания о выпуске
+  * slitaz-tools (3.8) — много улучшений, правка и исправление «po»
+  * slitaz-doc (3.2) — обновлены примечания о выпуске
+  * slitaz-boot-scripts (3.2) — обновлен
+  * slitaz-configs — небольшие улучшения
+  * slitaz-dev-tools — обновлен
+  * tazusb — добавлено форматирование ext2 и fat32
+  * tazpkg — улучшения в GUI и исправление ошибок
+
+
+=====Ошибки=====
+
+^  Активность   ^  Открыто  ^  Закрыто  ^
+|  ошибки       |  85       |  73       |
+|  особенности  |  35       |  29       |  
+|  задачи       |  26       |  43       |
+
+  * Основано на текущих событиях
+
+
+=====Карикатура=====
+
+{{http://people.slitaz.org/~paul/cartoons/cartoon%238.png|Автор: paul}}
+
+
+=====Маленькие хитрости=====
+
+  * [[http://certcities.com/editorial/columns/story.asp?EditorialsID=413|Средства наблюдения за системой]] //(англ.)//
+
+
+=====Онлайн=====
+
+  * [[http://kmandla.wordpress.com/2010/03/29/greetings-from-slitaz-3-0/|Приветствуем SliTaz 3.0]] //(англ.)//
+
+
+=====Старые выпуски=====
+
+  * Вы можете найти их [[ru:newsletter:oldissues|здесь]].

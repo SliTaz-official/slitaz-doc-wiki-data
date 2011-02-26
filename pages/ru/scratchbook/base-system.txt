@@ -1,0 +1,573 @@
+======Базовый вариант Slitaz======
+
+Строим дистрибутив SliTaz, работающий в RAM, на основе Busybox.
+
+
+=====Введение=====
+
+Этот документ описывает создание базового варианта SliTaz, а также причины, по которым мы используем ядро Linux, BusyBox и Syslinux для загрузки системы. SliTaz использует архив initramfs, который распаковывается ядром в RAM при загрузке. Мы создадим архив с файлами от 3 до 4 Мб и используем утилиту strip, чтобы уменьшить размер библиотек и исполняемых файлов.
+
+Скрипты и конфигурационные файлы были созданы в редакторе GNU nano (Ctrl-X для сохранения и выхода), но, безусловно, вы вправе использовать любой другой текстовый редактор.
+
+Данный документ основывается на инструкции, найденной в архиве BusyBox, которая, в свою очередь, базируется на докладе Эрика Андерсона на Конференции по встроенным системам (Embedded Systems Conference) в 2001 г.
+
+
+=====Скачиваем исходники через wget=====
+
+Создаем папку //src// для скачивания и компиляции файлов:
+
+<code>
+# mkdir -p src
+# cd src
+</code>
+
+Скачиваем необходимые файлы:
+
+  * Ядро Linux 2.6.20 ([[http://www.kernel.org/|www.kernel.org]]). <code># wget ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-2.6.20.tar.bz2</code>
+  * Busybox 1.2.2 ([[http://www.busybox.net/|www.busybox.net]]). <code># wget http://www.busybox.net/downloads/busybox-1.2.2.tar.bz2</code>
+  * Syslinux 3.35 ([[http://syslinux.zytor.com/|syslinux.zytor.com]]). <code># wget ftp://ftp.kernel.org/pub/linux/boot/syslinux/syslinux-3.35.tar.gz</code>
+  * SliTaz tools 1.1 (распаковываем после скачивания): <code># wget http://download.tuxfamily.org/slitaz/sources/tools/slitaz-tools-1.1.tar.gz
+# tar xzf slitaz-tools-1.1.tar.gz</code>
+
+
+=====Распаковываем и подготавливаем ядро Linux=====
+
+Начнем с компиляции ядра Linux, что займет некоторое время.
+
+
+===Ядро Linux===
+
+Ваше ядро должно поддерживать файловую систему initramfs, иначе CD-ROM не сможет загрузиться. Также вы можете устанавливать модули в отдельную папку, чтобы не затрагивать основную систему. Сконфигурировать исходники ядра можно командой ''make menuconfig'', используя ncurses, или графическими утилитами, выполнив команды ''make gconfig'' или ''make xconfig'' (на основе пакетов разработки GTK и/или QT соответственно). В [[ru:cookbook:slitaz-tools|SliTaz tools]] вы можете найти образцы Makefile для различных ядер серии 2.6.xx.
+
+Характерной чертой ядер 2.6 является то, что, если мы запускаем menuconfig, xconfig или config в первый раз, меню настроек будет основываться на конфигурации нашего текущего ядра.
+
+Опции настроек зависят от ваших нужд, также вы можете установить module-init-tools для поддержки сжатых модулей или, создавая минимальную систему, выберите только самые необходимые опции.
+
+Начнем с изменения исходников — команда ''make mrproper'' упорядочит их, а затем запустим интерфейс конфигурации — gconfig, xconfig, menuconfig или oldconfig:
+
+<code>
+# tar xjf linux-2.6.20.tar.bz2
+# cd linux-2.6.20
+# make mrproper
+# cp ../slitaz-tools-1.1/Makefiles/linux-2.6.20-slitaz.config .config
+# make oldconfig
+(# make menuconfig)
+# make bzImage
+# make modules
+# make INSTALL_MOD_PATH=$PWD/_pkg modules_install
+# cd ..
+</code>
+
+Если вам нужна более подробная информация по компиляции ядра, существует много книг на эту тему. Кстати, вы можете установить ядро, а после перезагрузки компилировать собственное ядро, следуя тем же инструкциям.
+
+
+=====Создаем корневую файловую систему (rootfs)=====
+
+Следующим этапом создадим папку с названием //rootfs// (корневая файловая система, Root File System) в нашей рабочей папке //SliTaz///:
+
+<code># mkdir ../rootfs</code>
+
+
+===Устанавливаем BusyBox===
+
+BusyBox ([[http://www.busybox.net/|www.busybox.net]]) — это один исполняемый файл, содержащий версии основных утилит, необходимых для использования ядра Linux. Его основное назначение — встраиваться в системы и выполнять почти все задачи. Помимо того, что BusyBox предлагает команды оболочки (coreutils) и систему демонов, он также содержит веб-сервер и клиент-сервер (DHCP, udhcpc).
+
+<code># tar -xjf busybox-1.2.2.tar.bz2</code>
+
+Cконфигурируем и настроим, запомнив опции dumpkmap, init и др. — подробности вы найдете в файле Makefile в SliTaz BusyBox. Make install создает папку //_install// в текущей папке:
+
+<code>
+# cd busybox-1.2.2
+# cp ../slitaz-tools-1.1/Makefiles/busybox-1.2.2.config .config
+# make oldconfig
+(# make menuconfig)
+# make
+# make install
+# chmod 4755 _install/bin/busybox
+</code>
+
+Скопируем файлы, скомпилированные BusyBox, в папку //_install// корневой файловой системы (rootfs):
+
+<code># cp -a _install/* ../../rootfs</code>
+
+Ccылка //linuxrc//, указывающая на ///bin/busybox// и папки .bin, /lib и /sbin, была добавлена в папку ///rootfs// — можете в этом убедиться. Может оказаться, что ссылки там не окажется, если вы не отметили в BusyBox опцию "initrd support" (поддержка initrd). Удалим ссылку //linuxrc// и создадим ссылку для //init//, указывающую на ///bin/busybox//:
+
+<code>
+# cd ../../rootfs
+# ls -CF</code><file>
+bin/  linuxrc@  sbin/  usr/</file><code>
+# rm linuxrc
+# ln -s bin/busybox init
+</code>
+
+===Выполним команду ldd на BusyBox===
+
+Команда //ldd// может вывести список библиотек, которые использует та или иная программа. Библиотеки, используемые BusyBox, могут варьироваться в зависимости от основной системы. Например, в системе Debian — путем копирования библиотек в ///lib/tls//. Следующие команды даны с использованием опции //-v// (verbose) для вывода подробных сообщений. Чтобы удалить отладочную информацию из исполнимых файлов и разделяемых библиотек, мы используем команду //strip//. При этом также можно использовать библиотеки mklibs или uClibc.
+
+<code># mkdir lib</code>
+
+В SliTaz или другой системе:
+
+<code>
+# cp /lib/{libcrypt.so.1,libm.so.6,libc.so.6} lib
+# cp /lib/ld-linux.so.2 lib
+</code>
+
+Пример в Debian Etch: 
+
+<code>
+# cp /lib/tls/{libcrypt.so.1,libm.so.6,libc.so.6} lib
+# cp /lib/ld-linux.so.2 lib
+</code>
+
+Очистка библиотек командой //strip//:
+
+<code># strip -v lib/*</code>
+
+
+===Дерево папок Linux и начальная настройка===
+
+Создайте несколько папок, представляющих стандартные папки Linux: ///dev// для устройств, ///etc//, ///home//, ///usr//, ///proc//, ///root// и др. Чтобы больше узнать об иерархии файловой системы и ее содержимом, существует Стандарт иерархии файловой системы (File System Hierarchy Standard), доступный в различных форматах по адресу [[http://www.pathname.com/fhs/|www.pathname.com/fhs/]].
+
+Вы также можете создать свое дерево папок. В традиционных системах Unix папка ///usr// обычно содержит файлы данного дистрибутива, ///dev// — устройства, ///etc// — файлы конфигурации, ///lib// — библиотеки, ///home// — содержит домашние папки пользователей, а ///var// — различные данные. Обратите внимание, что мы не создаем папок ///lib//, ///bin// и ///sbin// — они будут созданы при установке BusyBox.
+
+<code>
+# mkdir -p dev etc root home proc media mnt sys tmp var
+# mkdir -p usr/{lib,local,games,share} \
+  var/{cache,lib,lock,log,games,run,spool} \
+  media/{cdrom,flash,usbdisk}
+</code>
+
+Изменим права доступа для папки ///tmp//:
+
+<code># chmod 1777 tmp</code>
+
+Настроим glibc; здесь важно, что файлы ///etc/ld.so.conf// и ///etc/rpc// не являются необходимыми при построении микросистемы:
+
+<code>
+# touch etc/ld.so.conf
+# cp /etc/rpc etc
+</code>
+
+
+===Создаем устройства в /dev===
+
+Эту процедуру можно выполнить через скрипт //mkdevs.sh// из состава BusyBox — или через наш скрипт //mktazdevs.sh// из SliTaz tools. Если вам нужна более подробная информация, ознакомьтесь с этими скриптами. Если вы воспользовались первым скриптом, всё равно потребуется создать папку //pts//:
+
+<code>
+# cp ../src/slitaz-tools-1.1/utils/mktazdevs.sh bin
+# ./bin/mktazdevs.sh dev
+</code>
+
+или
+
+<code>
+# cp ../src/busybox-1.2.2/examples/bootfloppy/mkdevs.sh bin
+# ./bin/mkdevs.sh dev
+# mkdir -p dev/{pts,input,shm,net,usb}
+</code>
+
+Чтобы создавать устройства динамически при загрузке, запускайте //mdev-s// через скрипт //rcS//.
+
+
+===Поддержка расширений имен хоста (DNS)===
+
+Скопируем библиотеки //libnss_*// из основной системы в нашу систему SliTaz. Эти библиотеки используются для расширения имен и их можно очистить при помощи утилиты //strip//:
+
+<code>
+# cp /lib/{libnss_dns.so.2,libnss_files.so.2} lib
+# cp /lib/libresolv.so.2 lib
+# strip -v lib/*.so*
+</code>
+
+
+=====Настраиваем будущую систему=====
+
+В этом разделе мы займемся созданием необходимых файлов в папке ///etc//. Для более подробной информации просто прочтите сами эти файлы. Начнем с создания файлов, относящихся к основе системы.
+
+
+===Сеть===
+
+Создадим основные файлы, которые будут использоваться для настройки сети:
+
+<code>
+# echo "127.0.0.1      localhost" > etc/hosts
+# echo "localnet    127.0.0.1" > etc/networks
+# echo "slitaz" > etc/hostname
+# echo "order hosts,bind" > etc/host.conf
+# echo "multi on" >> etc/host.conf
+</code>
+
+
+===/etc/nsswitch.conf===
+
+Файлы конфигурации для разграничения имен:
+
+<code># nano etc/nsswitch.conf</code>
+<file>
+# /etc/nsswitch.conf: GNU Name Service Switch config.
+#
+
+passwd:     files
+group:      files
+shadow:     files
+
+hosts:      files dns
+networks:   files
+</file>
+
+
+===/etc/securetty===
+
+Выводит список терминалов, которые могут подключаться к root:
+
+<code># nano etc/securetty</code>
+<file>
+# /etc/securetty: List of terminals on which root is allowed to login.
+#
+console
+
+# For people with serial port consoles
+ttyS0
+
+# Standard consoles
+tty1
+tty2
+tty3
+tty4
+tty5
+tty6
+tty7
+</file>
+
+
+===/etc/shells===
+
+Список работающих оболочек командной строки. Этот файл используется SSH-сервером (Dropbear): 
+
+<code># nano etc/shells</code>
+<file>
+# /etc/shells: valid login shells.
+/bin/sh
+/bin/ash
+/bin/hush
+</file>
+
+
+===/etc/issue и /etc/motd===
+
+///etc/issue// отображается на экране в конце загрузки, а после входа в систему выводится сообщение текущего дня (message of the day): 
+
+<code>
+# echo "SliTaz GNU/Linux 1.0 Kernel \r \l" > etc/issue
+# echo "" >> etc/issue
+# nano etc/motd
+</code>
+<file>
+(°-  { Документацию вы найдете в /usr/share/doc.
+//\    Используйте less или more для чтения файлов,
+v_/_   su чтобы стать root. }
+
+SliTaz распространяется в надежде, что он будет полезен, но
+БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ.
+</file>
+
+
+===/etc/busybox.conf===
+
+Файл конфигурации для BusyBox, в нём можно назначать полномочия приложениям BusyBox. Для более подробной информации прочтите раздел [[ru:handbook:security|Безопасность]] в Настольной книге. Ниже приведен сам файл //busybox.conf//:
+
+<code># nano etc/busybox.conf</code>
+<file>
+# /etc/busybox.conf: SliTaz GNU/linux Busybox configuration.
+#
+
+[SUID]
+# Allow command to be run by anyone.
+su = ssx root.root
+passwd = ssx root.root
+loadkmap = ssx root.root
+mount = ssx root.root
+reboot = ssx root.root
+halt = ssx root.root
+</file>
+
+Для дополнительной безопасности измените права доступа этого файла:
+
+<code># chmod 600 etc/busybox.conf</code>
+
+
+===/etc/inittab===
+
+Минимальный файл конфигурации для init. Он дает возможность пользоваться root-консолью без необходимости выполнять логин и запускать консоль на tty2.
+
+<code># nano etc/inittab</code>
+<file>
+# /etc/inittab: init configuration for SliTaz GNU/Linux.
+
+::sysinit:/etc/init.d/rcS
+::respawn:-/bin/sh
+tty2::askfirst:-/bin/sh
+::ctrlaltdel:/bin/umount -a -r
+::ctrlaltdel:/sbin/reboot
+</file>
+
+Более подробный пример файла //inittab// вы найдете в архиве BusyBox. 
+
+
+===/etc/profile===
+
+Этот файл считывается при каждом входе в систему и влияет на всех пользователей. Мы должны использовать конфигурационный файл //./profile// для каждого отдельного пользователя:
+
+<code># nano etc/profile</code>
+<file>
+# /etc/profile: system-wide .profile file for the Bourne shells
+
+PATH="/usr/sbin:/usr/bin:/sbin:/bin:/usr/games"
+LD_LIBRARY_PATH="/usr/lib:/lib"
+
+if [ "`id -u`" -eq 0 ]; then
+  PS1='\e[1m\u@\h:\w\#\e[m '
+else
+  PS1='\e[1m\u@\h:\w\$\e[m '
+fi
+
+DISPLAY=:0.0
+
+export PATH LD_LIBRARY_PATH PS1 DISPLAY ignoreeof
+umask 022
+</file>
+
+
+===Пользователи, группы и пароли===
+
+Создадим конфигурационные файлы для пользователей, групп и паролей в папке ///etc// (//passwd//, //shadow//, //group//, //gshadow//) и установим им необходимые права доступа:
+
+<code>
+# echo "root:x:0:0:root:/root:/bin/sh" > etc/passwd
+# echo "root::13525:0:99999:7:::" > etc/shadow
+# echo "root:x:0:" > etc/group
+# echo "root:*::" > etc/gshadow
+# chmod 640 etc/shadow
+# chmod 640 etc/gshadow
+</code>
+
+Также вы можете добавлять других пользователей, например, пользователя hacker для использования в режиме Live CD. Также можно настраивать пароль для root командой //passwd//. Чтобы добавить существующего пользователя в существующуй группу, нужно отредактировать файлы ///etc/group// и ///etc/gshadow//, поскольку апплет //adduser//, предоставляемый BusyBox, не имеет всех опций исходной программы. 
+
+
+===/etc/fstab или /etc/mtab===
+
+Список монтируемых файловых систем:
+
+<code># nano etc/fstab</code>
+<file>
+# /etc/fstab: information about static file system.
+#
+proc            /proc        proc    defaults          0       0
+sysfs           /sys         sysfs   defaults          0       0
+devpts          /dev/pts     devpts  defaults          0       0
+tmpfs           /dev/shm     tmpfs   defaults          0       0
+</file>
+
+///etc/mtab// используется другими mkfs* для создания списка монтируемых разделов. Он опирается на папку ///proc//, т.к. существует ссылка на ///proc/mounts//:
+
+<code>
+# chroot . /bin/ash
+/# ln -s /proc/mounts /etc/mtab
+</code>
+
+
+===Клавиатура===
+
+Вы можете создать файл //kmap//, опираясь на специфику вашей клавиатуры, командой //dumpkmap// из BusyBox. Некоторые файлы //kmap// вы также найдете в SliTaz tools. К примеру, создадим файл //kmap// для fr_CH: 
+
+<code>
+/# mkdir /usr/share/kmap
+/# /bin/busybox dumpkmap > /usr/share/kmap/fr_CH.kmap
+/# exit
+</code>
+
+Выполнив эти команды, вы можете автоматически загружать клавиатуру, включив команду //loadkmap// в скрипт ///etc/init.d/rcS//.
+
+
+===/usr/share/doc===
+
+Также вы можете добавить в систему различные документы, например, руководство пользователя SliTaz, которое можно скачать с сайта в формате tar.gz: 
+
+<code># mkdir -p usr/share/doc</code>
+
+
+===Устанавливаем скрипт udhcpc===
+
+Udhcpc DHCP-клиент, входящий в состав BusyBox, быстр и стабилен, но его разработка ведется независимо. Сайт проекта: [[http://udhcp.busybox.net/|udhcp.busybox.net]]. Вы можете использовать скрипт по умолчанию из архива BusyBox. Этот скрипт записывается в ///usr/share/udhcpc/default.script//, но это можно изменить через командную строку. В SliTaz данный клиент запускается при загрузке скриптом ///etc/init.d/network.sh// через файл конфигурации ///etc/network.conf//:
+
+<code>
+# mkdir usr/share/udhcpc
+# cp ../src/busybox-1.2.2/examples/udhcp/simple.script \
+  usr/share/udhcpc/default.script
+# chmod +x usr/share/udhcpc/default.script
+</code>
+
+
+===/etc/init.d/rcS===
+
+Наконец, чтобы закончить наброски будущей системы, создадим скрипт инициализации ///etc/init.d/rcS//, который будет монтировать файловые системы и выполнять несколько команд. За подробностями обратитесь к странице [[ru:cookbook:boot-scripts|"Загрузочные скрипты"]]. Вы можете изменить значение переменной //KMAP=// для вашей клавиатуры:
+
+<code>
+# mkdir etc/init.d
+# nano etc/init.d/rcS
+</code>
+<file>
+#! /bin/sh
+# /etc/init.d/rcS: rcS initial script.
+#
+
+KMAP=fr_CH
+
+echo "Processing /etc/init.d/rcS... "
+
+/bin/mount proc
+/bin/mount -a
+/bin/hostname -F /etc/hostname
+/sbin/ifconfig lo 127.0.0.1 up
+/sbin/loadkmap < /usr/share/kmap/$KMAP.kmap
+</file>
+<code># chmod +x etc/init.d/rcS</code>
+
+
+===На заметку===
+
+Также можно установить созданный нами менеджер пакетов Tazpkg (размером 10 Кб), информацию для установки вы найдете в tar-архиве исходников. И еще вы можете установить различные файлы из набора SliTaz tools, например, лицензию.
+
+
+=====Собираем cpio-архив initramfs=====
+
+Initramfs представляет собой архив cpio, собираемый из корневой папки системы, который впоследствии будет при загрузке распаковываться в RAM ядром Linux и создавать файловую систему (также в RAM). Чтобы создать такой архив из корневой папки файлов системы (rootfs), осуществим поиск командой find, добавив несколько конвейеров <nowiki>|</nowiki>. Затем мы создадим cpio-архив, используя gzip, и поместим его в рабочую папку.
+
+Полученный файл //rootfs.gz// представляет собой корневую папку системы с расширением .gz. Если вы захотите изменить имя этого файла, не забудьте внести изменения в файл конфигурации загрузчика isolinux (//isolinux.cfg//) или в //menu.lst// для GRUB.
+
+Вот сама команда:
+
+<code># find . -print | cpio -o -H newc | gzip -9 > ../rootfs.gz</code>
+
+В конце должен получиться файл //rootfs.gz// размером от 1 до 2 Мб в папке //SliTaz///.
+
+При создании нового образа, если вам нужно внести изменения в rootfs, просто скопируйте новый //rootfs.gz// в папку ///rootcd/boot// и соберите образ командой //genisoimage// или //mkisofs//. Или же можно использовать команду //mktaziso// из SliTaz tools. Этот скрипт проверит, существуют ли нужные папки, создаст новый сжатый cpio-архив и новый загрузочный ISO-образ.
+
+
+=====Собираем файлы для rootcd=====
+
+Следующие действия помогут вам создать корневую папку загрузочного CD-ROM. Начнем с создания папок //rootcd//, //boot// и //isolinux//:
+
+<code>
+# cd ..
+# mkdir -p rootcd/boot/isolinux
+</code>
+
+В случае необходимости вы также можете создать и другие папки для различных файлов, например, для документов HTML или пакетов.
+
+
+===Копируем ядро===
+
+Скопируем предварительно скомпилированное ядро в //rootcd/boot//:
+
+<code># cp src/linux-2.6.20/arch/i386/boot/bzImage rootcd/boot</code>
+
+
+===Копируем initramfs в rootcd/boot===
+
+Скопируем файл //rootfs.gz// в папку //rootcd/boot//. Не забывайте собирать новый //rootfs.gz//, если вы производите любые изменения в rootfs (корневой файловой системе):
+
+<code># cp rootfs.gz rootcd/boot</code>
+
+
+===Устанавливаем загрузчик isolinux===
+
+Для установки isolinux скопируйте файл //isolinux.bin// из архива исходников Syslinux:
+
+<code>
+# cd src
+# tar xzf syslinux-3.35.tar.gz
+# cp syslinux-3.35/isolinux.bin ../rootcd/boot/isolinux
+# cd ..
+</code>
+
+
+===isolinux.cfg — файл настроек isolinux===
+
+Вот пример //isolinux.cfg//, который, по идее, должен работать. При желании вы можете изменить его:
+
+<code># nano rootcd/boot/isolinux/isolinux.cfg</code>
+<file>
+display display.txt
+default slitaz
+label slitaz
+    kernel /boot/bzImage
+    append initrd=/boot/rootfs.gz rw root=/dev/null vga=788
+implicit 0
+prompt 1
+timeout 80
+</file>
+
+В частности, вы можете внести следующие изменения:
+
+  * переменная timeout — это отсчет времени в секундах до начала загрузки. Чтобы загрузка начиналась мгновенно, поставьте значение 0 или удалите строку вовсе; иначе можете поставить значение 10.
+  * переменную prompt можно установить в 0, чтобы убрать приглашение //boot://.
+  * можете добавить новые строки, например, для просмотра содержимого определенных текстовых файлов при нажатии F1, F2, F3 и т.д.
+
+
+===display.txt===
+
+Маленькое приветствие, запускаемое isolinux. При желании вы можете внести изменения в этот файл:
+
+<code># nano rootcd/boot/isolinux/display.txt</code>
+<file>
+/*       _\|/_
+         (o o)
+ +----oOO-{_}-OOo---------------------------------------------------+
+     ____  _ _ _____
+    / ___|| (_)_   _|_ _ ____
+    \___ \| | | | |/ _` |_  /
+     ___) | | | | | (_| |/ /
+    |____/|_|_| |_|\__,_/___|
+
+ SliTaz GNU/Linux - Temporary Autonomous Zone
+
+     <ENTER> для загрузки.
+
+                                                                   */
+</file>
+
+=====Создаем ISO-образ при помощи genisoimage или mkisofs=====
+
+<code>
+# genisoimage -R -o slitaz-cooking.iso -b boot/isolinux/isolinux.bin \
+  -c boot/isolinux/boot.cat -no-emul-boot -boot-load-size 4 \
+  -V "SliTaz" -input-charset iso8859-1 -boot-info-table rootcd
+</code>
+
+При каждом изменении содержимого CD-ROM необходимо создавать новый образ.
+
+Можно использовать маленький скрипт, который будет создавать новый cpio-архив и новый образ, или //mktaziso// из набора SliTaz tools. Также есть возможность использовать GRUB для загрузки.
+
+
+=====Записываем образ на диск или проверяем в Qemu=====
+
+Теперь можно записать образ в Graveman, k3b или wodim и загрузиться с этого диска. Для wodim команда записи проста (также эта команда действительна для cdrecord и ядер серии 2.6.XX):
+
+<code># wodim -v -speed=24 -data slitaz-cooking.iso</code>
+
+
+===Qemu===
+
+Образ можно также протестировать в эмуляторе Qemu. Чтобы установить его в системе Debian, наберите //# aptitude install qemu//. для эмуляции ISO-образа SliTaz, используйте команду
+
+<code># qemu -cdrom slitaz-cooking.iso</code>
+
+
+===Следующая глава===
+
+В следующей главе — [[base-apps|"Базовые приложения"]] — мы познакомимся с установкой и настройкой основных приложений и библиотек.
+
+----
+Статью перевел [[http://forum.slitaz.org/index.php/profile/1273/Cyril|Cyril]]

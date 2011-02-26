@@ -1,0 +1,18 @@
+======VMWare======
+
+=====Тестирование SliTaz GNU/Linux в VMware=====
+
+Что вам потребуется:
+
+  * [[http://dl.free.fr/getfile.pl?file=/Dz6bYtdE/slitaz.7z|SliTaz GNU/Linux Virtual Appliance]] — файл виртуального устройства.
+  * [[http://www.7-zip.org/fr/download.html|Архиватор 7-Zip]] — понадобится для распаковки этого файла.
+  * [[http://www.vmware.com/products/player/overview.html|VMware Player]] — для запуска виртуальной машины в Windows.
+
+  - Скачайте и установите 7-Zip и VMware Player.
+  - Скачайте файл для SliTaz и распакуйте его с помощью 7-Zip.
+  - Теперь вы можете запускать виртуальную машину SliTaz (slitaz.vmx) в VMware Player.
+
+<note>При первом запуске виртуальной машины VMware Player видит, что файлы были перемещены из другого места. Оставьте опцию по умолчанию в появившемся диалоговом окне и нажмите кнопку ОК.</note>
+
+----
+Статью перевел [[http://forum.slitaz.org/index.php/profile/1273/Cyril|Cyril]]

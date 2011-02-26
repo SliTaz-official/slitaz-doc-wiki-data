@@ -1,0 +1,138 @@
+====== 3G-UMTS =======
+
+Значок «#» говорит о том, что эта команда должна выполняться в консоли от имени суперпользователя (root).
+
+
+===== Автоматическая установка =====
+
+В новый пакет hwsetup в SliTaz 3.0 теперь добавлена автоматическая установка 3G (пока в пробном режиме).
+
+<code># tazhw setup 3g-modem</code>
+
+Теперь откройте wvdial box нажатием кнопки **y**, введите ваши данные (как описано в wvdial.conf), сохраните настройки (если вы не сохраните, то рискуете испортить ваш pin), наберите pin (вам нужно сделать это только раз при подключении модема), затем запустите набор телефонного номера и вы будете подсоединены.
+
+
+===== Ручная установка =====
+
+<code>
+# tazpkg get-install wvdial
+# tazpkg get-install linux-dialup 
+</code>
+
+Вы должны отключить вашу сеть, иначе будут проблемы с маршрутизацией (route):
+
+<code>
+# ifconfig eth0 down
+# ifconfig eth1 down
+</code>
+
+Вы должны включить модем следующей командой:
+
+<code>
+# modprobe option  (Huawei E220, E160g, Venus-VT12)
+</code>
+
+Пожалуйста, помогите обновить список, какой модем либо телефон использует какой модуль (оставьте сообщение на [[http://labs.slitaz.org/issues/show/149|форуме]]. Вы найдете, поддерживается ли ваш модем linux-dialup.
+
+Вы можете прочитать дополнительное руководство для [[http://doc.slitaz.org/en-guides:cricket-a600|Cricket-a600]]
+
+Для автоматической загрузки модуля при старте системы вы можете воспользоваться панелью управления Slitaz.
+
+
+===== wvdial.conf =====
+
+Убедитесь, что ваш модем /dev/ttyUSB* или /dev/ttyACM* (например, с помощью #dmesg) и измените ваш wvdial.conf (далее — только пример):
+
+<code>
+# leafpad /etc/wvdial.conf
+</code>
+
+<file>
+[Dialer pin]
+Modem = /dev/ttyUSB0
+Init1 = AT+CPIN=1234                    !! это ваш pin !!
+
+[Dialer umts]
+Modem = /dev/ttyUSB0
+ISDN = off
+Modem Type = USB Modem
+Baud = 460800
+Init = ATZ
+Init2 = ATQ0 V1 E1 S0=0 &C1 &D2 +FCLASS=0
+Dial Prefix =
+Dial Attempts = 1
+Dial Command = ATM1L3DT
+Ask Password = off
+Auto Reconnect = off
+Abort on Busy = off
+Carrier Check = on
+Check Def Route = on
+Abort on No Dialtone = on
+Stupid Mode = off
+Idle Seconds = 0
+Init3 = AT+CGDCONT=1,"IP","drei.at"     !! ваша строка инициализации !!
+Username = drei.at                      !! ваше имя пользователя !!
+Password = drei.at                      !! ваш пароль !!
+Phone = *99#                            !! ваш номер дозвона !!
+</file>
+
+Всю необходимую информацию вы можете найти здесь:
+[[http://linux.frankenberger.at/Huawei_E220_Daten.html | Австрия, Германия и Швейцария]] 
+[[http://www.flexispy.com/Mobile%20APN%20Setting%20to%20use%20GPRS.htm | мир]]
+
+Также вы можете поискать в интернете название вашего провайдера и "wvdial.conf"; я думаю вы найдете то, что нужно.
+
+Для соединения:
+
+<code>
+# wvdial pin
+# wvdial umts
+</code>
+
+Вы также можете поместить pin в раздел //Dialer umts//, но, например, я использую свой модем большую часть времени в поезде, в таком случае будут возникать ошибки при повторном соединении (когда соединение разрывается) — поэтому лучше использовать pin в wvdial только при первоначальном подключении модема.
+
+Осталось только прописать DNS в resolv.conf (вы найдете DNS в двух списках, содержащих все данные).
+
+<code>
+# leafpad /etc/resolv.conf
+</code>
+
+<file>
+nameserver 213.94.78.16                 !! здесь ваш DNS !!
+</file>
+
+Если вы хотите подсоединяться к интернету с правами обычного пользователя — добавьте себя в группу «dialout» (cat /etc/group) и установите необходимые права доступа для wvdial и wvdial.conf.
+
+Для автоматизации вы можете поместить скрипт umts-connect (не забудьте сделать его исполняемым!) в /usr/local/bin. Это не проверялось, потому что я соединяюсь с интернетом из консоли, но это должно работать точно так же.
+
+<code bash>
+#! /bin/bash
+ifconfig eth0 down
+ifconfig eth1 down
+wvdial pin
+wvdial umts
+</code>
+
+Но в таком случае не пере-соединяйтесь.
+
+
+===== Значок на рабочем столе =====
+
+Также вы можете поместить значок umts.desktop в /usr/share/applications.
+
+<file>
+[Desktop Entry]
+Encoding=UTF8
+Name=UMTS connection
+Name[de]=UMTS-Verbindung
+Name[ru]=Соединение UMTS
+Comment=UMTS-Verbindung
+Type=Application
+Exec=/usr/local/bin/umts-connect
+Icon=/usr/share/icons/...                 подберите подходящий значок
+Categories=Application;Network;
+</file>
+
+Проверьте права доступа для Exec=/usr/local/bin/umts-connect.
+
+Об этом имеется [[http://forum.slitaz.org/index.php/discussion/comment/440/#Comment_440|тема на форуме]].

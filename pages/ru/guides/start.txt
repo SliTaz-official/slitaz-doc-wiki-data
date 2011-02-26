@@ -1,0 +1,137 @@
+======Путеводитель======
+
+Быстрый старт SliTaz GNU/Linux и полные руководства от сообщества. Вы найдете здесь руководства к программам, оборудованию и настройке системы, написанные пользователями SliTaz и участниками сообщества. Цель этих руководств — предоставить четкие и правильные инструкции. Они объясняют конкретное решение и не дают общую информацию.
+
+
+=====Общее=====
+
+  * [[newbie|Руководство для новичков SliTaz]] 
+  * [[read|ПРОЧИТАЙ]] — перед тем как задавать вопрос на форуме сообщества
+  * [[contributor|Вклад в Slitaz]] — руководство, как сделать свой вклад в SliTaz
+  * [[bugs|Самые досадные ошибки]]
+  * [[faq|ЧаВо]] — часто задаваемые вопросы
+  * [[testingapps|Тестирование пакетов]] — контроль качества
+  * [[http://scn.slitaz.org/image|Галерея]] — покажи всем свои скриншоты, обои, темы...
+
+
+=====Установка, модификации и виртуализация=====
+
+  * [[pxe|PXE boot]] — загрузка компьютера по сети
+  * [[lowramcd|LowRAM CD]] — LiveCD для систем с малым количеством ОЗУ
+  * [[frugal|Frugal]] — установка в Windows-раздел
+  * [[uncommoninst|Необычные методы установки]]
+  * [[liveusb|LiveUSB]] — установка на USB-флешку
+  * [[dvd|Оффлайн-DVD]] — все ресурсы SliTaz на одном DVD 
+  * [[sdcard|SD Card]] — как установить SliTaz на карту памяти MMC/SD
+  * [[ http://pizza.slitaz.org/|Онлайн-билдер]] — создай модификацию (flavor) в онлайне, используя Pizza
+  * [[manyinone|Создание модификаций все-в-одной]]
+  * [[internationalization|Интернационализация]] — добавление языковой поддержки и создание собственной языковой модификации (flavor)
+  * [[qemu|Qemu]] — SliTaz GNU/Linux под Qemu
+  * [[vmware|VMware]] — SliTaz GNU/Linux под VMware
+  * [[virtualbox|VirtualBox]] — SliTaz GNU/Linux под VirtualBox
+  * [[netstart|Использование сетевой загрузки и немедленная установка на жесткий диск]]
+  * [[http://blog.bodhizazen.net/linux/how-to-install-slitaz-with-ext4-and-grub2/|Grub2]] — Установка SliTaz с grub2 (и ext4)
+
+
+=====Сети/LAN=====
+
+  * [[wifi-easy|Простой WiFi]] — простая настройка WiFi
+  * [[wifi-hard|Сложный WiFi]] — сложная настройка WiFi
+  * [[network-script|Скрипт network.sh]] — файл /etc/init.d/network.sh
+  * [[vpn|VPN]] — построение собственной виртуальной частной сети
+  * [[dialup|3G/Dialup]] — как заставить работать ваш 3G-модем
+  * [[modem|Modem]] — дозвон модемом с использованием ppp или wvdial
+  * [[bluetooth|Bluetooth]] — настройка Bluetooth
+  * [[samba|Samba]] — сети Windows с использованием Samba
+  * [[remotedesktop|Удаленный рабочий стол]] — программное обеспечение NX от NoMachine 
+
+
+=====Крошечные программы SliTaz=====
+
+  * [[tazpkgbox|Tazpkgbox]] — графический интерфейс менеджера пакетов
+  * [[tazctrlbox|Tazctrlbox]] — интерфейс администрирования системы SliTaz
+  * [[tazlitobox|Tazlitobox]] — интерфейс для создания LiveCD и модификаций (flavors)
+  * [[tazusbbox|Tazusbbox]] — интерфейс для создания LiveUSB
+  * [[tazhwbox|Tazhwbox]] — определение оборудования и установка драйверов
+  * [[mountbox|Mountbox]] — интерфейс для монтирования файловых систем
+  * [[burnbox|Burnbox]] — запись CD, VCD и DVD
+  * [[wifibox|Wifibox]] — настройка беспроводных соединений
+  * [[netbox|Netbox]] — настройка Ethernet, PPP, VPN, DHCP, Static IP
+  * [[serverbox|Serverbox]] — управление серверами и/или файрволом
+  * [[scpbox|Scpbox]] — безопасное копирование с использованием scp
+
+
+=====Программы=====
+
+  * [[recommended|Рекомендуемые пакеты программ]] — сделай всё, что угодно в Slitaz
+  * [[flash|Установка Flash]] — как установить Adobe Flash Player 
+  * [[boottime|Супер-быстрая загрузка]] — как кардинально уменьшить время загрузки системы
+  * [[burncd|Запись CD и DVD]] — запись CD/DVD аудио/видео
+  * [[backup|Backup]] — как создать резервные копии на CD или компьютере
+  * [[Midori|Midori]] — советы и настройки Midori
+  * [[panels|Панели и стартеры]]
+  * [[arts|Темы, обои, наборы значков]]
+  * [[fonts|Полезные шрифты]]
+  * [[sexydesktop|Приятный рабочий стол]] — Приложения рабочего стола и настройка
+  * [[conky|Conky]] 
+  * [[audioplayers|Аудио-проигрыватели]]
+  * [[videoplayers|Видео-проигрыватели]]
+  * [[soundconvert|Преобразование звука и видео]] — преобразование звука и видео, создание и синтез аудио
+  * [[importphotos|Импорт фотографий с фотоаппарата]] — использование gphoto2 
+  * [[dropbox|Dropbox]]
+  * [[tor|Tor]] — установка Tor без лишних слов
+  * [[conspy|Conspy]] — крошечный менеджер сессии или расшаренная консоль
+  * [[wicd|Wicd]] — легковесный менеджер сети
+  * [[grub|GRUB и GRUB2]]
+  * [[alsaequal|Alsaequal]] — Настраиваемый плагин эквалайзера реального времени для ALSA
+
+
+=====Оборудование=====
+
+  * [[xorg/xvesa|Xorg и Xvesa]] — что делать, когда иксы не запускаются или выдают неправильное разрешение
+  * [[nvidia|Nvidia]] — установка последних несвободных драйверов Nvidia
+  * [[ati|ATI]] — установка последних несвободных драйверов ATI catalyst
+  * [[webcam|Веб-камера]] — как заставить работать веб-камеру
+  * [[printer|Печать]] — как печатать, установка и настройка CUPS
+  * [[scanner|Сканирование]]
+  * [[udev|UDEV и HAL]]
+  * [[troubleshoot|Поиск неполадок]]
+  * [[powermgmt|Управление энергопитанием]] — ACPI (Advanced Configuration and Power Interface)
+  * [[CPU-frequency|CPU Frequency Scaling]] — инструкции по управлению частотой процессора
+
+
+=====Установка сервера и администрирование системы=====
+
+  * [[apache|Веб-сервер Apache]]
+  * [[lighttpd|Веб-сервер Lighttpd]]
+  * [[ssh|Dropbear, Openssh]]
+  * [[mailman|Почтовый сервер Mailserver и Mailman]]
+  * [[database|Движок базы данных]] — SQLite, MySQL и другие системы управления БД
+  * [[redmine|Установка Redmine]]
+  * [[mercurial|Установка Mercurial]]
+  * [[ru:handbook:server-apps#drupal|Drupal]] — мощный движок CMS, использующий PHP/MySQL
+  * [[streaming|Сервер потокового медиа]]
+  * [[encryption|Шифрование файлов и дисков]]
+  * [[firewall|Файрвол]]
+  * [[router|Роутер и интернет-шлюз]]
+
+
+=====Менеджеры окон=====
+
+  * [[ru:handbook:wm#dwm|DWM]] 
+  * [[ru:handbook:wm#pekwm|Pekwm]]
+  * [[fluxbox|Fluxbox]]
+  * [[ru:handbook:wm#xfce|Xfce]]
+
+
+=====Ядро и система построения SliTaz=====
+
+  * [[kernel|Компиляция ядра]] — как построить собственное ядро Linux
+  * [[linuxpkgs|Пакеты linux-*]] — объяснение разнообразных пакетов Linux
+  * [[chroot|Chroot]] — как настроить chroot для приготовления пакетов
+  * [[tazwoktips|Советы по компиляции с Tazwok]] — стройте пакеты для SliTaz более эффективно
+
+
+=====Песочница=====
+
+  * [[playground|Песочница]] — только для тестирования вики-страниц

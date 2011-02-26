@@ -1,0 +1,150 @@
+======Ежемесячный бюллетень — выпуск 14======
+
+  * от 16 января 2010
+
+
+=====Последние новости=====
+
+  * SliTaz признан в Distrowatch [[http://distrowatch.com/weekly.php?issue=20100111#feature|обзор]]
+  * Выпущены ISO «[[http://mirror.slitaz.org/iso/cooking-snow/README.html|снежного]]» SliTaz
+  * Мы будем выставляться на предстоящей http://www.solutionslinux.fr/
+  * Бюллетень вернулся!
+
+
+=====Новые пакеты=====
+
+  * apr-dpd-*
+  * aspell-{hu,cs,id,it,ru,sl}
+  * calcurse
+  * elementary
+  * enna
+  * evince
+  * gkll
+  * gutenpy
+  * icmptx
+  * libffd
+  * libical
+  * libmagic
+  * libmpdclient
+  * libplayer
+  * libunique
+  * libvalhalla
+  * lives
+  * nethogs
+  * openvas-*
+  * plotdrop
+  * python-pyprotocols
+  * snort
+  * tty-clock
+  * xournal
+
+
+=====Обновленные пакеты=====
+
+  * apache => 2.2.14
+  * apr => 1.3.9
+  * ario => 1.4.2
+  * awstats => 6.95
+  * babl=> 0.1.0
+  * bind => 9.6.1-P2
+  * cairo => 1.8.8
+  * couchdb => 0.10.1
+  * cyrus-sasl => 2.1.23
+  * dnsmasq => 2.51
+  * e17 => 2009.12.02
+  * eet => 1.2.3
+  * emelfm2 => 0.7.1
+  * enlightenment => 2009.12.02
+  * espeak => 1.42.04
+  * firefox => 3.5.7
+  * fpm2 => 0.76.1
+  * gajim => 0.13.1
+  * gdb => 7.0.1
+  * gegl => 0.1.0
+  * get-virtualbox => 1.01
+  * gimp => 2.6.8
+  * intltool => 0.40.6
+  * jfsutils => 1.1.14
+  * leafpad => 0.8.17
+  * libboost => 1.41.0
+  * libffi => 3.0.9
+  * libmodplug => 0.8.7
+  * libsmpeg => 389
+  * mc => 4.7.01
+  * midori => 0.2.2
+  * mpc => 0.19
+  * mpd => 0.15.7
+  * mpg123 => 1.10.0
+  * ntfs-3g => 2009.11.14
+  * openbox => 3.4.9
+  * perl-pango => 1.221
+  * pidgin => 2.6.5
+  * popt => 1.15
+  * postgresql => 8.3.9
+  * pure-ftpd => 1.0.27
+  * putty => 0.60-2009-09-08
+  * pycairo => 1.8.2
+  * pygobject => 2.20.0
+  * pygtk => 2.16.0
+  * python-bpython => 0.9.5.2
+  * python-couchdbkit => 0.3.1
+  * python-django => 1.1.1
+  * python-formalchemy => 1.3.1
+  * python-jinja2 => 2.2.1
+  * python-mysql => 1.2.3.c1
+  * python-pygments => 1.1.1
+  * python-sqlalchemy => 0.5.6
+  * reiserfprogs => 3.6.21
+  * rsync => 3.0.7
+  * sakura => 2.3.6
+  * sarg => 2.2.6
+  * slitaz-bootscripts => 3.2
+  * squid => 3.0STABLE21
+  * stoq => 0.9.11
+  * stoqdrivers => 0.9.8.2
+  * strace => 4.5.19
+  * sudo => 1.7.2p2
+  * tuxtype => 1.8.0
+  * udev => 150
+  * vte => 0.23.1
+  * web-applications => 1.2
+  * wormux => 0.8.5
+
+
+=====Улучшения=====
+
+  * slitaz-tools (3.4) — Большое количество исправлений и улучшений
+  * tazpkg (3.2) — Интерфейс стал более быстрым, зависимости теперь устанавливаются автоматически
+  * slitaz-boot-scripts (3.2) — Соединения WPA более быстрые, время загрузки помещается в лог, Xorg автоматически настраивается во время загрузки для использования на любой Live-системе
+  * База данных пакетов версии Cooking: 2226 пакетов (+ 835 из 2.0)
+
+
+=====Ошибки=====
+
+^  Активность  ^  Открыто  ^  Закрыто  ^
+|  ошибки      |     58    |     50    |
+|  изменения   |     37    |     21    |  
+|  задачи      |     9     |     38    |
+
+  * Основано на текущих событиях
+
+
+=====Карикатура=====
+
+
+{{http://people.slitaz.org/~paul/cartoons/cartoon%236.png}}
+
+
+=====Советы и секреты=====
+
+  * [[http://www.serverwatch.com/tutorials/article.php/3838961/The-Many-Uses-of-Screen.htm|Сто способов использования Screen]] //(англ.)//
+
+
+=====Онлайн=====
+
+  * [[http://linuxologist.com/reviews/slitaz-linux-zero-to-distro-in-30-mb/|Slitaz Linux — Zero to Distro in 30MB!]] //(англ.)//
+
+
+=====Старые выпуски=====
+
+  * Вы можете найти их [[:ru:newsletter:oldissues|здесь]].

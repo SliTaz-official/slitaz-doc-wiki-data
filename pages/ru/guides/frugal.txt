@@ -1,0 +1,107 @@
+======Winboot======
+
+
+=====Экономная установка в раздел с Windows=====
+
+Установите [[http://grub4dos.sourceforge.net/wiki/index.php/Grub4dos_tutorial#Installation|Grub4dos]].
+
+В этой статье предполагается, что ваш диск С соответствует //(hd0,0)//. Вам понадобится не менее 160 Мб, чтобы запустить slitaz-cooking (128 Мб — для SliTaz 1.0).
+
+Тестировалось на Windows XP на разделах FAT32 и NTFS.
+
+В Windows XP, 2000 или NT скопируйте [[http://mirror.slitaz.org/boot/grldr|grldr]] на диск С и добавьте следующую строку в файл C:\boot.ini:
+
+<file>C:\grldr="Grub4DOS"</file>
+
+
+=====Традиционная экономная установка=====
+
+Скопируйте [[http://download.tuxfamily.org/slitaz/boot/cooking/bzImage|bzImage]] и [[http://download.tuxfamily.org/slitaz/boot/cooking/rootfs.gz|rootfs.gz]] (оба файла занимают менее 30 Mб) в папку C:\boot и добавьте в C:\menu.lst следующее: 
+
+<file>
+title SliTaz cooking
+  kernel (hd0,0)/boot/bzImage rw root=/dev/null vga=normal
+  initrd (hd0,0)/boot/rootfs.gz
+</file>
+
+Этот способ замечательно работает в Windows XP на FAT32 и NTFS. 
+
+
+=====Установка ISO-образа=====
+
+Скопируйте [[http://download.tuxfamily.org/slitaz/iso/cooking/slitaz-cooking.iso|slitaz-cooking.iso]] (< 30 Mб) в папку C:\boot. Дефрагментируйте диск C. После этого добавьте в C:\menu.lst следующий текст:
+
+<file>
+title SliTaz cooking
+  map (hd0,0)/boot/slitaz-cooking.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage rw root=/dev/null vga=normal
+  initrd (hd1)/boot/rootfs.gz
+</file>
+
+Это также работает в Windows XP на FAT32 и NTFS. Файл C:\boot\slitaz-cooking.iso ОБЯЗАТЕЛЬНО должен быть дефрагментирован.
+
+Для запуска slitaz-cooking.iso необходимо 160 Мб или 256 Mб RAM. Если у вас меньше памяти, попробуйте следующие разновидности:
+
+[[http://mirror.slitaz.org/iso/cooking/flavors/slitaz-cooking-base.iso|slitaz-cooking-base.iso]] [[http://mirror.slitaz.org/iso/cooking/flavors/slitaz-cooking-justX.iso|slitaz-cooking-justX.iso]] [[http://mirror.slitaz.org/iso/cooking/flavors/slitaz-loram.iso|slitaz-loram.iso]]
+
+<file>
+title SliTaz cooking base
+  map (hd0,0)/boot/slitaz-cooking-base.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage rw root=/dev/null vga=normal
+  initrd (hd1)/boot/rootfs.gz
+</file>
+
+Также посетите страницу [[http://community.slitaz.org/wiki/Loram]]. 
+
+
+=====Установка по сети=====
+
+Скопируйте [[http://download.tuxfamily.org/slitaz/boot/gpxe|gpxe]] (< 200 Kб) в C:\boot и дополните C:\menu.lst следующим текстом:
+
+<file>
+title SliTaz web
+  kernel (hd0,0)/boot/gpxe
+</file>
+
+Live CD SliTaz также поддерживает Gpxe:
+<file> 
+title SliTaz web 
+  map (hd0,0)/boot/slitaz-cooking.iso (hd1) 
+  map --hook 
+  kernel (hd1)/boot/gpxe 
+</file> 
+
+Тем самым вы загрузите самую свежую версию SliTaz. Подробную информацию вы найдете на сайте: [[http://boot.slitaz.org/|boot.slitaz.org]]. Проверено на  Windows XP на разделах FAT32 и NTFS. 
+
+
+=====Настройка процесса загрузки=====
+
+Можно также использовать дополнительные загрузочные опции, например:
+
+<file>
+title SliTaz cooking
+  map (hd0,0)/boot/slitaz-cooking.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage rw root=/dev/null vga=extended lang=ru_RU kmap=ru laptop autologin config=/dev/hda1,boot/slitaz.sh
+  initrd (hd1)/boot/rootfs.gz
+</file>
+
+В конце загрузочного скрипта будет выполнен файл ///boot/slitaz.sh//, находящийся в ///dev/hda1//:
+
+<file>
+  initrd (hd1)/boot/rootfs.gz (hd0,0)/boot/extra-softwares.gz (hd0,0)/boot/my-config-files.gz
+</file>
+
+Сжатые cpio-архивы ///boot/extra-softwares.gz// и ///boot/my-config-files.gz// будут загружены после официального initramfs //rootfs.gz//. Это быстрее, чем использование предыдущего скрипта ///boot/slitaz.sh//.
+
+
+=====Автоматизированная установка SliTaz в графическом режиме с помощью UNetbootin=====
+
+Экономная установка SliTaz на флешку может быть проведена программой [[http://unetbootin.sourceforge.net/|UNetbootin]]. При этом можно использовать как стандартную версию для [[http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe|Windows]] или [[http://unetbootin.sourceforge.net/unetbootin-linux-latest|Linux]] (в списке дистрибутивов выберите SliTaz), так и специализированную SliTaz-версию, также для [[http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe|Windows]] или [[http://unetbootin.sourceforge.net/unetbootin-linux-latest|Linux]].
+
+Для установки на жесткий диск выберите пункт «Hard Disk» при указании типа инсталляции; чтобы установить систему на флешку, выберите пункт «USB Drive». 
+
+----
+Статью перевел [[http://forum.slitaz.org/index.php/profile/1273/Cyril|Cyril]]

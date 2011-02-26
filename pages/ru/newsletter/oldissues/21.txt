@@ -1,0 +1,287 @@
+======Ежемесячный бюллетень — выпуск 21======
+
+  * от 5 декабря 2010
+
+
+=====Последние новости=====
+
+  * «Путеводитель» переведен на русский язык (спасибо, Lexeii, Onion, Cyril)
+  * Обновлено более 400 пакетов
+
+
+=====Новые пакеты=====
+
+  * aescrypt
+  * aiksaurus
+  * airpwn
+  * ardour
+  * aspell-nl
+  * aspell-pl
+  * atftp
+  * atkmm
+  * aubio
+  * aufs
+  * autofs
+  * bin86
+  * bmpanel2
+  * checkers
+  * cherokee
+  * chess3d
+  * cssc
+  * decibel
+  * deluge
+  * docbook-xml-{5,4.*}
+  * docbook-xsl-{ns}
+  * drupal
+  * electricsheep
+  * fcitx
+  * fftw
+  * firefox-langpack-zh_CN
+  * flam3
+  * fluidsynth
+  * fop
+  * frei0r-plugins
+  * frozen-bubble
+  * gavl
+  * geoip
+  * goocanvas
+  * hatenarunner
+  * hd2u
+  * hydrogen
+  * iasl
+  * icewm
+  * jbig2dep
+  * jstetris
+  * ladspa
+  * libass
+  * libasyncns
+  * libbonobo
+  * libfm
+  * libglademm
+  * liblo
+  * liblrdf
+  * libnet
+  * libquicktime
+  * libsdl-pango
+  * libsdl-perl
+  * libtar
+  * linux-autofs
+  * linux-firmware
+  * linux-iscsi
+  * linux-nfsd 
+  * lmms
+  * lorcon
+  * lyx
+  * meld
+  * mixxx
+  * mlt
+  * mupdf
+  * mupen64plus
+  * nanochess
+  * ndisc6
+  * openjpeg
+  * openshot
+  * othello
+  * p4wn
+  * pcmanfm2
+  * pcsxr-svn
+  * perl-file-tail
+  * perl-locale-gettext
+  * perl-yaml
+  * portmidi
+  * python-chardet
+  * python-notify
+  * qtconfig
+  * raptor
+  * rarian
+  * singularity
+  * sleuthkit
+  * stardict
+  * stella
+  * sudoku
+  * swig
+  * tinyproxy
+  * txt2tags
+  * udhcpc6-fake
+  * vde2
+  * virtualbox-ose
+  * visualboyadvance
+  * vnc2flv
+  * watchdog
+  * wavpack
+  * which
+  * whois
+  * wordpress
+  * x264
+  * xorg-xf86-video-r128 6.8.1
+  * xorg-xf86-video-vmware
+  * zvbi
+
+
+=====Обновленные пакеты (сокращенный список)=====
+
+  * adeskbar => 0.4.2
+  * alsaplayer => 0.99.81
+  * amule => r10365
+  * apache => 2.2.17
+  * apr-util => 1.3.10
+  * aria2 => 1.10.5
+  * aria2 => 1.10.6
+  * arora => 0.11.0
+  * bind => 9.7.2-P3
+  * bluez => 4.80
+  * busybox => 1.17.4
+  * cdrkit => 1.1.11
+  * clamav => 0.96.5
+  * claws-mail => 3.7.8
+  * cmake => 2.8.3
+  * coreutils => 8.6
+  * cups => 1.4.5
+  * curl => 7.21.2
+  * dahdi-tools => 2.4.0
+  * dbus => 1.4.0
+  * dhcp => 4.2.0-P1
+  * dstat => 0.7.2
+  * elinks => 0.13
+  * ffmpeg => 0.6.1
+  * ffplay => 0.6.1
+  * filezilla => 3.3.5.1
+  * firefox => 3.6.12
+  * fotoxx => 10.12
+  * freeimage => 3141
+  * freetype => 2.4.4
+  * gajim => 0.14.1
+  * GConf => 2.32.1
+  * geany => 0.19.2
+  * gecko-mediaplayer => 1.0.0
+  * git => 1.7.3.3
+  * glib => 2.26.1
+  * gnome-mplayer => 1.0.0
+  * gnumeric => 1.10.12
+  * gnutls => 2.10.2
+  * gphoto2 => 2.4.10
+  * gstreamer => 0.10.31
+  * gtk+ => 2.22.1
+  * hal => 0.5.14
+  * hydra => 5.9
+  * icedtea6-{jdk,jre} => 1.9.1
+  * imagemagick => 6.6.5-9
+  * inkscape => 0.48.0
+  * iptables => 1.4.10
+  * libcap => 2.19
+  * libdrm => 2.4.22
+  * libfirefox => 3.6.12
+  * libpcap => 1.1.1
+  * libsamplerate => 0.1.7
+  * libsndfile => 1.0.23
+  * libsoup => 2.32.2
+  * libvorbis => 1.3.2
+  * libxml2 => 2.7.8
+  * linux 2.6.36
+  * mc => 4.7.0.10
+  * mercurial => 1.7.2
+  * mesa => 7.8.2
+  * mgetty => 1.1.37
+  * midori => 0.2.9
+  * mono => 2.8.1
+  * mpd => 1.15.15
+  * mpfr => 3.0.0p8
+  * mtools => 4.0.14
+  * mtr => 0.80
+  * mysql => 5.1.53
+  * nano => 2.2.6
+  * ncdu => 1.7
+  * ncmpcpp => 5.5
+  * nss => 3.12.8
+  * openldap => 2.4.23
+  * openssl => 1.0.0c
+  * pam => 1.1.2
+  * pciutils => 3.1.7
+  * pcmciautils => 017
+  * perl-xml-parser => 2.40
+  * pidgin => 2.7.7
+  * pidgin-facebookchat => 1.69
+  * pixman => 0.20.0
+  * poedit => 1.4.6.1
+  * poppler => 0.14.5
+  * privoxy => 3.0.17
+  * pycairo => 1.8.10
+  * pygobject => 2.26.0
+  * pygtk => 2.22.0
+  * pyopenssl => 0.10
+  * python => 2.7.1
+  * python-pygame => 1.9.1release
+  * qemu => 0.13.0
+  * qt4 => 4.7.1
+  * remind => 03.01.10
+  * rpm4 => 4.8.1
+  * ruby-gtk2 => 0.90.5
+  * scite => 2.22
+  * scribus => 1.3.8
+  * seamonkey => 2.0.10
+  * snort => 2.9.0.2
+  * squid => 3.1.9
+  * squirrelmail => 1.4.21
+  * subversion => 1.6.15
+  * syslinux => 4.03
+  * tar => 1.25
+  * thunderbird => 3.0.15
+  * tor => 0.2.1.27
+  * transmission => 2.12
+  * twisted => 10.2.0
+  * udev => 163
+  * uget => 1.6.1
+  * usbutils => 0.91
+  * vala => 0.10.0
+  * valgrind => 3.6.0
+  * viewnoir => 1.0
+  * vlc => 1.1.15
+  * vte => 0.27.2
+  * wine => 1.2.2
+  * wireshark => 1.4.2
+  * x11vnc => 0.9.12
+  * xane => 0.998
+  * xorg => 1.9.2 
+  * zenity => 2.32.1
+  * zim => 0.49
+  * zip => 3.0
+
+
+=====Улучшения=====
+
+  * slitaz-tools (3.9.1) 
+  * slitaz-tools-boxes (3.9.1)
+  * slitaz-configs (4.0)
+  * slitaz-base-files (4.1)
+  * slitaz-doc (4.1)
+  * tazpkg (4.1.1)
+
+
+=====Ошибки=====
+
+^  Активность  ^  Открыто  ^  Закрыто  ^
+|  ошибки      |     107    |   90     |
+|  изменения   |     41     |   32     |
+|  задачи      |     24     |   48     |
+
+  * Основано на текущих событиях
+
+
+=====Карикатура=====
+
+{{http://people.slitaz.org/~paul/cartoons/cartoon%232.png}}
+
+
+=====Советы и секреты=====
+
+  * [[http://www.linuxplanet.com/linuxplanet/tutorials/7229/1/ | Устранение неполадок Linux Server с применением strace]]
+
+
+=====Онлайн=====
+
+  * [[http://linuxfilesystem.com/uncategorized/slitaz-gnulinux-3-0-screencast-review | Обзор-скринкаст SliTaz GNU/Linux 3.0]]
+
+
+=====Старые выпуски=====
+
+  * Вы можете найти их [[ru:newsletter:oldissues|здесь]].

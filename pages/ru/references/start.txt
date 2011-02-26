@@ -1,0 +1,13 @@
+В этой категории вы найдете полезные руководства Linux, статьи, ссылки... Не стесняйтесь добавлять сюда любые темы, которые могут быть интересными для сообщества.
+
+=====Разработка======
+
+  * Написание Shell-скриптов: [[http://linuxcommand.org/|LinuxCommand.org]]
+  * ...
+
+=====Литература по Linux=====
+
+  * [[http://www.digilife.be/quickreferences/QRC/The%20One%20Page%20Linux%20Manual.pdf | Руководство на одной странице]] (Не всё подходит для SliTaz)
+  * [[http://www.pixelbeat.org/cmdline.html|Еще одно руководство по командной строке]]
+  * У вас есть файл .tar.gz? [[http://www.tuxfiles.org/linuxhelp/softinstall.html | Компиляция программ в Linux]] — обратите внимание, что вам, скорее всего, понядобятся //slitaz-toolchain// и несколько пакетов //*-dev// (несколько таких полезных пакетов могут быть установлены как //slitaz-dev-pkgs//.
+  * [[http://www.howtogeek.com/tag/linux/|Руководства и советы Linux]] — How-To Geek

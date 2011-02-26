@@ -1,0 +1,32 @@
+======LiveUSB======
+
+
+=====В SliTaz=====
+
+Скачайте и запишите на CD ISO-образ SliTaz, а затем загрузитесь с него. Откройте терминал и введите (смените ///dev/sda// при необходимости):
+
+<code>
+$ su root
+# tazusb format
+</code>
+
+Введите имя, например, ///dev/sda1//, или напишите «list» и немного подождите.
+
+<code># tazusb gen-liveusb /dev/sda1</code>
+
+Дождитесь окончания процесса и перезагрузитесь.
+
+
+=====В Windows=====
+
+Осуществить Live USB или frugal-установку SliTaz поможет программа [[http://unetbootin.sourceforge.net/|UNetbootin]].
+
+Вы можете выбрать:
+
+  * стандартную версию для [[http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe|Windows]] или [[http://unetbootin.sourceforge.net/unetbootin-linux-latest|Linux]], где в списке дистрибутивов выберите SliTaz, или
+  * специализированную SliTaz-версию, также для [[http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe|Windows]] или [[http://unetbootin.sourceforge.net/unetbootin-linux-latest|Linux]].
+
+Чтобы установить систему на флешку, выберите пункт «USB Drive» при указании типа инсталляции. Для установки на жесткий диск выберите пункт «Hard Disk».
+
+----
+Статью перевел [[http://forum.slitaz.org/index.php/profile/1273/Cyril|Cyril]]

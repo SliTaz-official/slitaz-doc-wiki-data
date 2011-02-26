@@ -1,0 +1,118 @@
+======Ежемесячный бюллетень — выпуск  15======
+
+  * от 27 февраля 2010
+
+
+=====Последние новости=====
+
+  * Выпущен SliTaz Cooking 20100221
+  * Бюллетень переведен на китайский язык (спасибо, draplater)
+
+
+=====Новые пакеты=====
+
+  * antiword
+  * ccache
+  * cgdb
+  * cloudvpn
+  * distcc
+  * dotconf
+  * evilvte
+  * fsarchiver
+  * fusecloop
+  * gfortran
+  * hal-scripts
+  * l2tpd
+  * libcomerr3
+  * libgfortran
+  * libkrb5support
+  * liblzma
+  * libsasl
+  * libsasl-modules
+  * libsctp
+  * lrzip
+  * nat-tester
+  * ncdu
+  * octave
+  * open-iscsi
+  * parole
+  * perl-gd
+  * pidgin-libnotify
+  * rp-lstp
+  * sctp-tools
+  * smbfs
+  * speech-dispatcher
+  * tinc
+  * vim-tiny
+  * wipe
+  * xfce4-ristretto
+  * xfce4-taskmanager
+  * xfmedia
+  * xfmpc
+  * xorg-xf86-input-evtouch
+  * xorg-xf86-input-microtouch
+  * xorg-xf86-input-mutouch
+  * xorg-xf86-input-plpevtouch
+  * xorg-xf86-input-void
+  * yasr
+  * zsync
+
+
+=====Обновленные пакеты=====
+
+  * beaver => 0.4.0rc1
+  * claws-mail-*
+  * gtkhtkl-viewer => 0.26
+  * libxml2 => 2.7.6
+  * lxpanel => 0.5.5
+  * mp => 5.1.3
+  * mpd => 0.15.8
+  * mplayer-svn => 30605
+  * ncmpcpp => 0.5
+  * ntfs-3g => 2010.1.16
+  * rssyl => 0.26
+  * scite => 2.01
+  * seamonkey => 2.0.2
+  * vala => 0.7.9
+  * xterm => 255
+  * xvkbd => 3.1
+  * zim => 0.29
+
+
+=====Улучшения=====
+
+  * tazlito (3.0) — Проще настроить LiveCD, переработан интерфейс, исправления и другие улучшения
+  * slitaz-base-files (3.1) — два новых скрипта (man, ldd), OOO выглядит лучше и UTF-8
+  * slitaz-tools (3.5) — Лучшее сканирование wifibox, локали UTF-8 с tazlocale, улучшен установщик
+  * slitaz-doc (3.1) — Теперь включает в себя руководство «Приступая к работе»
+
+
+=====Ошибки=====
+
+^  Активность  ^  Открыто  ^  Закрыто  ^
+|  ошибки      |     68    |     57    |
+|  изменения   |     36    |     24    |  
+|  задачи      |      8    |     39    |
+
+
+   * Основано на текущих событиях
+
+
+=====Карикатура=====
+
+{{http://people.slitaz.org/~paul/cartoons/cartoon%237.png}}
+
+
+=====Советы и секреты=====
+
+  * [[http://blogs.techrepublic.com.com/window-on-windows/?p=2138|Как мне запустить удаленный рабочий стол Linux в Windows 7]] //(англ.)//
+
+
+=====Онлайн=====
+
+  * [[http://www.fixya.com/support/r3885135-slitaz_guide_survival_live_linux_cd_usb|Руководство по выживанию: SliTaz (Live Linux) CD USB flash]] //(англ.)//
+
+
+=====Старые выпуски=====
+
+  * Вы можете найти их [[ru:newsletter:oldissues|здесь]].

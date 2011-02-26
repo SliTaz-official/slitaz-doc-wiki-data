@@ -1,0 +1,479 @@
+﻿======Базовые приложения======
+
+Установка и настройка основных приложений и библиотек.
+
+
+=====Введение=====
+
+В этой главе описывается сборка и настройка основных библиотек и консольных приложений SliTaz.
+
+
+===Назначаем переменную окружения ($fs)===
+
+В переменных окружения не указывается путь к папке, а только ее имя. Пропишем в переменную '$fs' путь к корневой файловой системе (rootfs). Для этого войдем в рабочую папку SliTaz/ и выполним:
+
+<code># export fs=$PWD/rootfs</code>
+
+А для проверки введем такую команду:
+
+<code># echo $fs</code>
+
+
+=====bc-1.06 — консольный калькулятор=====
+
+Приложение bc ([[http://www.gnu.org/software/bc/|www.gnu.org/software/bc/]]) — это маленький калькулятор. При его компиляции также собирается dc, но последний не будет устанавливаться в SliTaz. Что интересно — dc также входит в состав BusyBox. Если вы захотите включить dc отдельно, потребуется удалить соответствующую ссылку на BusyBox, если она существует. Мы будем использовать папку //_pkg// (package) для установки и утилиту strip для сокращения размеров исполняемых файлов, а затем скопируем полученные утилиты в нужную папку.
+
+<code>
+# cd src
+# wget http://ftp.gnu.org/pub/gnu/bc/bc-1.06.tar.gz
+# tar xzfv bc-1.06.tar.gz
+# cd bc-1.06
+# ./configure --prefix=/usr --infodir=/usr/share/info \
+  --mandir=/usr/share/man
+# make
+# make DESTDIR=$PWD/_pkg install
+# strip -vs _pkg/usr/bin/*
+# cp -avi _pkg/usr/bin/bc $fs/usr/bin
+</code>
+
+
+===Библиотеки===
+
+Выполнение команды ldd на bc выведет:
+
+<file>
+        libc.so.6 => /lib/libc.so.6 (0x40029000)
+        /lib/ld-linux.so.2 => /lib/ld-linux.so.2 (0x40000000)
+</file>
+
+
+=====zlib-1.2.3 — библиотеки сжатия=====
+
+Пакет zlib ([[http://www.zlib.net/|www.zlib.net]]) обеспечивает функции сжатия и распаковки, используемые, среди прочего, SSH-сервером Dropbear и X-сервером:
+
+<code>
+# cd ..
+# wget http://www.gzip.org/zlib/zlib-1.2.3.tar.bz2
+# tar xjfv zlib-1.2.3.tar.bz2
+# cd zlib-1.2.3
+# ./configure --shared --prefix=/usr
+# make
+# strip -vs libz.so*
+# cp -av libz.so* $fs/usr/lib
+</code>
+
+
+=====pcre-7.4 — Perl-совместимые регулярные выражения=====
+
+Пакет pcre ([[http://www.pcre.org/|www.pcre.org]]) содержит библиотеки функций для Perl-совместимых регулярных выражений, которые использует, например, веб-сервер Lighttpd:
+
+<code>
+# cd ..
+# wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-7.4.tar.gz
+# tar xzfv pcre-7.4.tar.gz
+# cd pcre-7.4
+# ./configure --prefix=/usr
+# make
+# make DESTDIR=$PWD/_pkg install
+# strip -vs _pkg/usr/bin/*
+# strip -vs _pkg/usr/lib/*
+# cp -av _pkg/usr/bin/* $fs/usr/bin
+# cp -av _pkg/usr/lib/*.so* $fs/usr/lib
+</code>
+
+
+=====e2fsprogs-1.39 — управление файловыми системами=====
+
+Пакет e3fsprogs ([[http://e2fsprogs.sourceforge.net/|e2fsprogs.sourceforge.net]]) имеет в своем составе утилиты для управления файловыми системами ext2 и ext3. Мы не будем брать их все, потому что нам понадобится место для других программ. Также мы будем использовать fsck из BusyBox:
+
+<code>
+# cd ..
+# wget http://puzzle.dl.sourceforge.net/sourceforge/e2fsprogs/e2fsprogs-1.39.tar.gz
+# tar xzf e2fsprogs-1.39.tar.gz
+# cd e2fsprogs-1.39
+# ./configure --prefix=/usr --with-root-prefix="" \
+  --enable-elf-shlibs --disable-evms --sysconfdir=/etc \
+  --infodir=/usr/share/info --mandir=/usr/share/man
+# make
+# make DESTDIR=$PWD/_pkg install
+# strip -vs _pkg/sbin/*
+# strip -vs _pkg/lib/*
+# strip -vs _pkg/usr/bin/*
+# strip -vs _pkg/usr/sbin/*
+# strip -vs _pkg/usr/lib/*
+</code>
+
+Далее установим полученные утилиты, файлы настроек и библиотеки в папку rootfs. При использовании fsck будьте осторожны и не сотрите ссылку на BusyBox:
+
+<code>
+# cp -i _pkg/sbin/{badblocks,blkid,dumpe2fs,e2fsck,e2image} $fs/sbin
+# cp -i _pkg/sbin/{e2label,findfs,logsave,mke2fs,mkfs.*} $fs/sbin
+# cp -i _pkg/sbin/{resize2fs,tune2fs} $fs/sbin
+# cp -a _pkg/lib/* $fs/lib
+# rm -rf $fs/lib/libss*
+# cp -a _pkg/etc/* $fs/etc
+# cp -a _pkg/usr/bin/* $fs/usr/bin
+# cp -a _pkg/usr/sbin/* $fs/usr/sbin
+# cp -ad _pkg/usr/lib/*.so $fs/usr/lib
+# rm -rf $fs/usr/lib/libss*
+</code>
+
+Также можно скопировать файлы для русской раскладки:
+
+<code>
+# mkdir $fs/usr/share/locale
+# cp -a _pkg/usr/share/locale/ru $fs/usr/share/locale
+</code>
+
+
+=====Dropbear-0.50 — легкий сервер и клиент SSH=====
+
+Dropbear ([[http://matt.ucc.asn.au/dropbear/dropbear.html|matt.ucc.asn.au/dropbear/dropbear.html]]) — это маленький надежный клиент/сервер c поддержкой SSH 2. Dropbear совместим с OpenSSH и использует //~/.ssh/authorized_keys// для управления общими ключами. Dropbear также предоставляет собственную версию scp, для чего его нужно компилировать с опцией "make scp":
+
+<code>
+# cd ..
+# wget http://matt.ucc.asn.au/dropbear/releases/dropbear-0.50.tar.gz
+# tar xzf dropbear-0.50.tar.gz
+# cd dropbear-0.50
+# ./configure --prefix=/usr
+# make
+# make scp
+# make DESTDIR=$PWD/_pkg install
+# strip -v scp
+# strip -v _pkg/usr/bin/*
+# strip -v _pkg/usr/sbin/*
+</code>
+
+Установим клиент и его утилиты в ///usr/bin//, а сервер — в ///usr/sbin//:
+
+<code>
+# cp scp $fs/usr/bin
+# cp -a _pkg/usr/bin/* $fs/usr/bin
+# cp -a _pkg/usr/sbin/* $fs/usr/sbin
+</code>
+
+
+===Библиотеки===
+
+<file>
+        libutil.so.1 => /lib/libutil.so.1 (0x40025000)
+        libz.so.1 => /usr/lib/libz.so.1 (0x40028000)
+        libcrypt.so.1 => /lib/libcrypt.so.1 (0x4003b000)
+        libc.so.6 => /lib/libc.so.6 (0x40068000)
+        /lib/ld-linux.so.2 => /lib/ld-linux.so.2 (0x40000000)
+</file>
+
+Скопируем библиотеку //libutil.so.1// в //$fs/lib//, если она там еще не находится. Другие библиотеки должны присутствовать при создании основы системы:
+
+<code># cp -a /lib/libutil* $fs/lib</code>
+
+
+===Настройка Dropbear===
+
+Пользовательские конфигурационные файлы //authorized_keys// и //known_hosts// находятся в //~/.ssh//. Эта папка и файл //known_hosts// создаются автоматически, когда пользователь впервые запускает dbclient. Системные конфигурационные файлы для Dropbear расположены в ///etc/dropbear//:
+
+<code># mkdir $fs/etc/dropbear</code>
+
+Вы должны сгенерировать ключи безопасности, перед тем как запустить сервер Dropbear в Slitaz. Можно использовать dropbearkey со следующими опциями:
+
+<code>
+# dropbearkey -t rsa -f /etc/dropbear/dropbear_rsa_host_key
+# dropbearkey -t dss -f /etc/dropbear/dropbear_dss_host_key
+</code>
+
+Запустить SSH-сервер в SliTaz можно следующей командой:
+
+<code># /etc/init.d/dropbear start</code>
+
+
+=====lighttpd-1.4.18 — веб-сервер HTTP=====
+
+Lighttpd ([[http://www.lighttpd.net/|www.lighttpd.net]]) — легкий, безопасный и мощный веб-сервер. Эта программа активно развивается и легко настраивается. Она поддерживает виртуальные хосты, CGI-скрипты и интеллектуальное управление процессором:
+
+<code>
+# cd ..
+# wget http://www.lighttpd.net/download/lighttpd-1.4.18.tar.gz
+# tar xzf lighttpd-1.4.18.tar.gz
+# cd lighttpd-1.4.18
+# ./configure -enable-shared --disable-ipv6 --prefix=/usr \
+  --libdir=/usr/lib/lighttpd --mandir=/usr/share/man
+# make
+# make DESTDIR=$PWD/_pkg install
+# strip -vs _pkg/usr/bin/*
+# strip -vs _pkg/usr/sbin/*
+# strip -vs _pkg/usr/lib/lighttpd/*
+</code>
+
+Установим сервер и собранные библиотеки, а затем скопируем некоторые модули (9):
+
+<code>
+# cp _pkg/usr/bin/* $fs/usr/bin
+# cp _pkg/usr/sbin/* $fs/usr/sbin
+# mkdir $fs/usr/lib/lighttpd
+</code>
+
+Модули:
+
+<code>
+# cp _pkg/usr/lib/lighttpd/mod_access.so $fs/usr/lib/lighttpd
+# cp _pkg/usr/lib/lighttpd/mod_accesslog.so $fs/usr/lib/lighttpd
+# cp _pkg/usr/lib/lighttpd/mod_alias.so $fs/usr/lib/lighttpd
+# cp _pkg/usr/lib/lighttpd/mod_auth.so $fs/usr/lib/lighttpd
+# cp _pkg/usr/lib/lighttpd/mod_cgi.so $fs/usr/lib/lighttpd
+# cp _pkg/usr/lib/lighttpd/mod_compress.so $fs/usr/lib/lighttpd
+# cp _pkg/usr/lib/lighttpd/mod_rewrite.so $fs/usr/lib/lighttpd
+# cp _pkg/usr/lib/lighttpd/mod_status.so $fs/usr/lib/lighttpd
+# cp _pkg/usr/lib/lighttpd/mod_userdir.so $fs/usr/lib/lighttpd
+</code>
+
+
+===Библиотеки===
+
+У нас уже должна быть библиотека //libsdl.so.2//; если же нет, скопируем ее:
+
+<code># cp -a /lib/libdl* $fs/lib</code>
+
+
+===/var/www — корневая папка обслуживаемых документов===
+
+///var/www// — это корневая папка документов, обслуживаемых по умолчанию. Получить доступ к ней можно, перейдя по ссылке [[http://localhost/]]. Эта папка содержит index.html, который автоматически выводится по запросу. Создадим папку ///var/www// и посмотрим, что там внутри:
+
+<code># mkdir -p $fs/var/www</code>
+
+
+===lighttpd.conf — файл конфигурации Lighttpd===
+
+Основной файл настроек Lighttpd расположен в папке ///etc/lighttpd// и называется //lighttpd.conf//. Этот же файл, входящий в состав SliTaz, прост для понимания, можете в этом убедиться, прочитав его. Другие примеры этого файла вы найдете на сайте Lighttpd, а пример его конфигурации — в папке ///doc// в архиве Lighttpd:
+
+<code># cp -a ../slitaz-tools-1.1/etc/lighttpd $fs/etc</code>
+
+Создадим папку, содержащую log-файлы:
+
+<code># mkdir $fs/var/log/lighttpd</code>
+
+
+===Пользователь и группа www===
+
+Добавим к веб-серверу пользователя и группу, это увеличит безопасность, кроме того, нет надобности запускать его от имени root. Соответствующий пользователь в SliTaz по умолчанию — www, это имя вы можете изменить в файле //lighttpd.conf//. Приложение //adduser// из BusyBox имеет некоторые ограничения, так что добавим пользователя www вручную. Мы также изменим права доступа к папке с log-файлами веб-сервера:
+
+<code>
+# echo "www:x:80:80:www:/var/www:/bin/sh" >> $fs/etc/passwd
+# echo "www:*:13509:0:99999:7:::" >> $fs/etc/shadow
+# echo "www:*:13509:0:99999:7:::" >> $fs/etc/shadow-
+# chroot $fs /bin/ash
+/# addgroup -g 80 www
+/# chown www.www /var/log/lighttpd
+# exit
+</code>
+
+Чтобы запустить веб-сервер, можно использовать скрипт ///etc/init.d/lighttpd// из SliTaz tools, набрав: ///etc/init.d/lighttpd start//. Запуск сервера можно автоматизировать при загрузке системы, создав ссылку ///etc/init.d/lighttpd//, указывающую на ///etc/rc.d/60lighttpd//.
+
+
+=====iptables-1.3.7 — файрволл для Linux=====
+
+Netfilter ([[http://www.netfilter.org/|www.netfilter.org]]) — это модуль, обеспечивающий функции файрволла для ядра Linux, разделяемые Интернет-соединения (NAT) и архивирование сетевого трафика. Команда //iptables// позволяет конфигурировать Netfilter, используя //iptables-restore// и //iptable-save// для сохранения и восстановления конфигурации Netfilter:
+
+<code>
+# cd ..
+# wget http://www.netfilter.org/projects/iptables/files/iptables-1.3.7.tar.bz2
+# tar xjf iptables-1.3.7.tar.bz2
+# cd iptables-1.3.7
+# make KERNEL_DIR=../linux-2.6.20 BINDIR=/sbin \
+  LIBDIR=/lib MANDIR=/usr/share/man
+# make KERNEL_DIR=../linux-2.6.20 BINDIR=/sbin \
+  LIBDIR=/lib MANDIR=/usr/share/man \
+  DESTDIR=$PWD/_pkg install
+# strip  _pkg/sbin/*
+# strip  _pkg/lib/iptables/*
+</code>
+
+Установим приложения и библиотеки по маске iptables*, достаточные для базового файрволла:
+
+<code>
+# cp -a _pkg/sbin/iptables* $fs/sbin
+# mkdir $fs/lib/iptables
+# cp -a _pkg/lib/iptables/{libipt_standard.so,libipt_conntrack.so} \
+  $fs/lib/iptables
+# cp -a _pkg/lib/iptables/{libipt_tcp.so,libipt_udp.so} $fs/lib/iptables
+</code>
+
+Чтобы удовлетворить зависимости iptables, скопируем библиотеки libnsl*:
+
+<code>
+# cp -va /lib/libnsl* $fs/lib/tls
+# strip $fs/lib/libnsl*
+</code>
+
+
+=====sqlite-3.5.1 — маленький движок баз данных SQL=====
+
+Этот пакет предоставляет sqlite3 ([[http://www.sqlite.org/|www.sqlite.org]]) и библиотеки //sqlite3.so*//. SQLite быстр и эффективен, и при этом напрямую интегрируется в программы, использующие файлы баз данных:
+
+<code>
+# cd ..
+# wget http://www.sqlite.org/sqlite-3.5.1.tar.gz
+# tar xzf sqlite-3.5.1.tar.gz
+# cd sqlite-3.5.1
+# ./configure --prefix=/usr --disable-tcl
+# make
+# make DESTDIR=$PWD/_pkg install
+# strip _pkg/usr/lib/*.so*
+# strip _pkg/usr/bin/*
+</code>
+
+Установим sqlite3 и его библиотеки в папку rootfs:
+
+<code>
+# cp -a _pkg/usr/lib/*.so* $fs/usr/lib
+# cp -a _pkg/usr/bin/* $fs/usr/bin
+</code>
+
+
+=====cdrkit-1.1.5 — утилиты для управления CD-ROM и ISO-образами=====
+
+cdrkit ([[http://www.cdrkit.org/|www.cdrkit.org]]) имеет в своем составе средства управлениями CD-ROM. По умолчанию SliTaz устанавливает //wodim// для прожига дисков и //genisoimage// для создания ISO-образов. Компиляция осуществляется немного по-другому (через cmake), но это не должно вызвать проблем:
+
+<code>
+# cd ..
+# wget http://cdrkit.org/releases/cdrkit-1.1.5.tar.gz
+# tar xzf cdrkit-1.1.5.tar.gz
+# cd cdrkit-1.1.5
+# make
+# make install PREFIX=$PWD/_pkg/usr
+# strip -v _pkg/usr/bin/*
+# strip -v _pkg/usr/sbin/*
+# cp _pkg/usr/bin/genisoimage $fs/usr/bin
+# cp _pkg/usr/bin/wodim $fs/usr/bin
+</code>
+
+Скопируем библиотеку //libcap.so.1//, которая необходима //wodim//:
+
+<code># cp -a /lib/libcap.so* $fs/lib</code>
+
+
+=====cpio-2.8 — архиватор=====
+
+cpio ([[http://www.gnu.org/software/cpio/|www.gnu.org/software/cpio/]]) предоставляет средства для управления cpio-архивами. Этот формат используется при создании пакетов SliTaz и образа initramfs для CD-ROM. Кстати, BusyBox содержит свою версию cpio, которая только распаковывает архивы:
+
+<code>
+# cd ..
+# wget ftp://sunsite.cnlab-switch.ch/mirror/gnu/cpio/cpio-2.8.tar.gz
+# tar xzf cpio-2.8.tar.gz
+# cd cpio-2.8
+# ./configure --prefix=/usr --bindir=/bin \
+  --libexecdir=/usr/bin --mandir=/usr/share/man \
+  --infodir=/usr/share/info
+# make
+# make DESTDIR=$PWD/_pkg install
+# strip -v _pkg/bin/*
+# strip -v _pkg/usr/bin/*
+</code>
+
+Установим cpio в папку ///bin//, а rmt — в ///usr/bin//. Также можно установить для него русскую локализацию:
+
+<code>
+# cp -a _pkg/bin/* $fs/bin
+# cp -a _pkg/usr/bin/* $fs/usr/bin
+# cp -a _pkg/usr/share/locale/ru $fs/usr/share/locale
+</code>
+
+
+=====microperl-5.8.8 — микрокопия Perl=====
+
+Microperl — это крохотная версия Perl, использующая большинство важнейших функций этого языка. Более подробную информацию вы найдете в архиве с исходниками программы и в файле //README.micro//. Мы используем маленькую утилиту //sed// на файле конфигурации, которая осуществляет поиск модулей microperl в ///usr/lib/perl5//. После этого создадим ссылку на скрипт //#! /usr/bin/perl//:
+
+<code>
+# wget http://ftp.funet.fi/pub/CPAN/src/perl-5.8.8.tar.gz
+# tar xzf perl-5.8.8.tar.gz
+# cd perl-5.8.8
+# sed -i s/'usr\/local'/'usr'/ uconfig.sh
+# sed -i s/'perl5\/5.9'/'perl5'/ uconfig.sh
+# sed -i s/'unknown'/'i486-pc-linux-gnu'/ uconfig.sh
+# make -f Makefile.micro regen_uconfig
+# make -f Makefile.micro
+# strip microperl
+# cp microperl $fs/usr/bin
+# chroot $fs /bin/ash
+/# cd /usr/bin
+/# ln -s microperl perl
+/# exit
+</code>
+
+
+=====module-init-tools-3.2 — утилиты для управления модулями ядра=====
+
+Пакет [[http://ftp.kernel.org/pub/linux/utils/kernel/module-init-tools/|module-init-tools]] с сайта kernel.org включает modprobe, insmod, rmmod и lsmod. Мы выбрали именно эти утилиты, поскольку мы можем компилировать modutils/modprobe с поддержкой сжатых модулей (.gz) для экономии места. Для этого мы используем опцию <nowiki>--enable-zlib</nowiki>, а затем выполняем очистку и копирование исполняемых файлов. Мы не берем все собранные программы, а только то, что нам нужно — depmod, insmod, modinfo, modprobe и rmmod (помещаем их в ///sbin//), а также lsmod, который кладем в ///bin//:
+
+<code>
+# cd ..
+# wget http://ftp.kernel.org/pub/linux/utils/kernel/module-init-tools/module-init-tools-3.2.tar.bz2
+# tar xjf module-init-tools-3.2.tar.bz2
+# cd module-init-tools-3.2
+# ./configure --enable-zlib --prefix=/usr --sbindir=/sbin --bindir=/bin \
+  --sysconfdir=/etc --infodir=/usr/share/info --mandir=/usr/share/man
+# make
+# make DESTDIR=$PWD/_pkg install
+# strip -v _pkg/sbin/{depmod,insmod,modinfo,modprobe,rmmod}
+# strip -v _pkg/bin/lsmod
+# cp -i _pkg/sbin/{depmod,insmod,modinfo,modprobe,rmmod} $fs/sbin
+# cp -i _pkg/bin/lsmod $fs/bin
+# cd ..
+</code>
+
+
+=====Копируем модули ядра=====
+
+Копируем файлы из linux-2.6.20/_pkg: 
+
+<code># cp -a linux-2.6.20/_pkg/lib/* $fs/lib</code>
+
+
+===Сжимаем модули ядра===
+
+Осуществляем сжатие модулей, что освободит нам около половины занятого места. Начнем с перехода в папку rootfs, после чего поищем в ней все файлы с расширением .ko и осуществим их сжатие. То же самое можно проделать и через скрипт //gzmodtaz.sh// из SliTaz tools:
+
+<code># cd $fs</code>
+
+Используя gztazmod.sh:
+
+<code>
+# cp -v ../src/slitaz-tools-1.1/utils/gztazmod.sh sbin
+# ./sbin/gztazmod.sh lib/modules/2.6.20-slitaz
+</code>
+
+Или вручную:
+
+<code>
+# cd lib/modules/2.6.20-slitaz
+# find . -name "*.ko" -exec gzip '{}' \;
+# sed 's/\.ko/.ko.gz/g' modules.dep > tmp.dep
+# rm modules.dep
+# mv tmp.dep modules.dep
+</code>
+
+
+=====Собираем initramfs и ISO-образ=====
+
+Для создания нового ISO-образа можно использовать утилиту //mktaziso// из состава [[ru: cookbook:slitaz-tools|Slitaz tools]]. Или же можно создать новый образ initramfs, скопировать его в папку ///boot// в корневой папке CD-ROM (rootcd) и в конце собрать ISO-образ командой genisoimage:
+
+<code>
+# cd $fs
+# find . -print | cpio -o -H newc | gzip -9 > ../rootfs.gz
+# cd ..
+# cp rootfs.gz rootcd/boot
+# genisoimage -R -o slitaz-test.iso -b boot/isolinux/isolinux.bin \
+  -c boot/isolinux/boot.cat -no-emul-boot -boot-load-size 4 \
+  -V "SliTaz" -input-charset iso8859-1 -boot-info-table rootcd
+</code>
+
+Тестируем ISO-образ:
+
+<code># qemu -cdrom slitaz-test.iso</code>
+
+
+===Следующая глава===
+
+Следующая глава называется [[ru:scratchbook:base-ncurses|"Базовые приложения ncurses"]]. В ней рассказывается об установке и настройке библиотек и приложений ncurses.
+
+----
+Статью перевел [[http://forum.slitaz.org/index.php/profile/1273/Cyril|Cyril]]

@@ -1,0 +1,66 @@
+====== Серверные приложения ======
+
+===== Dokuwiki =====
+
+Dokuwiki (http://www.dokuwiki.org/) это легкий и мощный вики-движок использующий PHP и обычные файлы в качестве движка, поэтому не требующий базу данных. Для использования Dokuwiki вам просто необходимо установить веб-сервер (Apache или Lighttpd) и PHP.
+
+===== Drupal =====
+
+Drupal это мощьная CMS (Система Управления Содержимым) использующий PHP в качестве серверного языка и MySQL в качестве базы данных. Для установки Drupal, которая займет несколько минут, понадобиться установить сервер (lighttpd), PHP и MySQL:
+
+<code>
+# tazpkg get-install lighttpd
+# tazpkg get-install php
+# tazpkg get-install mysql
+</code>
+
+Скачайте последнию версию http://drupal.org/ и создайте виртуальных хост или извлеките исходные файлы Drupal в публичный каталог:
+
+<code>
+$ mkdir ~/Public && cd Public
+$ tar xzf drupal-*
+</code>
+
+Теперь необходимо изменить права доступа к некоторым файлам, что бы Drupal мог писать при установке и работе:
+
+<code>
+$ cd drupal-*/sites
+$ chmod 777 default
+$ cp default/default.settings.php default/settings.php
+$ chmod 666 default/settings.php
+</code>
+
+Создайте базу данных MySQL, а затем используйте ваш любимый веб-браузер для установки Drupal через веб-интерфейс. Когда процесс установки завершился необходимо изменить права доступа к файлам и можете начать настраивать приложение. Изменение прав для работы и очистки:
+
+<code>
+$ cd ..
+$ chmod 755 sites/default
+$ chmod 644 sites/default/settings.php
+</code>
+
+Для обеспечения простоты обновления вашего Drupal вы должны поместить все дополнительные модули и темы в каталоге: site/all/. Таким образом, легче обновлять и использовать модули и темы:
+
+<code>
+$ mkdir sites/all/modules
+$ mkdir sites/all/themes
+</code>
+
+==== Веб ====
+
+    * Модули Drupal: http://drupal.org/project/modules
+    * Темы Drupal: http://drupal.org/project/themes
+    * Русский сайт Drupal: http://drupal.ru
+
+---- 
+\\
+^  Page Review Section  ^^ 
+|Quality| Good  |
+|Review| Minor Updates  |
+|Priority| Medium |
+|Problems| add a [[http://forum.slitaz.org|forum post link]]|
+|:::     | OR add a [[http://labs.slitaz.org/issues |lab issue tracker link ]]|
+|How to Improve| Suggest briefly|
+|::: |  |
+
+\\
+----

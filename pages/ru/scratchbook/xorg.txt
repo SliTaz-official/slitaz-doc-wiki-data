@@ -1,0 +1,75 @@
+======Xorg — модульный графический сервер======
+
+Slitaz использует сервер Xvesa из библиотек XFree86 и Xorg, поэтому в этой главе описана компиляция библиотек Xorg, которые будут использоваться в SliTaz. Данный документ в основном ориентирован на основных и сторонних разработчиков, но также может быть полезен всем, кому интересна пересборка из исходников библиотек Xorg и Xlib, создав при этом как можно меньше зависимостей.
+
+
+=====Собираем Xorg автоматически при помощи Tazwok=====
+
+Если у вас в SliTaz установлен Tazwok, вы можете пересобрать Xorg всего несколькими командами. Wok содержит пакеты xorg и xorg-dev, при наличии которых можно компилировать все Xorg-пакеты для SliTaz. Также для компиляции понадобятся многие пакеты для разработки; если они еще не установлены в вашей системе, выполните команду
+
+<code># tazpkg get-install slitaz-dev-pkgs</code>
+
+После чего можно начинать «готовить» Xorg командой //tazwok cook//, начав со сборки прототипов (xproto и др.):
+
+<code>
+# tazwok cook xorg-dev-proto
+# tazwok cook xorg
+# tazwok cook xorg-dev
+</code>
+
+
+=====Скачиваем Xorg 7.2 через wget=====
+
+Xorg распространяется в виде модулей, что очень удобно, поскольку вы можете установить только то, что вам нужно, правда, скачивать придется немало. Чтобы помочь вам в этом, мы создали небольшой скрипт, который скачивает только то, что необходимо для Xorg; он называется getXorg.sh и находится в [[ru:cookbook:slitaz-tools|Slitaz tools 1.1]]. Данный скрипт больше не обновляется, т.к. разработчики используют [[ru:cookbook:wok-tools|wok и tools]]. Перед тем как запустить скрипт, поместите его в папку, куда хотите скачать Xorg:
+
+<code>
+# cd ..
+# mkdir Xorg && cd Xorg
+# cp slitaz-tools-1.1/utils/getXorg-7.2.sh .
+# ./getXorg-7.2.sh
+</code>
+
+
+=====Компилируем Xorg вручную=====
+
+Компиляция Xorg может занять очень продолжительное время, т.к. в его состав входят много пакетов. Прежде всего, нужно скомпилировать пакеты с прототипами (proto). Можно использовать команду //make DESTDIR=$PWD/_pkg install// для установки пакета в заданную папку. Например:
+
+<code>
+# cd proto
+# tar xzf xproto-X11R7.2-7.0.10.tar.gz
+# cd xproto-X11R7.2-7.0.10
+# ./configure --prefix=/usr --sysconfdir=/etc \
+  --mandir=/usr/share/man --localstatedir=/var \
+  --build=i486-pc-linux-gnu --host=i486-pc-linux-gnu
+ # make
+ # make install
+</code>
+
+Скомпилируем библиотеки с теми же опциями, что и proto. Ниже приведен пример компиляции xtrans; также не забывайте использовать ldconfig, если вы устанавливаете пакет в основную систему:
+
+<code>
+# cd .. && cd lib
+# tar xzf xtrans-X11R7.2-1.0.3.tar.gz
+# cd xtrans-X11R7.2-1.0.3
+# ./configure --prefix=/usr --sysconfdir=/etc \
+  --mandir=/usr/share/man --localstatedir=/var \
+  --build=i486-pc-linux-gnu --host=i486-pc-linux-gnu
+# make
+# make install
+# ldconfig
+</code>
+
+Как только все библиотеки будут скомпилированы, можно приступать к сборке Х-приложений, например, графического терминала Xterm. Кстати, в Slitaz есть пакет RGB-цветов, в котором содержится файл настроек цветовой гаммы ///usr/share/X11/rgt.text//. Приведем пример использования приложения xsetroot, которое позволяет изменять цвет фона на экране (внесите изменения в переменную $VERSION, указав версию, которую хотите скачать):
+
+<code>
+# cd .. && cd app
+# tar xzf xsetroot-$VERSION.tar.gz
+# cd xsetroot-$VERSION
+# ./configure --prefix=/usr --sysconfdir=/etc \
+  --mandir=/usr/share/man --localstatedir=/var \
+  --build=i486-pc-linux-gnu --host=i486-pc-linux-gnu
+# make && make install
+</code>
+
+----
+Статью перевел [[http://forum.slitaz.org/index.php/profile/1273/Cyril|Cyril]]

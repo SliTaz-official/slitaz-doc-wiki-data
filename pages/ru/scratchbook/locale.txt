@@ -1,0 +1,106 @@
+======Локализация и i18n======
+
+Установка и настройка файлов локализации.
+
+
+=====Установка=====
+
+В этой главе описывается установка файлов локализации в создаваемую систему SliTaz из аналогичной рабочей системы. Установка локализации для Х-сервера описана в главе [[x-window-system|Оконная система Х]]. Файлы, упомянутые в этой статье, взяты из пакета для компиляции glibc-2.3.6 из состава //toolchain//.
+
+
+===Создаем папки для файлов===
+
+Начнем с создания папок, куда поместим файлы и библиотеки различных локалей. Папка //LC_MESSAGES// содержит файлы переводов интерфейса программ (расширение .mo), если они есть:
+
+<code>
+# mkdir -p rootfs/usr/share/{i18n,locale}
+# mkdir -p rootfs/usr/lib/{locale,gconv}
+# mkdir -p rootfs/usr/share/i18n/{charmaps,locales}
+# mkdir -p rootfs/usr/share/locale/ru/LC_MESSAGES
+</code>
+
+Скопируем файлы локализации для русского языка в ///usr/share/i18n/locales//:
+
+<code>
+# cp -a /usr/share/i18n/locales/{ru_RU,ru_UA} \
+rootfs/usr/share/i18n/locales
+</code>
+
+Скопируем файлы транслита по маске translit_* в ///usr/share/i18n/locales//:
+
+<code>
+# cp -a /usr/share/i18n/locales/{translit_circle,translit_cjk_compat} \
+rootfs/usr/share/i18n/locales
+# cp -a /usr/share/i18n/locales/{translit_combining,translit_compat} \
+rootfs/usr/share/i18n/locales   
+# cp -a /usr/share/i18n/locales/{translit_font,translit_fraction} \
+rootfs/usr/share/i18n/locales
+# cp -a /usr/share/i18n/locales/{translit_narrow,translit_neutral} \
+rootfs/usr/share/i18n/locales
+# cp -a /usr/share/i18n/locales/{translit_small,translit_wide} \
+rootfs/usr/share/i18n/locales
+</code>
+
+Файлы кодировок скопируем в ///usr/share/i18n/charmaps//:
+
+<code>
+# cp -a /usr/share/i18n/charmaps/ANSI_X3.* rootfs/usr/share/i18n/charmaps
+# cp -a /usr/share/i18n/charmaps/{ISO-8859-1.gz,ISO-8859-2.gz,ISO-8859-15.gz} \
+rootfs/usr/share/i18n/charmaps
+</code>
+
+Скопируем библиотеки gconv в папку ///usr/lib/gconv// корневого каталога SliTaz:
+
+<code>
+# cp /usr/lib/gconv/{ANSI_X3.110.so,gconv-modules,UNICODE.so} \
+rootfs/usr/lib/gconv
+# cp /usr/lib/gconv/{ISO8859-1.so,ISO8859-2.so,ISO8859-15.so} \
+rootfs/usr/lib/gconv
+# strip -v rootfs/usr/lib/gconv/*.so
+</code>
+
+Скопируем утилиту //locale//:
+
+<code># cp /usr/bin/locale rootfs/usr/bin</code>
+
+Также необходимо создать файл ///usr/lib/locale/locale-archive//, для чего используем утилиту //localedef//, находясь в chroot-окружении SliTaz: 
+
+<code>
+# cp /usr/bin/localedef rootfs/usr/bin
+# chroot rootfs /bin/ash
+</code>
+
+Использование localedef для русского языка: 
+(ЗДЕСЬ ПРИМЕРЫ ДЛЯ ФРАНЦ. ЯЗ., КОДИРОВКА, ВОЗМОЖНО, ДРУГАЯ!)
+
+<code>
+/# localedef -i fr_CH -f ISO-8859-1 fr_CH
+/# localedef -i fr_FR -f ISO-8859-1 fr_FR
+/# exit
+</code>
+
+Чтобы освободить больше места, можно удалить //localedef//:
+
+<code># rm rootfs/usr/bin/localedef</code>
+
+
+=====Настройка и использование=====
+
+Чтобы использовать локализацию в работе, создайте скрипт, который будет запускаться при загрузке системы, или добавьте следующие две строки в файл //~/.profile// для каждого пользователя:
+
+<code>
+export LANG=ru_RU
+export LC_ALL=ru_RU
+</code>
+
+Вот и всё — теперь система будет на русском. Если у вас установлены retawq или nano, вы можете и их локализовать, скопировав нужные файлы .mo из исходников этих программ в ///usr/share/locale/ru/LC_MESSAGES//.
+
+
+===Следующая глава===
+
+SliTaz использует скрипт ///etc/init.d/i18n.sh// и файл конфигурации ///etc/locale.conf// для управления локализациями системы. О них мы подробно поговорим в следующей главе, которая называется [[boot-scripts|Загрузочные скрипты]].
+
+В уже установленной системе вы можете внести изменения в файл ///etc/locale.conf// или запустить tazlocale, чтобы сменить текущую локализацию. Также язык системы можно указать в виде загрузочной опции ''lang=xx''.
+
+----
+Статью перевел [[http://forum.slitaz.org/index.php/profile/1273/Cyril|Cyril]]

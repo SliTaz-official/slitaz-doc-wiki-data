@@ -1,0 +1,3 @@
+======Сообщения форума======
+
+[[http://forum.slitaz.org/index.php?p=/discussion/comment/5404/#Comment_5404|Как скомпилировать свои модули ядра]]

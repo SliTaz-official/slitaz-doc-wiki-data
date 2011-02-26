@@ -1,0 +1,170 @@
+======Ежемесячный бюллетень — выпуск 18======
+
+  * от 11 июля 2010
+
+
+=====Последние новости=====
+
+  * SliTaz переехал на новый сервер FSF
+
+
+=====Новые пакеты=====
+
+  * arora
+  * attica
+  * barcode
+  * bygfoot
+  * cpufrequtils
+  * deadbeef
+  * echinus
+  * emacs po-mode
+  * exosip
+  * gammu
+  * gimp-dev
+  * git-gui
+  * gpodder
+  * gtk-engines-rezlooks
+  * gtk-theme-switch
+  * libburn
+  * libcanberra
+  * libegl-mesa
+  * libisofs
+  * liferea
+  * linphone
+  * linux-configfs
+  * linux-dlm
+  * linux-logfs
+  * linux-toshiba
+  * nis
+  * normalize
+  * osip
+  * php-curl
+  * python-mygpoclient
+  * python-pybluez
+  * qiv
+  * qt4-phonon
+  * strigi
+  * turnserver
+  * wxpython
+  * xfburn
+  * xvidcore
+  * ypbind-mt
+  * ypserv
+  * yp-tools
+
+
+=====Обновленные пакеты=====
+
+  * alsa-lib => 1.0.23
+  * amsn => 0.98.3
+  * amule => 2.2.6
+  * aria2 => 1.9.3
+  * ario => 1.4.4
+  * avidemux => 2.5.3
+  * awesome => 3.4.5
+  * bastet => 0.43
+  * bluez-dev =>4.62
+  * boxbackup => 0.11rc8
+  * busybox => 1.17.0
+  * catalyst => 10.4
+  * clamav => 0.96.1
+  * claws-mail-extras => 3.7.6
+  * dmsetup => 1.02.44
+  * e2fsprogs => 1.41.12
+  * elinks => 0.11.7
+  * emacs => 23.2
+  * emelfm2 => 0.7.2
+  * fetchmail => 6.3.17
+  * geany => 0.19
+  * gettext => 0.18
+  * gfortran => 4.5.0
+  * glibc => 2.11.2
+  * goffice => 0.8.3
+  * iptables => 1.4.7
+  * krb5 => 1.8.2
+  * lguest => 2.6.34
+  * libarchive => 2.8.3
+  * libogg => 1.2.0
+  * libpng => 1.2.43
+  * libtheora => 1.1.1
+  * libusb => 1.0.8
+  * libusb-compact => 0.1.3
+  * libvorbis => 1.3.1
+  * libwebkit => 1.2.1
+  * libxcb => 1.6
+  * libxml2-tools => 2.7.7
+  * linux => 2.6.34
+  * lives => 1.3.3
+  * midori => 0.2.6
+  * minicom => 2.4
+  * mplayer-svn => 31179
+  * nasm => 2.08.01
+  * nscd => 2.10.2
+  * nscd => 2.11.2
+  * optipng => 0.6.4
+  * osmo => 0.2.10
+  * p7zip => 9.13
+  * parted => 2.3
+  * pekwm => 0.1.12
+  * pidgin => 2.7.1
+  * pngcrush => 1.7.10
+  * pyqt-x11-gpl => 4.7.3
+  * scribus => 1.3.7
+  * slang => 2.2.2
+  * speex => 1.2rc1
+  * strace => 4.5.20
+  * sudo => 1.7.2p7
+  * sudoku-savant => 1.3
+  * task => 1.9.1
+  * tint2 => 0.9
+  * udev => 156
+  * usbutils => 0.86
+  * vorbis-tools => 1.4.0
+  * vte => 0.25.1
+  * webkit-web-inspector => 1.2.1
+  * wine => 1.1.44
+  * xcb-proto => 1.6
+  * xfce4-taskmanager => 1.0.0
+  * xorg-xf86-video-{openchrome, nv, s3, neomagic, mga}
+  * xvkbd => 3.2
+  * yad => 0.2.1
+  * yasm => 1.0.0
+  * yasm => 1.0.1
+  * zile => 2.3.1.6
+
+
+=====Улучшения=====
+
+  * обновлен tazwok (3.2.1)
+  * обновлен slitaz-tools (3.8.1)
+  * обновлен slitaz-boot-scripts (3.4.1)
+
+
+=====Ошибки=====
+
+^  Активность  ^  Открыто  ^  Закрыто  ^
+|  ошибки  |  101  |  75  |
+|  изменения  |  37  |  29  |
+|  задачи  |  28  |  43  |
+
+
+  * Основано на текущих событиях
+
+
+=====Карикатура=====
+
+{{cartoon-10.png|Автор: paul}}
+
+=====Советы и секреты=====
+
+  * [[http://fosswire.com/post/2010/07/text-based-text-editors/|Обзор — консольные текстовые редакторы]] //(англ.)//
+
+
+=====Онлайн=====
+
+  * [[http://www.youtube.com/watch%3Fv%3D6YQrBgNGQrw|Обучалки Slitaz на youtube]]
+
+
+=====Старые выпуски=====
+
+  * Вы можете найти их [[ru:newsletter:oldissues|здесь]].

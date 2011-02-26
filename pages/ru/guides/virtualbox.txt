@@ -1,0 +1,54 @@
+======VirtualBox======
+
+
+=====SliTaz GNU/Linux в VirtualBox=====
+
+Теперь вы можете работать в SliTaz под Windows, используя VirtualBox. Для этого потребуются:
+
+  * [[http://virtualbox.wordpress.com/2008/06/27/slitaz-gnulinux-is-here/|Образ SliTaz GNU/Linux]] — файл виртуальной машины.
+  * [[http://www.virtualbox.org/wiki/Downloads|Oracle VirtualBox]], версия для Windows.
+  * Архиватор [[http://www.7-zip.org/fr/download.html|7-Zip]] для распаковки файла виртуальной машины.
+
+
+=====Шаг 1. Закачка и установка=====
+
+Скачайте и установите 7-Zip и VirtualBox. После этого скачайте и распакуйте образ виртуальной машины.
+
+
+=====Шаг 2. Запуск виртуальной машины=====
+
+Перед запуском виртуальной машины SliTaz необходимо ее настроить.
+
+  - Запустите VirtualBox (меню //Пуск — Программы — Oracle xVM VirtualBox//).
+  - Добавьте новую виртуальную машину, нажав кнопку //New//.
+  - В диалоговом окне //Create New Virtual Machine// нажмите //Next//.
+  - Задайте имя новой виртуальной машины (например, //SliTaz GNU/Linux//), в поле //OS Type// выберите //Linux 2.6// и нажмите //Next//.
+  - Выберите, сколько оперативной памяти будет выделено виртуальной машине (256 Мб, предлагаемых по умолчанию, должно хватить).
+  - В диалоговом окне //Virtual Hard Disk// нажмите кнопку //Existing//, чтобы использовать готовый виртуальный диск SliTaz.
+  - Запустится менеджер виртуальных дисков. Нажмите кнопку //Add// и выберите соответствующий файл VDI (например, slitaz-1.9-x86.vdi).
+  - Нажмите //Next//, а затем //Finish//.
+
+Теперь ваша виртуальная машина SliTaz готова к запуску.
+
+<note>Также VirtualBox может использовать виртуальные диски VMware.</note>
+
+
+=====VirtualBox-OSE=====
+
+В SliTaz вы можете установить свободную версию VirtualBox с открытыми исходниками, представленную пакетом virtualbox-ose:
+
+<code># tazpkg get-install virtualbox-ose</code>
+
+Это ограниченная версия без поддержки USB.
+
+
+=====SliTaz get-virtualbox=====
+
+Вы также можете установить полную, но несвободную версию VirtualBox — пакет get-virtualbox:
+
+<code># tazpkg get-install get-virtualbox</code>
+
+Доступны также другие эмуляторы, в том числе бесплатные lguest или qemu.
+
+----
+Статью перевел [[http://forum.slitaz.org/index.php/profile/1273/Cyril|Cyril]]
