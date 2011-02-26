@@ -1,0 +1,59 @@
+====== Virtual Private Network (Réseau Privé Virtuel) =======
+
+Un VPN relie des réseaux isolés avec des tunnels sur le réseau Internet. Un tunnel crypte et encapsule des trames réseau.
+
+    * Les frames sont cachées (données et en-tête, y compris les informations de routage)
+    * Encapsulation des données à transmettre de façon chiffrée
+    * Seul le volume du trafic est visible. Mais vous pouvez envoyer de fausses trames.
+
+===== Tunnel utilisant SSH et PPP =====
+
+SliTaz peut construire des tunnels sans paquets supplémentaires avec le menu system/NETBOX.
+Vous avez besoin d'un serveur distant.
+
+    * Un compte d'utilisateur
+    * Un accès ssh
+    * Les droits de lancer pppd (droits de groupe ou setuid bit)
+    * Un serveur distant sachant comment les frames sont acheminées vers le tunnel 
+
+===== Configuration du tunnel =====
+
+    * Lancez netbox via le menu system/netbox
+    * Sélectionnez l'onglet VPN
+    * Remplissez les Peer et mettez à jour les routes. 
+    * Cliquez sur "Send Key" et entrez le mot de passe
+    * Cliquez sur "Connect"
+
+===== Limitations =====
+
+    * Ce tunnel ne devrait pas être utilisé pour le trafic en temps réel comme la VoIP. 
+    * Vous seul pouvez voir le réseau distant. Les autres stations sur le réseau local ne le peuvent pas.
+
+===== OpenSSH =====
+
+Le paquet //openssh// est disponible sur le miroir et fournit des tunnels TCP de base.
+
+<code> # yes y | tazpkg get-install openssh </code>
+
+[[http://www.openbsd.org/cgi-bin/man.cgi?query=ssh&sektion=1#SSH-BASED+VIR|Documentation]]
+
+===== OpenVPN =====
+
+Le paquet //openvpn// est disponible sur le miroir.
+
+<code> # yes y | tazpkg get-install openvpn </code>
+
+[[http://openvpn.net/|Documentation]]
+
+===== Cisco EasyVPN =====
+
+Le paquet //vpnc// est disponible sur le miroir.
+
+<code> # yes y | tazpkg get-install vpnc <code>
+
+[[http://www.unix-ag.uni-kl.de/~massar/vpnc/|Documentation]]
+
+===== Autres VPN =====
+
+L'outil de recherche des paquets montre tous les paquets VPN supportés par SliTaz :
+http://pkgs.slitaz.org/search.cgi?tags=vpn

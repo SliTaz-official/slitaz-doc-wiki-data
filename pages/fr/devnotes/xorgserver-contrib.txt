@@ -1,0 +1,61 @@
+====== xorg-server-1.8 ======
+
+===== Introduction =====
+
+Avec xorg-server-1.8, le fichier ///etc/X11/xorg.conf// est supposé être obsolète. Nous pouvons pour le moment le réserver aux modifications utilisateurs. Merci de ne plus modifier automatiquement ce fichier.
+
+Les fichiers de configurations sont désormais dans ///etc/X11/xorg.conf.d//. Pour s'assurer que les configurations utilisateurs ne soient pas écrasées dans ce dossier, voici une proposition de numéro de fichiers et de contenu.  Les fichiers de configuration sont lus dans l'ordre alphanumérique et leur nom doit finir par .conf:
+
+  * 00 - ServerFlag
+  * 05 - ServerLayout Tweaks
+  * 10 - ServerLayout
+  * 15 - Files Tweaks
+  * 20 - Files
+  * 25 - Modules Tweaks
+  * 30 - Modules
+  * 35 - InputClass/InputDevice Tweaks
+  * 40 - InputClass/InputDevice
+  * 45 - Monitor Tweaks
+  * 50 - Monitor
+  * 55 - Device Tweaks
+  * 60 - Device
+  * 65 - Screen Tweaks
+  * 70 - Screen 
+  * 75 - Modes Tweaks
+  * 80 - Modes
+  * 85 - DRI Tweaks
+  * 90 - DRI
+  * 95 - Extension Tweaks
+  * 100 - Extension
+
+Certains de ces sections x0 sont configurées par tazx xorg-config à partir d'un fichier xorg.conf type (généré avec Xorg -configure). Pour plus d'informations vous pouvez consulter la fonction [[http://hg.slitaz.org/slitaz-tools/file/ca6804d9b56b/tinyutils/tazx#l27|xorg_conf_d]] de tazx. 
+
+Si vous souhaitez ajouter un fichier de configuration à un paquet, veillez à ne pas utiliser un des noms utilisé par tazx (ce fichier serait effacé lors d'un démarrage en mode live). Vous pouvez utiliser le même numéro (x0) avec un nom différent si cette configuration n'entre pas en conflit avec celle par défaut. Sinon, utilisez (x-1)5 pour que cette configuration soit lue avant celle par défaut.
+
+Exemples :
+  * [[http://hg.slitaz.org/wok/file/c29991cef110/xorg-xf86-input-evdev/stuff/40-evdev.conf|40-evedev.conf]] - Configuration par défaut de tous les périphériques
+  * [[http://hg.slitaz.org/wok/file/c29991cef110/xorg-xf86-input-synaptics/stuff/35-synaptics.conf|35-synaptics.conf]] - Configuration avancée pour les périphériques touchpad, remplace la configuration par défaut pour ces périphériques
+  * hwsetup, section [[http://hg.slitaz.org/slitaz-tools/file/ca6804d9b56b/tinyutils/hwsetup#l685|nvidia]] et [[http://hg.slitaz.org/slitaz-tools/file/ca6804d9b56b/tinyutils/hwsetup#l753|ati]] - Ajoute un fichier 55-DeviceTweaks.conf configurant un pilote graphique différent de vesa
+
+===== Liste des fichiers de configuration =====
+
+Ceci évite de nommer deux fichiers de la même manière. Elle pourra être inclue dans ///etc/X11/xorg.conf.d/readme// à l'intention des utilisateurs lors de la publication 4.0
+
+tazx :
+  * 10-ServerLayout.conf
+  * 20-Files.conf
+  * 30-Module.conf
+  * 40-Keyboard.conf
+  * 50-Monitor.conf
+  * 60-Device.conf
+  * 70-Screen.conf
+tazhw :
+  * 55-DeviceTweaks.conf
+xorg-xf86-input-evdev :
+  * 40-evdev.conf
+xorg-xf86-input-synaptics :
+  * 35-synaptics.conf
+
+===== A faire =====
+  * Améliorer l'outil d’auto-configuration tazx : certaines polices et modules n'ont pas besoin d'être chargés par défaut ou n'existe pas. Certains de ces éléments de configuration (load module dri, load font etc) peuvent être inclus dans les paquets correspondants.
+  * Pré-configurer certains pilotes pour qu'ils fonctionnent "out-of-the-box"

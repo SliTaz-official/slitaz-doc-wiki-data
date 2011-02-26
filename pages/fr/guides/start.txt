@@ -1,0 +1,115 @@
+====== Guides ======
+
+Vous trouvez ici les guides de démarrage rapide et les guides complets de SliTaz GNU/Linux. Ce sont des guides spécifiques à propos de logiciels, matériels ou configuration système écrit par les utilisateurs et les contributeurs de SliTaz. Ces guides ont pour objectif de proposer des instructions concises et correctes. Ils donnent des solutions à des problèmes précis et n'ont pas vocation à être un mode d'emploi général (pour cela voir le [[fr:handbook:start|Handbook]]).
+
+===== General =====
+   * [[newbie | Guide du débutant SliTaz]] 
+   * [[read | Lisez-moi ]] - Avant de poser une question sur le forum de la communauté
+   * [[contributor | Contribuer à Slitaz]] - Lignes directrices pour devenir un contributeur de Slitaz
+   * [[bugs | Les bugs qu'il faut connaitre ]]
+   * [[faq | FAQ]] - Foire aux questions
+   * [[testingapps | Test des paquets]]
+   * [[ http://scn.slitaz.org/image | Artwork]] - Exposez vos impressions d'écran, fond d'écran, thèmes et autres artworks.
+
+===== Installation, saveurs et virtualisation =====
+  * [[pxe|Démarrage PXE]] - Démarrer depuis le web
+  * [[lowramcd|Live CD pour faible mémoire vive]]
+  * [[frugal|Installation frugale sur une partition windows ]]
+  * [[uncommoninst|Méthodes d'installation peu communes ]]
+  * [[liveusb| LiveUSB]] - Installation sur un média USB 
+  * [[dvd|DVD]] - Tout SliTaz sur un DVD 
+  * [[sdcard|Carte SD]] - Installation sur une carte flash MMC/SD
+  * [[pizza | Créer une saveur en ligne avec Pizza]]
+  * [[manyinone | Créer une saveur plusieurs-en-1]]
+  * [[internationalization | Internationalisation ]] - Ajouter un langage et créer une saveur dans sa propre langue
+  * [[qemu | Qemu ]]
+  * [[vmware| VMware]] - SliTaz GNU/Linux avec VMware
+  * [[virtualbox | Virtualbox]]- SliTaz GNU/Linux avec Virtualbox
+  * [[netstart|Démarrage depuis le web et installation immédiate sur le disque dur ]]
+===== Réseaux / LAN =====
+    * [[wifi-easy|Configurer le Wifi facilement]] 
+    * [[wifi-hard|Configuration du Wifi pas à pas]]
+    * [[network-script|Network.sh]] - Le fichier /etc/init.d/network.sh
+  * [[vpn|VPN]] - Construisez votre propre réseau privé virtuel
+  * [[dialup | 3G/Dialup]] - Comment faire fonctionner votre modem 3G
+  * [[modem | Modem]] - Modem dialup avec ppp ou wvdial
+  * [[bluetooth|Bluetooth]] - Configurer le bluetooth
+  * [[samba | Réseau windows avec Samba]]
+  * [[remotedesktop | Bureau distant ]]
+
+===== Utilitaires SliTaz =====
+  * [[tazpkgbox | Tazpkgbox]] - Gestionnaire de paquet
+  * [[tazctrlbox | Tazctrlbox]] - Administration du système
+  * [[tazlitobox | Tazlitobox]] - Production de liveCD/saveurs
+  * [[tazusbbox | Tazusbbox]] - Production de liveUSB
+  * [[tazhwbox | Tazhw box]] - Détection du matériel et installation des pilotes
+  * [[mountbox | Mountbox ]] - Accès aux systèmes de fichiers
+  * [[burnbox | Burnbox]] - Gravure de CDs/VCDs/DVDs
+  * [[wifibox | Wifibox]] - Configuration de connections sans fil
+  * [[netbox | Netbox]] - Configuration d'ethernet/PPP/VPN/DHCP/IP statique
+  * [[serverbox | Serverbox]] - Configuration de serveurs et du pare-feu
+  * [[scpbox | Scpbox]] - Copie sécurisée vie scp
+
+===== Logiciels =====
+  * [[recommended | Applications recommandées]] - Applications pour tout faire dans SliTaz
+  * [[flash|Comment installer Adobe Flash Player]]
+  * [[boottime|Démarrage rapide et temps de démarrage]]
+  * [[burncd|Graver CD/DVD]] - Graver des CD/DVD audio/video 
+  * [[backup| Backup ]] - Sauvegarder des données sur disque dur / CD
+  * [[Midori|Midori]] - Astuces et configurations pour Midori
+  * [[panels | Panneaux et lanceurs ]]
+  * [[arts | Thèmes, fonds d'écran, icônes ]]
+  * [[fonts | Polices de caractère ]]
+  * [[sexydesktop| Bureau "sexy"]]
+  * [[conky | Conky ]] 
+  * [[audioplayers | Lecteurs audio ]]
+  * [[videoplayers | Lecteurs vidéo ]]
+  * [[soundconvert | Conversion et création de fichiers son/vidéo]]
+  * [[importphotos | Importer des photos]] - avec gphoto2 
+  * [[dropbox | Dropbox ]]
+  * [[tor|Tor]] - Guide rapide d'installation de Tor
+  * [[conspy|Conspy]] - Gestionnaire de session léger et console partagée
+  * [[wicd | Wicd]] - Gestionnaire de connection léger
+  * [[grub | Grub et Grub2]]
+  * [[alsaequal|Alsaequal]] - Plugin égaliseur ajustable en temps-réel pour Alsa
+===== Matériel =====
+  * [[xorg/xvesa | Xorg/Xvesa]] - Que faire si X ne démarre pas ou n'a pas la bonne résolution
+  * [[nvidia|Nvidia]] - Installer le pilote non-libre Nvidia le plus récent
+  * [[ati | ATI]] - Installer le pilote non-libre Catalyst le plus récent
+  * [[webcam | Webcam]] - Comment faire fonctionner une webcam
+  * [[printer | Printing]] - Manuel pour installer et configurer CUPS puis imprimer
+  * [[scanner | Scanner]]
+  * [[udev | UDEV et HAL]]
+  * [[troubleshoot | Résolution des problèmes]]
+  * [[powermgmt | Gestion de l'énergie ]]
+  * [[CPU-frequency | Gestion fréquence CPU]] - Gestion dynamique de la fréquence du processeur 
+===== Configuration de serveurs et administration du système =====
+  * [[apache | Serveur web Apache ]]
+  * [[lighttpd | Serveur web Lighttpd]]
+  * [[ssh | Dropbear, Openssh ]]
+  * [[mailman | Serveur mail et Mailman]]
+  * [[database| Gestionnaire de base de données]] - SQLite, MySQL et autres
+  * [[redmine | Configuration de Redmine ]]
+  * [[mercurial | Configuration de Mercurial ]]
+  * [[fr:handbook:server-apps#drupal|Drupal]] Un puissant moteur de CMS en PHP / MySQL
+  * [[streaming | Serveur streaming de média]]
+  * [[encryption | Cryptage de fichiers et de partitions ]]
+  * [[firewall | Pare-feu]]
+  * [[router | Routeur ]]
+  * [[network-monitor-station|Mettre en place une station de surveillance d'un réseau]]
+
+
+===== Gestionnaires de fenêtre =====
+  * [[fr:handbook:wm#dwm|DWM]] 
+  * [[fr:handbook:wm#pekwm|Pekwm]]
+  * [[fluxbox | Fluxbox ]]
+  * [[fr:handbook:wm#xfce | Xfce ]]
+
+===== Noyau et construction de SliTaz =====
+  * [[kernel|Noyau personnalisé]] - Compiler son propre noyau Linux
+  * [[linuxpkgs | Paquets linux-*]] - Explications des différents paquets Linux
+  * [[chroot|Chroot]] - Comment configurer un chroot pour cuire des paquets
+  * [[tazwoktips | Astuces pour tazwok ]] - Compiler des paquets pour SliTaz plus efficacement
+
+===== Bas à sable =====
+  * [[playground|Bas à sable]] - Pour tests seulement

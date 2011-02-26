@@ -1,0 +1,65 @@
+====== Toutes les ressources de SliTaz sur un DVD ======
+
+Une image DVD bootable de tous les paquets disponibles pour la version 3.0 est générée chaque jour, comme vous pouvez le constater sur [[http://www.slitaz.org/fr/get/|la page de téléchargement]]. L'image DVD contient :
+
+    * la version de base de SliTaz, plus :
+    * une copie du site web
+    * un snapshot des wok
+    * tous les paquets officiels
+
+Ce DVD est destiné à ceux qui ne disposent pas d'un accès à Internet mais qui veulent cependant avoir tout le nécessaire.
+
+===== ISO hybride =====
+
+L'ISO peut être gravé sur un DVD de la sorte : 
+<code>
+# wodim -v dev=/dev/dvd packages-cooking.iso
+</code>
+Vous pouvez aussi transférer le contenu du DVD sur une clé USB (dans l'exemple la clé USB est /dev/usbkey). ATTENTION cela effacera toutes vos données !
+<code>
+# dd if=packages-cooking.iso of=/dev/usbkey
+</code>
+Après avoir écrit sur la clé USB, vous pouvez créer des partitions afin de remettre vos données personnelles.
+<code>
+# fdisk /dev/usbkey
+</code>
+La clé USB est bootable. Si votre BIOS ne supporte pas l'USB boot, vous pouvez toujours démarrer depuis [[http://www.slitaz.org/fr/get/#floppy|une disquette]].
+
+===== Gravage sur un CDROM =====
+
+Les fichiers contenus sur l'ISO sont ordonnés en 5 groupes :
+
+    - les fichiers nécessaires au boot
+    - les fichiers nécessaires au boot loram
+    - le site web
+    - le wok
+    - les paquets
+
+Les quatre premiers groupes réunis pèsent 100-200Mo. Si vous n'avez pas besoin des paquets, vous pouvez graver le reste sur un mini-cdrom (8cm/210Mo)
+<code>
+# wodim -v dev=/dev/cdrom packages-cooking.iso
+</code>
+Les paquets sont classés par ordre alphabétique. Si vous essayez de charger un paquet non présent (comme zsh, à vérifier si c'est toujours d'actualité) vous obtiendrez une erreur d'I/O.
+
+===== Double boot =====
+
+Les fichiers de boot classique et loram sont présents sur l'ISO. Le boot par défaut sera choisi selon votre quantité de RAM. Vous pouvez forcer le choix entre la version //core// et //loram// en entrant, par exemple, cette commande :
+<code>
+boot: loram screen=1280x1024
+</code>
+Avec le boot classique vous pouvez :
+
+    * démonter le DVD (umount /cdrom)
+    * tester des paquets (en les installant dans la RAM)
+
+Vous ne pouvez pas faire ça avec le boot loram puisque seul /usr est monté (en lecture seule) depuis le DVD. Vous pouvez installer SliTaz avec les deux types de boot.
+
+===== Installation automatique =====
+
+Pendant le boot ces actions se produisent :
+
+    * le DVD est monté dans /cdrom, le wok se trouve dans /home/slitaz/wok
+    * un pseudo-tazpkg recharge les liens des paquets du DVD
+    * le site web de SliTaz est installé dans file:///cdrom/website/index.html//
+
+Note : Les utilisateurs de clé USB pourront lire leurs données à partir du DVD.

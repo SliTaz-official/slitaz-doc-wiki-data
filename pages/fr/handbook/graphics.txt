@@ -1,0 +1,33 @@
+====== Graphics ======
+
+===== Gcolor2 - Sélecteur et gestionnaire de couleurs =====
+
+Gcolor2 est un petit outil permettant de sélectionner et de conserver des palettes de couleurs. C'est très utile lors de la créations de thèmes pour SliTaz par exemple. Vous trouverez l'application dans la catégorie "Graphismes" ou vous pouvez la lancer via la commande : 
+
+<code> $ gcolor2 & </code>
+
+===== Gimp - Manipulation et création d'images =====
+
+Le GIMP (GNU Image Manipulation) est un logiciel de manipulation d'images de très haute qualité. Il permet de faire tout ce qu'on peut attendre d'une application de traitement d'images : gestion avancée des calques, filtres, chemin, outils divers, dégradés, ou encore le support des scripts ajoutant des fonctionnalités. Gimp support un très grand nombre de format d'images tel que PNG, JPEG, XPM, PPM, TIFF, PostScript, PSD, il propose aussi son propre format XCF permettant de conserver par exemple les claques. Pour installer Gimp : 
+
+<code> # tazpkg get-install gimp </code>
+
+Gimp est extensible et peut se configurer via l'interface principale, les fichiers de configurations, brosses ou scripts personnels vont dans le répertoire caché ~/.gimp-2.2. 
+
+===== GQview - Gestionnaire d'images =====
+
+GQview est rapide et léger, il permet une navigation très rapide entre les images, par sélection des dossiers se trouvant dans votre arborescence, et cela se fait en un seul clic de souris. Il intègre la possibilité de faire des diaporamas, des rotations d'images et d'afficher les données EXIF, d'ajouter des mots clés ou tags, de configurer les actions, de glisser-déposer. Il donne aussi la possibilité d'éditer les images dans un logiciel externe de son choix (mtPaint ou Gimp par exemple), l'interface est entièrement traduite en français, et est très simple d'utilisation. Pour l'installer :
+
+<code> # tazpkg get-install gqview </code>
+
+===== jpeg - Outils JPEG en ligne de commande =====
+
+Pour que les applications utilisant les images JPEG fonctionnent, elles doivent êtres liées aux bibliothèques fournies par le paquet jpeg-6b, ce paquet propose aussi quelques petits utilitaires à utiliser en ligne de commande. Pour modifier des images JPEG en ligne de commande, vous pouvez utiliser ''jpegtran'', installé par défaut sur SliTaz. L'utilitaire ''jpegtran'' permet par exemple de faire une rotation de l'image via l'option ''-rotate''. Le paquet jpeg-6b fournit aussi les outils ''cjpeg'' et ''djpeg''. Pour connaître les options disponibles avec tous ces outils, vous pouvez utiliser l'option ''%%--help%%'' propre à chaque application. Exemple avec ''cjpeg'' : 
+
+<code> $ cjpeg --help </code>
+
+===== mtPaint - Création et traitement d'images =====
+
+mtPaint est une application de création et de retouche d'images, PNG, TIFF, XPM, BMP. Il est presque entièrement traduit en français, offre beaucoup de fonctions, simple, léger, et rapide. L'outil mtPaint fournit une fonction de capture d'écran (//screenshot//), que vous pouvez utiliser via le menu -> Graphisme -> Capture d'écran, ou en tapant la commande ci-dessous dans un terminal: 
+
+<code> $ mtpaint -s </code>

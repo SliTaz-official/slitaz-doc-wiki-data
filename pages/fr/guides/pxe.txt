@@ -1,0 +1,120 @@
+====== PXE =======
+=====PXE boot =====
+
+Cette méthode de boot par le réseau a besoin de : 
+
+    * un serveur pour stocker les fichiers avec DHCP et TFTP (ils peuvent être sur un serveur différent)
+    * un client avec un PXE bootloader.
+
+===== Configuration du serveur PXE =====
+
+Un serveur PXE = un serveur DHCP + les fichiers de boot DHCP + un serveur TFTP
+
+Démonstration avec un LiveCD de SliTaz : Lancez netbox (menu System/netbox)
+
+    * dans l'onglet Static IP cliquez sur start. Cette boîte sera le serveur DHCP. Il ne peut pas utiliser DHCP pour obtenir la configuration IP.
+    * dans l'onglet Server/INETD vérifiez que la ligne tftpd n'est pas commentée dans /etc/initd.conf et cliquez sur start (ce qui lancera le serveur TFTP).
+    * dans l'onglet Server/PXE éditez la configuration et ajoutez vos options de boot. Cette action mettra à jour automatiquement la configuration du serveur DHCP.
+    * dans l'onglet Server/DHCP vérifiez la configuration. Les actions antérieures ont ajoutés les lignes boot_file et siaddr. Cliquez alors sur start (ce qui lancera le serveur DHCP)
+    * vérifiez que les fichiers bzImage et rootfs.gz sont présents dans /boot
+
+===== PXE client bootloader =====
+
+La plupart des machines récentes avec Ethernet embarqués ont BIOS compatible avec PXE. Recherchez cette fonctionnalité dans les menus du BIOS et le menu de démarrage du BIOS.
+Sinon vous pouvez créer un cdrom ou une disquette de démarrage avec un outil de création de boot sur disquette/cdrom. Dans l'onglet PXE Network cliquez sur Write Floppy. Ensuite, bootez sur elle.
+Votre carte Ethernet n'est pas reconnue ? Voir http://rom-o-matic.net/
+
+
+===== PXE boot sans serveur PXE : WEB boot =====
+
+Vous avez besoin d'un serveur DHCP pour récupérez l'adresse IP, le masque de réseau, et l'adresse de la passerelle (plus d'informations sur [[http://boot.slitaz.org|la doc]]).
+
+
+===== PXE boot sans serveur DHCP : WEB boot et ligne de commande =====
+
+Vous avez besoin d'une adresse IP avec un masque de réseau, une adresse de passerelle et éventuellement une adresse DNS (plus d'informations sur [[http://boot.slitaz.org|la doc]]). 
+Exemple d'utilisation avec GRUB :
+
+
+<code>
+title Slitaz Web
+  kernel /boot/gpxe ip=192.168.0.12/24 gw=192.168.0.1 dns=192.168.0.1 url=http://mirror.slitaz.org/pxe/pxelinux.0
+</code>
+Vous pouvez personnaliser l'url du boot :
+Replacez :
+
+<code> http://mirror.slitaz.org/pxe/pxelinux.0 </code>
+
+Par :
+<code>
+ip=192.168.0.12/24 gw=192.168.0.1 dns=192.168.0.1 url=http://mirror.slitaz.org/pxe/pxelinux.0
+</code>
+Seul "ip=", "gw=", "dns=", "url=" et nodhcp sont les mots-clés reconnus. nodhcp est utile pour éviter timeout dhcp.
+===== Démarrage WEB avec un boot PROM intégré (transitaire PXE) =====
+
+Configuration d'un serveur PXE avec http://download.tuxfamily.org/slitaz/boot/gpxe.pxe comme fichier de boot.
+Testé avec succès avec un routeur http://openwrt.org/ :
+
+    * Installez http://mirror.slitaz.org/boot/mips/tftpd (version MIPS) dans /jffs/usr/sbin
+    * Installez gpxe.exe dans /jffs/boot
+    * Ajoutez l'option de fichier de boot DHCP dans le fichier de configuration dnsmasq
+
+<code> # echo "dhcp-boot=gpxe.pxe" >> /tmp/dnsmasq.conf </code>
+
+lancer le serveur TFTP pour votre réseau local (par exemple 192.168.0.1/24)
+
+<code> # /jffs/usr/sbin/tftpd 192.168.0.1 /jffs/boot </code>
+
+===== Modifier l'URL de démarrage de gPXE WEB boot =====
+
+L'URL est stocké à l'offset 519 en 255 octets maximum.
+
+Voir l'URL courante :
+
+<code> $ dd bs=1 skip=519 count=255 if=gpxe 2> /dev/null | strings </code>
+
+Modifier l'URL :
+
+<code>$ echo -n "http://myurl.org/myboot" | cat - /dev/zero | dd conv=notrunc bs=1 seek=519 count=255 of=gpxe
+</code>
+Modifier l'URL et l'IP stuff :
+
+<code>$ echo -n "ip=192.168.0.10/24 gw=192.168.0.1 dns=192.168.0.1 url=http://myurl.org/myboot" | cat - /dev/zero | dd conv=notrunc bs=1 seek=519 count=255 of=gpxe
+</code>
+
+Supprimer l'URL (il se comportera alors comme un gPXE classique).
+
+<code>$ dd if=/dev/zero conv=notrunc bs=1 seek=519 count=255 of=gpxe
+</code>
+
+===== Modifier l'URL par défaut du WEB boot gpxe.pxe =====
+
+L'URL est stocké à l'offset 519 en 255 octets maximum.
+
+Voir l'URL courante :
+
+
+<code>$ dd bs=1 skip=5 count=255 if=gpxe.pxe 2> /dev/null | strings
+</code>
+
+Modifier l'URL :
+
+<code>
+$ echo -n "http://myurl.org/myboot" | cat - /dev/zero | dd conv=notrunc bs=1 seek=5 count=255 of=gpxe.pxe
+</code>
+
+Supprimer l'URL (il se comportera alors comme un gpxe.pxe classique).
+
+<code>$ dd if=/dev/zero conv=notrunc bs=1 seek=5 count=255 of=gpxe.pxe
+</code>
+
+===== Démarrage sur des serveurs web en redondance =====
+
+Séparées par des virgules, les listes d'URL sont supportées.
+
+Le client PXE essaiera de charger la première URL. Si le chargement échoue, il va essayer l'URL suivante, et ainsi de suite.
+
+Exemple avec les serveurs actuels de SliTaz boot Web:
+
+<code>$ echo -n "http://mirror.slitaz.org/pxe/pxelinux.0,http://mirror.switch.ch/ftp/mirror/pxe/pxelinux.0,http://download.tuxfamily.org/slitaz/pxe/pxelinux.0" | cat - /dev/zero | dd conv=notrunc bs=1 seek=519 count=255 of=gpxe
+</code>

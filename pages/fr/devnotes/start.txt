@@ -1,0 +1,14 @@
+====== Notes de développement ======
+
+Cette page contient des informations spécifiques à la version cooking. Certaines pages rejoindront les guides ou les livres lors de la prochaine publication stable. D'autres servent temporairement à coordonner le travail de développement.
+
+==== Informations pour les utilisateurs ====
+
+  * [[fr:devnotes:xorgserver-user|xorg-server-1.8]] - Mise à jour de la configuration
+
+==== Informations pour les contributeurs ====
+
+  * [[fr:devnotes:xorgserver-contrib|xorg-server-1.8 ]] - Pre-configuration des pilotes
+  * [[fr:devnotes:prepare-experimental|Préparer le wok experimental]] - Comment utiliser les patchs expérimentaux avec MQ
+  * [[fr:devnotes:cook-flavor-from-scratch|Cuire une saveur depuis les sources]] - Tutoriel pour tazwok-experimental
+  * [[fr:devnotes:new-tazwok-illustrated|Le nouveau tazwok illustré!]] - Description des changements dans l'écriture de recettes liés à Tazwok 4.0

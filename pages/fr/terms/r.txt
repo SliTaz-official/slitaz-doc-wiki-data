@@ -1,0 +1,9 @@
+===== R =====
+[[fr:start|^]] [[fr:terms:a]] - [[fr:terms:b]] - [[fr:terms:c]] - [[fr:terms:d]] - [[fr:terms:e]] - [[fr:terms:f]] - [[fr:terms:g]] - [[fr:terms:h]] - [[fr:terms:i]] - [[fr:terms:j]] - [[fr:terms:k]] - [[fr:terms:l]] - [[fr:terms:m]] - [[fr:terms:n]] - [[fr:terms:o]] - [[fr:terms:p]] - [[fr:terms:q]] - [[fr:terms:r]] - [[fr:terms:s]] - [[fr:terms:t]] - [[fr:terms:u]] - [[fr:terms:v]] - [[fr:terms:w]] - [[fr:terms:x]] - [[fr:terms:y]] - [[fr:terms:z]]
+
+
+====root====
+  * root, la racine, a toujours au moins 2 significations dans un système linux
+  * root est le pseudo de l'administrateur du système (voir aussi [[fr:terms:S?&#su|su]] und [[fr:terms:S?&#sudo|sudo]] et [[fr:terms:C?&#chroot|chroot]])
+  * root est le nom du répertoire de travail de cet administrateur du système global et son contenu est d'importance primordiale, imposant que ce répertoire /root doive être dans la même partition que le [[fr:terms:R?&#répertoire_principal|répertoire_principal /]]
+ 

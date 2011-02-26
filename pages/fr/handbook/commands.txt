@@ -1,0 +1,210 @@
+====== Références en ligne de commandes ======
+
+===== Introduction aux commandes =====
+
+Ce document se veut être un rapide référentiel pour utiliser SliTaz en ligne commandes via un terminal Linux ou un terminal graphique (XTerm). Vous disposez de nombreuses commandes GNU/Linux de manipulation des fichiers, de maintenance système ou de gestion du réseau. Vous pouvez aussi naviguer sur le web, chatter sur l'IRC, télécharger, éditer des scripts et même jouer en mode texte. Note : il faut être //root// pour les opérations de montage de disques durs ou de cdrom. Vous pouvez utiliser la commande ''su'' pour devenir administrateur système. 
+
+===== Aide et liste des commandes disponibles =====
+
+La plupart des commandes des systèmes GNU/Linux ont une option d'aide pour des infos sur leur utilisation. Pour avoir de l'aide et connaître des informations sur l'utilisation d'une commande il faut taper le nom de la commande suivie de l'option ''%%--help%%''. Exemple avec la commande de copie de fichiers ''cp'' : 
+
+<code> $ cp --help </code>
+
+Pour lister les commandes disponibles sur le système, vous pouvez simplement taper 2 fois sur la touche de tabulation qui se trouve à gauche du clavier et comporte 2 flèches horizontales et opposées. Pour connaître les commandes fournies par Busybox, vous pouvez taper ''%%busybox --help%%''. 
+
+===== Lister les fichiers contenus dans un répertoire =====
+
+Pour lister les fichiers et les dossiers contenus dans un répertoire, vous pouvez utiliser la commande ''ls''. Pour connaître toutes les possibilités, n'oubliez pas d'utiliser l'option ''%%--help%%''. Pour simplement lister les fichiers du répertoire courant : 
+
+<code> $ ls </code>
+
+Lister tous les fichiers en utilisant l'option ''-al'' : 
+
+<code> $ ls -al </code>
+
+Lister un répertoire donné: 
+
+<code> $ ls /home/slitaz </code>
+
+===== Se déplacer dans les répertoires =====
+
+Pour naviguer dans les fichiers vous pouvez utiliser la commande ''cd'' : 
+
+<code>
+ $ cd /usr/share/doc
+ Revenir au répertoire parent :
+ $ cd ..
+</code>
+
+Pour aller dans le répertoire de l'utilisateur (root = /root) : 
+
+<code>
+ $ cd
+ Ou :
+ $ cd ~
+ Ou encore :
+ $ cd $HOME
+</code>
+
+===== Copier des fichiers =====
+
+La commande ''cp'' copier des fichiers ou des dossiers. L'exemple copie le fichier info.txt se trouve dans le répertoire courant, vers le répertoire Documents/ : 
+
+<code> $ cp info.txt Documents/ </code>
+
+Copier un répertoire entier. Ici la commande copie le répertoire Templates/ dans /home/tux : 
+
+<code> $ cp -a Templates /home/tux </code>
+
+===== Déplacer (renommer) des fichiers ou des répertoires =====
+
+La commande mv prend le contenu d'un fichier et le copie dans un autre, puis supprimer le fichier d'orifine :
+
+<code> $ mv fichier1 fichier2 </code>
+
+Elle peut aussi renommer des répertoires :
+
+<code> $ mv ~/Documents ~/Docs </code>
+
+Notez que le contenu du fichier/répertoire de destination sera remplacé s'il existe déjà.
+
+===== Créer un nouveau fichier =====
+
+La commande touch peut créer un nouveau fichier (vide) :
+
+<code> $ touch nouveaufichier </code>
+
+===== Créer de nouveaux répertoires =====
+
+mkdir de l'Anglais make a directory. Cette commande permet de créer un nouveau répertoire. La commande ci-dessous crée un répertoire qui se nomme Projects. Il se créera dans le répertoire /home de l'utilisateur courant ou dans le répertoire dans lequel on se trouve (qui peut être connu via la commande ''pwd'') : 
+
+<code> $ mkdir Projects </code>
+
+Création d'un répertoire qui se nomme script-1.0 dans le dossier Projects/ : 
+
+<code> $ mkdir Projects/script-1.0 </code>
+
+Vous pouvez aussi créer un arbre de répertoires en utilisant l'option -p (parents) :
+
+<code> $ mkdir -p un/deux/trois/quatre </code>
+
+===== Supprimer des fichiers ou des répertoires =====
+
+La commande ''rm'' permet de supprimer un fichier. Imaginons que nous allons supprimer le fichier fichier.txt et qui se trouve dans le répertoire courant : 
+
+<code> $ rm fichier.txt </code>
+
+La commande ''rm'' a plusieurs options. Pour supprimer tout un répertoire avec son contenu, il faut utiliser l'option ''-rf''. Exemple : 
+
+<code> $ rm -rf /home/tux/Templates </code>
+
+Note: vous pouvez aussi utiliser l'option //-i// pour supprimer des fichiers ou des dossiers et leur contenu de façon interactive :
+
+<code> $ rm -ir /home/tux/Templates </code>
+
+===== Lire des fichiers =====
+
+Pour lire le contenu d'un fichier ou d'un script, vous pouvez utiliser les commandes ''less'', ''more'', ''cat'', ou encore le navigateur web Retawq. Exemples avec un fichier README, essential.txt, et script.sh : 
+
+<code>
+ $ less -EM essential.txt
+ ou :
+ $ more README
+ ou :
+ $ cat /path/to/script.sh
+</code>
+Afficher un fichier texte ou html avec le navigateur web Retawq : 
+
+<code> $ retawq /usr/share/doc/index.html </code>
+
+===== Editer des fichiers =====
+
+L'édition de fichiers texte, scripts, fichier de configurations, etc, peut se faire facilement avec l'éditeur GNU Nano dans une console ou un terminal graphique. Exemple avec un fichier bookmarks.html (<Ctrl+X> pour quitter et enregistrer) :
+
+<code> $ nano Public/bookmarks.html </code>
+
+===== Cat =====
+
+Vous pouvez utiliser la commande ''cat'' pour créer divers fichiers texte. EOF signifie End Of File, c'est là que le fichier se termine. Exemple avec un fichier packages.list, cette commande supprime le contenu actuel du fichier :
+
+<code>
+ $ cat > packages.list << "EOF"
+ Du texte...
+ et encore texte
+
+ EOF
+</code> 
+
+Pour ajouter du texte à la suite du fichier, mettez 2 fois: plus grand que (>>) après ''cat'', exemple : 
+
+<code> 
+ $ cat >> packages.list << "EOF"
+ Du texte...
+ 
+ EOF
+</code> 
+
+===== Naviguer sur le web =====
+
+Surfer sur la toile avec SliTaz simplement et rapidement avec 'retawq', navigateur web en mode texte. A noter que vous pouvez aussi utiliser le navigateur en local. Vous naviguerez ensuite facilement avec les flèches de votre clavier, les liens sont en bleu et il faut taper <ENTER> pour les suivre : 
+
+<code> 
+ $ retawq http://www.slitaz.org/
+ ou :
+ $ retawq http://localhost/
+</code>
+ 
+===== Discuter sur les canaux IRC =====
+
+Pour discuter et transférer des fichiers via les multiples serveurs IRC de la planète, SliTaz fournit Rhapsody. Ce client IRC est simple, rapide, léger, fournissant un menu de configuration ncurses très agréable et facile à prendre en main. Pour lancer l'application depuis un terminal, se connecter à un serveur (irc.alterinet.org) et joindre le canal #slitaz : 
+
+<code> 
+ $ rhapsody
+ /connect irc.freenode.net
+ /join #slitaz
+</code> 
+
+===== Télécharger des fichiers =====
+
+Pour télécharger divers formats de fichiers sur internet, vous disposez de la commande ''wget''. Vous pouvez rapatrier une simple page html, le contenu de tout un répertoire ou tout un site web : 
+
+<code>  $ wget http://doc.slitaz.org/ </code> 
+
+===== Lister les partitions disponibles =====
+
+Pour lister les partitions d'un disque dur interne ou externe, vous pouvez utiliser la commande cat pour afficher le contenu du fichier ''/proc/partitions'' ou utiliser l'utilitaire ''fdisk'' avec l'option ''-l'' signifiant //list//. Vous pouvez ensuite monter la (les) partitions que vous désirez utiliser : 
+
+<code> 
+ $ cat /proc/partitions
+ ou :
+ # fdisk -l
+</code>
+ 
+===== Monter une partition, un cdrom ou une clé USB =====
+
+Pour monter une partition locale, dans le système de fichier SliTaz, nous vous conseillons d'utiliser le répertoire /mnt. Dans l'exemple nous créons les répertoires nécessaires, et nous montons la partition ''hda6'' du premier disque dur local sur /mnt/hda6 : 
+
+<code> 
+ # mkdir -p /mnt/hda6
+ # mount -t ext3 /dev/hda6 /mnt/hda6
+</code> 
+
+SliTaz fonctionne en RAM, vous pouvez monter ce même cdrom ou le retirer pour en monter un autre (/dev/cdrom est un lien sur le premier lecteur de cdrom). A noter qu'un cdrom est un média amovible, il devrait donc se monter sur /media : 
+
+<code>  # mount -t iso9660 /dev/cdrom /media/cdrom </code> 
+
+Pour monter une clé USB ou flash disk il faut spécifier le bon système de fichiers. Normalement une clé USB achetée dans le marché est formatée en FAT32 ce qui permet de la lire depuis GNU/Linux et Windows. Sur un système GNU/Linux elle est reconnue généralement comme le disque sda1, nous avons donc préparer un lien ''sda1'' sur ''flash'', pour se faciliter la tâche. C'est aussi un média amovible et devrait se monter sur /media : 
+
+<code>  # mount -t vfat /dev/flash /media/flash </code> 
+
+===== Éteindre le système, ou redémarrer =====
+
+Pour arrêter SliTaz ou redémarrer, vous pouvez utiliser la commande ''halt'', ''reboot'' ou utiliser la combinaison des touches <Ctrl+Alt+Delete>, ce qui correspond à un redémarrage système. En cas de problèmes, essayez d'utiliser l'option ''-f'', signifiant //forced// : 
+
+<code> 
+ # halt
+ Pour redémarrer :
+ # reboot
+ Ou :
+ # reboot -f
+</code> 

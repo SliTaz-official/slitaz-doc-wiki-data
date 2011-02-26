@@ -1,0 +1,141 @@
+====== Instructions d'installation sur HD ======
+
+===== A propos de ce document =====
+
+Ce document fournit les instructions pour une installation de SliTaz GNU/Linux sur un disque dur (HD). Il vous faudra passer quelques commandes et éditer quelques fichiers au format texte. Le temps à consacrer pour une installation de base est d'environ 10 min. A noter que vous pouvez toujours utiliser une clé USB ou un disque dur externe en tant que partition ''/home'', comme avec [[livecd|le mode LiveCD]]. A noter que vous avez le choix entre une installation automatisée ou une installation à la main, commande par commande. 
+
+===== Prérequis =====
+
+Il vous faut un cdrom ou une image ISO de SliTaz et environ 80 Mb de libre sur un disque dur de votre ordinateur. Si le mode liveCD fonctionne c'est que vous pouvez installer SliTaz facilement et sans aucun problèmes.
+
+===== Installateur =====
+
+SliTaz fourni un installateur en mode ncurses, simple, intutif et en français. Il fournit les instructions nécessaires, pas à pas, pour que l'installation du système se passe sans soucis et que vous puissiez redémarrer sur votre nouveau système SliTaz GNU/Linux. Les étapes sont toutes automatisées, vous pourrez installer le gestionnaire de démarrage GRUB si besoin est, ou ajouter une ligne au fichier de configuration de votre gestionnaire de démarrage actuel. Pour afficher le premier message et commencer l'installation :
+
+<code>
+ # slitaz-installer
+</code>
+
+==== Type d'installation ====
+
+La première étape vous permet de choisir le type d'installation : nouvelle installation ou mise à jour du système. Dans la plupart des cas vous voudrez une nouvelle installation. Ensuite, l'installeur montera le cdrom et cherchera le système de fichier compressé (//rootfs.gz//). S'il se trouve sur une clef USB (LiveUSB) il sera aussi délecté. Si l'installeur ne trouve pas le système de fichier l'installation échouera.
+
+Dans ce cas, vérifiez que vous avez bien un liveCD de Slitaz dans votre lecteur CD principal ou sur votre clef USB et que le système de fichier est bien nommé rootfs.gz. Si le problème persiste vous pouvez télécharger une image ISO de Slitaz et la monter sur ///media/cdrom// :
+
+<code> # mount -o loop slitaz-3.0.iso /media/cdrom </code>
+
+==== Partition cible ====
+
+La seconde étape sert à configurer une partition. Si vous avez déjà une partition vide vous pouvez l'utiliser directement, sinon vous pouvez en créer une avec l'utilitaire graphique Gparted ou avec l'utilitaire en ligne de commande fdisk. Par exemple, si vous voulez installer SliTaz sur la première partition du premier disque reconnu en tant que hda :
+
+<code> /dev/hda1 </code>
+
+==== Formater ====
+
+Cette étape vous permet de formater la partition cible en ext3. Ext3 est un système de fichier journalisé stable et solide. Si la partition est déjà formatée vous pouvez sauter cette étape. Attention : formater une partition efface toutes les données qu'elle contient.
+
+==== Hostname ====
+
+Hostname correspond au nom de votre machine. Il est utilisé pour identifier votre ordinateur sur le réseau local. Il peut être changé après l'installation du système.
+
+==== Gestionnaire de démarrage - GRUB ====
+
+Lorsque l'installation est terminée vous pouvez choisir d'installer le gestionnaire de démarrage GRUB qui permet de lancer tout type de système d'exploitation. Si vous voulez utiliser un GRUB qui est déjà installé, sautez cette étape et ajoutez les bonnes lignes au fichier de configuration (menu.lst) de votre GRUB. Notez que l'installeur créé un fichier de configuration type qui peut être utilisé comme exemple (///mnt/target/boot/grub/menu.lst//).
+
+==== Fin de l'installation ====
+
+Lorsque l'installeur a finalement terminé son travail vous pouvez choisir entre le fermer ou redémarrer votre nouveau système d'exploitation SliTaz GNU/Linux. Le premier démarrage est comme celui du LiveCD : vous devrez indiquer votre langage et votre clavier. Aux prochains démarrage rien ne vous sera demandé et ces informations pourrons être changées manuellement ou avec les outils de configuration de SliTaz.
+
+===== Installation à la main =====
+
+SliTaz peut être installé à la main avec la ligne de commande. Pour installer SliTaz de cette façon vous pouvez utiliser un cdrom ou une image ISO. Vous pouvez copier/coller les commandes depuis Firefox dans le terminal, en utilisant le bouton du milieu.
+
+Pour commencer, vous devez avoir une partition montée pour installer SliTaz et avoir ouvert un terminal avec un SHell administrateur (//root//). En mode LiveCD, vous pouvez devenir //root// avec la commande ''su'' suivi du mot de passe ''root''. Pour lister les partitions disponibles, vous pouvez utiliser les commandes : ''cat /proc/partitions'' ou ''fdisk -l''. Pour créer un système de fichiers sur une partition, vous pouvez utiliser l'utilitaire ''mkfs''. Exemple avec la partition ''hda1'' et le système de fichiers journalisé ''ext3'', attention cette commande détruit définitivement toutes les données de la partition spécifiée : 
+
+<code>
+ # mkfs.ext3 /dev/hda1
+</code>
+
+==== Monter la partition cible ====
+
+Pour monter la partition cible sur un point de montage tel que le répertoire ''/mnt/target'', vous pouvez utiliser la commande ''mount''. Exemple :
+
+<code>
+ # mkdir /mnt/target
+ # mount -t ext3 /dev/hda1 /mnt/target
+</code>
+
+==== Monter le cdrom ====
+
+Tous les fichiers utiles se trouvent sur le cdrom de SliTaz. Il faut le noyau Linux, le système de fichiers racine compressé (//rootfs.gz//), et des paquets additionnels si vous le désirez. Pour monter le périphérique de cdrom sur le point de montage ''/media/cdrom'' : 
+
+<code> # mount /dev/cdrom /media/cdrom </code>
+
+Pour monter une image ISO :
+
+<code> # mount -o loop slitaz-3.0.iso /media/cdrom </code>
+
+==== Installation du système ====
+
+Création du répertoire /boot et copie du noyau Linux, qui se nomme bzImage sur le cdrom. Nous allons renommer le noyau en vmlinuz suivi de son numéro de version, que l'on peut obtenir avec la commande ''uname -r'' en mode live : 
+
+<code>
+ # mkdir /mnt/target/boot
+ # cd /media/cdrom/boot
+ # cp bzImage /mnt/target/boot/vmlinuz-2.6.30.5-slitaz
+</code>
+
+Copie du rootfs: 
+
+<code>  # cp rootfs.gz /mnt/target </code>
+
+Nous allons maintenant nous déplacer dans la cible, et décompressé l'archive rootfs.lf avec lzma et cpio. Nous supprimons ensuite le fichier rootfs et le lien init, utilisé par le mode liveCD : 
+
+<code>
+ # cd /mnt/target
+ # lzma d rootfs.gz -so | cpio -id 
+ # rm rootfs.gz init
+</code>
+
+Voilà SliTaz est installé. Si vous avez déjà GRUB ou Lilo d'installé, vous pouvez ajouter les lignes nécessaires pour faire booter SliTaz, et redémarrer. Sinon il vous faut installer le gestionnaire de démarrage GRUB. 
+
+===== Installer le bootloader GRUB =====
+
+Le paquet GRUB devrait être installé sur le LiveCD de SliTaz. GRUB est un chargeur de démarrage (//boot loader//) permettant de lancer les systèmes GNU/Linux, BSD et même Windows, via de simple entrée dans un fichier texte. Ce fichier texte se nomme ''menu.list'', il permet de finement configurer le chargeur de démarrage, il peut être modifié manuellement et à tous moments.
+
+Installation de GRUB sur le mbr, avec comme racine /mnt/target (la cible), et comme disque ''hda'' : 
+
+<code> # grub-install --root-directory=/mnt/target /dev/hda </code>
+
+Vous pouvez maintenant ajouter les lignes de configuration ci-dessous pour SliTaz, au fichier menu.lst de la cible. Pour cela vous pouvez utiliser l'éditeur de texte Nano ou LeafPad en mode graphique . A noter que pour connaître la version du noyau Linux sur un système GNU/Linux, vous pouvez utiliser la commande ''$ uname -a''. Pour éditer le fichier de configuration de GRUB (Un exemple est fournit) : 
+
+<code>  # nano /mnt/target/boot/grub/menu.lst
+ (Ctrl+X pour quitter)
+ ou :
+ # leafpad /mnt/target/boot/grub/menu.lst
+</code>
+
+==== /boot/grub/menu.lst - Exemple ====
+
+<code>
+title  SliTaz GNU/Linux 3.0 (Kernel 2.6.30.6-slitaz)
+       root(hd0,0)
+       kernel /boot/vmlinuz-2.6.30.6-slitaz root=/dev/hda1 vga=normal
+</code>
+
+==== Redémarrer ====
+
+Vous devriez pouvoir redémarrer sur votre nouveau système SliTaz GNU/Linux. Après l'installation de SliTaz sur un disque dur, il est recommandé de commencer par configurer le système, en fonction de ses besoins, du matériel, et des possibilités. Pour configurer votre système après le reboot et apprendre à utiliser SliTaz, vous pouvez vous référer au Handbook. Vous pouvez redémarrer via le menu du gestionnaire de fenêtres Openbox ou via la commande :
+
+<code> # reboot</code>
+
+===== Installation sur un périphérique USB =====
+
+Si vous souhaitez installer le système sur un périphérique USB, vous devez donner au noyau linux un peu de temps (//rootdelay//) pour le détecter.
+
+Ensuite éditez votre menu.lst pour qu'il ressemble à peu prêt à ça :
+<code>
+title  SliTaz GNU/Linux 3.0 (Kernel 2.6.30.6-slitaz)
+       root(hd0,0)
+       kernel /boot/vmlinuz-2.6.30.6-slitaz root=/dev/sda1 vga=normal rootdelay=10
+</code>

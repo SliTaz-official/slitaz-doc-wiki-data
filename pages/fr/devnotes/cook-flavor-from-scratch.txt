@@ -1,0 +1,187 @@
+====== Cuire une saveur depuis les sources ======
+
+===== Introduction =====
+
+Bienvenue dans ce tutoriel! C'est la base pour un second //scratchbook//, qui explique comment compiler entièrement SliTaz depuis les sources, chaîne d'outils comprise. Tout le travail est fait en utilisant //tazwok-experimental// (actuellement en phase de développement alpha). Même si les scripts ont quelques failles majeures, les étapes expliquées ici devrait accomplir cette tâche sans problème. Merci de d'informer l'auteur d'un quelconque problème (//tazpkg info tazwok-experimental// vous donnera mon mail).
+
+Avoir quelques connaissances à propos des outils classiques de SliTaz et des commandes de base vous aidera à comprendre ce qui se passe durant ce tutoriel. Cela dit, copier/coller simplement les commandes fonctionnera probablement.
+
+==== Explication ====
+
+//Tazwok-experimental// propose des outils pour cuire le [[fr:terms:W?&#wok|wok]]  depuis les sources en utilisant un //chroot// minimal. Vous devrez utiliser une version spéciale du wok, appelée wok-experimental. Il contient des patchs nécessaires, qui doivent être appliqués au wok //cooking//. Les explications à propos de la mise en place du wok //experimental// se trouvent ici :  [[fr:devnotes:prepare-experimental|Préparer le wok experimental]].
+
+**Outils requis**
+  * Un système SliTaz //cooking// fonctionnel (autonome ou installé); vous pouvez aussi utiliser l'ISO [[http://people.slitaz.org/~gokhlayeh/experimental/iso/slitaz-experimental-base.iso|slitaz-experimental-base]].
+  * //tazwok-experimental-0.0.2, tazchroot-0.0.1, libtaz-0.0.1//. Note: installer //tazwok-experimental// supprimera le //tazwok// classique.
+  * Une connexion internet pour télécharger les sources.
+
+**Étapes**
+  * Faire le //chroot// (dans ce tutoriel nous utilisons les paquets de la nouvelle chaîne d'outils depuis le dépôt //experimental//; mais cela devrait aussi fonctionner avec la chaîne d'outils de //cooking//).
+  * Cuire une chaîne d'outils temporaire: c'est une chaîne d'outils de compilation croisée qui va permettre de cuire la "vrai" chaîne d'outils (celle qui sera empaquetée) sans qu'elle soit liée à quoique ce soit provenant du système hôte.
+  * Cuire la chaîne d'outils définitive.
+  * Cuire quelques autres paquets d'une des saveur SliTaz.
+  * Préparer l'ISO.
+  * Graver, démarrer & savourez :).
+
+==== Installer les outils ====
+
+<note tip>Les commandes suivantes doivent être exécutées en tant qu'administrateur. Vous n'avez pas besoin d'ajouter le dépôt //experimental// si vous souhaitez utiliser la chaîne d'outils de //cooking//.</note>
+
+Ajouter le dépôt //experimental// en tant qu'indigeste:
+<code>
+tazpkg add-undigest experimental http://people.slitaz.org/~gokhlayeh/experimental/packages
+</code>
+
+Lui donner la priorité sur le dépôt principal:
+<code>
+echo experimental > /var/lib/tazpkg/priority
+</code>
+
+Installer les outils de cuisson:
+<code>
+tazpkg get-install tazwok-experimental
+tazpkg get-install tazchroot
+</code>
+
+==== Cuire la chaîne d'outils ====
+
+<note tip> Les lignes de commandes suivantes fonctionnent pour un wok situé à l'adresse: ///home/slitaz/experimental/wok//. Si vous avez placé le wok ailleurs, vous pouvez ajouter l'option //--SLITAZ_DIR=adresse//; où adresse est l'équivalent de ///home/slitaz//. Cette option doit être utilisée chaque fois que //--SLITAZ_VERSION// est précisée. Vous pouvez aussi définir //SLITAZ_VERSION// et //SLITAZ_DIR// globalement via ///etc/slitaz/slitaz.conf//.</note>
+
+Configurer le //chroot//:
+<code>
+tazwok configure-chroot --SLITAZ_VERSION=experimental
+</code>
+
+Si vous avez au moins 1,5GB de mémoire libre vide, vous pouvez utiliser le //chroot// minimal en RAM pour accélérer le processus de cuisson:
+<code>
+sed 's~chroot_dir=.*~chroot_dir=/tmp/chroot-experimental~' -i /home/slitaz/experimental/tazchroot.conf
+</code>
+
+Cuire les paquets de la chaîne d'outils en une commande:
+<code>
+tazwok cook-toolchain --SLITAZ_VERSION=experimental
+</code>
+
+A la fin de cette opération, le //chroot// devrait être effacé. Si vous aviez modifié son emplacement plus tôt, vous devez le faire manuellement:
+<code>
+rm -r /tmp/chroot-experimental
+</code>
+
+Les paquets de la chaîne d'outils sont maintenant prêts à être utilisés. Ils sont actuellement dans le dépôt //packages-incoming//. Si tout à été cuit comme il faut, il est possible de la pousser dans le dépôt de paquets classique en utilisant:
+<code>
+tazwok check-incoming --SLITAZ_VERSION=experimental
+</code>
+
+Vous avez besoin de dire à //tazpkg// que vous avez maintenant une version locale d'//experimental//:
+<code>
+# Si vous aviez déjà défini le dépôt experimental:
+echo "/home/slitaz/experimental/packages" > /var/lib/tazpkg/undigest/experimental/mirror
+tazpkg recharge
+# Sinon:
+tazpkg add-undigest experimental /home/slitaz/experimental/packages
+echo experimental > /var/lib/tazpkg/priority
+tazpkg recharge
+</code>
+
+Recuire les paquets de la chaîne d'outils à l'exception du cœur (//linux-api-headers/glibc/binutils/gcc//) par-dessus elle-même pour la consolider; en fait ce n'est pas réellement nécessaire avec la configuration actuelle mais c'est généralement bon pour résoudre les dépendances circulaires. Cela garantit la consistance de la chaîne d'outils avant et après une mise à jour des paquet non-cœur de la chaîne d'outils. Notez que le cœur de la chaîne d'outils ne devrait jamais être mis à jour de cette façon, mais en ré-utilisant le script //cook-toolchain//.
+<code>
+tazwok chroot --SLITAZ_VERSION=experimental
+tazwok build-depends toolchain-cooklist | sed '1,/^gcc$/d' > /tmp/consolider.list
+tazwok cook-list /tmp/consolider.list
+rm /tmp/consolider.list
+</code>
+
+Puisque les paquets ont été re-cuit, il faut mettre à jour le dépôt //packages// de nouveau:
+<code>
+tazwok check-incoming
+</code>
+
+Rester dans le //chroot// pour l'étape suivante
+
+
+==== Cuire les paquets d'une saveur ====
+
+Premièrement vous avez besoin d'avoir les données à propos des saveurs pour //cooking//:
+<code>
+cd /home/slitaz/experimental/flavors
+hg clone http://hg.slitaz.org/flavors .
+</code>
+
+Générer la liste de cuisson pour une saveur données. Note: pour la suite, remplacer SAVEUR par le nom de la saveur de votre choix dans les commandes.
+<code>
+tazwok gen-cooklist --list=/home/slitaz/experimental/flavors/SAVEUR/packages.list > /tmp/SAVEUR.list
+</code>
+
+Cette liste contient des paquets qui ont déjà été cuits; les enlever:
+<code>
+cat /tmp/SAVEUR.list | while read p; do
+	grep -q ^$p$ /home/slitaz/experimental/packages/packages.txt && \
+		sed "/^$p$/d" -i /tmp/SAVEUR.list
+done
+</code>
+
+
+La liste de cuisson est maintenant prête, pour créer les paquets:
+<code>
+tazwok cook-list /tmp/SAVEUR.list
+</code>
+
+Mettre à jour le dépôt //packages//:
+<code>
+tazwok check-incoming
+</code>
+
+<note tip>Vous pouvez répéter ces étapes à chaque fois que vous souhaitez ajouter de nouveaux paquets à votre dépôt.</note>
+
+Restez dans le //chroot// pour la prochaine étape.
+
+==== Créer l'ISO ====
+
+Pour le moment, //tazlito// utilise ///home/slitaz/flavors//. Créer un lien symbolique:
+<code>
+ln -s /home/slitaz/experimental/flavors /home/slitaz
+</code>
+
+Configurer l'ISO en tant que version expérimentale:
+<code>
+cd  /home/slitaz/flavors/SAVEUR
+mkdir -p rootfs/etc
+echo experimental > rootfs/etc/slitaz-release
+</code>
+
+Configurer l'ISO pour utiliser votre dépôt local:
+<code>
+mkdir -p rootfs/var/lib/tazpkg
+echo /home/slitaz/experimental/packages > rootfs/var/lib/tazpkg/mirror
+</code>
+
+Utiliser tazwok-experimental plutôt que tazwok et ajouter tazchroot:
+<code>
+sed 's/tazwok/tazwok-experimental/' -i packages.list
+echo tazchroot >> packages.list
+</code>
+
+Empaqueter SAVEUR:
+<code>
+tazlito pack-flavor SAVEUR
+</code>
+
+Obtenir SAVEUR:
+<code>
+tazlito get-flavor SAVEUR
+</code>
+
+Générer l'ISO:
+<code>
+tazlito gen-distro
+</code>
+
+Sauvegarder l'ISO dans votre home:
+<code>
+mv /home/slitaz/distro/slitaz-SAVEUR.iso /home/slitaz/distro/slitaz-SAVEUR.md5 /home/slitaz/experimental/iso
+</code>
+
+Quitter le //chroot//:
+<code>
+exit
+</code>

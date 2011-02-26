@@ -1,0 +1,62 @@
+====== Accessibilité ======
+
+===== A Propos =====
+
+SliTaz propose quelques outils //Assistive Technology (AT)//.
+
+===== Loupe =====
+
+SliTaz comporte une loupe dont les bords peuvent être redimensionnés et qui peut grossir jusqu'à 16 fois. Elle propose aussi un outil graphique qui active un pointeur en forme de croix, affiche la position en pixels et les valeurs //RGB// (Red Green Blue : Rouge Vert Bleu, c'est une façon de coder les couleurs). Vous pouvez la trouver dans Menu -> Utilitaires après l'avoir installée :
+
+<code> # tazpkg get-install magnifier
+</code>
+
+===== Espeak - Texte vers voix =====
+
+Le synthétiseur de voix Espeak utilisé depuis la ligne de commandes peut lire des textes depuis un fichier ou depuis une entrée standard et supporte de nombreuses langues. Espeak peut ajuster l'amplitude, le volume, l'écart des mots, la vitesse, etc. Il peut aussi enregistrer la lecture dans un fichier wave. Vous pouvez entrer //%%espeak --help%%// pour une liste complète des options disponibles. Pour installer Espeak :
+
+<code> # tazpkg get-install espeak
+</code>
+
+Pour le mettre en français : 
+
+<code> $ espeak -v=french
+</code>
+
+Exemple : pour lire un fichier :
+
+<code> $ espeak -v=french -f exemple.txt
+</code>
+
+===== Clavier virtuel =====
+
+Le clavier virtuel (''xvkdb'') peut être utilisé pour entrer des caractères dans le logiciel de votre choix. Le menu peut être utilisé pour changer le mappage du clavier, les touches fonction, etc. Il supporte la complétition des mots, le retrait de touches non désirés et peut se connecter à un affichage à distance. La fichier de configuration est dans le fichier //~/.Xdefaults//. Pour l'installer :
+
+<code> # tazpkg get-install xvkbd
+</code>
+
+===== Yasr - Lecteur d'écran =====
+
+Yars est un lecteur d'écran basé sur la ligne de commandes qui utilise //speech-dispatcher// et //espeak//. Pour l'installer :
+
+<code> # tazpkg get-install yasr
+</code>
+
+Pour configurer //speech-dispatcher// :
+
+<code> # spd-conf 
+</code>
+
+//Speech-dispatcher// peut être lancé et stoppé comme un démon :
+
+<code> # speech-dispatcher
+ # killall speech-dispatcher
+</code>
+
+=== Utilisation ===
+
+<code> $ yasr
+ $ exit
+</code>
+
+Les fichiers de configuration peut être trouvé dans le répertoire ///etc/speech-dispatcher// ou //~/.speech-dispatcher/ et pour yasr : ///usr/share/yasr//.

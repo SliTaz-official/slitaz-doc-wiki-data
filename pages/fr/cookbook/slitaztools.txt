@@ -1,0 +1,15 @@
+====== Outils Slitaz ======
+
+La boîte à outils SliTaz - : [[http://mirror.slitaz.org/sources/tools/|code source]]
+
+Les outils SliTaz ou SliTaz Tools contiennent des scripts utiles à la création de la version personnalisée de SliTaz, tel qu'un script de création de nouvelles initramfs et images ISO, les Makefile, utilisés lors des premières versions de SliTaz. Ces fichiers sont là pour accompagner le [[fr:scratchbook:start|Scratchbook]]  (le livre de création de SliTaz) et pour aider les développeurs SliTaz. L'archive est aussi distribuée car elle contient des fichiers qui peuvent être utiles à des individus de type hacker... Les outils ont beaucoup évolué et ne cessent de s'enrichir, le paquet suit un cycle de publication en fonction de modifications faites et de la version Cooking et Stable. 
+
+===== Dépôt Mercurial =====
+
+Les SliTaz Tools ont leur propre dépôt Mercurial sur le serveur de SliTaz, ils peuvent être clonés via la commande : 
+
+<code> $ hg clone http://hg.slitaz.org/slitaz-tools/ </code>
+
+===== *box =====
+
+Mountbox, Netbox, Bootfloppybox, Tazlocale, etc, sont des outils créés pour SliTaz en utilisant dialog (ncurses) ou GTKdialog. Les scripts sont contenus dans le répertoire tinyutils/ des outils. Desktopbox a la particularité de pouvoir lancer diverses boîtes (desktopbox usage) scriptées ou créées avec Glade3.  

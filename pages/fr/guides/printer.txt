@@ -1,0 +1,138 @@
+====== Impression ======
+======   Cas d'une imprimante HP ======
+ 
+ 
+Ceci est pour une installation propre de SliTaz GNU/Linux cooking-20100314
+
+  - Une fois l'imprimante branchée et allumée, lancez : <code>
+su root
+tazpkg recharge
+tazhw setup printer</code>
+  - Installez seulement hplip et hal-cups-utils
+  - L'imprimante devrait apparaître dans la liste des imprimantes s'affichant dans le cadre de cette commande. Il tentera alors d'ouvrir les pages d'administration CUPS dans Midori (à http://localhost:631).
+  - Sur mon système, l'imprimante n'apparaît pas dans le navigateur sous la rubrique "Find printers" et j'ai une erreur 403 lorsque je tentez d'ajouter une imprimante via le navigateur.
+  - Au lieu de cela, exécutez <code> hp-setup </code> et suivez les instructions. La page de test doit s'imprimer correctement. L'imprimante devrait également apparaître dans la liste des imprimantes dans les applications (comme l'éditeur de texte) et apparaîtra également dans la liste des imprimantes sur les pages du navigateur CUPS, bien que dans mon cas, il n'est pas encore possible d'apporter des modifications à l'imprimante.
+
+
+ ====== Installation d'une imprimante USB Brother HL 2030 ======
+
+
+On s'intéresse ici au cas particulier d'une imprimante Brother USB, mais la méthode est générale.
+
+Os : slitaz -3.0-loram-cdrom
+pc : compacq deskpro 1998 ; Ram : 64 Mio.
+
+L'utilisateur a pour nom de compte tux.
+
+Quand tout est installé, on fait une mise à jour : 
+on va dans le menu **//outil système//**, puis  **//gestionnaire de paquets//**, puis **//recharge list//** et enfin **//upgrade all//**
+
+On installe cups, hal-cups-utils et usbutils. En root, on tape:
+  
+<code>
+root@slitaz:# tazpkg get-install cups
+root@slitaz:# tazpkg get-install hal-cups-utils
+root@slitaz:# tazpkg get-install usbutils
+</code>
+
+Cups sert à la gestion de l'imprimante, hal-cups-utils permet à Cups d'utiliser HAL pour les branchements à chaud d'imprimantes usb, et usbutils nous permet d'avoir la commande lsusb qui nous permet de savoir où est branché l'imprimante et quelles sont ces droits. 
+
+On va ensuite devoir ajouter le compte tux au groupe d'impression lp. En root, on fait:
+   
+<code>
+root@slitaz:#addgroup tux lp
+</code>
+
+Pour que l'interface web de cups puisse être correctement activé, il nous faut encore changé quelques points dans /etc/cupsd.conf.
+ 
+<code>
+root@slitaz:#leafpad /etc/cups/cupsd.conf
+</code>
+   
+On lance ainsi un éditeur de texte, qui nous permet d'inscrire ceci
+ <code>
+   # Administrator user group...
+   SystemGroup lp
+   
+   # Restrict access to the admin pages...
+   
+   Order allow,deny
+   Allow 127.0.0.1
+   
+   
+   # Restrict access to configuration files...
+   
+   AuthType Default
+   Require user @SYSTEM
+   Order allow,deny
+   Deny From None
+   Allow From 127.0.0.1
+ </code>
+   
+Pour modifier les droits sur l'imprimante, il faut connaître ces coordonnées de bus et de device. Pour cela, on fait en root:
+<code>
+root@slitaz:#lsusb
+</code>
+   
+On obtient une sortie du type:
+<code>
+   Bus 001 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+   Bus 001 Device 002: ID 04f9:0027 Brother Industries, Ltd HL-2030 Laser Printer
+   
+</code>
+   
+Il faut alors changer les droits sur le fichier associé:
+   
+<code>
+root@slitaz:#chmod 666 /dev/bus/usb/001/002
+</code>
+
+On redémarre ensuite cups:
+<code>
+root@slitaz:#/etc/init.d/cupsd start
+</code>
+
+Il faut ensuite configurer l'imprimante, en allant chercher sur le site openprinting le fichier ppd correspondant à ce modèle d'imprimante:
+http://www.openprinting.org/printer/Brother/Brother-HL-2030 et l'on ajouter les paquets suivants: foomatic-filters foomatic-db foomatic-db-engine
+
+<code>
+root@slitaz:# tazpkg get-install foomatic-filters
+root@slitaz:# tazpkg get-install foomatic-db
+root@slitaz:# tazpkg get-install foomatic-db-engine
+</code>
+
+On ouvre cups comme précédemment indiqué. On met dans midori l'adresse suivante: http://localhost:631
+
+Cups demande :
+
+- le login "root" (tux par défaut)
+
+- le mot de passe correspondant.
+
+Ensuite on va dans > imprimante > Add Printer  > clic sur le nom de l'imprimante qui est reconnue > ne pas oublier d'indiquer le chemin dans la case Location taper : /dev/bus/usb/001/002 (dans mon cas)
+
+Puis depuis l'interface web ppd de cups, on installe la nouvelle imprimante en utilisant le fichier Brother-HL-2030-hl1250.ppd qui se trouve dans le compte de l'utilisateur.
+Il faut ensuite redémarrer automatique le démon cupsd.
+
+On va dans:
+Outils systeme, puis boite de contrôle, puis initialization et en face de **//run daemont//** on ajoute **//cupsd//** au bout de la phrase : **//dbus hald firewall slim//** (on obtient :** //dbus hald firewall slim cupsd//**).
+
+Pour que  Abiword puisse utiliser notre imprimante, on fait l'ultime commande suivante:
+
+<code>lpoptions -d le_nom_de_ma_super_imprimante
+</code>
+
+On redémarre ensuite et normalement c'est bon.  
+
+**Franciser le choix du format de papier par défaut dans abiword :**
+
+Aller en root dans :
+/usr/share/abiword-2.6/templates
+et faire une copie de normal.awt en normalold.awt (au cas ou !!)
+
+<code># cp normal.awt normalold.awt</code>
+
+ensuite
+
+<code># cp normal.awt-fr_FR normal.awt</code>
+

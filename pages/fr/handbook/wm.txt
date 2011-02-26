@@ -1,0 +1,126 @@
+====== Gestionnaires de fenêtres ======
+
+===== Openbox =====
+
+Voir [[en:handbook:desktop|Bureau]].
+
+===== Enlightenment (e17) =====
+
+Enlightenment est un environnement de bureau complet, entièrement configurable à la souris et proposant de nombreux thèmes. La version fournie par le projet SliTaz est une version encore en développement connue sous le nom de e17. Cette version est considérée suffisamment stable pour être intégrée dans la distribution et travailler en production. Cela dit, SliTaz ne propose pas des outils tels que Rage ou Entrance, mais ce qu'il faut pour disposer d'un d'environnement de bureau complet, simple d'utilisation, stable, réactif et efficace. Tous les réglages peuvent se faire graphiquement via le panneau de configuration intégré au bureau. Le menu s'affiche via un clique de gauche sur l'écran ou depuis une gondole (un panneau). Il est entre autres possible d'utiliser le glisser/déposer depuis un gestionnaire de fichiers et le bureau ou d'afficher des icônes pour lancer ses applications préférées.
+
+Enlightenment a été conçu pour être déployable sur des systèmes avec peu de ressources comme sur les systèmes plus puissants. Il permet d'avoir des fonds d'écran, des éléments du menus et des gadgets animés et interactifs, sait gérer les bureaux virtuels (Alt + roulette de la souris). D'autres fonctionnalités très pratiques permettent de gagner du temps sur des tâches simples, comme par exemple le fait de déplacer une fenêtre d'un bureau à un autre via le //pager// ou le fait d'enrouler une fenêtre avec la molette sur sa bordure.
+
+Site Web : http://www.enlightenment.org 
+
+=== Installation et lancement ===
+
+Installer et lancer Enlightenment sur SliTaz se résume à exécuter une commande et éditer un fichier. Si vous n'avez pas rechargé votre liste de paquets depuis quelques temps, pensez à la mettre à jour. Pour installer Enlightenment et ses dépendances :
+
+<code> # tazpkg get-install enlightenment </code>
+
+Une fois tous les paquets installés, vous pouvez reconfigurer votre session X avec ''tazx'' en spécifiant e17 en argument :
+
+<code> $ tazx e17 </code>
+
+Pour commencer à utiliser Enlightenment il faut sauver le fichier, sortir de sa session X courante et redémarrer une session graphique avec :
+
+<code> $ startx </code>
+
+=== Menu et icônes de bureau ===
+
+Enlightenment respect les standards de Freedesktop, les applications sont classées par catégorie et apparaissent automatiquement lors de leur installation si un un fichier de bureau est fournit. Les fichiers de bureau (''.desktop'') du système sont contenu dans le répertoire ''/usr/share/applications'' ou le répertoire personnel ''~/.local/share/applications''. Ces fichiers de bureau ont une syntaxe simple, sont éditables depuis le panneau de configuration ou avec un simple éditeur de texte. Les fichiers des menus affichant les catégories dans le menu d'Enlightenment sont contenus dans le système //core//. 
+
+=== Une icône sur le bureau ===
+
+Pour avoir une icône sur le bureau lançant une application vous pouvez créer à la main un fichier //.desktop// dans votre répertoire personnel //~/Desktop//. Les fichiers de bureau placés dans ce répertoire sont automatiquement reconnus par Enlightenment. Un simple fichier de bureau peut tenir sur huit lignes avec respectivement le nom (''Name''), le nom générique, un commentaire, la commande à exécuter (''Exec''), l'icône, le type et les catégories //Freedesktop//. Exemple d'un fichier de bureau pour Xterm : 
+
+<code>
+[Desktop Entry]
+Name=XTerm
+GenericName=Terminal
+Comment=Run commands in a shell
+Exec=xterm -bg black -fg white -cr orange -sb -bd violet -rightbar
+Icon=/usr/share/icons/Tango/jwm/utilities-terminal.png
+Type=Application
+Categories=Utility;Terminal;
+</code>
+
+=== Thèmes graphiques ===
+
+Enlightenment est conçu de manière à pouvoir tout configurer en fonction de ses préférences. Vous pouvez facilement modifier l'apparence des fenêtres, de l'image de démarrage, du fond d'écran, les mouvements des fenêtres, les gondoles et autres gadgets. Vous trouverez plusieurs thèmes complets ou fonds d'écran sur le site Web dédié aux outils et graphisme du bureau. Les thèmes s'installent graphiquement via le menu et l'interface de configuration des thèmes, vous pouvez aussi les mettre manuellement dans vos répertoires de configuration personnel de Enlightenment : //~/.e/e//. 
+
+Art et thèmes additionnels pour Enlightenment: http://exchange.enlightenment.org
+
+== Thèmes GTK ==
+
+La plupart des programmes de SliTaz utilisent GTK+ pour afficher les fenêtres : leur thème est configuré séparément d'Enlightenment. Vous pouvez utiliser l'outil LXAppareance pour changer le thème GTK+ ( Menu -> Préférences -> Apparence GTK+ ). Vous trouvez un thème GTK adapté au thème de base d'E17 à cette adresse : http://gnome-look.org/content/show.php?content=95680. Vous pouvez l'installer //via// LXAppareance ou manuellement en déposant le dossier décompressé dans ///usr/share/theme// ou bien //~/.theme// puis en le sélectionnant dans LXAppareance.
+
+===== JWM - Joe's Window Manager =====
+
+//Joe's Window Manager// est écrit en C, simple, rapide, épuré, stable et efficace. JWM propose une ou plusieurs barre(s) des tâches, un menu avec des icônes et un //pager// pour la gestion des bureaux virtuels. La barre des tâches peut aussi afficher l'heure en différents formats et un //dock// par instance de JWM. De plus il est facilement configurable via un seul fichier texte vous permettant de changer le menu, les polices et leurs tailles, et les différentes couleurs. Le projet est en actif développement et les fonctionnalités s'additionnent avec le temps. Depuis la version 2.0 vous bénéficiez, par exemple, du support des couleurs dégradées (//gradient//), de la gestion du fond d'écran ou de la possibilité de déplacer les fenêtres via le pager. Pour l'installer :
+
+<code> # tazpkg get-install jwm </code>
+
+Quittez votre session X actuelle, tappez //<F1>// au //login// Slim et choisissez //JWM//. Pour faire de JWM votre gestionnaire de fenêtres par défaut, entrez simplement : ''tazx jwm''.
+
+=== Utilisation et configuration de JWM ===
+
+La prise en main de Joe's Window Manager est très rapide. Pour afficher le menu il suffit de cliquer quelque part sur le bureau ou sur le bouton du menu qui se trouve, par défaut, en bas à gauche de l'écran. Vous pouvez redimensionner une fenêtre via une des bordures ou un des coins, les passer d'un bureau virtuel à l'autre via le pager, les réduire ou encore les maximiser. Vous disposez aussi de raccourcis clavier configurables pour un accès plus rapide aux applications que vous utilisez le plus souvent. Sur SliTaz le fichier de configuration système est : ///etc/jwm/system.jwmrc//. A part ce fichier de configuration système, chaque utilisateur peut utiliser son propre fichier de configuration caché //~/.jwmrc//. Ce fichier est un fichier texte utilisant la syntaxe XML, il peut être modifié avec un simple éditeur de texte, les lignes commençant par : ''%%<!--%%'' sont des commentaires qui vous aiderons à savoir quelle balise fait quoi.
+
+Pour faciliter la personnalisation de son bureau, SliTaz copie automatiquement, lors du lancement de la première session graphique, un fichier de configuration système à la racine du répertoire personnel de l'utilisateur. Vous pouvez directement modifier ce fichier et faire vos essais sans risques. Pour l'éditer avec votre éditeur de texte préféré : 
+
+ <code>$ beaver ~/.jwmrc & </code>
+
+Pour récupérer un fichier de configuration original, il faut copier celui du système dans son répertoire personnel en le renommant //.jwmrc//, vous pourez ensuite (re)commencer à l'éditer : 
+
+<code> $ cp /etc/jwm/system.jwmrc ~/.jwmrc </code>
+
+Maintenant que vous avez un fichier de configuration personnel vous allez pouvoir créer votre propre menu en utilisant les icônes dont vous avez envie. La balise ''RootMenu'' correspond au menu affiché par un clique sur un des trois boutons de la souris. Pour ajouter une catégorie vous devez utiliser la balise ''Menu'' contenant elle même des entrées pour divers programmes. Une entrée dans le menu de JWM peut tenir sur une seule ligne, exemple avec l'application de gestion d'images Viewnior : 
+
+<code> <Program icon="viewnior.png" label="Viewnior">viewnior</Program> </code>
+
+Il existe encore de nombreuses possibilités de configuration comme l'utilisation de plusieurs ''RootMenu'' en fonction des boutons de la souris, le choix du mode utilisé pour déplacer les fenêtres, la création de groupes, etc. Le manuel disponible en ligne sur le site web officiel du projet devrait vous aider à aller plus loin. Pour afficher une liste des options possibles en ligne de commandes il suffit de taper : ''jwm -h'' dans un terminal. 
+
+=== Créer son propre style pour JWM ===
+
+Créer son style graphique avec JWM est relativement facile et se fait rapidement. Les balises sont claires et les attributs possibles sont donnés dans les commentaires. Lors de l'élaboration de votre travail, vous pouvez voir vos modification au fur et à mesure en redémarrant le gestionnaire de fenêtres via le menu ou la commande : ''jwm -restart''. Dans le fichier de configuration les balises de styles débutent après la ligne de commentaires : %%<!-- Visual Styles -->%%. Pour commencer voici une petite liste des balises de styles principales avec une courte description : 
+
+    *  ''Background'' gére le fond d'écran. Ce tag supporte les attributs : ''solid, gradient, image'' ou ''tile'', permettant respectivement d'utiliser une couleur solide, de créer un dégradé, d'afficher une image redimensionnée ou en mode mosaïque.
+    * ''BorderStyle'' contrôle le style de la bordure des fenêtres.
+    * ''TrayStyle'' contrôle une barre des tâches. Vous pouvez en mettre plusieurs (en haut et en bas par exemple). La barre des tâches peut, entre autre, être cachée automatiquement ou ne remplir qu'une partie de l'écran via l'attribut ''width''.
+    * ''TaskListStyle'' contrôle le style de la liste des fenêtres ouvertes sur le bureau courant.
+    * ''PagerStyle'' contrôle le //pager// affichant les différents bureaux virtuels (quatre par défaut).
+    * ''MenuStyle'' définit le style du menu.
+    * Les icônes sont définies par le tag ''IconPath'', vous pouvez facilement utiliser vos icônes personnelles en spécifiant le chemin complet vers le répertoire qui les contient. A noter que vous pouvez spécifier plus d'un chemin, si vous voulez par exemple utiliser vos images et celles du système contenues dans : ///usr/share/pixmaps// et ///usr/share/icons//. SliTaz utilise les icônes du thème Tango: http://tango.freedesktop.org pour le menu. Elles sont de taille 16x16 et se trouvent dans le répertoire : ///usr/share/icons/Tango//. Vous pouvez en rajouter, les modifier, les supprimer, etc. Si vous désirez installer de nouvelles icônes en espace utilisateur, nous vous conseillons d'utiliser un répertoire personnel //~/Images/Icons// (configuré par défaut) ou un répertoire caché //~/.icons//.
+
+Les couleurs peuvent être définies avec leur nom ou leur numéro RGB, tel que : ''#3A4956''. Pour utiliser de belles couleurs en mode dégradé (//gradient//), vous devez spécifier deux couleurs séparées par deux points, exemple : ''#6C0023:#3E1220''. Vous pouvez aussi changer les polices et leurs tailles en utilisant la balise : ''Font''. Il y a encore quelques petites choses que vous pouvez modifier pour personnaliser votre bureau, telles que le format de l'horloge ou le nom du bouton et son icône. Avant de redémarrer JWM avec votre nouveau fichier de configuration, vous pouvez vérifier sa syntaxe en utilisant la commande : ''jwm -p''. Pour aller plus loin, le manuel officiel décrit toues les balises, les options possibles et les attributs valides. Vous pouvez le consulter en ligne sur le site web de JWM. 
+
+=== JWM website ===
+
+    * http://www.joewing.net/programs/jwm/ - Le site web officiel de Joe's Window Manager en anglais, contenant les nouvelles et le manuel.
+    * #jwm sur irc.freenode.net - La canal de discussion JWM sur Freenode.
+
+===== Pekwm =====
+[[http://www.pekwm.org/files/pekwm/doc/0.1.10/html/index.html|Documentation]]
+
+===== DWM =====
+[[http://dwm.suckless.org/tutorial|Documentation]]
+
+===== Xfce =====
+
+[[http://www.xfce.org/|Xfce]] est un environnement de bureau léger. Il remplace les paquets par défaut (OpenBox et PCManFM) et est basé sur GTK+
+
+Pour installer Xfce, sélectionnez le méta-paquet 'xfce4' depuis le gestionnaire de paquet. Cela installera toutes les dépendances.
+
+Pour utiliser Xfce, soyez sûr d'avoir la bonne commande pour Xfce dans la configuration du gestionnaire de login. Pour ce faire, ajoutez **xfce4** à //sessions// dans ///etc/slim.conf// (notez que vous aurez besoin des droits root) :
+<file>sessions            openbox,e17,jwm,xfce4, </file>
+
+Vous pouvez sélectionnez Xfce en pressant F1 à l'écran de login, où vous entrez votre login et votre mot de passe.
+
+Les "extras" sont disponibles ici [[http://goodies.xfce.org/|Xfce Goodies]], (plugins, artwork et binding).
+
+Pour supprimer Xfce, utilisez la commande suivante en tant que //root// :
+<code>
+for PKG in xfce4 xfce4-session xfce4-panel xfwm4 libxfcegui4 xfce-utils libxfce4util thunar thunar-volman xfconf ; \ 
+do yes y | tazpkg remove $PKG ; done
+</code>

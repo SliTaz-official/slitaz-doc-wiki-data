@@ -1,0 +1,54 @@
+====== Handbook ======
+
+
+===== Généralités =====
+
+  * [[livecd|Utiliser le LiveCD]] - Comment démarrer ? Conserver ses données en utilisant un media externe (clé USB). Login, des mots de passes et session graphique (X).
+  * [[desktop|Bureau]] - Configurer le bureau et le gestionnaire de fenêtres Openbox.
+  * [[commands|Références en ligne de commandes]] - Utiliser SliTaz en ligne de commandes via un terminal Linux ou graphique.
+  * [[installation|Instructions d'installation]] - Description des étapes à réaliser manuellement pour installer Slitaz sur un disque dur.
+  * [[netstart|Démarrer depuis le net]] - Démarrer Slitaz avec une image téléchargée depuis internet et installation.
+  * [[accessibility|Accessibilité]] - Utiliser les outils d'accessibilité.
+
+
+===== Applications =====
+
+    * [[utilities|Utilitaires]] - Navigateurs de fichiers, base de données SQL, calculatrice, gravure de CD/DVD et créations ISO.
+    * [[office|Bureautique]] - Traitement de texte, organiseur personnel, lecteur PDF, Wiki, etc.
+    * [[internet|Internet]] - Navigateurs web, client de chat IRC, client mail, client BitTorrent et FTP.
+    * [[graphics|Graphisme]] - Infographie et gestion d'images.
+    * [[development|Développement]] - Créer des interfaces graphiques avec Dialog, IDE ou Environnement de Développement Intégré, scripts SHell et Perl. Installer la //toolchain// et compiler des sources.
+    * [[multimedia|Multimédia]] - Son, musique et video
+    * [[systemtools|Outils système]] - Visionneur de processus système, mountage et gestion d'un disque dur.
+    * [[wm|Gestionnaires de fenêtres]] - Openbox, Pekwm, JWM, Enlightenment, dwm et autres.
+
+
+
+===== Administration du système =====
+
+     * [[packages|Gestion des paquets]] - Liste des paquets logiciels, installation et désinstallation, infos sur les paquets de SliTaz et mise à jour du système.
+    * [[networkconf|Configuration du réseau]] - Connexion au web, réseau local, et pare-feu (firewall).
+    * [[systemutils|Administration du système]] - Configurer la langue et le clavier, régler l'horloge et le fuseau horaire. Utiliser Crond et Crontab, gestion des utilisateurs et groupes.
+    * [[xwindow|Système de fenêtres X]] - Utilisation du serveur Xvesa ou Xorg, polices (//fonts//) et configuration d'une session graphique.   
+    * [[security|Sécurité du système]] - SliTaz et la sécurité du système en général.
+
+===== Saveur ======
+    * [[genlivecd|Générer un LiveCD à saveur]] - Créer votre propre saveur du LiveCD en utilisant les paquets et Tazlito.
+    * [[liveusb|LiveUSB]] - Installer et démarrer SliTaz depuis un media USB.
+    * [[hacklivecd|Hacking LiveCD]] - Manipuler et s'amuser avec l'image ISO du LiveCD de SliTaz.    
+    * [[chroot|Environnement chrooté]] - Construire un chroot pour protéger le système hôte, tester, compiler et/ou développer SliTaz.
+
+===== Serveurs =====
+  * [[server-apps|Applications serveur]] - Installation et configuration de CMS, Wiki, etc.
+  * [[webserver|Serveur web]] - Utiliser et configurer le serveur web LightTPD.
+  * [[ssh|SHell sécurisé (SSH)]] - Contrôler et administrer à distance avec Dropbear, client/serveur SSH fournissant aussi l'utilitaire de copie scp.
+
+
+
+===== A propos de ce Handbook =====
+
+Le Handbook de SliTaz est le livre de référence au sujet de l'utilisation du système au niveau utilisateur, administrateur et développeur en général. Ce Handbook réunit des travaux de référence, des mini manuels et une collection d'instructions destinées à fournir un livre complet, de haute qualité, facilement consultable et fournissant des réponses rapides sur un sujet spécifique. Le livre de main de Slitaz est toujours en développement et suit les changements et améliorations apportés à la distribution.
+
+La documentation du projet se veut une oeuvre collaborative. Vous pouvez facilement participer à l'écriture ou à la relecture de documents, nous faire part de vos suggestions et commentaires. Si vous avez besoin d'une description supplémentaire, d'un texte de référence ou autre, vous pouvez nous contacter sans hésiter et nous faire une demande spécifique.
+
+Si vous avez remarqué des erreurs dans les textes ou si vous avez fait une relecture complète d'un chapitre, vous pouvez ajouter vos correctifs en utilisant l'interface du wiki ou la liste mail de Slitaz.

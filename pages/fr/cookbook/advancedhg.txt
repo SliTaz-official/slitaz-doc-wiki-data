@@ -1,0 +1,128 @@
+====== Utilisation avancée de Mercurial ======
+
+==== Utiliser un outil externe pour joindre (merge) ====
+
+Si vous utilisez les outils présentés sur cette page, particulièrement MQ, avoir un outil pour gérer les jointures (lorsque plusieurs modifications se chevauchent et qu'il faut définir le résultat à la main) vous sera probablement utile. SliTaz propose Meld, un logiciel léger qui remplit bien cette fonction. Après installation, indiquer à Mercurial de l'utiliser si nécéssaire en ajoutant dans ~/.hgrc:
+
+<code>
+[ui]
+merge = meld
+</code>
+
+==== Extensions utiles ====
+
+Pour ajouter une extension, il est possible d'utiliser le fichier ~/.hgrc; La syntaxe est:
+
+<code>
+[extensions]
+nom = adresse
+</code>
+Certaines extensions sont fournies avec Mercurial et il n'est donc pas nécéssaire de donner leur adresse. C'est le cas des quatre suivantes:
+
+**color**
+Ajoute la couleur dans Mercurial. Utile quand on affiche les différences entre différentes versions d'un fichier.
+
+**hgext.fetch**
+Ajoute la commande hg fetch, qui regroupe hg pull && hg merge && hg update.
+
+**hgext.graphlog**
+Ajoute la commande glog qui afficher l'arbre des révisions avec le log; Il est conseillé de limité la longueur du log avec l'option -l (ex. -l 10). L'option -p permet d'afficher le détails des différences introduites à chaque étape.
+
+**mq**
+Cet outils est expliqué plus en détail ci-dessous. Il permet de gérer une liste de patch pour un dépôt Mercurial: les appliquer, retirer, mettre à jour, etc. Cette extension ajoute plusieurs commandes, qui commencent généralement par 'q'.
+Plusieurs pages web détaillent cet outils, rechercher: mercurial mq
+
+
+==== Fonctions MQ de base ====
+Dans un dépôt Mercurial, créer un dépôt de patch avec contrôle des révision; C'est un dépôt de patch dont les changements peuvent être enregistrés via Mercurial, comme un dépôt dans le dépôt:
+<code>hg qinit -c</code>
+
+Après avoir procédé à des modifications, les enregistrer en tant que patch plutôt que les commiter:
+<code>hg qnew nom_du_patch</code>
+
+Voir les patches appliqués/non-appliqués:
+<code>hg qseries -v</code>
+
+Ajouter des modifications au patch en cours d'utilisation (le dernier appliqué):
+<code>hg qrefresh</code>
+
+Appliquer le patch suivant de la file:
+<code>hg qpush</code>
+
+Appliquer tous les patchs:
+<code>hg qpush -a</code>
+
+Dé-appliquer le patch courant:
+<code>hg qpop</code>
+
+Dé-appliquer tous les patchs:
+<code>hg qpop -a</code>
+
+Aller à un patch précis dans la file:
+<code>hg qgoto patch</code>
+
+Ajouter un message au patch courant (en vue de le commiter):
+<code>hg qrefresh -m "Message"</code>
+
+Transformer un patch en commit:
+<code>hg qfinish patch</code>
+
+Commiter les changements effectués dans le dépôt de patchs:
+<code>hg qcommit -m "Message de commit"</code>
+
+Not : Les patchs sont enregistrés dans .hg/patches. Le fichier .hg/patches/series peut être modifié manuellement pour changer l'ordre d'application des patchs; Attention cependant si plusieurs patchs modifient un même fichier: cela peut créer des problèmes.
+
+==== MQ & Jointure ====
+
+**Principe général**
+
+Les patchs peuvent être mis à jour en utilisant l'outil merge de Mercurial: c'est plus facile que de les éditer manuellement. Pour cela, il est nécéssaire d'avoir deux têtes (heads) dans le dépot. L'une étant le dépôt avec les patchs appliqués; l'autre le dépôt avec les nouveaux commits/update/etc:
+
+<code>
+o Nouvelle version du dépôt
+|
+|
+| o Patchs
+| |
+| /
+|
+o Dépôt avant application des patchs
+</code>
+
+La branche patchs sera ensuite jointe à la nouvelle branche, et MQ tirera utilisera la fonction merge de Mercurial pour mettre à jour les patchs. Notez que l'utilisation d'un outils externe pour gérer les jointures problématiques (comme Meld proposé au-dessus) est hautement recommandée.
+
+Créer la tête patchs:
+<code>
+qpush -a
+hg tags # Retenir/Noter le numéro de révision de qparent
+qsave -e -c #Sauvegarder l'état des patchs, cette sauvegarde sera utilisée durant l'opération merge. (Retenir/Noter le numéro à la fin de patches.N; généralement c'est 1)
+</code>
+
+Créer la nouvelle tête:
+<code>
+hg update -C <N°qparent> # Aller à la révision notée ci-dessus
+
+# Ensuite, selon ce que vous voulez faire:
+# Mettre à jour:
+hg pull -u
+# Commiter des changements, modifier puis:
+hg commit -m "message"
+# Modifier un patch:
+hg qgoto patch # Puis modifier les fichiers et:
+hg qrefresh</code>
+
+Pour lancer l'opération de merge:
+<code>hg qpush -a -m</code>
+
+Nettoyer le dépôt:
+<code>
+hg qpop -a
+hg qpop -a -n patches.N
+rm -r .hg/patches.N
+</code>
+
+Enregistrer les changements dans le dépôt de patchs:
+<code>hg qcommit -m "Mise à jour pour rev???"</code>
+
+Ré-appliquer la série de patch:
+<code>hg qpush -a</code>

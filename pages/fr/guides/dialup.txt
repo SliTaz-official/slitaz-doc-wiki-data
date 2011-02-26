@@ -1,0 +1,137 @@
+====== 3G-UMTS =======
+
+Un signe # signifie que vous utilisez cette commande en tant que super-utilisateur root dans un terminal.
+
+===== Installation automatique =====
+
+La commande //hwsetup// de SliTaz 3.0 permet maintenant une installation automatique des modems 3G (version encore en essai).
+
+<code># tazhw setup 3g-modem</code>
+
+Maintenant, ouvrez la boîte de wvdial en tapant y, entrez vos données (tel que décrit dans wvdial.conf), enregistrez la configuration (si vous ne sauvegardez pas vous risquez de bloquer votre PIN), composez le code PIN (vous n'avez à le faire qu'une seule fois quand vous branchez votre modem), puis activez la numérotation et vous devriez être connecté.
+
+===== Installation manuelle =====
+
+<code>
+# tazpkg get-install wvdial
+# tazpkg get-install linux-dialup 
+</code>
+
+Vous devez stopper votre réseau, sinon vous aurez un problème de route:
+
+<code>
+# ifconfig eth0 down
+# ifconfig eth1 down
+</code>
+
+Mettez en marche le modem par:
+
+<code>
+# modprobe option  (Huawei E220, E160g, Venus-VT12)
+</code>
+
+Merci d'aider à la mise à jour de quel modem ou téléphone utilise tel ou tel module en utilisant le post sur le forum: http://labs.slitaz.org/issues/show/149. Vous trouverez dans ce post si votre modem est supporté par Linux-dialup.
+
+Il existe un guide spécifique pour le [[http://doc.slitaz.org/en-guides:cricket-a600|Cricket-a600]]
+
+Pour automatiser l'opération, charger le module au démarrage avec Slitaz Control Box.
+
+===== wvdial.conf =====
+
+Vérifier si le modem est sur /dev/ttyUSB* ou /dev/ttyACM* (ex. avec #dmesg) et éditer wvdial.conf (comme ici par exemple):
+
+<code>
+# leafpad /etc/wvdial.conf
+</code>
+
+<file>
+[Dialer pin]
+Modem = /dev/ttyUSB0
+Init1 = AT+CPIN=1234...................,.....!!votre code pin ici!!
+
+[Dialer umts]
+Modem = /dev/ttyUSB0
+ISDN = off
+Modem Type = USB Modem
+Baud = 460800
+Init = ATZ
+Init2 = ATQ0 V1 E1 S0=0 &C1 &D2 +FCLASS=0
+Dial Prefix =
+Dial Attempts = 1
+Dial Command = ATM1L3DT
+Ask Password = off
+Auto Reconnect = off
+Abort on Busy = off
+Carrier Check = on
+Check Def Route = on
+Abort on No Dialtone = on
+Stupid Mode = off
+Idle Seconds = 0
+Init3 = AT+CGDCONT=1,"IP","drei.at".....!!chaîne d'init ici!!
+Username = drei.at...........................!!identifiant ici!!
+Password = drei.at...........................!!mot de passe ici!!
+Phone = *99#.................................!!numéro d'appel ici!!
+</file>
+
+Toutes les données nécessaires peuvent être trouvés ici:
+
+Autriche, Allemagne, Suisse: http://linux.frankenberger.at/Huawei_E220_Daten.html
+
+Monde :http://www.flexispy.com/Mobile%20APN%20Setting%20to%20use%20GPRS.htm
+
+Mais vous pouvez  aussi lancer une recherche sur le net avec le nom de votre fournisseur et wvdial.conf.
+
+Pour se connecter:
+
+<code>
+# wvdial pin
+# wvdial umts
+</code>
+
+Vous pouvez mettre aussi le code PIN dans Dialer UMTS, mais si vous utilisez le modem comme moi la plupart du temps dans le train, vous obtenez une erreur lorsque vous vous reconnectez (lors de la rupture de connexion) - donc utilisez wvdial pin seulement la première fois que vous branchez le modem.
+
+La seule chose qui reste à faire est de mettre le DNS dans resolv.conf (vous trouverez les DNS dans les deux listes avec toutes les données).
+
+<code>
+# leafpad /etc/resolv.conf
+</code>
+
+<file>
+nameserver 213.94.78.16........................!!mettre le DNS ici!!
+</file>
+
+Si vous souhaitez vous connecter en tant qu'utilisateur - il faut ajouter cet utilisateur au groupe «dialout» (cat /etc/group) et définir les autorisations pour wvdial et wvdial.conf.
+
+Pour automatiser, il est possible de placer un script nommé umts-connect (exécutable) dans /usr/local/bin. Pour l'instant, il n'est pas sûr, parce que je me connecte à partir de la console, mais il devrait fonctionner comme ça!
+
+<code bash>
+#! /bin/bash
+ifconfig eth0 down
+ifconfig eth1 down
+wvdial pin
+wvdial umts
+</code>
+
+Mais ne vous reconnectez pas avec.
+
+===== Entrée dans le menu =====
+
+Vous pouvez aussi créer une entrée dans le menu du bureau dans /usr/ share/applications avec le nom umts.desktop
+
+<file>
+[Desktop Entry]
+Encoding=UTF8
+Name=UMTS connection
+Name[de]=UMTS-Verbindung
+Comment=UMTS-Verbindung
+Type=Application
+Exec=/usr/local/bin/umts-connect
+Icon=/usr/share/icons/.................l'icone que vous voulez
+Categories=Application;Network;
+</file>
+
+Vérifiez les permissions de /usr/local/bin/umts-connect
+
+Voici l'article du forum à propos de ceci: http://forum.slitaz.org/index.php/discussion/comment/440/#Comment_440
+
+----

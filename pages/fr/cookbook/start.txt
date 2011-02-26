@@ -1,0 +1,18 @@
+==== A propos du cookbook ====
+
+Le cookbook réunit diverses informations à propos de la gestion du projet, du fonctionnement et du développement de la distribution. Il traite de la création de paquets, des recettes, du wok ou encore, des scripts de démarrage propres à SliTaz.
+
+A la base, le Cookbook contenait les instructions pour créer son propre LiveCD, ces pages sont maintenant contenues dans le livre de création ou [[fr:scratchbook|Scratchbook]] de SliTaz. Le Scratchbook est un livre statique, il décrit la création de la première version publique de Slitaz en mars 2007. Le Cookbook quant à lui, est un livre régulièrement amélioré et modifié par la communauté SliTaz, il fournit des instructions techniques utiles aux développeurs et utilisateurs avancés.
+
+==== Table des matières ====
+
+    * [[fr:cookbook:devcorner|Coin du développeur]] - Page lisez-moi pour développeurs
+    * [[fr:cookbook:wok|Wok & Outils]]  - Le wok avec Tazwok, les outils du projet SliTaz et la création de paquets.
+    * [[fr:cookbook:receipt|Recettes des paquets]] - Description des recettes utilisées pour compiler et créer un paquet automatiquement.
+    * [[fr:cookbook:buildhost|Build Host]] - SliTaz Build host (tank).
+    * [[fr:cookbook:buildbot|Build Bot]] - SliTaz Build bot (tazbb).
+    * [[fr:cookbook:bootscripts|Scripts de démarrage et d'arrêt]] - Description des fichiers de configuration rc.
+    * [[fr:cookbook:slitaztools|Outils SliTaz]] - Les outils SliTaz, les boîtes de dialogues, l'installateur, etc.
+    * [[fr:cookbook:advancedhg|Utilisation avancée de Hg]] - Ajouter des extensions à Mercurial et utiliser MQ.
+    * [[fr:cookbook:releasetasks|release-tasks.txt]] - Liste des tâches à effectuer avant de publier une nouvelle version (Cooking ou Stable).
+    * [[fr:cookbook:rootcd|Racine du cdrom (rootcd)]] - Descriptions et améliorations des fichiers contenus dans le cdrom, utilisation de GRUB pour booter le CD, installation de Memtest86.

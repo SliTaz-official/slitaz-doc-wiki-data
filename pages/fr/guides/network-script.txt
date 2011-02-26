@@ -1,0 +1,149 @@
+====== Les secrets du script /etc/init.d/network.sh ======
+
+===== Introduction =====
+
+Au démarrage du système SliTaz exécute le fichier ///etc/init.d/network.sh // pour initialiser le réseau.
+Ce script configure le nom d'ôte, l'interface de boclage (loopback) et la connexion Internet.
+
+Il est également possible de lancer ce script pendant l'éxecution du système pour ouvrir ou fermer les connexions  réseaux.
+Par exemple **netbox** et les scripts get-wifi-firmware (get-ipw2100-firmware, get-b43-firmware...) l'utilise.
+
+
+===== Utilisation =====
+
+Par défaut le script ///etc/init.d/network.sh// utilise ///etc/network.conf// comme fichier de configuration.
+Les informations contenu dans ce fichier, sont utilisées comme valeurs initiales pour la connexion réseau.
+
+Pour démarrer la connexion réseau entrez:
+
+<code>
+# /etc/init.d/network.sh start
+</code>
+
+The start arg should be used only at boot. Pour arrêter la connexion:
+
+<code>
+# /etc/init.d/network.sh stop
+</code>
+
+Pour arrêter et redémarrer:
+
+<code>
+# /etc/init.d/network.sh restart
+</code>
+
+Mais le plus intéressant est que  ///etc/init.d/network.sh// peut utiliser plusieurs fichiers de configuration.
+C'est très pratique si vous utilisez un PC portable avec plusieurs connections.
+
+For example, we can create a directory /etc/network, containing some config files, named:
+
+    * Home, for home, using an ethernet connection and a static ip.
+    * Desktop, for the desktop, with a wep encryption, and a static ip.
+    * Univ, wifi without encryption, and with dhcp.
+
+Now to get connected at Home, later at a Desktop and finally at Univ, before stopping connection, we only have to:
+
+<code>
+# /etc/init.d/network.sh restart /etc/network/Home
+# /etc/init.d/network.sh restart /etc/network/Desktop
+# /etc/init.d/network.sh restart /etc/network/Univ
+# /etc/init.d/network.sh stop
+</code>
+
+===== Sudo =====
+
+Since /etc/init.d/network.sh/ can only be used by root, if you want a normal user to use it, you should install sudo:
+
+<code>
+# tazpkg get-install sudo
+</code>
+
+And then configure it:
+
+<code>
+# visudo
+</code>
+
+For user tux, which must use network.sh from every host; without a password you should add:
+
+<code bash>
+tux  ALL=NOPASSWD: /etc/init.d/network.sh,
+</code>
+
+For user tortux, which may only get connected from localhost, and which should use a password each time, you should add:
+
+<code bash>
+tortux my_hostname=PASSWD: /etc/init.d/network.sh,
+</code>
+
+If you forgot your hostname, just run:
+
+<code>
+$ cat /etc/hostname
+</code>
+
+Here is some help to use visudo:
+
+    * i insertion mode (to write).
+    * Escape exit insertion mode.
+    * :wq record and quit.
+    * :q! quit without recording.
+
+===== With Openbox =====
+
+All this is not that really user friendly...
+
+That's why I'll give you a perfect treat: A way to integrate all this in an openbox menu! Create a script /usr/lib/openbox/network-menu.sh, and add this to it:
+
+<code bash>
+#!/bin/sh
+#
+# openbox pipe menu to start network connections
+# (This script is only useful if sudo is installed, and correctly configured)
+
+echo ''
+
+# for default file:
+echo ''
+echo ''
+echo 'sudo /etc/init.d/network.sh restart'
+echo ''
+
+# for others files:
+for file in $(ls /etc/network/)
+	do
+	echo -e ""
+	echo ''
+	echo "sudo /etc/init.d/network.sh restart /etc/network/$file"
+	echo ''
+	done
+
+# To stop connections:
+echo ''
+echo ''
+echo 'sudo /etc/init.d/network.sh stop'
+echo ''
+
+echo ''
+</code>
+
+Make it executable:
+
+<code sh>
+# chmod +x /usr/lib/openbox/network-menu.sh
+</code>
+
+And now you only have to add these lines in //~/.config/openbox/menu.xml//:
+
+<code bash>
+ menu id="network-menu" label="Network" 
+	execute="/usr/lib/openbox/network-menu.sh" />
+</code>
+
+Then reconfigure openbox:
+ 
+<code>
+$ openbox --reconfigure
+</code>
+
+Enjoy!

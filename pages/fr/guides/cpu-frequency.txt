@@ -1,0 +1,92 @@
+======= Gestion dynamique de la fréquence du processeur =======
+
+==== Introduction ====
+
+Réduire la consommation d'énergie n'est pas essentiel seulement pour les ordinateurs portables: il est également important de le faire sur des machines de bureau afin de réduire les émissions inutiles de CO2. Il est possible d'économiser de l'énergie en éteignant des composants matériels non nécessaires comme le WiFi, Bluetooth, etc, d'éteindre ou de réduire le rétro-éclairage de l'écran, stopper les disques durs et contrôler la fréquence du CPU.
+
+Le réglage de la fréquence CPU est intégré et à disposition dans le noyau 2.6, mais comme SliTaz est un système très petit et léger, il est nécessaire d'installer quelques outils supplémentaires et de faire manuellement la configuration.
+
+==== Installation ====
+
+Installer les paquets linux-cpufreq, linux-acpi, cpufrequtils et accessoirement powertop (pour faciliter le contrôle) - cpufrequtils et powertop doivent être pris de cooking, parce que cpufrequtils n'existe pas dans 3.0 et powertop est buggy.
+
+<code># tazpkg get-install linux-cpufreq
+# tazpkg get-install linux-acpi,
+# wget http://mirror.slitaz.org/packages/cooking/cpufrequtils-008.tazpkg
+# wget http://mirror.slitaz.org/packages/cooking/powertop-1.13.tazpkg
+# tazpkg install cpufrequtils-008.tazpkg
+# tazpkg install powertop-1.13.tazpkg
+</code>
+
+==== Cpu driver ====
+
+Il faut charger le pilote correct pour votre CPU - si vous ne savez pas quel est le processeur de votre PC, vous pouvez l'obtenir à l'aide de:
+<file> $ cat /proc/cpuinfo</file>
+
+Selon le CPU, un des modules suivants est à charger - si un mauvais pilote est choisi, un message d'erreur est affiché, le module n'est pas chargé et tout se passe bien.
+
+Pilote générique basé sur ACPI P-States:
+<code> # modprobe acpi-cpufreq</code>
+AMD mobile K6-2/3+ PowerNow!:
+<code> # modprobe powernow-k6</code>
+AMD mobile Athlon PowerNow!:
+<code> # powernow-k7</code>
+AMD Cool&Quiet PowerNow! (jusqu'au AMD "K10" CPU):
+<code> # modprobe powernow-k8</code>
+Intel SpeedStep utilisant l'interface SMI BIOS:
+<code> # modprobe speedstep-smi</code>
+Intel SpeedStep basé sur les chipsets ICH:
+<code> # speedstep-ich</code>
+Intel Enhanced SpeedStep (obsolète - utiliser acpi-cpufreq):
+<code> # modprobe speedstep-centrino</code>
+Intel Pentium4/Xeon - La documentation du noyau dit « Ceci ajoute le pilote cpufreq pour les processeurs Intel Pentium 4 / Xeon. Lorsqu'il est activé, il abaisse la température du CPU par des sauts d'horloges. Ce pilote doit être utilisé dans des circonstances exceptionnelles où une très faible puissance est nécessaire parce qu'il provoque des ralentissements sévères et des latences notables. Normalement Speedstep devrait être utilisé à la place. ». P4-clockmod ne supporte que les gouverneurs powersave et performance (en raison de la longue latence de transition du module lui-même):
+<code> # modprobe p4-clockmod</code>
+NatSemi Geode GX / Cyrix MediaGXm:
+<code> # modprobe gx-suspmod</code>
+Transmeta Crusoe / Efficeon LongRun:
+<code> # modprobe longrun</code>
+VIA Cyrix Longhaul:
+<code> # /sbin/modprobe longhaul</code>
+Pilote de changement de fréquence nForce2 FSB:
+<code> # modprobe cpufreq-nforce2</code>
+Pilote amélioré de gestion de l'énergie pour VIA C7 CPUs:
+ <code> # modprobe e_powersaver</code>
+
+====  Gouverneurs de gestion de fréquence ====
+
+Les gouverneurs peuvent être considérés comme des modèles pré-configurés de gestion d'alimentation pour le CPU.
+
+Gouverneurs disponibles:
+
+**cpufreq_performance (par défaut dans SliTaz)** \\
+Le gouverneur cpufreq_performance est intégré dans le noyau et fait fonctionner le CPU(s) à la vitesse d'horloge maximale
+
+**cpufreq_ondemand (également intégré dans le noyau)** \\ 
+Augmente/diminue dynamiquement la vitesse d'horloge du CPU(s) en fonction de la charge du système
+
+**cpufreq_conservative** \\ 
+Semblable à cpufreq_ondemand, mais plus protecteur (les changements de vitesse d'horloge sont plus doux)
+
+**cpufreq_powersave** \\ 
+Fait tourner le CPU à la vitesse minimum
+
+**cpufreq_userspace** \\ 
+Vitesses d'horloge configurées manuellement par l'utilisateur
+
+Les gouverneurs intégrés ne doivent pas être chargés - les autres doivent être chargé avec modprobe - Il est possible de charger autant de gouverneurs que souhaité (un seul sera actif à un moment donné).
+
+Ce qui pose la question, quel gouverneur permet d'économiser le plus d'énergie? Le gouverneur cpufreq_powersave ne permet de faire des économies que si vous jouez à des jeux en 3D (il n'économise pas d'énergie parce que les temps d'achèvement des processus d'application sont prolongés à la fréquence la plus faible du processeur et le système n'entre jamais dans un état C-State profond. Les plus grandes économies d'énergie se font au ralenti dans de profonds états C-State) et le gouverneur cpufreq_performance ne donnera pratiquement pas davantage de performance. Ne les utilisez pas - donc ce n'est pas très heureux que le gouverneur cpufreq_performance soit utilisé par défaut dans SliTaz. Il est donc possible de choisir entre cpufreq_ondemand et cpufreq_conservative, ce qui est une question de goût.
+
+Le gouverneur cpufreq_userspace est nécessaire pour les applications tierce partie - comme cpupowerd http://www.themaxer.com/index.php?option=com_content&view=article&id=86:undervolting-your-cpu&catid=41:nas&Itemid=81 - malheureusement, il ne fonctionne pas dans SliTaz, parce que CONFIG_X86_MSR n'est pas défini dans la configuration du noyau.
+
+==== Sélection du gouverneur ====
+
+À ce point, tout est prêt, mais aucun gouverneur actif n'est encore choisi - donc toujours pas d'économie d'énergie.
+
+Utilisez la commande 'cpufreq-set ' pour activer l'un des gouverneurs - par exemple:
+
+<code> # cpufreq-set -g ondemand</code>
+
+il est à noter que si vous avez un processeur dual-core ou multi-core, vous devez spécifier explicitement le CPU. Il y a des CPU où chaque noyau peut fonctionner avec des réglages différents! Exemple pour un CPU dual-core:
+
+<code> # cpufreq-set -c 0 -c 1 -g conservative</code>

@@ -1,0 +1,51 @@
+====== Applications serveur ======
+
+===== Dokuwiki =====
+
+Dokuwiki (http://www.dokuwiki.org/) est un Wiki léger et puissant basé sur le PHP; aucune base de données n'est nécessaire. Pour utiliser Dokuwiki vous devez juste installer un serveur web (comme lighttpd ou apache) et PHP.
+
+===== Drupal =====
+
+Drupal est un CMS (Content Management System) basé sur PHP et une base de données MySQL. Pour installer Drupal et l'utiliser en quelques minutes vous devez d'abord installer le serveur web (lighttpd), PHP et MySQL:
+
+<code>
+# tazpkg get-install lighttpd
+# tazpkg get-install php
+# tazpkg get-install mysql
+</code>
+
+Téléchargez la dernière version de Drupal sur [[http://drupal.org/|le site officiel]] puis extrayez Drupal :
+
+<code>
+$ mkdir Drupal && cd Drupal
+$ tar xzf drupal-*
+</code>
+
+Vous devez maintenant modifier les permissions sur quelques fichiers :
+
+<code>
+$ cd drupal-*/sites
+$ chmod 777 default
+$ cp default/default.settings.php default/settings.php
+$ chmod 666 default/settings.php
+</code>
+
+Créez une base de données MySQL et utilisez votre navigateur web favoris pour installer Drupal depuis l'interface web. Une fois l'installation terminée vous devez modifier les permissions de certains fichiers et vous pourrez commencer à personnaliser Drupal :
+
+<code>
+$ cd ..
+$ chmod 755 sites/default
+$ chmod 644 sites/default/settings.php
+</code>
+
+Pour être sûr de pouvoir mettre à jour facilement votre Drupal vous devez tous les modules additionnels et les thèmes dans le répertoire : site/all/ Pour préparer l'installation future de thèmes ou autres modules :
+
+<code>
+$ mkdir sites/all/modules
+$ mkdir sites/all/themes
+</code>
+
+==== En ligne ====
+
+    * Modules pour Drupal : http://drupal.org/project/modules
+    * Thèmes pour Drupal: http://drupal.org/project/themes

@@ -1,0 +1,66 @@
+====== Station de surveillance réseau ======
+
+Les différentes opérations décrites ci après s'inscrivent dans le cadre d'une installation de **Slitaz 2.0** sur un laptop **IBM ThinkPad T21** (//PIII 750Mhz - 512Mo - 8Go - 1024×768//) pour mettre en place une station de surveillance d'un réseau.
+ 
+La carte mère de ce laptop est équipée d'une interface ethernet mais nécessite un driver spécifiques IBM (cf. même sous XP :-? ). Le problème à traiter est donc de faire fonctionner une carte Ethernet pcmcia 10Mbps de marque 3C0M.
+ 
+===Installation===
+Installation de Slitaz sur la partition ///dev/hda1// avec l'utilitaire **slitaz_installer** du live CD après avoir préparé le disque cible avec l'utilitaire **GParted**.
+
+<note>Si sur le lapotp T21 le lancement de l'installateur n'a pas posé de problème, dans une machine virtuelle crée avec VirtualBox v2.2.4 sous XP, il a fallu lancer l'installateur avec la ligne de commande suivante dans un shell sous root :\\ 
+//boot@slitaz: ~# XAUTHORITY= slitaz-installer//
+</note>
+Après le premier démarrage, la listes des modules chargés (cf. lsmod) contient les les modules pcmcia, pcmcia-core et yenta_socket : la détection de matériel fonctionne. Il manque donc juste le module correspondant au driver de la carte 3CCCE589ET qui se nome 3c589_cs.
+ 
+Pour charger automatiquement le module correspondant au driver de la carte, il faut le déclarer dans la liste des modules chargés au démarrage définie dans le fichier ///etc/rcS.conf//
+ 
+La ligne de commande du lancement de l'éditeur:
+<code>root@slitaz: ~# leafpad ///etc/rcS.conf//
+</code>
+La ligne mofifiée:
+<code>LOAD_MODULES=pcnet_cs yenta_socket pcmcia pcmcia_core vfat nls_utf8 ohci_hcd snd-es1968 3c589_cs
+</code>
+Au démarrage suivant, la led présente sur le connecteur de la carte pcmcia s'allume, et l'interface réseau eth0 est bien démarrée (cf. ifconfig)
+ 
+===Configuration du réseau et des serveurs===
+
+===Proxy===
+
+Pour que les utilitaires système utilisent automatiquement un serveur proxy pour atteindre internet, il suffit de définir les variables d'environnement suivantes dans le fichier .profile de root :
+
+La ligne de commande du lancement de l'éditeur:
+<code>root@slitaz: ~# leafpad .profile
+</code>
+Les déclaration des deux variables:
+<code>export http_proxy=http://user:password@proxy.server.com:port
+export ftp_proxy=http://user:password@proxy.server.com:port
+</code>
+Ces variables d'environnement sont utilisées par les utilitaires : tazlito, tazlitobox, tazpkg, tazpkgbox, 
+
+===Accès à un partage SMB===
+
+Installation des packages samba et linux-cifs
+
+Dans le cas présent, comme il s'agit d'atteindre un partage servi par une machine XP : il n'y a donc pas à se préoccuper est uid, guid et autres masques.
+
+Déclaration du montage:
+<code>root@slitaz: ~# mkdir /mnt/shared
+root@slitaz: ~# chmod 777 /mnt/shared
+root@slitaz: ~# mount.cifs //smbserver/shared /mnt/shared -o user=srvAcountId,pass=srvAccountPass
+</code>
+ 
+
+===Outillage de monitoring réseau===
+
+Installation des packages ntop et ntop-man.
+
+Lancement manuel de ntop via la commande:
+<code>root@slitaz: ~# ntop &
+</code>
+Lors du premier lancement, ntop vous demande le mot de passe de son compte admin.
+
+Le serveur Web de ntop est accessible via l'url : http://slitaz:3000/
+
+===Optimisation===
+
+Le couple SliTaz / IBM T21 montrant des dispositions de base interessantes quant à la gestion de l'énergie (cf. système opérationnel disque arrêté), tmpfs va permettre d'accroitre ces capacités en déportant le volume /tmp en mémoire.

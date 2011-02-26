@@ -1,0 +1,182 @@
+====== Coin du développeur ======
+
+SliTaz est une distribution //open source// dirigée par sa communauté. Tout le monde est bienvenu pour nous rejoindre et contribuer. Que l'on soit utilisateur, hacker ou développeur, il y a toujours quelque chose à faire - relecture ou écriture de documentation, signaler des bugs ou envoyer des patchs sur la [[http://www.slitaz.org/fr/mailing-list.html|liste mail]], obtenir un accès au wok et y pousser quelques nouveaux paquets ou simplement aider les autres sur la [[http://www.slitaz.org/fr/mailing-list.html|liste mail]] ou sur le [[http://forum.slitaz.org/|forum]]. SliTaz utilise des [[http://hg.slitaz.org/|dépôts Mercurial]] hébergés sur un système SliTaz. Les développeurs peuvent demander un nouveau dépôt si nécéssaire et les contributeurs ont un accès en écriture pour corriger les textes, scripts, etc.
+
+SliTaz est une petite communauté et écoute ses utilisateurs. Il y a plusieurs développeurs actifs sur le [[http://forum.slitaz.org/|forum]] et la [[http://www.slitaz.org/fr/mailing-list.html|liste mail]]
+
+Les artistes trouverons un [[http://community.slitaz.org/image|site web]] dédié -- créez simplement un compte et partagez vos créations. Ce site appartient à la communauté. Si vous voulez aider à administrer ce site, merci de contacter un contributeur ou d'envoyer un e-mail sur la liste de discutions.
+
+\\
+
+===== KISS et respect des standards =====
+
+  * Le plus important : rester simple !
+  * Respecter au mieux les standards
+  * Réaliser un travail soigné
+  * Écrire de la documentation de haute qualité incluant des résumés pour les sections et processus complexes et des tutoriels détaillés.
+  * Proposer un système stable et robuste.
+  * Conserver le //rootfs// du liveCD suffisamment léger pour fonctionner sur des machines avec 128 MB de mémoire vive.
+  * Possibilité d'utiliser GTK+2, Dialog, Gtkdialog, des scripts SHell ou encore PHP pour coder des outils propres à la distribution.
+  * L'idée est aussi de ne pas faire de doublons et de penser mini... 
+\\
+
+===== Tank - Build Host & Home =====
+
+Chaque contributeur peut avoir un compte sur le serveur principal du projet, avec un accès sécurisé, de l'espace disque, un répertoire public et tous les outils de développement. Les développeurs peuvent y compiler leurs paquets et les mainteneurs du miroir s'occupent de la synchronisation. Tank héberge aussi le site internet, le web boot et les dépôts Mercurial: [[http://tank.slitaz.org|tank.slitaz.org]].
+
+L'utilisation du build host est décrite dans le Cookbook : [[fr:cookbook:buildhost|SliTaz Build Host (tank)]]
+
+
+\\
+
+===== SliTaz Packages =====
+
+Les paquets tazpkg de SliTaz sont créés automatiquement via Tazwok et les recettes contenues dans le wok. Le [[fr:cookbook:start|Cookbook]] décrit l'utilisation des outils SliTaz et le format des [[fr:cookbook:receipts|recettes]]. C'est sans doute par un petit peu de lecture qu'il faut commencer. 
+
+Concernant le choix des paquets, l'idée est de proposer un paquet par tâche ou fonctionnalité, c'est à dire pas (trop) de doublons et de trouver l'application la plus légère dans son domaine. A noter que les paquets actuels ne sont pas figés, si vous trouvez une alternative à un paquet existant, étant plus légère, ayant plus de fonctionnalités ou étant plus sexy pour quelques Ko supplémentaires, vous pouvez la proposer sur la [[http://www.slitaz.org/en/mailing-list.html|liste mail]]. Une attention particulière est portée aux paquets destinés au LiveCD : strip, suppression de tout ce qui est inutile, dépendances et options de compilation. En général, les paquets candidats pour le corps du LiveCD sont discutés sur la [[http://www.slitaz.org/en/mailing-list.html|Liste mail]]. 
+Avant de commencer à compiler et créer des paquets pour SliTaz, assurez-vous qu'une recette n'existe pas dans le wok [[http://hg.slitaz.org/wok-undigest/|undigest]], disponible sur le miroir principal de SliTaz. N'oubliez pas non plus que les membres de la liste sont là pour vous aider et que pour bien commencer, la documentation du [[en:cookbook:wok|wok et des outils]] existe. 
+
+\\
+
+===== Nommage des paquets =====
+
+Dans la majorité des cas le nom du paquet est celui des sources exception faite des modules Python, Perl, PHP, Ruby, Lua. Par example le paquet //Kid// fournissant un système de fichiers-types XML et écrit en Python se nomme: //python-kid//. 
+
+\\
+
+===== Dépôts Mercurial =====
+
+Tous les sous-projets tels que Tazpkg, Tazwok ou Tazlito ont leurs propres dépôts Hg sur le serveur du projet, tout comme le wok. Les développeurs ont un compte et des droits en écriture afin de pouvoir envoyer leurs recettes, mises à jour ou modifications. Il est bien sûr possible de demander la création d'un nouveau dépôt pour collaborer sur un nouveau sous-projet lié à SliTaz. A noter qu'il y a 2 domaines : hg.slitaz.org est public et repos.slitaz.org nécessite une authentification, c'est-à-dire que vous pouvez cloner [[http://hg.slitaz.org|hg.slitaz.org]] mais pas y pousser vos changements ou fichiers. 
+
+Mercurial utilise python est peut être installé avec la commande :
+
+   tazpkg get-install mercurial
+
+\\
+
+=== ~/.hgrc ===
+
+Mercurial utilise un fichier caché //~./hgrc// permettant de spécifier son nom d'utilisateur. Il faut mettre votre nom et adresse mail pour qu'on sache qui a modifié quoi. Et attention à ne pas être root pour pousser vos modifications. Exemple : 
+
+  [ui]
+  username = Nom Prénom <vous@example.org>
+
+\\
+
+=== Cloner, modifier, commiter et pousser ===
+
+<note important>Vous devez être dans le dossier du dépôt pour utiliser la commande hg.</note>
+
+Vous avez le choix de cloner anonymement via hg.slitaz.org ou directement avec votre login et mot de passe via repos.slitaz.org. Pour cloner un dépôt tel que le wok : 
+
+   $ hg clone http://repos.slitaz.org/wok
+
+Pour vérifier les logs, ou juste le dernier log :
+
+   $ hg log
+   $ hg head
+
+Copier, créer, modifier des recettes ou des fichiers dans //stuff//. Avant de pouvoir pousser vos modifications, il faut les additionner à votre dépôt local et les commiter. A noter que la commande status permet de savoir quels fichiers ont été modifiés :
+
+   $ hg add
+   $ hg status
+   $ hg commit -A -m "Message pour le log Mercurial..."
+   $ hg log
+
+Merci de laisser le message en anglais : il s'affiche sur la page du [[http://hg.slitaz.org|dépôt hg]] et permet aux autres contributeurs de voir ce que chacun fait.
+
+<note tip>Vous pouvez utiliser la commande //rollback// pour annuler la dernière opération.</note>
+
+Avant de pousser vos changements sur le serveur, il est préférable de récupérer les dernières modifications :
+
+   $ hg pull
+   $ hg push
+
+Si vous avez cloné depuis hg.slitaz.org, il faut alors pousser en spécifiant le bon URL : 
+   $ hg push http://repos.slitaz.org/wok/
+
+
+\\
+
+=== Mettre à jour un wok local ===
+
+Pour mettre à jour votre wok local avec celui du serveur (//pull// pour tirer les changements) : 
+
+   $ hg pull
+   $ hg update
+
+\\
+
+=== Commandes utiles ===
+
+Des commandes hg qui peuvent servir. 
+  * **hg help** -- affiche la liste complète des commandes.
+  * **hg rollback** -- annule la dernière action exécutée (commit, pull, push).
+  * **hg log //<package>//** -- affiche les logs pour un paquet.
+  * **hg head** -- affiche le dernier log.
+
+\\
+
+===== Implémentation d'iconv() =====
+
+SliTaz utilise iconv() fourni par la GNU glibc, même si certain paquets proposent d'utiliser //libiconv// il faut utiliser la version de la glibc (paquet //glibc-locale//). Il n'y a donc pas de paquet libiconv (1,2 Mb) dans SliTaz. 
+
+\\
+
+===== Gestion du site Web =====
+
+La gestion du site est faite via un dépôt Mercurial, ce qui nous permet de travailler à plusieurs. Il faut juste installer mercurial sur SliTaz et connaître les commandes de base. Une fois le dépôt cloné vous avez une copie complète du site en local pour commencer à travailler. Pour cloner le site web : 
+
+   $ hg clone http://hg.slitaz.org/website
+
+Si vous avez les droits : 
+
+   $ hg clone http://repos.slitaz.org/website
+
+\\
+
+===== xHTML Coding Style =====
+
+Le site web doit avec un style cohérent, il est également utilisé pour la documentation locale et les pages du wiki (néanmoins la syntaxe y est différente).
+
+  * Les pages du site sont écrites en xHTML 1.0 Transitional.
+
+  * Les couleurs pour <body> et les titres sont directement mis dans la page, cela permet d'avoir une présentation plus soignée pour Links
+    *  Le titre de niveau 1 est utilisé une seule fois en haut de page;
+    *  Le titre 2 correspond au titre du document;
+    *  Les titres de niveau 3 et 4 sont ensuite utilisés pour les sous-titres.
+
+  * Si il y a lieu d'avoir une liste à puces avec des ancres, elle se met en haut juste après le titre de niveau 2.
+
+  * Les paragraphes sont contenus dans les balises <p></p>.
+
+  * Pour indenter, nous utilisons des tabulations, elles ont une raison d'être sémantique et prennent moins de place en terme d'octets.
+
+  * Pour mettre du code tel que le nom d'une commande dans un paragraphe, la balise <code> est recommandée.
+
+  * Pour afficher une ou des commandes à lancer dans un terminal, les pages du site utilisent la balise <pre> permettant d'afficher du texte préformaté :
+
+   $ commande
+
+  * Pour afficher du texte à copier/coller tels que des scripts, des bouts de code, des exemples de fichiers de configuration, etc, c'est aussi la balise <pre> mais avec une classe CSS nommée "script". Exemple: 
+
+  <pre class="script">
+  code...
+  </pre>
+
+  * Les mots en //English// se mettent dans la balise <em>.
+
+  * Les liens internes sont relatifs.
+
+  * Penser à vérifier la validité du code via le //validator// en ligne du W3C.
+
+\\
+
+===== Diff et patch =====
+
+Les utilitaires //diff// et //patch// sont des outils en ligne de commande permettant de créer et d'appliquer un fichier contenant les différences entre deux fichiers. Cette technique est souvent utilisée pour collaborer et permet d'extraire clairement les modifications apportées au fichier original. Pour créer un fichier diff lisible par les humains dans un simple éditeur de texte, il faut utiliser l'option -u en argument : 
+   $ diff -u file.orig file.new > file.diff
+
+Pour appliquer un patch : 
+
+   $ patch file.orig file.diff

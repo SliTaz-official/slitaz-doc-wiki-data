@@ -1,0 +1,18 @@
+====== Tâches de publication ======
+
+Les choses à faire avant de publier un nouvelles version.
+
+===== Liste =====
+
+    * La version de la publication est enregistrée dans///etc/slitaz-release//, ce fichier est dans le paquet slitaz-base-files. slitaz-base-file est taggé (un numéro de version est attribué au dépôt et une archive contenant le code source est créée) juste avant la publication de la nouvelle SliTaz stable.
+    * Vérifier que la version de SliTaz indiquée dans le message ///etc/issue// est la même que celle affichée par isolinux.msg
+    * Ajouter et vérifier que les documents et les images sont dans la racine du CD : README, index.html, style.css et le répertoire d'images. Tous les fichiers sont dans l'archive de slitaz-tools; il suffit de les copier dans //addfiles// puis de régénérer l'ISO.
+    * Tester, tester, encore tester...
+    * Préparer l'annonce pour le site Web et le flux RSS, mettre à jour le Handbook si ce n'est pas déjà fait et modifier la TODO list de la partie développement du site (http://www.slitaz.org/devel/).
+
+===== Documentation stable =====
+
+La publication d'une SliTaz stable s'accompagne de notes de publication sur le liveCD. Elles sont contenu dans le paquet slitaz-doc dont le dépôt est taggé juste avant la publication puis archivé sur le mirroir. Après que le wok ait été copié vers wok-stable, la documentation retourne dans le cycle de développement et ne contient qu'un index avec les informations de base. Dans le système, la documentation se trouve dans ///usr/share/doc/slitaz//. Un fichier .desktop et une icône son disponibles dans le paquet et permettent un accès rapide à la documentation via le menu.
+
+    * [[http://hg.slitaz.org/slitaz-doc/ | Dépôt SliTaz Doc]]
+    * [[http://labs.slitaz.org/wiki/slitaz-doc | SliTaz Doc dans le laboratoire]]

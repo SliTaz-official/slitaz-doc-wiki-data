@@ -1,0 +1,27 @@
+======= xorg-server-1.8 ======
+
+==== Mettre à jour la configuration de Xorg : ====
+
+
+Mettre à jour SliTaz :
+<code># echo 'y' | tazpkg upgrade</code>
+Sauvegarder votre ancien xorg.conf :
+<code># mv /etc/X11/xorg.conf /etc/X11/xorg.conf-sauvegarde</code>
+Utiliser tazx pour re-configurer xorg :
+<code># tazx config-xorg</code>
+
+==== Modifications manuelles ====
+
+Si vous aviez fait des modifications manuelles du fichier //xorg.conf//, vous avez deux possibilités. Dans les deux cas ces configurations serons lues avant celles par défaut et ne seront pas écrasées lors d'une mise à jour :
+
+  * Vous mettez ces modifications (et uniquement elles) dans le fichier ///etc/X11/xorg.conf//. Ce fichier sera désormais réservé aux configurations de l'utilisateur, c'est le premier lu par Xorg au démarrage du serveur X.
+
+  * Vous les mettez dans le fichier approprié à l’intérieur dossier ///etc/X11/xorg.conf.d//. Dans ce cas vous devez nommer le fichier correctement. SliTaz utilise deux fichiers pour chaque section : n0-Section.conf pour la configuration par défaut, et (n-1)5-SectionTweaks.conf pour les configurations qui doivent être prises en compte avant celles par défaut.
+
+Exemple :
+
+//40-evdev.conf// contient la configuration pour les périphériques.
+
+//35-synaptics.conf// contient le fichier de configuration pour les touchpad installé avec le paquet xorg-input-xf86-synaptics. Ce pilote remplace celui par défaut (evdev)
+
+Si vous souhaitez modifier cette section manuellement,veillez à utiliser un fichier nommé avec un nombre plus bas, comme //31-MesModifications.conf//. Veillez à ne pas utiliser un fichier nommé x5 ou x0 pour être sûr qu'il ne sera pas effacé lors d'un mise à jour.

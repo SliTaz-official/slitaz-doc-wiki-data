@@ -1,0 +1,5 @@
+===== I =====
+[[fr:start|^]] [[fr:terms:a]] - [[fr:terms:b]] - [[fr:terms:c]] - [[fr:terms:d]] - [[fr:terms:e]] - [[fr:terms:f]] - [[fr:terms:g]] - [[fr:terms:h]] - [[fr:terms:i]] - [[fr:terms:j]] - [[fr:terms:k]] - [[fr:terms:l]] - [[fr:terms:m]] - [[fr:terms:n]] - [[fr:terms:o]] - [[fr:terms:p]] - [[fr:terms:q]] - [[fr:terms:r]] - [[fr:terms:s]] - [[fr:terms:t]] - [[fr:terms:u]] - [[fr:terms:v]] - [[fr:terms:w]] - [[fr:terms:x]] - [[fr:terms:y]] - [[fr:terms:z]]
+
+===== image ISO =====
+  * voir [[fr:tazlitomanual|SliTaz Live Tool]] nombreux renvois à ‘image ISO’ dans le manuel tazlito.

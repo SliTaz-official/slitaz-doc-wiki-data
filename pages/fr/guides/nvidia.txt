@@ -1,0 +1,97 @@
+====== Installation du dernier pilote non-libre Nvidia ======
+
+===== Lecture obligatoire =====
+
+    * Handbook - [[http://www.slitaz.org/fr/doc/handbook/x-window.html#xorg|Installation de Xorg]]
+    * Guide rapide - [[fr:guides:kernel|Créer votre propre kernel Linux personnalisé]]
+
+===== Préparation =====
+
+    * Téléchargez l'installateur depuis le [[http://www.nvidia.com/object/unix.html|site de Nvidia]]. 
+    * Installez le serveur Xorg
+
+<code>
+# tazpkg get-install xorg-server
+</code>
+
+    * Installez le paquet linux-source et les outils de développements nécessaires. Regardez [[fr:guides:kernel|ici]]
+
+<code>
+# tazpkg get-install linux-source
+</code>
+
+
+===== Installation du driver =====
+Pour cette partie vous allez travailler en mode texte sans serveur X.
+
+Lorsque vous êtes prêt appuyez sur alt-ctrl-del, vous devriez maintenant voir une ligne de commande: 
+
+    * Configurez le serveur X et copiez le fichier xorg.conf généré
+
+<code>
+# Xorg -configure
+# cp /root/xorg.conf.new /etc/X11/xorg.conf
+</code>
+
+    * Préparez the Kernel
+<code>
+# cd /usr/src/linux
+
+# make oldconfig && make prepare
+
+# make menuconfig (pas nécessaire)
+# make bzImage
+# make modules 
+# make modules_install
+</code>
+
+    * A présent rendez exécutable et installer le driver Nvidia
+
+<code>
+ # chmod +x NVIDIA-Linux-x86-177.80.pkg1.run
+ # ./NVIDIA-Linux-x86-177.80.pkg1.run --kernel-source-path=/usr/src/linux
+</code>
+
+    * Copiez l'image du kernel vers /boot
+
+<code>
+# cd /usr/src/linux
+# cp arch/x86/boot/bzImage /boot
+</code>
+
+
+===== Redémarrer =====
+
+    * Redémarrez en mode texte
+<code>
+# reboot - Hard drive users
+# tazusb writefs gzip && reboot - USB users
+</code>
+
+N'oubliez pas d'utiliser l'option screen=text au démarrage.
+
+    * Charger le module Nvidia
+
+<code>
+# modprobe -v nvidia 
+</code>
+
+    * Editer la configuration du fichier Slim à charger pour le serveur Xorg
+
+<code>
+# vi /etc/slim.conf
+
+default_xserver     /usr/bin/Xorg
+#default_xserver     /usr/bin/Xvesa
+#xserver_arguments   -ac -shadow dpms +extension Composite -screen 1024x768x24
+</code>
+
+    * Redémarrer Slim
+
+<code>
+# /etc/init.d/slim start
+</code>
+
+Euh… c'est tout !
+
+(Si vous voulez que le module Nvidia sois lancé au démarrage, il suffit de l'ajouter à la variable LOAD_MODULES dans /etc/rcS.conf)

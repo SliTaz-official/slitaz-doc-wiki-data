@@ -1,0 +1,30 @@
+====== Comment installer Adobe Flash Player ======
+
+Ouvrez un terminal et devenez super-user :
+<code> su -
+</code>
+Le mot de passe par défaut du compte root est **//root//** .
+
+Tapez les commandes suivantes :
+
+<code> tazpkg get-install get-flash-plugin && get-flash-plugin
+</code>
+
+Le paquet installe la commande get-flash-plugin, qui crée un pseudo-paquet qui télécharge le code source code depuis Adobe. Cela crée un paquet depuis le code source en y intégrant les dépendances nécessaires.
+
+En utilisant cette méthode vous pouvez gérer le plugin Flash avec tazpkg; il se mettra automatiquement à jour quand le paquet présent sur le dépôt sera mis à jour.
+
+
+// Cela a été testé et fonctionne sur Midori, Firefox/Shiretoko & Opera, sur SliTaz Cooking 2010-03-14 (the v3 RC). //
+
+======= Méthode manuelle =======
+  - Télécharger [[http://fpdownload.macromedia.com/get/flashplayer/current/install_flash_player_10_linux.tar.gz|l'archive]] contenant la librairie du plugin Flash Player (actuellement pointant vers la dernière version 10.x pour Linux 32-bit)
+  - Fermez toutes les instances des navigateurs concernés
+  - Décompresser l'archive sur place: <code>tar -xzf install_flash_player_10_linux.tar.gz</code>
+  - Passer en mode super-utilisateur: <code>su</code> //(puis entrer le mot de passe du compte "root" : par défaut c'est aussi "root")//
+  - Si nécessaire, créer le sous-dossier "plugins" dans le dossier "/usr/lib/mozilla": <code>mkdir /usr/lib/mozilla/plugins</code>
+  - Y déplacer la librairie décompactée de l'archive et lui attribuer le bon propriétaire et le bon groupe d'utilisateurs: <code>mv libflashplayer.so /usr/lib/mozilla/plugins && chown root:root /usr/lib/mozilla/plugins/libflashplayer.so</code>
+  - en cas de problème, autoriser tout le monde à exécuter la librairie: <code>chmod a+x /usr/lib/mozilla/plugins/libflashplayer.so</code>
+  - sortir du mode super-utilisateur: <code>exit</code>
+
+Il peut arriver qu'il existe, en plus du répertoire //"/usr/lib/mozilla"//, un répertoire //"/usr/lib/firefox-[version]"//. Dans ce cas, faire la même procédure en substituant le premier répertoire par le second à chaque étape où le premier apparaît.

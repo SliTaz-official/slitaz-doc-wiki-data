@@ -1,0 +1,82 @@
+====== Installer SliTaz sur une SD-card/MMC ======
+SliTaz peut être installé sur une carte à mémoire flash MMC/SD (du type utilisé dans les appareils photo numériques) de deux façons différentes : comme une version LiveUSB à utiliser sur un "memory-stick" (aussi appelé "thumb-drive", "flash-drive", ou une variété d'autres noms), ou comme une installation habituelle tel qu'utilisé sur un disque dur. Il y a des avantages et des inconvénients dans les deux méthodes.
+
+===== Installation de type LiveUSB =====
+Un memory-stick emploie de la mémoire flash de type NAND qui s'use irrémédiablement au bout d'environ 100.000 cycles de lecture / écriture. SliTaz essaie de minimiser l'usure et ainsi prolonger la vie du memory-stick, en stockant l'ensemble de la racine principale du système de fichiers ("rootfs") dans une image compressée dans un fichier (rootfs.gz), puis de le décompresser en mémoire vive (RAM) lors du démarrage. Seul le répertoire /home est normalement écrit sur le memory-stick, à moins que l'utilisateur ne lance la commande suivante:
+<code>
+# tazusb writefs [compression]
+</code>
+Où «[compression]" peut être "lzma", "gzip", ou "none". Cette nouvelle commande écrit le fichier rootfs.gz sur le memory-stick, de sorte que les modifications apportées au système peuvent être enregistrées et utilisées à nouveau au prochain démarrage. Le gros avantage de cette méthode est évidemment qu'elle prolonge la vie du périphérique USB. Le gros inconvénient est que le démarrage prend beaucoup de temps à cause de l'utilisation de la compression, et plus de paquets sont installés sur le système rootfs plus il faut de temps pour démarrer. Le système de fichiers racine peut également être enregistré sans compression (c'est-à-dire # tazusb writefs none), ce qui permet de démarrer plus rapidement. Ce n'était pas une bonne option quand SliTaz 1.0 est sorti en 2008, parce que la mémoire des clés USB offrait beaucoup moins d'espace de stockage à ce moment-là, mais avec 4 Go de mémoire, taille commune aujourd'hui, ce n'est plus vraiment un problème. Cette même méthode peut être utilisée pour installer SliTaz sur une carte MMC/SD.
+
+===== Installation habituelle de type « Disque dur » =====
+L'autre option est de traiter la carte MMC/SD comme s'il s'agissait d'un véritable disque dur, et il suffit d'utiliser:
+<code>
+# gparted
+</code>
+pour formater la carte et de configurer des partitions comme sur un disque dur ordinaire, puis de lancer:
+<code>
+# slitaz-installer
+</code>
+pour faire l'installation proprement dite. Penser également à autoriser l'installateur d'installer GRUB sur la carte MMC/SD, de sorte à pouvoir démarrer à partir de la carte MMC/SD, comme à partir d'un disque dur normal.
+
+===== Exemple d'utilisation sur Asus Eee-PC =====
+L'installation de SliTaz que j'ai faite sur une carte MMC/SD-card (16 GB) a été pour mon Asus Eee-PC 701, en laissant le Linux Xandros Eee original intact sur son SSD, et en gardant toujours la carte MMC/SD card avec SliTaz dans la fente du lecteur. Le BIOS du Eee a besoin d'être configuré pour permettre à la carte SD d'être le premier périphérique de démarrage, de sorte que la machine part sur le boot GRUB avant toute autre chose. Le fichier /boot/grub/ menu.lst est configuré pour permettre de démarrer soit à partir de Xandros ou de SliTaz dans le menu GRUB:
+<file>
+# /boot/grub/menu.lst: GRUB boot loader configuration.
+#
+
+# By default, boot the first entry.
+default 0
+
+# Boot automatically after 8 secs.
+timeout 8
+
+# Change the colors.
+color yellow/brown light-green/black
+
+# To boot newest slitaz from : /dev/sdb5
+#
+title  SliTaz GNU/Linux (cooking - kernel 2.6.30.6)
+  root (hd0,4)
+#  kernel /boot/vmlinuz-2.6.30.6-slitaz rootdelay=10 root=/dev/sdb5
+# the kernel line used to be necessary
+# but apparently a later upgrade of SliTaz commented it out
+# GRUB boots into SliTaz with no problem using only the root (hd0,4) command
+
+# To boot Asus eee pc Xandros
+#
+title Xandros (kernel vmlinuz-2.6.21.4-eeepc)
+  root (hd1,0)
+  kernel /boot/vmlinuz-2.6.21.4-eeepc quiet rw vga=785 irqpoll i8042.noloop=1 root=/dev/sda1
+  initrd /boot/initramfs-eeepc.img
+</file>
+
+Les 3 premières partitions sur ma MMC/SD-card étaient à l'origine utilisées comme espace de stockage pour les différentes parties du système Xandros de l'Eee, avec la 4ème partition formatée comme une partition étendue et divisée en deux, la partition 5 étant utilisée pour l'installation de SliTaz et la partition 6 pour le swap. Mais commme SliTaz est devenu le système principal de mon Eee, et puisque j'ai ajouté d'autres paquets, j'ai finalement décidé de déplacer les parties du système de fichiers de SliTaz sur d'autres partitions et utiliser cette répartition:
+<code>
+$ df -h
+Filesystem                Size      Used Available Use% Mounted on
+rootfs                    1.4G    413.3M    913.1M  31% /
+/dev/root                 1.4G    413.3M    913.1M  31% /
+tmpfs                   500.7M         0    500.7M   0% /dev/shm
+/dev/sdb2                 3.0G      1.4G      1.6G  46% /usr
+/dev/sdb3                 2.5G      2.1G    323.0M  87% /home
+/dev/sdb1                 7.4G      5.2G      1.9G  73% /home/shared
+</code>
+
+Le répertoire /home/shared directory est celui qui contient les documents partagés par le système Xandros.
+
+Le Eee-PC est déjà configuré pour reconnaître et lire les cartes MMC/SD-card. Mais un jour j'ai accidentellement déplacé tout le contenu de /boot dans un autre répertoire et je n'ai donc pas pu démarrer SliTaz. Lorsque j'ai inséré la carte dans un autre ordinateur portable, un Toshiba Satellite A215-S5850 (mon ordinateur portable principal plus grand, plus moderne), j'ai été surpris de constater que ce PC ne voit pas la carte MMC/SD-card. Il a été nécessaire d'ajouter un paquet de noyau:
+<code>
+# tazpkg get-install linux-mmc
+</code>
+et puis de charger ce module:
+<code>
+# modprobe mmc_block
+</code>
+Après cela, SliTaz a été en mesure de lire le contenu de la carte MMC/SD-card, et j'ai pu déplacer les fichiers de /boot à l'endroit d'où ils venaient, et de réparer le système. Si la sortie de
+<code>
+# lsmod
+</code>
+ne liste pas mmc_block, alors le module doit être chargé manuellement. Pour que SliTaz le charge toujours au démarrage, il suffit de l'ajouter à la ligne LOAD_MODULES de/etc/rcS.conf.
+
+---- 

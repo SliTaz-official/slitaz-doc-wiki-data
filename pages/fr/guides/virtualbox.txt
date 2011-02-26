@@ -1,0 +1,38 @@
+====== Virtualbox ======
+
+===== SliTaz GNU/Linux avec VirtualBox =====
+
+Vous pouvez utiliser SliTaz GNU/Linux sur les systèmes compatibles avec VirtualBox, comme Windows.
+Requis :
+
+    * [[http://www.slitaz.org/fr/get/index.html|L'image de SliTaz GNU/Linux]].
+    * [[http://www.virtualbox.org/wiki/Downloads|Oracle VirtualBox]].
+
+===== Première étape : Téléchargement et installation. =====
+
+    * Téléchargez et installez Oracle VirtualBox.
+
+
+===== Deuxième étape : Lancez la machine virtuelle. =====
+
+Avant de lancer SliTaz GNU/Linux avec VirtualBox, vous devez créer et configurer une nouvelle machine virtuelle.
+
+  -     Lancez Virtualbox.
+  -     Ajoutez une nouvelle machine : Cliquez sur le bouton [//Nouveau//].
+  -     Cliquez sur [//Suivant//] dans la boîte de dialogue “Créer un nouvelle machine virtuelle”.
+  -     Donnez un nom à votre nouvelle machine virtuelle (exemple : SliTaz GNU/Linux), et sélectionnez Linux 2.6 dans la liste des systèmes et cliquez sur [//Suivant//] .
+  -     Sélectionnez la quantité de RAM que vous souhaitez allouer à cette machine virtuelle (faites en fonction de votre configuration). 256Mo devraient être suffisants.
+  -     Vous pouvez créer un nouveau disque dur d'amorçage afin de l'utiliser comme /home ou d'y installer SliTaz GNU/Linux. Dans la boîte de dialogue “//Disque dur d'amorçage (maître primaire)// ” cliquez sur le bouton [//Nouveau//]  
+  -     Le gestionnaire de disques durs virtuelle s'affiche. Cliquez sur le bouton [//Suivant//], puis sélectionnez de préférence “Image dynamique”. A vous de décider la taille que devra faire celui-ci, selon vos besoins.
+  -     Cliquez sur [//Suivant//] et [//Terminer//].
+
+Vous pouvez maintenant lancer SliTaz GNU/Linux via votre machine virtuelle en la configurant à vos souhaits en cliquant sur le bouton [//Préférences//].
+
+<note>VirtualBox sait utiliser convenablement les disques durs virtuels de VMware.</note>
+
+===== Slitaz get-virtualbox=====
+
+Vous pouvez installer VirtualBox dans Slitaz avec le paquet « get-virtualbox » :
+<code># tazpkg get-install get-virtualbox ; get-virtualbox</code>
+
+D'autres logiciels de virtualisation sont disponibles, tels que lguest ou qemu.

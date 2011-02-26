@@ -1,0 +1,75 @@
+====== Chroot =======
+
+Ce guide explique comment installer un chroot pour cuisiner des paquets dans un environnement séparé. Le chroot peut être construit sur un périphérique USB ou un disque dur pour économiser la mémoire vive durant une session live. Il y a aussi un script qui désinstalle tous les paquets installés pendant la cuisson à la sortie pour conserver un chroot léger et vérifier les dépendances de compilation.
+
+===== Avec Tazdev =====
+Avec le temps les developeurs SliTaz ont créé des outils permettant l'automatisation de diverses tâches. Le paquet slitaz-dev-tools fournit l'utilitaire tazdev et son fichier de configuration /etc/slitaz/tazdev.conf, il permet ensuite de créer un chroot et de l'utiliser:
+
+<code>
+# tazpkg get-install slitaz-dev-tools
+# tazdev gen-chroot
+# tazdev chroot
+</code>
+
+Par défaut le chroot est créé dans /home/slitaz/cooking/chroot avec une slitaz-base. Pour plus d'infos et les commandes disponibles vous pouvez utiliser 'tazdev usage' et jeter un oeil au fichier de configuration.
+
+===== Créer un chroot à la main =====
+<code>mkdir /home/chroot
+# Vous pouvez monter un périphérique sur /home/chroot
+# avec mountbox ou mount
+tazpkg get-install busybox --root="/home/chroot"
+echo "No" | tazpkg get-install bash --root="/home/chroot"
+tazpkg get-install slitaz-toolchain --root="/home/chroot"
+tazpkg get-install tazwok --root="/home/chroot"
+tazpkg get-install tazpkg --root="/home/chroot"
+tazpkg get-install lzma --root="/home/chroot"
+mkdir /home/chroot/home/slitaz</code>
+
+Note : Vous pouvez conserver ces lignes dans un script si nécessaire. Ajoutez #!/bin/sh en première ligne et rendez-le executable avec :
+<code>chmod +x script_file</code>
+
+===== Ajouter un script pour automatiser des actions =====
+
+<code>cat > /home/chroot/chroot_script.sh << "EOF"
+#!/bin/sh
+/bin/sh --login
+for pkg in $(cat /var/log/tazpkg.log | grep -v Removed | sed 's/\(.*\)\(- Installed - \)\(.*\)\( (.*\)/\3/'); do
+	echo "y" | tazpkg remove $pkg
+done
+rm /var/log/tazpkg.log
+
+EOF
+chmod +x "/home/chroot/chroot_script.sh"</code>
+
+Note: /bin/sh --login vous connecte au chroot. Les commandes suivantes désinstallent automatiquement les paquets ajoutés pendant la cuisson à la sortie. Vous pouvez modifier ce fichier pour exécuter différentes actions au moment de l'entrée ou de la sortie du chroot.
+
+===== Ajouter un script pour monter ou démonter le chroot =====
+
+<code>cat > /usr/bin/tazchroot << "EOF"
+#!/bin/sh
+cat /etc/resolv.conf > /home/chroot/etc/resolv.conf
+if [ ! -d "/home/chroot/proc/1" ]; then
+	echo "Monte le système de fichier virtuel..."
+	mount -t proc proc /home/chroot/proc
+	mount -t sysfs sysfs /home/chroot/sys
+	mount -t devpts devpts /home/chroot/dev/pts
+	mount -t tmpfs shm /home/chroot/dev/shm
+	mount /home/slitaz /home/chroot/home/slitaz
+	chroot /home/chroot ./chroot_script.sh
+	until [ "$ps" = "2" ]; do
+		echo "Attends la fin de tous les autres processus du chroot"
+		ps=$(ps | grep `basename $0` | grep -v grep | grep -v basename | wc -l)
+		sleep 1
+	done
+	umount /home/chroot/home/slitaz
+	umount /home/chroot/dev/shm
+	umount /home/chroot/dev/pts
+	umount /home/chroot/sys
+	umount /home/chroot/proc
+else
+	echo "Le chroot est déjà monté"
+fi
+EOF
+chmod +x /usr/bin/tazchroot</code>
+
+Note : Ce script monte /home/slitaz dans votre chroot, vous pouvez donc utiliser tazwok comme si vous étiez dans votre environnement normal

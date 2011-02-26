@@ -1,0 +1,88 @@
+====== Préparer le wok expérimental ======
+
+==== Avertissement ====
+
+Avant d'utiliser le wok expérimental, il est conseillé d'avoir lu et compris les [[fr:cookbook:advancedhg|Utilisations avancées de Mercurial]], puisque le wok expérimental utilise MQ pour gérer la liste de patchs.
+
+Veuillez noter que le code source, le wok et les paquets occupent de l'espace : ne stockez pas tout cela dans votre mémoire vive à moins d'être sûr que tout ira bien. Si vous utilisez un système chargé en RAM, vous pouvez utiliser un disque physique pour stocker les données grâce à l'option de démarrage home=; Vous pouvez aussi monter un disque (par exemple sur /mnt).
+
+==== Activer Mercurial Queue ====
+
+Le wok expérimental est distribué sous forme de patchs qui ne peuvent être intégrés au wok cooking pour le moment. Pour les utiliser, vous aurez besoin de l'extension MQ; Votre fichier ~/.hgrc devrait donc contenir les lignes suivante:
+
+<code>
+[extensions]
+mq =
+</code>
+
+==== Télécharger le wok cooking & le patcher ====
+
+Tout d'abord vérifier que le disque de destination est monté; Dans le dossier qui contiendra les données, créer un dossier experimental et y entrer:
+<code>
+cd destination
+mkdir experimental
+cd experimental
+</code>
+
+
+Télécharger les données du wok:
+<code>
+hg clone http://hg.slitaz.org/wok wok
+</code>
+
+si vous étiez en administrateur, donner l'autorisation de lecture/écriture à votre compte courant; puis quitter le compte administrateur.
+<code>
+chown tux.tux -R wok
+</code>
+
+Les patchs s'appliqueront correctement sur la révision pour lesquels ils ont été prévus, mais des problèmes peuvent arriver avec d'autres révisions. La révision correspondant à la dernière mise à jour des patchs peut être trouvée là : http://hg.slitaz.org/wok-experimental.
+Mettre à jour le wok à la bonne révision:
+<code>
+hg update -C rev
+</code>
+
+Télécharger les patchs expérimentaux:
+<code>
+cd .hg
+hg clone http://hg.slitaz.org/wok-experimental patches
+</code>
+
+Appliquer les patchs:
+<code>
+cd ..
+hg qpush -a
+</code>
+
+==== Mettre à jour le wok expérimental ====
+
+Se rendre dans le wok:
+<code>
+cd ?/wok
+</code>
+
+Dé-appliquer les patchs (ne fonctionnera pas si des modifications sont en cours):
+<code>
+hg qpop-a
+</code>
+
+Mettre à jour le wok cooking:
+<code>
+hg pull
+</code>
+
+Vérifier la révision à utiliser à http://hg.slitaz.org/wok-experimental et mettre à jour le dossier de travail à cette révision:
+<code>
+hg update -C rev
+</code>
+
+Mettre à jour le dépôt de patchs:
+<code>
+cd .hg/patches
+hg pull -u
+</code>
+
+Appliquer les nouveaux patchs:
+<code>
+cd ../..
+hg qpush -a
+</code>

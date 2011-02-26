@@ -1,0 +1,25 @@
+====== Le guide d'installation de Tor ======
+
+<code>
+#tazpkg get-install tor
+#tazpkg get-install privoxy
+#echo 'forward-socks4a /        127.0.0.1:9050   .' >> /etc/privoxy/config
+#sed -r '/RUN_DAEMONS/s/(" *)$/ privoxy\1/' -i /etc/rcS.conf 
+#echo 'tor > /dev/tty2 & ' >> /etc/init.d/local.sh
+</code>
+
+Utilisation de Bridge pour faire fonctionner Tor si les options ci-dessus ne fonctionnent pas.
+
+<code>
+#echo '
+UseBridges 1
+UpdateBridgesFromAuthority 1
+bridge 66.160.141.98:6085 ' >> /etc/tor/torrc
+</code>
+
+===== Redémarrer le système et relogin. =====
+
+Login sur tty2 (Ctrl+Alt+F2 vous fait aller dans tty2; Alt+F7 pour revenir sur le bureau) pour vérifier si ça fonctionne.
+Si vous voyez Success... cela signifie que ça fonctionne.
+
+Installez alors le [[https://addons.mozilla.org/fr/firefox/addon/2275|"torbutton"]] (plugin pour Firefox).
