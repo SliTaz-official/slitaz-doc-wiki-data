@@ -1,0 +1,28 @@
+**Boot time (Waktu boot)**
+
+Slitaz booting dengan cepat! Tapi sepertinya anda belum mengaktifkan super boot di slitaz. untuk mengaktifkannya, anda cukup mengedit configurasi anda// /etc/rcS.conf //:FAST_BOOT_X="yes"
+<file>FAST_BOOT_X="yes"</file>
+
+Hapus dbus, hald dan slim dari RUN_DAEMONS array. hanya itu saja.
+<note warning>catatan : pada beberapa komputer, ada kemungkinan FAST_BOOT_X tidak bisa booting dengan sempurna</note>
+Namun, jika Xvesa/Xorg bisa berfungsi setelah anda mengaktifkan fitur ini. hal itu aman untuk dibiarkan aktif.
+
+Sekarang, bagaimana cara anda mengukur waktu booting? script rcS diperlukan untuk menjalankan file di// /var/log/boot-time//.
+
+Tetapi, bagaimana cara anda mengetahui grafik proses full booting (termasuk booting kernel)?
+<file># tazpkg get-install pybootchartgui</file>
+
+Pybootchartgui akan menghasilkan data tabel secara otomatis di// /var/log.// 
+
+Kemudian, edit //menu.lst// grub anda, dan tambahkan <file>init=/sbin/bootchartd</file> atau seperti ini.
+
+<file>title slitaz with bootchart
+root (hd0,8)
+kernel /boot/vmlinuz-2.6.30.6-slitaz root=/dev/sda9 init=/sbin/bootchartd quiet</file>
+
+contoh grafik booting:
+{{:id:guides:contoh_grafik_boot.png?50x100|}}
+image source http://doc.slitaz.org/en:guides:boottime)
+
+<note>jika ada yang bisa menterjemahnkan artikel ini dengan lebih baik, silahkan edit artikel ini. terima kasih.</note>
+translate by: http://maxlender.wordpress.com
