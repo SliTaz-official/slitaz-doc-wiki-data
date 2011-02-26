@@ -1,0 +1,28 @@
+====== Tazlito-Handbuch ======
+
+===== Bezeichnung =====
+[[de:terms:T?&#Tazlito|Tazlito]] - SliTaz Live Tool.
+
+===== Syntax =====
+<code>
+ tazlito [Befehl] [list|iso|flavor] [dir]
+</code>
+
+===== Beschreibung =====
+
+Mit diesem Werkzeug kann man die [[de:terms:I?&#liveCD|LiveCD]] öffnen, die [[de:terms:I?&#ISO|ISO-Datei]] wieder anlegen oder das Dateiensystem der [[de:terms:I?&#liveCD|LiveCD]] von SliTaz auffrischen. Tazlito ermöglicht auch, eine Distribution aus einem vorgegebenen Paketenvorrat, der sich in einem Verzeichnis befindet, wo er zuvor runtergeladen wurde. Beim der Anwendung von Tazlito wird eine Systemkonfigurationsdatei /etc/tazlito/tazlito.conf oder eine Datei tazlito.conf aus dem aktuellen Verzeichnis benützt. Auch diese Konfigurationsdatei kann von Tazlito selber automatisch erzeugt werden. Sie gibt den Namen der [[de:terms:I?&#ISO|ISO-Datei]], den Namen des Bands, den Autor, den Pfad zum Depot der Paket und den Pfad zur Distribution. Tazlito erlaubt auch ein Verzeichnis mit Zusatzdateien zu konfigurieren, die auch in die  [[de:terms:I?&#liveCD|LiveCD]] bei der Erzeugung der Distribution mitkopiert werden.
+
+Tazlito wird unter der freien Lizenz GNU gpl v3 verteilt, der Defaultlizenz in SliTaz, und wurde mit Erfolg in benützt installiert und getestet.
+
+<note tip>Zusatzinformationen zur Herstellung einer eigenen Version der [[de:terms:I?&#liveCD|LiveCD]] findet man im SliTaz-Kochbuch (Cookbook) (http://www.slitaz.org/doc/cookbook/) und im Handbuch.
+</note>
+
+===== Befehlsatz =====
+
+==== usage ====
+
+Der Befehl ‘usage’ zeigt eine Kurzfassung der Befehlsliste mit kurzer Beschreibung an.
+
+<code>
+ # tazlito usage
+</code>

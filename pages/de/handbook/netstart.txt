@@ -1,0 +1,12 @@
+====== Webstart und Möglichkeit einer anschliessenden Installation ======
+
+===== Besondere Eigenschaft in Slitaz ! =====
+
+Slitaz ist ein der sehr seltenen Betriebssysteme, das so geliefert wird, dass der Webstart in live-Modus mit Hilfe eines extrem kompakten Startprogramms von vorn herein verfügbar ist. Dieses Startprogramm findet Platz auf einer altherkömmlichen Diskette, oder auch in einer extrem kleinen Start-ISO, die man am ehesten auf (mini-)CD-ROM brennen kann.
+
+Es ist aber auch so, dass auf jeder ISO von Slitaz mit einer live-Version von "base" (nur Kommandozeilen-Modust), "justX" (nur X-Window), "stable" (stabile Version) oder "cooking" (Version in der Entwicklung) dieses Startprogramm auch vorhanden ist, und mit Hilfer einer Eingabe in der Eingebageaufforderung kurz nach dem Start der ISO aufgerufen und gestartet werden kann.
+
+Der spezielle Vorteil eines solchen Starts ist, dass man dann mit der allerletzten Entwicklungsversion startet, und nicht mit der, die sich auf der CD befindet.
+
+Natürlich kann die gleiche Fähigkeit im Intranet einer Gemeinschaft nutzbar gemacht werden.
+

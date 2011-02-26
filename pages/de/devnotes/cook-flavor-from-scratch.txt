@@ -1,0 +1,188 @@
+====== Eine eigene Geschmackrichtung aus den Quelltexten kochen ======
+
+===== Einleitung =====
+
+Willkommen zu dieser Anleitung! Sie will die Grundlage zu einem zweiten SliTaz-//scratchbook// werden, und erklärt, wie man SliTaz vollständig aus den Quelltexten, inklusiv Werkzeugskasten neue erstellen kann. Die ganze Arbeit erfolgt unter Einsatz des //tazwok-experimental// (zur Zeit noch im Entwicklungsstadium alpha!). Selbst, wenn man zugibt, dass die Skripte einige dämliche Tücken haben, sollten nachstehende Arbeitsabschnitte mühelos zum Ziel führen. Rückmeldungen hinsichtlich der etwaige Probleme werden gern angenommen (//tazpkg info tazwok-experimental// wird Ihnen die email weitergeben).
+
+Mit einigen Kenntnissen über die klassischen Werkzeuge von SliTaz und den Basisbefehlen von Linux versteht man besser, was im Verlauf dieser Anleitung passiert. Aber auch brav die Befehl kopieren/einfügen würde voraussichtlich auch genügen.
+
+===== Erläuterung =====
+
+//Tazwok-experimental// schlägt die Instrumente zum Backen eines [[de:terms:W?&#Wok|Woks]] von den [[de:terms:Q?&#Quelle|Quelltexten]] bei Benützung eines minimalen //[[de:terms:C?&#Chroot|chroot]]// vor. Dabei muss man eine spezielle Wokversion einsetzen. Diese Version nennt sich wok-experimental. Es enthält die notwendigen [[de:terms:P?&#Patch|patchen]], mit welchen das //cooking//-Wok verändert werden muss. Die Erklärungen zur Einrichtung des Woks //experimental// sind hier :  [[de:devnotes:prepare-experimental|Das experimentelle Wok vorbereiten]] zu finden.
+
+**Was braucht man?**
+  * Ein autonom oder installiert funktionsfähiges Betriebssystem der Distribution SliTaz //cooking// ; man kann auch folgende ISO [[http://people.slitaz.org/~gokhlayeh/experimental/iso/slitaz-experimental-base.iso|slitaz-experimental-base]] benützen.
+  * //tazwok-experimental-0.0.2, tazchroot-0.0.1, libtaz-0.0.1//. Hinweis: //tazwok-experimental// installieren macht das klassische //tazwok// unbrauchbar.
+  * Eine internet-Verbindung, um die Quellen runterzuladen.
+
+**Schritte**
+  * Die //chroot-Umgebung// aufbauen (bei der vorliegenden Anleitung wird von der neuen Werkzeugkette aus dem Depot //experimental// ausgegangen; aber die Werkzeugkette von //cooking// dürfte auch brauchbar sein).
+  * Eine neue Kette von temporären Werkzeuge selber backen: es handelt sich um eine Reihe von Werkzeugen aus einer verkreuzten Kompilation, mit welcher es möglich werden soll, die ‘richtigen’ künftigen Werkzeuge (aus diesen Werkzeugen entstehen dann ordentliche Pakete) ohne dass eine Bindung an Teilen des Gastgebersystems benötigt wird.
+  * Den notwendigen Vorrat von diesen endgültigen Werkzeugen backen.
+  * Einige weitere Pakete eines der Slitaz-Rezepte backen.
+  * Eine [[de:terms:I?&#ISO|ISO-Datei]] damit anfertigen.
+  * Brennen, neu starten & geniessen :).
+
+===== Instrumente installieren =====
+
+<note tip>Folgende Transaktionen müssen als [[de:terms:R?&#root|root]] (Verwalter) stattfinden. Falls man die Werkzeugkette von //[[de:terms:C?&#Cooking|cooking]]// benützt braucht man die Depots von experimental nicht hinzuzufügen.</note>
+
+Das [[de:terms:D?&#Depot|Depot]] zur //[[de:terms:E?&#experimentell|experimentellen]]// Version als [[de:terms:U?&#unverdaut|unverdaut]] hinzufügen:
+<code>
+tazpkg add-undigest experimental http://people.slitaz.org/~gokhlayeh/experimental/packages
+</code>
+
+Diesem Depot Vorang vor dem Hauptdepot geben:
+<code>
+echo experimental > /var/lib/tazpkg/priority
+</code>
+
+Die Rezeptzutaten installieren:
+<code>
+tazpkg get-install tazwok-experimental
+tazpkg get-install tazchroot
+</code>
+
+===== Den Vorrat an Instrumenten kochen =====
+
+<note tip> Folgende Kommando-Zeilen gehen von einem [[de:terms:W?&#Wok|Woks]] aus, das man unter folgender Adresse findet: ///home/slitaz/experimental/wok//. Im Fall einer anderen Wok-Voreinstellung kann man die Option //--SLITAZ_DIR=adresse// hinzüfügen; ‘adresse’ entspricht hier ///home/slitaz//. Diese Option ist jedes Mal zu verwenden, wo //--SLITAZ_VERSION// angegeben wird. Man kann aber auch //SLITAZ_VERSION// und //SLITAZ_DIR// global via ///etc/slitaz/slitaz.conf// festlegen.</note>
+
+Konfiguration für das //chroot//:
+<code>
+tazwok configure-chroot --SLITAZ_VERSION=experimental
+</code>
+
+Hat man weniger als 1,5Gb freien leeren RAM, dann kann man das minimal //chroot// im RAM einsetzen, um die Bearbeitungszeit zu beschleunigen:
+<code>
+sed 's~chroot_dir=.*~chroot_dir=/tmp/chroot-experimental~' -i /home/slitaz/experimental/tazchroot.conf
+</code>
+
+Die Pakete des Werkzeugkasten mit einem einzigen Befehl erzeugen:
+<code>
+tazwok cook-toolchain --SLITAZ_VERSION=experimental
+</code>
+
+Am Ende sollte das //chroot// gelöscht worden sein. Falls man seinen Platz vorher geändert hatte, muss man das jetzt von Hand machen:
+<code>
+rm -r /tmp/chroot-experimental
+</code>
+
+Die Pakete des Werkzeugkastens sind jetzt fertig zur Benützung. Sie liegen jetzt im Depot //packages-incoming// vor. Wenn alles korrekt ablief, kann man sie jetzt in das Depot für klassische Pakete mit
+<code>
+tazwok check-incoming --SLITAZ_VERSION=experimental
+</code>
+weiterschieben.
+
+//tazpkg// muss jetzt von Ihnen erfahren, dass Sie eine lokale Version von //experimental// bereitgestellt haben:
+<code>
+echo "/home/slitaz/experimental/packages" > /var/lib/tazpkg/undigest/experimental/mirror
+tazpkg recharge
+</code>
+
+Bitte dann das Werkzeugkasten mit der Ausnahme des Herzen (Übersetzung lehnt sich an die blumige Sprache der Vorlage an) //linux-api-headers/glibc/binutils/gcc// über sich selber rüberkochen, was das Ganze stabilisiert; dies ist zwar nicht unbedingt erforderlich, führt aber zu einer besseren Situation hinsichtlich der kreisförmigen Abhängigkeiten. Dies stellt die Konsistenz der Werkzeugskette vor und nach der Aktualisierung der Pakete sicher, die zum Herzen in der Werkzeugskette nicht gehören sicher. Das Herz der Werkszeugskette selber sollte aber nie derart aktualisiert werden, sondern durch die Benützung des Skripts //cook-toolchain//.
+<code>
+tazwok chroot --SLITAZ_VERSION=experimental
+tazwok build-depends toolchain-cooklist | sed '1,/^gcc$/d' > /tmp/consolider.list
+tazwok cook-list /tmp/consolider.list
+rm /tmp/consolider.list
+</code>
+
+Da alles erneuert wurde, muss man jetzt das Depot :
+<code>
+tazwok check-incoming --SLITAZ_VERSION=experimental
+</code>
+wieder aktualisieren.
+
+Das vorherige //chroot// ist jetzt nutzlos. Entfernen, damit //tazwok// nächstes Mal in der Lage ist eine neue Version der Werkzeugskette herzustellen :
+<code>
+# Adresse classique:
+rm -r /home/slitaz/experimental/chroot
+# Chroot dans /tmp:
+rm -r /tmp/chroot-experimental
+</code>
+
+===== Die Pakete für ein Rezept kochen =====
+
+Als Erstes braucht man die Daten zum Rezept für //cooking//:
+<code>
+cd /home/slitaz/experimental/flavors
+hg clone http://hg.slitaz.org/flavors .
+</code>
+
+Die Zutatenliste für das Rezept erzeugen. Hinweis: Hinterher setzt man dort, wo das Wort SAVEUR (Geschmacksnote) steht, den Namen des jeweiligen Rezepts in den Befehlen ein.
+<code>
+tazwok gen-cooklist --list=/home/slitaz/experimental/flavors/SAVEUR/packages.list > /tmp/SAVEUR.list
+</code>
+
+Diese Liste enthält bereits zubereitete Pakete; entfernen!
+<code>
+cat /tmp/SAVEUR.list | while read p; do
+	grep -q ^$p$ /home/slitaz/experimental/packages/packages.txt && \
+		sed "/^$p$/d" -i /tmp/SAVEUR.list
+done
+</code>
+
+Die Zutatenliste ist jetzt fertig, um die Pakete zu bereiten:
+<code>
+tazwok cook-list /tmp/SAVEUR.list
+</code>
+
+Das Depot //packages// aktualisieren:
+<code>
+tazwok check-incoming
+</code>
+
+<note tip>Man kann diese Schritte so oft wiederholen, wie man neue Pakete zum eigenen Depot hinzufügen will.</note>
+
+In Vorbereitung zum nänchsten Schritt, bitte jetzt in der //chroot//-Umgebung bleiben.
+
+===== Die ISO-Datei aufbauen =====
+
+Am Augenblick benützt //[[de:terms:T?&#tazlito|tazlito]]// noch ///home/slitaz/flavors//. Deshalb ein symbolisches [[de:terms:L?&#link|link]] anlegen:
+<code>
+ln -s /home/slitaz/experimental/flavors /home/slitaz
+</code>
+
+Die [[de:terms:I?&#ISO|ISO-Datei]] als experimentelle Version konfigurieren:
+<code>
+cd  /home/slitaz/flavors/SAVEUR
+mkdir -p rootfs/etc
+echo experimental > rootfs/etc/slitaz-release
+</code>
+
+Dann die [[de:terms:I?&#ISO|ISO-Datei]] so konfigurieren, dass das eigene lokale Depot zum Einsatz kommt:
+<code>
+mkdir -p rootfs/var/lib/tazpkg
+echo /home/slitaz/experimental/packages > rootfs/var/lib/tazpkg/mirror
+</code>
+
+Lieber tazwok-experimental als tazwok benützen und tazchroot anhängen:
+<code>
+sed 's/tazwok/tazwok-experimental/' -i packages.list
+echo tazchroot >> packages.list
+</code>
+
+Das Rezept SAVEUR einpacken:
+<code>
+tazlito pack-flavor SAVEUR
+</code>
+
+Das Rezept SAVEUR holen:
+<code>
+tazlito get-flavor SAVEUR
+</code>
+
+Die [[de:terms:I?&#ISO|ISO-Datei]] erzeugen:
+<code>
+tazlito gen-distro
+</code>
+
+Die [[de:terms:I?&#ISO|ISO-Datei]] im eigenen [[de:terms:H?&#home|home]] hinterlegen:
+<code>
+mv /home/slitaz/distro/slitaz-SAVEUR.iso /home/slitaz/distro/slitaz-SAVEUR.md5 /home/slitaz/experimental/iso
+</code>
+
+Die //chroot//-Umgebung verlassen:
+<code>
+exit
+</code>

@@ -1,0 +1,22 @@
+<note> Wir organisieren einen [[http://listengine.tuxfamily.org/lists.tuxfamily.org/slitaz/2010/04/msg00063.html | Doku-Sommer]] in diesem Jahr. Alle Seiten der Dokumentation werden überprüft und in Kürze aktualisiert.</note> 
+
+Diese Website wird in Kürze der zentrale Ort für die gesamte SliTaz Dokumentation werden. Die Wiki-Seite unterstützt Übersetzungen. Die Hauptsprache ist Englisch und versuchen Sie bitte bei der Übersetzung die  Hierarchie zu wahren.
+
+\\
+
+==== Summer of Documentation ====
+
+\\
+
+Wenn Sie  beim Docu-Sommer mithelfen möchten, einfach loslegen! Werfen Sie einen Blick auf die [[guidelines| SliTaz Documentation Guidelines]], wählen Sie Ihre Seite und los! In dieser Phase brauchen wir dringend Beiträge, die dann überprüft und aktualisiert werden.
+
+Es gibt viele Bereiche, in denen Sie helfen können:
+
+  * ** Sind Sie ein erfahrener SliTaz - User? **
+ Einfach einen Guide schreiben. Diese Guides führen den Anwender von der Einrichtung des Desktops bis zur Installierung ihres Netzwerks.
+  * ** Sind Sie eine allgemeiner Linux - User? **
+Werfen Sie einen Blick in das Handbuch. Viel allgemeine Einführung in SliTaz, Linux oder verfügbare Software muß geschrieben werden. Manche Menschen finden es schwierig, technisch zu schreiben, die anderen kämpfen mehr mit der stilistischen Komponente. Beides ist notwendig, bei der Beschreibung des Themas und des Umfangs von kurzen Anweisungen.
+  * ** Übersetzen Sie lieber? **
+Übersetzungen sind sehr wichtig, um neue SliTaz-User anzuziehen. Wir brauchen deutsche ReferentInnen um nur deutschsprachigen Usern eine bessere Übersetzung als automatisierte Dienstleister (wie z.B. Google) liefern zu können! Wir sind bestrebt, in Zukunft mehr Informationen hinzuzufügen - wenn Sie helfen können, bitte tun es!
+
+// Es gibt mehr Möglichkeiten, um der SliTaz Gemeinschaft zu helfen, als nur mit der Dokumentation. Wenn Sie daran interessiert sind, für jegliche Hilfe von Grafik bis zum Testen von Paketen wären wir sehr dankbar! Einfach eine kurze Nachricht ins Forum oder an die Mailing-Liste schicken, oder schauen Sie auf die [[en:guides:contributor|Contribution]]-Seite, wie Sie beginnen können. Danke!//

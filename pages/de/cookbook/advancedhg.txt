@@ -1,0 +1,128 @@
+====== Fortschrittliche Anwendungen von Mercurial ======
+
+==== Ein externes Werkzeug zum Zusammenfügen benützen (merge) ====
+
+Bei der Benützung der in dieser Seite vorgestellten Werkzeuge, speziell MQ, ist ein Werkzeug, um das Zusammenfügen (wenn mehrere Änderungen sich überlappen, und das Ergebnis manuell definiert werden muss) besser zu handhaben voraussichtlich nützlich.
+SliTaz schlägt Meld vor. Meld ist eine kleine Software, die dazu bestens geeignet ist. Nach dem Installieren weist man Mercurial an, davon Gebrauch bei Bedarf zu machen mit folgender zusätzlichen Anweisung in ~/.hgrc:
+
+<code>
+[ui]
+merge = meld
+</code>
+
+==== Nützliche Erweiterungen ====
+
+Man kann eine Erweiterung über die Datei ~/.hgrc file ergänzen; die Syntax ist:
+<code>
+[extensions]
+name = adress
+</code>
+Es gibt Erweiterungen, die mit Mercurial gepackt sind, dann ist die Angabe einer Adresse nicht notwendig.
+
+Dies gilt für folgende vier Erweiterungen:
+
+**color**
+Farbe in Mercurial hinzufügen. Nützlich zur Sichtbarmachung von Unterschieden zwischen Dateiversionen.
+
+**hgext.fetch**
+Befehl hg fetsch, die Kombination von hg pull && hg merge && hg update , hinzufügen.
+
+**hgext.graphlog**
+Befehl glog hinzufügen, damit die Versionsverzweigung mit dem Log angezeigt wird. Empfohlen wird die Log-Länge mit der Option -l (beisp.: -l 10) kurz zu halten. Die -p  Option zeigt das Detail der einzelnen Unterschiede.
+
+**mq** 
+Dieses Instrument wird nachstehen weiter erklärt. Man kann mit ihm eine patch-Liste des Mercurial-Depots verwalten: mit Funktionen wie apply, unapply, update, usw. Diese Erweiterung besitzt verschiedene Befehle mit einem Namen, der meistens mit  'q' anfängt. Es gibt Webseiten, die sich darauf spezialisieren, dieses Instrument zu beschreiben, bei Bedarf nach: mercurial mq suchen!
+
+==== Grund Funktionen von MQ ====
+Anlegen eines patchs-Depots mit Versionskontrolle in einem mercurial Depot; es handelt sich um ein innerhalb eines Depots angelegtes Depot, in welchem die Änderungen zum patchen mit Hilfe von Mercurial als solche verwaltet werden können:
+<code>hg qinit -c</code>
+
+Nach erfolgten Änderungen werden diese als patch gesondert aufgenommen:
+<code>hg qnew nom_du_patch</code>
+
+Auflistung un/angelegter patches:
+<code>hg qseries -v</code>
+
+Änderungen zum aktuellen, gerade bearbeiteten patch aufnehmen:
+<code>hg qrefresh</code>
+
+Anlegen des nächsten patches in der Reihe:
+<code>hg qpush</code>
+
+Anlegen aller patchen:
+<code>hg qpush -a</code>
+
+Entwerten des aktuellen patches:
+<code>hg qpop</code>
+
+Entwerten aller patchen:
+<code>hg qpop -a</code>
+
+Geh zur Position eines vorgegebenen patches in der Reihe:
+<code>hg qgoto patch</code>
+
+Eine Mitteilung mit dem aktuellen patch verbinden (vor seiner Übergabe):
+<code>hg qrefresh -m "Message"</code>
+
+patch als übergeben markieren:
+<code>hg qfinish patch</code>
+
+Ändereungen im Depot als übergeben bestätigen:
+<code>hg qcommit -m "Message de commit"</code>
+
+Hinweis: Patches werden in .hg/patches aufgenommen. Die Datei .hg/patches/series lässt sich manuell bearbeiten, um die Reihenfolge der patches zu beeinflussen; bitte nicht ausser Acht lassen, dass wenn verschiedene patches die gleiche Zieldatei haben, dies kann Probleme verursachen.
+
+==== MQ & Merge ====
+
+**Grundidee**
+
+Patches können leichter mit dem merge-Werkzeug von Mercurial benützt und aktualisiert werden als von Hand. Dazu braucht man zwei Merker in dem Depot. Eins davon kümmert sich um die im Depot angewandte patche an der Reihe; der andere um die neuen commits/update/usw.:
+
+<code>
+o Neue Depotversion
+|
+|
+| o Patche
+| |
+| /
+|
+o Depot vor der patch-Anwendung
+</code>
+
+Die Reihe der pachte wird dann dem neuen Zweig hinzugefügt und MQ wird die patche mit der merge-Funktion aktualisieren. Sich erinnern, dass ein separates Werkzeug zur Verwaltung der problematischen Übergänge (wie das vorstehend vorgeschlagene ‘Meld’) absolut empfehlenswert ist.
+
+Die patch-Reihe anlegen:
+<code>
+qpush -a
+hg tags  # Nr. der qparent Version merken bzw. notieren
+qsave -e -c # Statut der patche merken, da es später von merge benötigt und benützt wird. (Nr. am Ende von patches.N merken/aufschreiben; ist im Allgemeinen die Nummer 1)
+</code>
+
+Die neue Reihe patche anlegen:
+<code>
+hg update -C <Nr. der Elternreihe> # sich auf die oben notierte Version beziehen.
+
+# Dann, je nachdem, was zu tun ist:
+# Aktualisieren:
+hg pull -u
+# Neue Änderungen übergeben, Änderungen durchführen, und dann:
+hg commit -m "message"
+# ein patch editieren:
+hg qgoto patch # dann Änderung vornehmen und:
+hg qrefresh</code>
+
+merge anstossen:
+<code>hg qpush -a -m</code>
+
+Depot putzen:
+<code>
+hg qpop -a
+hg qpop -a -n patches.N
+rm -r .hg/patches.N
+</code>
+
+Änderungen im patch Depot aufnehmen:
+<code>hg qcommit -m "Updated to match rev???"</code>
+
+patch-Reihe wieder anlegen:
+<code>hg qpush -a</code>

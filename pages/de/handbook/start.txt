@@ -1,0 +1,34 @@
+======Handbuch======
+===Übersicht===
+
+Hinweis: Dieses Handbuch gibt es auf Deutsch nicht mehr, da das alte Wiki verloren ging. Bitte bis zur Fertigstellen Hilfe im Forum, oder in den englisch- und französischsprachigen bisherigen Handbüchern suchen. Ein Verlegen hierher nach Erscheinen der Slitaz-Version 3.0 ist angestrebt, auch auf Deutsch, wenn Helfer sich dazu finden lassen. Man findet die bisherigen Handbücher hier, wo Übersetzer Anregungen finden können: http://www.slitaz.org/en/doc/handbook/
+
+  * [[netstart|Webstart und sofortige Installation auf der Festplatte]]
+
+  * [[livecd|Verwendung der liveCD und Optionen]]
+
+  * [[openbox|Openbox desktop]]
+
+  * [[commands|Übersicht über nützliche Kommandos]]
+
+  * [[install|Anleitung zur Installation auf Festplatte]]
+
+
+===Anwendungen===
+
+  * [[server-apps|Server-Applikationen]] - Installation und Konfigurieren von CMS, Wiki, usw.
+
+  * [[database|Datenverwaltung]] - SQLite, MySQL und sonstige Datenbank-Verwaltungssysteme.
+
+===System===
+
+  * [[printing|Drucken]] - //WIEMAN// druckt, CUPS installiert und konfiguriert.
+
+
+===Andere Window-Managers===
+
+  * ...
+
+===== Zu diesem Handbuch =====
+
+Dieses SliTaz GNU/Linux-Handbuch ist die Sammlung der Anleitungen und Handbücher zu dieser Distribution. Dieses Buch stellt die Bemühung der Gemeinschaft dar, eine hochwertige Dokumentation den SliTaz-Benützern zur Verfügung zu stellen. Die erste Seite davon wurde am 26. Februar 2008 angelegt. Das SliTaz-Handbuch ist in ständiger Weiterentwicklung und folgt den Fortschritten und Verbesserungen der Distribution und ihrer Leistungsmerkmale.

@@ -1,0 +1,120 @@
+====== Verwendung der liveCD und Optionen ======
+
+==== Von der CDROM booten ====
+
+SliTaz von der CDROM zu starten, ist einfach: nur die ISO-Image auf einem Rohling brennen, Computer mit dieser CD im Haupt-CD-Laufwerk neu starten. Meistens ist der Computer dazu vorkonfiguriert; wenn nicht, muss man als Erstes sofort nach dem Start die Start-Sequenz mit der BIOS-setup- Utility (oft durch Drücken einer der Tasten F11, F12, Esc oder sonstwie) anpassen. Ein Mal in dieser BIOS-setup- Utility kann man die Abfolge, in welcher die Laufwerke probiert werden, verändern, da man diejenige braucht, bei welcher der CDROM-Hauptlaufwerk als Erstes startet. Am Schluss, nicht versäumen, die neue Konfiguration der BIOS-Schnittstelle abzuspeichern. Das erste Bild, splash image genannt, wird vom isolinux bootloader am Bildschirm hervorgebracht. Da gibt es eine Wahlmöglichkeit, entweder einfach durch Drücken der ENTER-Taste sofort weiter zu starten, oder sogar ohne nach einer kurzen Pause, oder auch Optionen zur Systeminitialisierung einzugeben (beim Drücken von F1-F4 erscheint ein Hilfe bzw. Information). SliTaz installiert sich dann vollständig im Speicher und verändert gar nichts am Hostsystem. Wenn diese Startprozedur (boot process) fertig ist, kann man sich als Gast "tux" ohne Passwort anmelden ("login"). Zur Erledigung von Administrationsaufgaben ("root"), kann man das Kommando "su" mit dem Passwort "root" in das "XTerm"-Fenster benützen. Das Passwort gilt auch in der Linux-Konsole. In liveCD-Modus das root-Passwort ist "root".
+
+==== Optionen und Parameter zur boot-Zeit ====
+
+Die SliTaz-liveCD kann verschiedene boot-Optionen bei der  von syslinux zur Verfügung gestellten Start-Abfrage ("command prompt") übergeben. Diese Optionen kann man in zwei Kategorien unterscheiden: diejenigen für SliTaz und diejenigen für den "Linux-Kernel". Die Optionen für SliTaz werden von verschiedenen Startskripten verwertet; dagegen werden Parameter wie "VGA-Modus" direkt vom Kernel ("kernel boot parameters") benützt. Um Optionen beim Start zu übergeben, nur "slitaz" vor dem Kommando schreiben:
+
+<code>
+ slitaz vga=791 no387
+</code>
+
+Typisch ist, dass der Linux-Kernel die Daten, die bei Start übergeben werden, in der Textdatei ("text file") /proc/cmdline festgehalten werden. Also kann man am GNU/Linux-System diese Information auch hinterher sehen, wenn man folgendes Kommando eingibt:
+
+<code>
+ $ cat /proc/cmdline 
+</code>
+
+==== Parameter für den Linux-Kernel ====
+
+Am GNU/Linux-System, spezifische Kernelparameter varieren in hohem Mass in Abhängigkeit der zur Kompilierzeit eingesetzten Konfiguration. Der von SliTaz eingesetzte Kernel ist mit ein Minimum von Modulen aufgebaut und bietet daher nur wenige veränderbaren Startparameter an. Man kann die Math-Coprozessor-Emulation mit der Option: "no387" abblocken und genauso "irqpoll" bei Problemen mit "interrupts" (CD/DVD). Der SliTaz-Kernel stellt auch ein video-output-Modus für den VGA-Vesa-Framepuffer (das, was das Tux-Logo erscheinen lässt und das Display vom Linux-Terminal verwaltet). Nach dem Systemstart kann man zwischen sechs pseudo-Terminalen mit den Tastenkombinationen Ctrl+alt+F1, Ctrl+alt+F2, usw. im Charaketermodus umschalten.
+
+=== vga=XXX - VGA-Kernel-Mode ===
+
+<code>
+Farben | 640x480  800x600  1024x768  1280x1024  1600x1200
+-------------------------------------------------------
+256    |  769      771       773       775        796
+32768  |  784      787       790       793        797
+65536  |  785      788       791       794        798
+16,8M  |  786      789       792       795        799
+</code>
+
+==== Option : home=usb ====
+
+
+Um die Daten zu speichern (Bookmarks, Downloads, Firefox Add-ons, etc), bedient man sich von einem USB-Medium mit einer in "ext3" formatierten Partition und es muss home=usb für sda1 (meinstens) or home=devname zur Startzeit spezifiziert werden. Auch kann man das "device" angeben, das die UUID- oder label-Partition mit der Eintragung home=* einsetzt. Beispiel:
+
+<code>
+ slitaz home=sda1
+</code>
+
+=== Vorbereitung von USB-Media ===
+
+Alle USB-Media können als native Linux ext3-Dateiensysteme (file systeme) formatiert werden. Ext3 ist ein stabiles, "journaled" Dateiensystem, mit welchem man die Zugriffsberechtigungen an allen Dateien regeln kann, und daher wesentlich sicherer als die herkömmlichen Windows FAT32-Dateinsysteme. Zum Formatieren von USB-media gibt es ein mehrere Wege: Die Kommandozeilenbefehle mit mkfs.ext3, die tazusb-Utility oder graphisch mit Gparted. Das Kommando fdisk -l (Buchstabe "l", nicht Zahl!) listet alle vorhandenen Partitionen inklusiv USB-Einheit auf. Hinterher kann man dann diese formatieren. Beispiel:
+
+<code>
+ # fdisk -l
+ # tazusb format /dev/sda1
+</code>
+
+==== Options : lang=XX and kmap=XX ====
+
+Beim Start der liveCD gibt es zwei Optionen zur sofortigen Einstellung der Systemsprache und des Tastaturlayouts. Diese Optionen können durch einfache Suche des Landeskodes und Neuladen der Startkonfiguration mit ENTER gesetzt werden. Zum Überspringen der Abfrage kann man auch einfach die Angaben in der Kommando-Zeile eingeben, beisp. für English/UK:
+
+<code>
+ slitaz lang=en kmap=en
+</code>
+
+==== Option : config=<device>,<path> ====
+
+Die config= Option steht für die Ausführung eines Skripts zur boot-Zeit zur Verfügung. Der Skriptstandort muss nicht auf der Festplatte HD, sondern kann auch ein externes Medium sein. So kann man beispielsw. ein ISO-Image auf /usr "mount"en, um Speicherplatz zu sparen, und die liveCD mit nur 32 MB RAM "boot"en. Ein Beispiel mit einem Skript genannt slitaz.sh und verfügbar auf der ersten Platte und Partition:
+
+<code>
+ slitaz config=/dev/hda1,slitaz.sh
+</code>
+
+==== Option : screen=<type> ====
+
+The screen= option lets you specify your screen resolution at boot. Note that the screen=text option disables the Slim login manager. Example:
+
+<code>
+ slitaz screen=1024x768x24
+</code>
+
+==== Option : sound=* ====
+
+The option sound=no or sound=noconf lets you respectively disable all of the modules and applications relating to sound to save memory (ram) or skip the automatic setup of the sound card, but still allow you to manually configure if needed:
+
+<code>
+ slitaz sound=no
+</code>
+
+==== Option : modprobe=modules ====
+
+To load Kernel modules at boot time use the following example:
+
+<code>
+ slitaz modprobe=module1,module2
+</code>
+
+==== Option : laptop ====
+
+The option laptop will automatically load ac and battery Kernel modules - useful for laptop computers:
+
+<code>
+ slitaz laptop
+</code>
+
+==== Option : previous ====
+
+Used by the Tazusb utility to rollback to a previous filesystem:
+
+<code>
+slitaz previous
+</code>
+
+==== Sessions - Login, passwords and X ====
+
+When the system has finished its initialization, the screen is cleared and the login prompt or the session manager Slim is displayed. Now you can choose to login as tux (without password) or as root administrator (password root). Once logged into a session, you can use the many commands available in Busybox, the GNU text editor Nano or the Clex file manager. You can initiate a graphical server (X) via startx or connect to a remote machine via SSH or X. The startx command will launch Xvesa and start the window manager.
+
+The desktop is powered by Openbox, you can get the menu by right clicking on the screen with the mouse buttons. Applications are classified by category and are available in English. Menu, theme and wallpaper can all easily be changed to your needs/preferences, and personal settings and data can be stored on various USB media (Flash key, SD card, etc).
+
+To launch a X session from the Linux console, for example if you have passed the screen=text option or if Slim is not configured to run at startup:
+
+<code>
+ $ startx
+</code>

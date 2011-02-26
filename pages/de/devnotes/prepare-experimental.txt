@@ -1,0 +1,77 @@
+====== Das experimentelle Wok vorbereiten ======
+
+==== Warnung ====
+
+Vor Gebrauch des experimentellen Woks ist es ratsam, die [[de:cookbook:advancedhg|forgeschrittlichen Anwendungen von Mercurial]] gelesen und verstanden zu haben, das das experimentelle Wok MQ bei der Verwaltung der patch-Reihe einsetzt.
+
+Bitte berücksichtigen, dass das Quellenkode, das Wok, und die Pakete Platz brauchen : nicht alles im RAM speichern wollen, ohne sicher zu sein, dass es gut gehen kann! Bei Benützung eines RAM-orientiertes Systems kann man die Speicherung eines physikalischen Datenträgers für die Daten mit der Startoption home=;  anfordern, oder eine Festplatte mounten (beisp. auf /mnt).
+
+==== Mercurial-Queue activieren ====
+
+Das experimentelle Wok kommt in der Form von patchs zur Verteilung, welche derzeit in den wok cooking nicht integriert werden können. Deshalb brauchen Sie die MQ-Erweiterung, um sie zu benützen. Ihre  ~/.hgrc -Datei sollte daher folgende Zeilen beinhalten:
+
+<code>
+[extensions]
+mq =
+</code>
+
+==== Download des cooking-Woks & patchen ====
+
+Prüfen, dass der Ziellaufwerk gemountet ist; im Datenbestimmungsverzeichnis, einen experimentellen Ordner anlegen und dorthin gehen:
+<code>
+cd bestimmung
+mkdir experimentell
+cd experimentell
+</code>
+
+
+Vom wok die Daten runterladen:
+<code>
+hg clone http://hg.slitaz.org/wok wok
+</code>
+
+Falls als root angemeldet waren, Lese-/Schreibe-Erlaubnis Ihrem User-Konto geben; root-Anmeldung verlassen.
+<code>
+chown tux.tux -R wok
+</code>
+
+Die patchs werden korrekt durchgeführt, wenn sie zur richtigen Version kommen, diejenige, wofür sie vorgesehen sind. Bei abweichender Version können Probleme auftreten. Die zur letzten Aktualisierung der patchs passende Version kann hier : http://hg.slitaz.org/wok-experimental
+gefunden werden.
+Das Wok zur richtigen Version aktualisieren:
+<code>
+hg update -C rev
+</code>
+
+==== Das experimentelle Wok aktualisieren ====
+
+Zum Wok wechseln:
+<code>
+cd ?/wok
+</code>
+
+Die patche entwerten (funktioniert nicht, wenn Änderungen am Laufen sind):
+<code>
+hg qpop-a
+</code>
+
+das cooking wok aktualisieren:
+<code>
+hg pull
+</code>
+
+Die gültige Version hier http://hg.slitaz.org/wok-experimental prüfen, und das Arbeitsverzeichnis dieser Version aktualisieren:
+<code>
+hg update -C rev
+</code>
+
+Das patch-Depot aktualisieren:
+<code>
+cd .hg/patches
+hg pull -u
+</code>
+
+Die neuen patche anwenden:
+<code>
+cd ../..
+hg qpush -a
+</code>

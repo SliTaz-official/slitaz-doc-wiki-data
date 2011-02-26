@@ -1,0 +1,7 @@
+====== Verwalter (en: root) ======
+
+Der oberste Systemverwalter trägt in Linux stets den login-Namen "root" und hat ein eigenes Passwort. Der login-Name "root" ist fest. Das Passwort kann den Sicherheitsbedürfnissen vom Verwalter selbst angepasst werden. Nur er hat Zugriff zu allen Ressourcen des Systems!
+
+Siehe auch:
+
+  * [[de:start|deutsche Handbuch Startseite]]
