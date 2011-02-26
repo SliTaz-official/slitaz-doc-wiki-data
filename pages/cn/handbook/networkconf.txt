@@ -1,0 +1,195 @@
+======网络设置======
+
+=====以太网连接=====
+
+在启动时，Slitaz默认会在eth0上启动一个DHCP连接。如果你的网卡被识别为eth0，你又使用路由器，你的连接应该会正常工作。在每次启动 时，连接将会向DHCP服务器请求一个和路由器或者其它电脑结合在一起的新IP地址。如果你需要一个静态IP地址，你可以直接编辑配置文件或者使用 netbox，netbox可以从菜单-系统工具里找到。在Linux命令行或者终端里，你可以用ifconfig命令加上-a参数列出所有可用的 网络连接：
+<code> $ ifconfig -a </code>
+要显示内核的IP路由表，你可以使用//route//命令：
+<code> $ route </code>
+系统网络连接的配置文件是///etc/network.conf//。你可以用root账户直接编辑，也可以使用//netbox//来配置它。
+
+=====Netbox - 设置网络=====
+
+Netbox是一个设置网络连接的小程序，你可以使用DHCP或者自定义IP地址。各页面可以启动或停止网络连接，也可以修改网络设置。通过 Netbox，你可以直接修改网络配置文件，或者设置PPPOE的用户名、密码。你还可以直接设置SSH、DHCP、PXE、DNS之类的服务，或者使用内置的工具创建你的虚拟专用网络（VPN）。
+{{:en:handbook:image:netbox.png}}
+
+你可以通过“系统工具”菜单或者终端启动Netbox：
+<code>$ subox netbox</code>
+
+=====Wifibox - 无线网络的图形界面配置程序=====
+
+Wifibox是一个设置Wifi、WLAN或无线网络的图形界面配置程序。“网络”标签页会列出可用的网络，双击网络名称就可以连接了。如果网络加密，你还要输入密码。
+图片
+“喜爱”标签页可以让你设置喜爱的网络。当一个网络被加入时，双击就可以连接了。
+“设置”标签页可以让你手动设置连接的高级选项，例如模式、频道等。“驱动”标签页可以让你设置网卡，会出现三种情况：
+    -  网卡直接被内核支持；
+    -  网卡需要一个内核模块和非自由的驱动，可以通过自动选择工具（//tazhw//）安装；
+    -  网卡不支持Linux，可以通过Windows驱动管理器（//tazndis//）安装其Windows驱动。
+
+=====/etc/hostname - 设置计算机名称=====
+
+文件/etc/hostname设置计算机名称，它会在系统启动时自动加载。使用//hostname//命令可以得到当前的计算机名称：
+<code>$ hostame</code>
+要修改计算机名称，你可以使用//echo//命令或者文本编辑器在root权限下操作。下面是使用//echo//命令的一个示例（把计算机名称更改为//kayam//）：
+<code># echo "kayam" > /etc/hostname</code>
+
+=====/etc/network.conf=====
+
+///etc/network.conf//是Slitaz的网络配置文件。它的格式较简单，你可以通过一个文本编辑器编辑。系统启动时，这个文件会被///etc/init.d/network.sh// 使用，来设置网络连接。
+
+=====动态IP - DHCP客户端udhcpc=====
+
+DHCP客户端//udhcpc//由Busybox提供，在启动时会使用///usr/share/udhcpc/default.script//脚本动态获取IP地址。它支持一些选项，你可以通过//--help//选项查看：
+<code># udhcpc --help</code>
+要在开机时不使用//udhcpc//或者修改其指向的网络连接，你可以编辑配置文件///etc/network.conf//，把DHCP变量设置为相应的值。例如不使用//udhcpc//：
+<code>
+# Dynamic IP address.
+# Enable/disable DHCP client at boot time.
+DHCP="no"
+</code>
+=====静态IP - 使用指定IP地址=====
+
+在开机时你可以通过修改///etc/network.conf//设置动态IP。 首先，你要把STATIC的值设置为YES：
+<code>
+# Static IP address.
+# Enable/disable static IP at boot time.
+STATIC="yes"
+接下来，你要指定IP地址、子网掩码、默认网关和DNS服务器：
+# Set IP address, and netmask for a static IP.
+IP="192.168.0.6"
+NETMASK="255.255.255.0"
+ 
+# Set route gateway for a static IP.
+GATEWAY="192.168.0.1"
+ 
+# Set DNS server. for a static IP.
+DNS_SERVER="192.168.0.1"
+</code>
+=====内核模式的PPPOE连接=====
+
+通过内核模式的PPPOE连接上网，要修改2个文件。第一个文件是///etc/ppp/options// ，你要在里面写上你的用户名。
+<code>
+plugin rp-pppoe.so
+name <你的用户名>
+noipdefault
+defaultroute
+mtu 1492
+mru 1492
+lock
+</code>
+第二个文件是///etc/ppp/pap-secrets// 或者 ///etc/ppp/chap-secrets//:
+<code>
+# client server secret IP addresses
+"你的用户名" * "你的密码"
+</code>
+配置文件///etc/resolv.conf// 会自动加载。完成后，你要执行//pppd//命令来上网。
+<code>
+# pppd eth0</code>
+在装好的系统里，你可以通过修改启动脚本///etc/init.d/local.sh// 达到启动时自动连接的目的。
+
+=====通过rp-pppoe设置PPPOE=====
+
+要通过PPPOE上网，你可以使用//pppoe-setup//简单快捷地设置网络。现在中国大多ADSL都使用DHCP的方式，如果你也使用DHCP那 就更简单了，你的ISP（电信或者网通等等）会帮你设置好一切的。如果你不用DHCP，你要先修改///etc/network.conf// 中的DHCP=“no” ，修改的时候记得用上root账户。现在Slitaz都是图形界面的，我觉得用leafpad好一些。
+<code>
+$ su
+# tazpkg get-install rp-pppoe
+# leafpad /etc/network.conf</code>
+
+===使用pppoe-setup设置===
+
+要开始设置PPPOE连接，你得先打开终端或者Linux命令行，然后运行//pppoe-setup//，跟着设置。
+
+<code># pppoe-setup</code>
+
+    -  输入你的用户名。 
+    -  设置网络连接。除非你有多个网卡，否则就是eth0。 
+    -  如果你有一个永久的ADSL连接，就回答YES，否则就回答NO。 
+    -  指定你所在地网络运营商的首选和备用DNS地址（你可能要问问）。 
+    -  输入密码（要输两次）。 
+    -  根据硬件选择防火墙类型。如果你用路由器请选择1或2，如果不确定请选择1。
+
+===启动/停止连接===
+
+继续使用命令行，输入pppoe-start启动连接，几秒种后系统会提示成功连接。如果有TIMED OUT （超时）之类的提示，可能是你设置错了或者连接有问题。请检查你有没有写错配置文件，在安装过程中有没有选错选项。要开始连接，请输入：
+<code># pppoe-start</code>
+要停止，请输入
+<code>pppoe-stop</code>
+
+===额外配置((转自互联网，出处不明))===
+
+启动PPPOE连接后，我们还要配置内核IP路由表，否则会出现连接上但却不能访问网络的现象。 配置方法如下。
+1.查看路由表信息。
+<code># netstat -nr</code>
+这时的默认路由应该是上面获得的IP地址。
+2.执行下面命令,手动增加默认路由：
+<code># route add default gw 上面获得的IP地址</code>
+3.使用命令测试
+<code>nslookup www.slitaz.org</code>
+如果解析出Slitaz官方网站的IP，说明已经可以连接网络了。
+
+=====安装网卡驱动=====
+
+如果你不知道网卡驱动的名字，你可以用lspci命令去查找。要加载网卡驱动，可以用modprobe来加载内核模块。在LiveCD模式下你可以通过修改启动选项modprobe=module的方式来自动加载内核模块。要得到所有可用网卡的列表，显示PCI网卡和加载模块，你应 该这样做：
+<code>
+modprobe -l | grep drivers/net
+lspci | grep [Ee]th
+modprobe -v module_name</code>
+在装好的系统里要在每次启动时加载模块，只要添加模块名到///etc/rcS.conf// 里的//LOAD_MODULES// 后面就行了。
+
+=====使用Iptables管理防火墙=====
+
+Slitaz提供一个小巧的防火墙，内核安全规则在启动时会自动加载，默认情况下Iptables规则不会加载。你可通过文件///etc/firewall.conf//激活或禁用这些规则。 默认防火墙脚本以指定的内核选项选项开始，例如ICMP重定向、源路由协议、记录未解决地址和欺骗过滤等。这些脚本在配置文件///etc/firewall.conf//中的iptables_rules()函数中被定义。防火墙使用Iptables。它由///etc/firewall.conf//和///etc/init.d/firewall//两个文件组成，你不需要修改。Iptables有许多选项，欲知详情请看官方文档：http://www.netfilter.org/documentation/。
+
+===启动、停止或重启防火墙===
+
+/etc/init.d/firewall脚本可以让你启动、停止或重启防火墙，或者查看防火墙状态。有在添加新规则之后，我们可以通过重启来测试。例如：
+<code># /etc/init.d/firewall restart</code>
+
+===在启动时启用/禁用防火墙===
+
+要启用/禁用给内核指定的选项，可以修改配置文件中//KERNEL_SECURITY//的值：
+<code>
+# Enable/disable kernel security at boot time.
+KERNEL_SECURITY="yes"</code>
+要激活/停用iptables规则，修改IPTABLES_RULES变量：
+<code>
+# Enable/disable iptables rules.
+IPTABLES_RULES="yes"
+</code>
+===添加、删除或修改Iptables规则===
+
+在配置文件///etc/firewall.conf//的末尾，你可以找到函数//iptables_rules()//。这个函数包括所有Iptables命令。如果你要删除一条规则，建议在行首加上#来把它当成注释，而不要直接删掉。要禁用Iptables，只需修改//IPTABLES_RULES//变量即可。这是一个使用Iptables的例子。他只允许本机和局域网内的连接，端口80、22、21分别被HTTP服务器、SSH安全连接和FTP使用，其他的连 接都不被允许。这样就可以约束网络。
+<code>
+# Netfilter/iptables rules.
+# This shell function is included in /etc/init.d/firewall.sh
+# to start iptables rules.
+#
+iptables_rules()
+{
+ 
+# Drop all connections.
+iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+ 
+# Accept all on localhost (127.0.0.1).
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+ 
+# Accept all on the local network (192.168.0.0/24).
+iptables -A INPUT -s 192.168.0.0/24 -j ACCEPT
+iptables -A OUTPUT -d 192.168.0.0/24 -j ACCEPT
+ 
+# Accept port 80 for the HTTP server.
+iptables -A INPUT -i $INTERFACE -p tcp --sport 80 -j ACCEPT
+iptables -A OUTPUT -o $INTERFACE -p tcp --dport 80 -j ACCEPT
+ 
+# Accept port 22 for SSH.
+iptables -A INPUT -i $INTERFACE -p tcp --dport 22 -j ACCEPT
+iptables -A OUTPUT -o $INTERFACE -tcp --sport 22 -j ACCEPT
+ 
+# Accept port 21 for active FTP connections.
+iptables -A INPUT -i $INTERFACE -p tcp --dport 21 -j ACCEPT
+iptables -A OUTPUT -i $INTERFACE -p tcp --sport 21 -j ACCEPT
+ 
+}
+</code>

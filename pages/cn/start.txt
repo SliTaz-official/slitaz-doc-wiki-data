@@ -1,0 +1,23 @@
+====== 中文文档 ======
+
+==== 每月时讯 ====
+  * [[cn:handbook:newsletter|每月时讯]]  - Slitaz的每月时讯，给你Slitaz的最新动态和使用技巧。
+==== 使用指南 & 开发指南 ====
+
+  * [[cn:handbook:start|使用指南]] - 这本使用指南是Slitaz社区为Slitaz初级用户提供的文档。这本指南能帮助你快速在Slitaz起步，可以帮助你把Slitaz改变成你需要的系统。我们建议你首先阅读这本手册。这本手册包括关于LiveCD指南，软件包管理，网络管理，系统管理的内容和一些软件的帮助。
+  * [[cn:Cookbook:start|开发指南]] - 这本开发指南是关于发行版如何管理，运作，发展的文档。告诉开发者如何使用打包工具，软件包收条，启动脚本，rootcd和各种工具。
+  * [[cn:Scratchbook:start|制作指南]] - 这本制作指南是告诉高级用户如何编译内核，创建Linux发行版；安装图形服务器（Xvesa）和GTK应用等技术；以及如何从源代码构建GNU/Linux系统。
+==== 手册 ====
+  * [[cn:tazpkg:start|Tazpkg手册]]- Slitaz软件包管理器
+  * [[cn:tazlito:start|Tazlito手册]]- Slitaz Live CD 工具
+  * [[cn:tazUSB:start|TazUSB手册]]- Slitaz Live USB 工具
+  * [[cn:tazwok:start|Tazwok手册]]- Slitaz软件包打包工具
+==== Wiki资源 ====
+
+The [[http://community.slitaz.org/cn/node/29|Wiki]] 包括许多非官方Slitaz文档，例如常见问题、小提示、未修复BUG等。你可以自由编辑Wiki。
+
+[[http://sinolog.it/?p=1534|Linux下pppoe连接建立后仍不能上网的问题]]
+
+==== 发行笔记 ====
+  * [[http://www.slitaz.org/en/doc/releases/2.0/relnotes.en.html|SliTaz GNU/Linux 2.0 - 发行笔记]]
+  * [[http://www.slitaz.org/en/doc/releases/1.0/relnotes.en.html|SliTaz GNU/Linux 1.0 - 发行笔记]]

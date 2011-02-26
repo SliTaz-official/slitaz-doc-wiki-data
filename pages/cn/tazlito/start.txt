@@ -1,0 +1,5 @@
+==== Tazlito 手册 ====
+
+
+Tazlito 是一个用来解压LiveCD, 重制其光盘镜像的工具. Tazlito 也可以依据之前下载过来的安装包重新生成一个发行版. Tazlito 依据 /etc/slitaz-tools/tazlito.conf 或当前目录下的tazlito.conf 的配置来运行。 其可定义光盘镜像的文件名、卷标、 维护者和安装包及光盘镜像的路径. Tazlito 还可设置一个附加文件的目录,以便重制光盘时复制其内容至光盘镜像。
+Tazlito 以 GNU licence GPL V3声明发布, 预装于SliTaz ，经测试亦可安装使用于Debian GNU/Linux. 更多重制光盘镜像的内容请参阅Handbook.

@@ -1,0 +1,36 @@
+======软件包======
+
+=====Tazpkg - 软件包管理器=====
+
+Slitaz提供一个小型软件包管理器，它能轻易在系统里安装许多软件。Tazpkg是一个由SHell脚本写的轻量级的软件包管理器，能安 装.tazpkg文件。它能在Busybox、ash shell和bash中正常运行。Tazpkg可以让你列出软件包列表、安装软件包、删除软件包、下载软件包、解压软件包、打包软件包、查找软件包或者取 得有关可用软件包或所有已安装软件包的信息。在Slitaz里你可以在终端里输入 tazpkg usage 来得到带有简单介绍的所有命令英文列表。你可以阅读手册。
+===软件包列表===
+
+Tazpkg可以让你列出所有已安装软件包。要显示简单的已安装软件包列表，输入：
+<code>$ tazpkg list</code>
+要显示所有分类或者按分类整理的软件包，你要输入cat或者category。例如：
+<code>$ tazpkg list cat</code>
+<code>$ tazpkg list base-system</code>
+Tazpkg也可以创建一个xHTML的所有已安装软件包列表（默认是当前目录下的installed-packages.html）：
+installed-packages.html
+要得到源里的所有可用软件包列表，你可以使用list-mirror。
+
+===安装软件包===
+
+要安装例如The Gimp, AbiWord, ePDFView, Perl或者python之类新的程序你首先要和源同步软件包列表，然后安装。如果软件依赖的软件包没有安装，Tazpkg可以帮你安装。 例：Gparted（使用GNU parted的一个GTK+分区管理器）的安装。
+# tazpkg recharge
+# tazpkg get-install gparted
+升级软件包
+
+要保持你的系统最新最安全，在更新可用软件包列表之后，你可以用下面的命令安全更新所有有更新的软件包：
+# tazpkg upgrade
+===Tazpkg手册===
+
+Tazpkg[[http://www.slitaz.org/en/doc/manuals/tazpkg.en.html|手册]]包含许多有用的信息.
+
+=====Tazwok=====
+
+所有软件包都是用一个叫tazwok的工具和一个脚本制作的。脚本包含所有创建软件包的必要信息，以便在制作完成后让Tazpkg提供给我们软件包 信息、介绍等。在脚本中，compile_rules函数包含所有关于设置、编译、安装软件包的命令，把软件包安装在一个特定的文件夹里。编译完成 后,Tazwok会执行genpkg_rules函数来挑选必要的文件，然后创建.tazpkg文件（实际上的cpio格式的压缩文件）。在Slitaz 中你可以在/var/lib/tazpkg/installed中找到已安装软件的脚本，你可以参考参考。 Tazwok默认会在/home/slitaz/wok中搜索要编译的软件包，然后把创建好的软件包放入/home/slitaz/packages。这 些目录可以由Tazwok设置文件（/etc/tazwok.conf，或者当前目录下）设置。如果slitaz-toolchain安装了，你就可以不 需要那么多依赖关系来创建软件包了。实例：
+<code># tazwok new-tree pkgname --interactive</code>
+当一个新软件包树在wok里创建时，你可以编辑脚本，修改各种rules、函数，增加依赖到DEPENDS变量。要尝试第一个cook：
+<code># tazwok cook pkgname</code>
+要注意的是，你可以用tazwok genpkg再次浏览创建的文件，修改脚本或者仅仅重新创建。当你沉浸在完成工作的喜悦中时，你就可以通过tazpkg install安装软件包来测试了。

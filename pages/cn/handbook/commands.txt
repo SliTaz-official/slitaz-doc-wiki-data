@@ -1,0 +1,190 @@
+====== 命令行索引 ======
+
+===== 简介 =====
+
+本文档作为Slitaz的命令快速索引. Linux命令包括文件处理, 系统维护级网络管理等等. 你也可以在命令行下浏览网页，在IRC里聊天, 编辑脚本甚至玩游戏. 注意必需以root身份才能处理硬盘及光驱. 你可以使用命令-- //su// 变成系统管理员.
+
+===== 帮助及可用命令列表 =====
+
+大多数Linux命令都有提供本命令的帮助信息的选项。 通常此选项的形式为 <nowiki>--help </nowiki> . 以下命令列出拷贝命令的帮助信息。
+
+<code> $ cp --help </code>
+
+要列出所有可用命令列表, 只要按Tab键俩下就行了.列出由BusyBox提供的命令可用：
+<code> busybox --help. </code>
+
+===== 列出目录里的文件 =====
+
+要列出目录里的文件和文件夹，你可以使用ls命令。要想知道ls命令的所有选项，你可以使用–help选项。要简单地列出在当前目录中的文件：
+
+<code> $ ls </code>
+
+要列出包括隐藏文件在内的所有文件：
+
+<code> $ ls -al </code>
+
+列出其他目录中的文件
+
+<code> $ ls /home/slitaz </code>
+
+===== 改变所在目录 =====
+
+要进入其他文件夹，你可以使用cd命令：
+
+<code>
+ $ cd /usr/share/doc
+返回上级文件夹:
+ $ cd ..
+</code>
+
+要进入个人文件夹：
+
+<code>
+ $ cd
+ Or :
+ $ cd ~
+ Or :
+ $ cd $HOME
+</code>
+
+===== 复制文件 =====
+
+
+cp命令可以复制文件或文件夹。示例：复制当前文件夹的info.txt文件到当前文件夹下的Documents文件夹下：
+
+<code> $ cp info.txt Documents/ </code>
+
+复制整个文件夹。示例：复制Templates文件夹到/home/hacker：
+
+<code> $ cp -a Templates /home/hacker </code>
+
+===== 创建新文件夹 =====
+这个命令会床架一个新文件夹，下面的命令创建一个叫Projects的文件夹。它将会在当前目录下创建。示例：
+
+<code> $ mkdir Projects </code>
+
+在Projects文件夹下创建一个叫script-1.0的文件夹：
+
+<code> $ mkdir Projects/script-1.0 </code>
+
+你可以用-p选项创建多级目录.
+
+<code> $ mkdir -p one/two/three/four </code>
+
+===== 删除文件或文件夹 =====
+
+rm命令可以删除文件。用rm命令删除当前文件夹下的work.txt文件：
+
+<code> $ rm work.txt </code>
+
+要删除非空目录，我们可以使用-rf命令。例如：
+
+<code> $ rm -rf /home/hacker/Templates </code>
+
+你也可以使用-i选项交互式地删除文件或文件夹以及里面的文件：
+
+<code> $ rm -ir /home/hacker/Templates </code>
+
+===== 查看文本文件 =====
+
+可用less,more,cat命令查看文本文件.
+
+<code>
+ $ less -EM essential.txt
+ or :
+ $ more README
+ or :
+ $ cat /path/to/script.sh
+</code>
+
+补充：vi也可以
+===== 编辑文本文件 =====
+
+nano是个好选择, (<Ctrl+X> to quit and save):
+
+<code> $ nano Public/bookmarks.html </code>
+补充：vi 也可以
+===== Cat =====
+
+
+cat > txt 回车后会等待用户输入文本，可以用Ctrl+D结束输入.
+以下命令的意思是：读入输入的内容并保存到packages.list文件，（以EOF作为输入结束符号）
+
+<code>
+ $ cat > packages.list << "EOF"
+ The text...
+ and more text
+
+ EOF
+</code> 
+
+把 > 改为 >> 就变成添加输入的内容至packages.list文件尾.
+
+<code> 
+ $ cat >> packages.list << "EOF"
+ The text...
+ 
+ EOF
+</code> 
+
+===== 浏览网页 =====
+
+retawq就是在命令行下浏览网页用的。。
+
+<code> 
+ $ retawq http://www.slitaz.org/en
+ or :
+ $ retawq http://localhost/
+</code>
+ 补充：大家还是老老实实用Firefox吧..不推荐大家用其他诸如netsurf及本文提到的retawq..中文支持很烂。。
+===== 在 IRC 里聊天 =====
+
+你可以通过IRC服务器聊天或者传输文件。Slitaz提供了Rhapsody。 
+$ rhapsody
+/connect irc.freenode.net
+/join #slitaz
+补充：这个东西不好。。推荐大家用pidgin或其他客户端。。
+===== 下载文件 =====
+
+你可以使用wget下载文件。示例：
+<code>  $ wget http://www.slitaz.org/en/doc/handbook/ </code> 
+
+===== 显示可用硬盘分区列表 =====
+
+要列出硬盘的可用分区列表，你可以使用cat命令显示/proc/partitions的内容，或者使用fdisk命令加上-l选项。
+
+<code> 
+ $ cat /proc/partitions
+ or :
+ # fdisk -l
+</code>
+ 
+
+===== 挂载分区、CD或者USB设备 =====
+
+要在Slitaz挂载分区，建议使用/media或/mnt目录。示例：建立必要的文件夹并且挂载hda6分区（第一块硬盘的第一个逻辑分区）到/mnt /hda6
+
+<code> 
+ # mkdir -p /mnt/hda6
+ # mount  /dev/hda6 /mnt/hda6
+</code> 
+
+挂载光驱..
+
+<code>  # mount -t iso9660 /dev/cdrom /media/cdrom </code> 
+
+挂载U盘:
+
+<code>  # mount -t vfat /dev/flash /media/flash </code> 
+
+===== 关机与重启 =====
+
+要关闭或重启Slitaz, 可以使用halt和reboot或用<Ctrl+Alt+Delete>组合快捷键重启系统. 可以用-f选项强制关机/重启
+
+<code> 
+ # halt
+ To restart :
+ # reboot
+ Or :
+ # reboot -f
+</code> 

@@ -1,0 +1,27 @@
+======系统工具======
+
+=====Clex —— 命令行文件管理器=====
+
+Clex是基于命令行的文件管理器，具有详细的目录列表、目录比较、简单编辑等特性。 Clex是一个轻快、易用的文件管理器，可以通过/.clexrc 和 ~/.clexbm（书签）设置，或者在程序中按下Ctrl+G打开设置面板。要在命令行或者终端里启动Clex：
+<code>$ clex</code>
+
+=====PCManFM=====
+
+PCmanFM是一个十分有用的文件管理工具，它可以管理设备、在当前 文件夹打开终端，还有标签式浏览、创建文件或目录、拖拽和管理文件权限的功能。这个文件管理工具还可以搜索文件或者设置书签以提高访问速度。PCmanFM有很多命令行参数，你 可以设置桌面壁纸或者在新标签页中打开文件夹。下面是查看所有命令行参数的命令：
+<code> $ pcmanfm --help-all </code>
+PCmanFM还支持快捷键和文件右键菜单。
+
+===== LXTask —— 管理系统进程 =====
+
+LXTask是一款简易的进程管理器，和Windows下的任务管理器具有同样的功能。默认Slitaz中已经安装了LXTask，你可以在菜单 - 系统工具中找到。
+
+=====Mountbox —— 挂载设备 =====
+
+Mountbox是一个小巧的GTK+程序，它可以快速挂载U盘、硬盘、CDROM之类的设备。Mountbox可以从终端或者通过菜单 - 系统工具启动，启动之后指定设备并且选择挂载点就可以挂载设备了。
+
+===== Gparted —— 分区编辑器 =====
+
+GParted是一款linux下的功能非常强大的分区工具，和windows下的‘分区魔术师’类似，操作和显示上也很相似。GParted可以方便的创建、删除分区，也可以调整分区的大小和移动分区的位置。 GParted支持多种linux下常见的分区格式，包括ext2、ext4、fat、hfs、jfs、reiser4、reiserfs、xfs，甚至 ntfs。
+NTFS和FAT文件系统支持
+
+Cooking版本应该已经支持NTFS和FAT文件系统，如果发现不能挂载，要安装dosfstools、fuse、ntfs-3g和ntfsprogs几个工具。

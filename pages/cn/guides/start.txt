@@ -1,0 +1,77 @@
+== **配置个性化的桌面应用程序**
+ ==
+简介
+
+这个页面提供创建一个漂亮的桌面,通过SliTaz包管理器和配置文件的例子或调整现有应用程序的信息。
+
+首先安装使用的软件包:
+
+wbar
+
+tint2
+
+nitrogen
+
+cairo-clock
+
+
+我们要创建，修改或配置3个人主目录文件（点击链接下载文件或查看页面底部）：
+
+~/.wbar
+
+~/.config/tint2/tint2rc
+
+~/.config/openbox/autostart.sh
+
+
+Wbar和Tint2配置文件不存在，如果你从来没有开始之前的申请，但Openbox的自动启动脚本应该存在，因为它是默认的窗口管理器SliTaz。 保存配置文件和附件放在正确的目录中。
+
+
+开罗模拟桌面时钟需要“综合”扩展启用和复合管理器运行（包括由SliTaz默认激活）。 如果您使用的Xorg你必须调整你的xorg.conf文件。 我们的复合管理使用方式称为使用xcompmgr Slitaz，它重量轻，具有阴影，等等一些命令行选项
+
+
+要自动执行所有的应用程序时，您的X会话启动时，你必须编辑您最喜爱的编辑器Openbox的自动启动脚本，或者使用 图形界面 $（desktopbox自动启动）， 添加以下行：
+
+
+# Start the Freedesktop standard menu panel.
+
+#lxpanel &
+
+
+# Tint2 - Simple and clean panel.
+
+tint2 &
+
+
+# Desktop Wallpaper with Nitrogen.
+
+nitrogen --restore &
+
+
+# Desktop effects composer (xcompmgr -c -r 10 &).
+
+xcompmgr &
+
+
+
+# Wbar icons panel.
+
+(sleep 4 && wbar -above-desk -bpress -pos top center -isize 24 -jumpf 0 -zoomf 2.0 -balfa 0) &
+
+
+# Nice clock for the desktop.
+
+(sleep 2 && cairo-clock) &
+
+请务必注释掉lxpanel和修改PCmanfm喜好，处理桌面背景。 要选择你的图像：
+
+ $ nitrogen /usr/share/images 
+
+现在注销并登录到您的自定义桌面。 或终止当前进程，然后重新启动应用程序：
+
+$ killall lxpanel
+
+$ tint2 &
+
+$ wbar -above-desk -bpress -pos top center -isize 24 -jumpf 0 -zoomf 2.0 -balfa 0 &
+

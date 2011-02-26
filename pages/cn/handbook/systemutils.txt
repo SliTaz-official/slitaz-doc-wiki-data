@@ -1,0 +1,86 @@
+======系统管理======
+
+=====设备和磁盘=====
+
+在Linux下你的磁盘和USB设备都被看作设备。要读写它们你得先把这些设备挂载到一个文件夹（被称为挂载点）里。在Slitaz里你可以使用图形界面工具mountbox挂载设备，也可以用命令行挂载。要挂载第一个硬盘的第一个主要分区到/mnt/disk：
+<code># mkdir -p /mnt/disk
+# mount /dev/hda1 /mnt/disk</code>
+要挂载USB设备或者CDROM，建议使用/media文件夹下的目录作为挂载点。要注意的是，CDROM的挂载点已经确定好了，不输入挂载点也可以挂载：
+<code># mount /dev/cdrom
+# mount /dev/sda1 /media/flash</code>
+
+===ntfs文件系统===
+
+如果你需要读写Windows的ntfs文件系统，你要安装一些额外软件包。ntfs-3g可以让你稳定管理ntfs分区，ntfsprogs提供依赖于fuse的处理工具。要注意的是，你可以使用图形界面工具Gparted进行格式化、改变分区大小等操作。
+
+=====用户，组和密码=====
+
+要管理Slitaz里的用户和组你要使用命令行，cooking版本也有工具可以在图形界面下管理。要增加/删除用户和组你需要root权限。root可以更改所有用户的密码，普通用户只可以更改自己的密码。要增加/删除一个叫linux的用户：
+<code># adduser linux
+# deluser linux</code>
+要增加/删除一个组，你要使用addgroup或delgroup。要修改当权用户的密码，你得使用passwd命令：
+<code>$ passwd 
+# passwd username </code>
+
+===音频组===
+
+一个用户要听音乐，必须处于audio组中。要增加一个处在audio组的新用户：
+
+<code># adduser -G audio user_name</code>
+
+=====语言和键盘布局=====
+
+Slitaz把默认语言的设置保存在/etc/locale.conf中，每次登陆的时候会被/etc/profile读取。默认的键盘布局保存在 /etc/kmap.conf。这两个文件可以用文本编辑器编辑，也可以用tazlocale和tazkmap设定。这些设置在第一次启动时就已经设置 好，你可以用下列命令修改它们：
+<code># tazlocale
+或者
+# tazkmap</code>
+要查看所有可用语言或者你当前的设置，你可以使用locale命令：（如果显示C，就是英文）
+<code>$ locale -a
+$ locale</code>
+
+=====Bash Shell=====
+
+在Slitaz里，你有一个由Busybox提供的命令解析器。如果你想使用Bash(Bourne Again SHell)，首先要用root账户安装bash，然后复制.profile并改名成.bashrc，然后编辑/etc/passwd，把你的shell 改变成 :/bin/bash
+<code>
+# tazpkg get-install bash
+# cp /home/hacker/.profile home/hacker/.bashrc
+# Note root user: cp /home/hacker/.profile ~/.bashrc
+# nano /etc/passwd # :/bin/bash</code>
+下次登陆的时候你的命令解析器就变成bash了，你可以输入env来确认。
+
+=====编辑器=====
+
+Slitaz提供了一个VI编辑器的复制品，不过它有它的局限性。你可以用下列命令安装完整的vim：
+<code># tazpkg get-install vim</code>
+如果你更喜欢emacs，你可以安装slitaz提供的emac精简版：
+<code># tazpkg get-install emacs</code>
+
+=====Sudo=====
+
+sudo命令可以在Slitaz里安装使用：
+<code># tazpkg get-install sudo</code>
+要注意的是配置文件/etc/sudoers永远都应该由visudo命令编辑，否则写错就麻烦了。
+
+=====系统时间=====
+
+要想知道当前的系统时间，你可以输入date命令。在Slitaz里，时区的配置文件保存在/etc/TZ，你可以编辑它，或者直接使用echo来修改， 在cooking版本中还可以使用图形界面工具tazctrlbox修改。可用时区列表详见/usr/share/zoneinfo文件夹、这是个使用欧 洲/伦敦时间的例子：
+<code># echo "Europe/London" > /etc/TZ</code>
+
+===使用rdate同步时间===
+
+要通过网络时间服务器同步系统时间，你可以使用root运行rdate -s命令：
+<code># rdate -s tick.greyware.com</code>
+要显示远程服务器的时间，使用rdate -p命令：
+<code>$ rdate -p tick.greyware.com</code>
+
+===Hwclock===
+
+Hwclock可以同步硬件时间到系统时间，也可以同步系统时间到硬件时间。 要同步系统时间到硬件时间（–utc=协调世界时，-l=本地时间）：
+<code># hwclock -w --utc</code>
+要同步系统时间到硬件时间：
+<code># hwclock -s --utc</code>
+
+=====添加开机启动脚本=====
+
+在开机过程中，各种脚本会运行以设置一些服务，例如web服务器、网络等等。slitaz里/etc/init.d/local.sh脚本可以添加一些开机启动命令。你也可以在/etc/init.d里创建新脚本。
+<code># nano /etc/init.d/local.sh</code>

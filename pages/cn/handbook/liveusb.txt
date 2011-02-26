@@ -1,0 +1,28 @@
+======LiveUSB 设备======
+
+=====Tazusb - Live USB 工具=====
+
+Tazusb是一个能让你使用几个简单的命令就可以创建可启动USB设备的工具。它也可以压缩和备份当前的文件系统，这样就可以保存所作的修改，以便将来使用。要想只要有什么命令，你可以输入tazusb usage来显示或者阅读TazUSB手册。
+
+=====创建自己的LiveUSB设备=====
+
+要创建自己的USB设备，你要使用su命令再输入密码root来切换成root用户，然后用这个命令找出你的USB设备：
+<code># fdisk -l    #注释： 通常是 /dev/sda1</code>
+然后格式化你的设备（警告：这会移除所有数据，并且把USB设备格式化成EXT3格式，只能用于U盘，如果在MP3/MP4等设备上使用，将会出现各种各样的问题）：
+<code># tazusb format /dev/sda1</code>
+最后创建LiveUSB介质：
+<code># tazusb gen-liveusb /dev/sda1</code>
+这就是你要做的全部，现在你可以从USB介质启动Slitaz了（需要主板支持从USB介质启动，详情百度或Google关于在U盘安装系统的文章）。
+
+=====保存系统设置=====
+
+当你在USB设备里使用完毕准备关机时，记得先保存你的设置，生成一个新的根目录。Slitaz默认不会这样做的，如果你鲁莽关机，那么你在所有在非个人文件夹的新文件就统统还原了，和没用过一样。 你有三种选择：第一种是保存成lzma，第二种是保存成gzip，第三种是不压缩。 第一种和第二种会把当前根目录压缩，然后打包，花费的时间可能会很长。可以使用下列命令来保存成lzma或gzip：
+<code># tazusb writefs lzma</code>
+<code># tazusb writefs gzip</code>
+第三种会不经过压缩直接打包根目录，一般几秒就可以完成，不过制作出来的rootfs.gz文件会很大。可以使用下列命令来不压缩保存：
+<code># tazusb writefs none</code>
+这些命令会把根目录保存到 LiveUSB设备/boot/root.gz 中。如果找不到指定目录，就会把rootfs.gz保存在根目录下，你可以自己移动文件。 正确保存在指定目录后原来的rootfs.gz不会被删除，而是改了个名字。如果新的rootfs.gz出了什么问题，你可以在启动显示boot:时输入previous来回滚到原来的系统。
+
+=====Tazusb手册=====
+
+Tazusb官方手册可以在Slitaz网站文档下找到.这包含着许多信息。手册还可以在系统的“文档”菜单下找到。 Tazusb的制作者还写了一篇关于这个程序的文章。

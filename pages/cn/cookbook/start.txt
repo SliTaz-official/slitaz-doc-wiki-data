@@ -1,0 +1,16 @@
+====== Slitaz 开发手册 ======
+
+===== 说明 =====
+
+本手册为Slitaz的开发手册，根据Slitaz的官方[[http://www.slitaz.org/en/doc/cookbook/index.html|英文版手册]]翻译而来。
+
+
+==== 安装指南 ====
+
+  * [[http://www.slitaz.org/en/doc/cookbook/wok-tools.html|Wok & Tools ]] - 打包工具。
+  * Receipts - 创建软件包的脚本。
+  * Build Host - SliTaz 编译主机(tank). 
+  * Boot Scripts - 启动和关机脚本. 
+  * SliTaz Tools - Slitaz工具.
+  * Release Tasks - 新版本发布前的任务列表. 
+  * Root cdrom (rootcd) - 光盘说明文件.

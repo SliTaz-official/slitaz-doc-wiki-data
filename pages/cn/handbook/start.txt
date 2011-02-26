@@ -1,0 +1,67 @@
+====== Slitaz 中文手册 ======
+
+===== 说明 =====
+
+本手册为Slitaz的中文手册，根据Slitaz的官方[[http://www.slitaz.org/en/doc/handbook/|英文版手册]]翻译而来。
+
+
+===== 主目录 =====
+
+
+==== 安装指南 ====
+
+
+  * [[livecd]]- 如何启动Slitaz LiveCD，如何使用启动参数
+
+  * [[desktop|桌面系统]] - 设置桌面和窗口管理器
+
+  * [[commands|命令]] - 可用命令列表
+
+  * [[installation|硬盘安装指南]]- 硬盘安装Slitaz
+==== 软件手册 ====
+
+  * [[utilities|实用程序]] - 计算器，文本编辑器，DVD、ISO创建
+
+  * [[office|办公]]- 文字处理，PDF阅读器
+
+  * [[http://hi.baidu.com/slitazcn/blog/item/888d84c8afa6c6f652664f87.html|网络]] - 浏览器，IRC连接器，邮件客户端，BT客户端，FTP
+
+  * [[http://hi.baidu.com/slitazcn/blog/item/084476f3297c2aa4a40f5280.html|图形]] - 计算机图形处理，图形管理
+
+  * [[http://hi.baidu.com/slitazcn/blog/item/6bac461599a23f4120a4e983.html|开发]]- SHell脚本，Perl，Python和Slitaz Toolchain
+
+  * [[http://hi.baidu.com/slitazcn/blog/item/0857bfa24c9302804710648c.html|多媒体]] - 声音，音乐，图像
+  * [[systemtools|系统工具]] - 文件管理，磁盘管理，其他工具
+
+
+==== 系统手册 ====
+
+  * [[packages|软件包]] - 添加更多的软件，保持你的系统最新
+
+  * [[networkconf|网络配置]] - 以太网，DHCP，公网IP，PPPOE，防火墙
+
+  * [[systemutils|系统管理]] - 挂载设备，管理用户和组，改变系统时间
+
+  * [[xwindow|X Window系统]] - Xvesa和Xorg系统，Slim登录管理器和窗口管理器
+
+  * [[http://hi.baidu.com/slitazcn/blog/item/7233064cca7d873dafc3ab90.html|创建衍生版本LiveCD]] - 使用TazLito创建你的LiveCD衍生版本
+
+  * [[liveusb|USB Live设备]] - 用TazUSB创建可启动USB设备
+
+  * [[webserver|Web服务器]] - 设置和使用LightTPD Web服务器
+
+  * [[chroot|Chroot环境]] -创建chroot环境来保护主机系统
+
+  * [[ssh|Secure SHell (SSH)]] - 使用Dropbear SSH 客户端/服务器 安全登录
+
+  * [[security|系统安全]] - Slitaz系统安全
+
+
+==== 其他窗口管理器 ====
+
+
+[[http://hi.baidu.com/slitazcn/blog/item/af5e4e359e3c5ed6a3cc2b9d.html|Enlightenment]] - 一个小巧的桌面系统
+
+JWM  - 轻量级窗口管理器
+
+xfce  -轻量级窗口管理器

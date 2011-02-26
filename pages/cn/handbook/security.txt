@@ -1,0 +1,26 @@
+======系统安全======
+
+Slitaz提供许多关于系统安全的信息。软件在进入稳定发行版之前会经过几个月的测试。在启动的时候，服务会由rc脚本运行。要想知道开机自启动的服务列表，你可以查阅/etc/rcS.conf中的RUN_DAEMONS变量：
+<code>$ cat /etc/rcS.conf | grep RUN_DAEMONS</code>
+要显示当前进程及其PID、内存使用，你可以使用ps命令或者htop程序（需安装）：
+<code>$ ps
+$ htop</code>
+
+=====Root ──系统管理员=====
+
+在GNU/Linux里，root用户是系统管理员。root拥有控制系统的最高权限。最好不要以root用户登录系统，要用到root权限的时候再通过 一些命令执行。如果用root用户登录，你将拥有最大权限，要是一不小心犯了一些错误，那就会一直错下去，没有办法挽回。如果用来上网，中毒、被黑客骇客 控制的几率也高多了。 一个GNU/Linux至少要有两个用户，一个是用来使用的，另一个（root）是用来管理、设置、升级系统的。当然，也可以把系统的管理权转移给一个用户。
+
+=====密码=====
+
+在默认的情况下，Slitaz用户（Stable版是hacker,Cooking版是tux）是没有密码的，root用户的密码是root。你可以用下列命令修改密码：
+<code>$ passwd
+# passwd</code>
+
+=====Busybox=====
+
+busybox.conf配置文件可以设置程序类型和各自的方法。在Slitaz LiveCD里， su, passwd, loadkmap, mount, reboot 和 halt 命令可以被所有用户执行──这些命令的所有者和组是root（* = ssx root.root）。busybox.conf只能被root读取，权限是600。要注意的是。非root用户使用passwd命令只能更改自己的密 码。
+
+=====Pscan - 端口扫描=====
+
+Pscan是一个Busybox中的小工具，它可以扫描电脑的端口。 你可以通过IP地址或机器名称指定，用它来扫描本机或者远程机器。Pscan默认会测试1 - 1024端口，并且列出打开的端口及其规则、与其关联的的服务（SSH，www等等）：
+<code>$ pscan localhost</code>

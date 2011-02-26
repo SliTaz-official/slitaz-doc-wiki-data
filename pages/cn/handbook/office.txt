@@ -1,0 +1,24 @@
+======办公======
+
+=====AbiWord=====
+
+Abiword是一个强大的文字处理程序，它拥有各种小巧、轻捷的工具，支持独特的文件格式(.abw)，也支持微软的.doc文件和Open Office文件。它可以把文件输出为PDF或HTML。安装Abiword：
+<code># tazpkg get-install abiword</code>
+
+=====Osmo ── 个人日程安排工具=====
+
+Osmo是一个个人日程安排工具，可以储存日历、任务、联系人。它的配置保存在~/.osmo文件夹中（这是个隐藏文件夹）。
+
+=====SQLite ── 轻量级 SQL 数据库管理系统=====
+
+SQLite是一个与SQL有关的数据库引擎，它可以把数据库储存在单个 文件中。SQLite快速、强大，并且基本支持SQL92标准。SQLite常用于小型网站的部署。SQLite的官方网站：http://www.sqlite.org/
+
+===== ePDFView ── 轻量级PDF浏览器 =====
+
+Slitaz使用ePDFView来浏览PDF文件。这个软件小巧、快捷、易用，它使用GTK+，并用poppler库来渲染。它能让你轻松阅读PDF文件。
+
+===== Gnumeric ── 电子表格 =====
+
+Gnumeric是一个免费的电子表格软件，支持诸如CSV、Microsoft Exel、Latex、HTML等多种格式，也提供一种独特的格式：.gnumeric。它也是统计最准确的表格软件。
+ 执行以下命令安装Gnumeric：
+<code># tazpkg get-install gnumeric</code>

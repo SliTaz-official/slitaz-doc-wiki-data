@@ -1,0 +1,102 @@
+======Lighttpd WEB服务器======
+=====关于 Lighttpd=====
+Lighttpd是一个小巧的Web服务器，你可以用下列命令安装它：
+<code># tazpkg get-install lighttpd</code>
+安装完毕后，可以在/etc/rcS.conf的RUN_DAEMONS字段里加入lighttpd来在开机时自行启动lighttpd。根目录的文件默认在/var/www，这包含了默认的index.html页面，默认页的图片保存在images/。lighttpd官网：http://www.lighttpd.net/
+
+=====/var/www - 文档根目录=====
+
+/var/www时文档的根目录，你可以通过URL http://localhost/ 来访问。你可以在这里保存你所有的文档。如果你想要几个网站，你需要创建虚拟主机。注意：你可以查看 http://localhost/server-status 。
+
+=====~/Public 用户公共文件夹=====
+
+Slitaz提供给系统用户一个公共空间存放文档。这个目录的名字叫Public，必须在你的个人目录下，例如/home/tux/Public。要创建目录，使用mkdir命令：
+<code>$ mkdir ~/Public</code>
+你可以通过这个URL来访问：http://localhost/~tux/ （tux是你的用户名）。要从其他电脑访问，你可以使用机器名或者IP地址。
+
+=====/etc/lighttpd/lighttpd.conf - Lighttpd配置文件=====
+
+lighttpd的配置文件(lighttpd.conf)位于/etc/lighttpd/。Slitaz提供的这个文件没有注释，直接浏览就可以了。你可以在lighttpd的官网找到其它示例。在Slitaz里你可以找到vhosts.conf来设置虚拟主机。
+
+=====启动、停止、重启Lighttpd=====
+
+<code>
+启动：
+# /etc/init.d/lighttpd start
+停止：
+# /etc/init.d/lighttpd stop
+重启：
+# /etc/init.d/lighttpd start
+</code>
+
+=====使用Perl的CGI脚本=====
+
+要在lighttpd里设置perl可执行文件的路径和使用CGI/Perl，你需要安装perl然后修改lighttpd的配置文件。一个使用geany的示例：
+<code>
+# tazpkg get-install perl
+# geany /etc/lighttpd/lighttpd.conf &# CGI module. You can install Perl and assign .pl and .cgi scripts
+# to /usr/bin/perl
+$HTTP["url"] =~ "/cgi-bin/" {
+cgi.assign = (
+".sh" => "/bin/sh",
+".cgi" => "/usr/bin/perl,
+".pl" => "/usr/bin/perl
+)
+}
+</code>
+=====使用Python的CGI脚本=====
+
+要在lighttpd里设置python可执行文件的路径和使用CGI/Python，你需要安装python然后修改lighttpd的配置文件。一个使用geany的示例：
+<code>
+# tazpkg get-install python
+# geany /etc/lighttpd/lighttpd.conf &# CGI module. You can install Python and assign .py and .cgi scripts
+# to /usr/bin/python
+$HTTP["url"] =~ "/cgi-bin/" {
+cgi.assign = (
+".sh" => "/bin/sh",
+".cgi" => "/usr/bin/python,
+".py" => "/usr/bin/pyth# CGI module. You can install Python and assign .py and .cgi scripts
+# to /usr/bin/python
+$HTTP["url"] =~ "/cgi-bin/" {
+cgi.assign = (
+".sh" => "/bin/sh",
+".cgi" => "/usr/bin/python,
+".py" => "/usr/bin/python
+)
+}
+</code>
+=====Authentication ── 目录的保护=====
+
+Lighttpd提供Authentication模块，它可以保护一个文档。Lighttpd提供一些Authentication方法，不过我们将只 会使用最基本的方法，而且不加密。为了能使用mod_auth模块，你必须安装lighttpd-modules模块（tazpkg get-install lighttpd-modules）。安装后，mod_auth必须加入模块列表：
+<code>
+# Modules to load.
+# See /usr/lib/lighttpd for all available modules.
+#
+server.modules = (
+"mod_access",
+"mod_auth",
+"...",
+)
+</code>
+现在你就可以进入调试，指定方法，指定包含文件列表的、使用密码加密来使用的目录来设置模块。你还要声明保护的目录。在这个例子里我们将保护admin/目录然后授权tux用户来访问它：
+<code>
+# Authentication for protected directory.
+auth.debug = 2
+auth.backend = "plain"
+auth.backend.plain.userfile = "/etc/lighttpd/plain.passwd"
+auth.require = ( "/admin/" =>
+(
+"method" => "basic",
+"realm" => "Password protected area",
+"require" => "user=tux"
+)
+)
+</code>
+最后，我们要创建包含密码的文件，重启lighttpd，如果指定用户未创建还要创建。这个文件最基本的语法是user:password。你可以用echo命令或者你最喜欢的编辑器来创建文件。要增加tux:root到密码文件/etc/lighttpd/plain.passwd：
+<code>
+# echo "hacker:root" > /etc/lighttpd/plain.passwd
+或者 :
+# leafpad /etc/lighttpd/plain.passwd
+<code>
+要测试地址http://localhost/admin/，重启lighttpd就行了：
+<code># /etc/init.d/lighttpd restart</code>

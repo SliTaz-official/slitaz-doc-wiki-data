@@ -1,0 +1,37 @@
+======Secure Shell(SSH)======
+
+=====关于 Dropbear=====
+
+你可以使用Dropbear SSH secure 服务器远程控制和管理。Dropbear是一个支持SSH 2的轻量级SSH客户端/服务器。它可以兼容OpenSSH和使用/.ssh/authorized_keys文件来管理公共密码。Dropbear提供 自己的scp版本，可以允许你在两台装有secure manner的电脑上复制文件。 计划官网：http://matt.ucc.asn.au/dropbear/dropbear.html
+
+=====使用dbclient连接到远程电脑=====
+
+SSH客户端的配置文件位于每个用户的~/.ssh文件夹，这包括authorized_keys和 known_hosts文件。~/.ssh和known_hosts文件会在你第一次运行Dropbear client (dbclient)的时候自动创建。 要连接到一个远程电脑（user是用户，machine.org是地址）：
+<code>$ dbclient user@machine.org</code>
+你也可以使用机器的IP地址：
+<code>$ dbclient user@192.168.0.2</code>
+
+=====使用scp传输远程文件=====
+
+你可以利用scp来 在电脑间复制文件。要复制一个叫page.html的文件到一个远程的用户文件夹（不要忘记机器名/IP地址后的“:”）：
+<code>$ scp page.html user@machine.org:path/remote/directory</code>
+复制远程机器上的文件到你的电脑：
+<code>$ scp user@machine.org:path/remote/directory/page.html /path/your/directory</code>
+
+=====使用 dropbearkey 来创建 rsa/dss 密码=====
+
+Dropbear提供dropbearkey来创建受保护的rsa和dss密码。注意：当你第一次启动这个server的时候，安全密码就会自动创建。你可以使用deopbear加上一些参数：
+<code># dropbearkey -t rsa -f /etc/dropbear/dropbear_rsa_host_key
+# dropbearkey -t dss -f /etc/dropbear/dropbear_dss_host_key</code>
+
+=====启动、停止、重启SSH server=====
+
+默认Slitaz不会在系统启动时启动SSH server。要在系统启动时启动，需要把dropbear添加到/etc/rcS.conf中的RUN_DAEMONS字段。
+<code>
+启动：
+# /etc/init.d/dropbear start
+停止：
+# /etc/init.d/dropbear stop
+重启：
+# /etc/init.d/dropbear restart
+</code>

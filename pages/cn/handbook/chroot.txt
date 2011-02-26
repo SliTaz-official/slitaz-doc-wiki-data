@@ -1,0 +1,102 @@
+====== Chroot 环境 ======
+
+
+本文档叙述如何构建一个 chrooted 环境的必要步骤, 以改变系统根目录的位置. 这样在此chroot环境上编译测试就不会有影响到宿主系统的风险. 宿主系统可以是安装在硬盘上的Slitaz也可以是其他Linux发行版，如 Debian, Fedora, PCLinuxOS 等等. 要构建一个Chroot环境，你所需要的仅仅是一个可用的Slitaz ISO镜像和一点点时间. 注意所有命令都是以管理员(root)身份执行的。
+
+注意
+以下方法适用于所有Linux发行版，Slitaz的话，有更简便的方法，可以用tazlito extract-iso 解压 slitaz ISO镜像\\
+参考：[[http://community.slitaz.org/node/47|Slitaz光盘重制基本歩骤]]
+===== 准备阶段 (适用于所有Linux发行版)=====
+
+
+开始之前，我们必须把Slitaz ISO里的Live系统解压出来作为chroot环境. 可以解压到任意位置, 比如 ///home/slitaz/chroot-env//. 这里假设slitaz ISO就在此目录。
+
+挂载slitaz iso文件，拷贝里面的rootfs.gz至当前目录。
+<code>
+ # mkdir /tmp/loop
+ # mount -o loop slitaz-cooking.iso /tmp/loop
+ # mkdir -p /home/slitaz/chroot-env
+ # cp /tmp/loop/boot/rootfs.gz \
+   /home/slitaz/chroot-env
+ # umount /tmp/loop
+</code>
+
+解压此rootfs.gz文件至当前文件夹
+
+<code>
+ # cd /home/slitaz/chroot-env
+ # (zcat rootfs.gz 2>/dev/null || lzma d rootfs.gz -so) | cpio -id
+ # rm rootfs rootfs.gz
+</code>
+
+若解压失败，请尝试一下方法解压。。
+
+<code>
+ # unlzma rootfs.gz -S .gz 
+ # cat rootfs | cpio -id
+</code>
+
+=== 改变根目录位置chroot ===
+
+要使用此解压出来的系统，必须要挂载一些虚拟硬盘及使用chroot命令。 为了便利，我们写了个自动化脚本以完成这一步。 我们解压的系统在 ///home/slitaz/chroot-env// 新建一个脚本 chroot_in_env.sh 放在 ///home/slitaz//. 在非Slitaz系统下可以取消 ///dev// 及 ///tmp//的注释 - 注意：可以复制粘贴一下内容..
+
+<code> # cat > /home/slitaz/chroot_in_env.sh << "EOF" 
+
+#!/bin/sh
+# Chroot in SliTaz to hack.
+#
+ROOTFS="/home/slitaz/chroot-env"
+
+# Mount virtual Kernel file systems and chroot.
+#
+#mount --bind /dev $ROOTFS/dev
+#mount --bind /tmp $ROOTFS/tmp
+mount -t proc proc $ROOTFS/proc
+mount -t sysfs sysfs $ROOTFS/sys
+mount -t devpts devpts $ROOTFS/dev/pts
+mount -t tmpfs shm $ROOTFS/dev/shm
+
+echo "Chrooting into $ROOTFS... "
+chroot $ROOTFS /bin/sh --login
+
+# Unmount virtual Kernel file systems on exit.
+#
+umount $ROOTFS/dev/shm
+umount $ROOTFS/dev/pts
+umount $ROOTFS/sys
+umount $ROOTFS/proc
+#umount $ROOTFS/tmp
+#umount $ROOTFS/dev
+
+echo "Exiting $ROOTFS chroot environment... "
+
+EOF
+
+</code>
+
+修改脚本文件属性为可执行。
+
+<code>
+ # chmod +x /home/slitaz/chroot_in_env.sh
+ # sh /home/slitaz/chroot_in_env.sh
+</code>
+
+激活网络。
+ <code> # udhcpc -i eth1 </code>
+
+===== 安装 安装包 =====
+
+若可以上网的话，就可以用tazpkg get-install这个命令从仓库安装包了。
+
+ <code># tazpkg recharge
+ # tazpkg get-install slitaz-toolchain </code>
+
+配置好后，你就可以在宿主Linux下测试Slitaz系统了.Cookbook里会有更详细的说明。
+
+===== Exit the environment =====
+要退出chroot环境，只要输入exit就OK了。。
+
+<code>
+ # exit
+ #
+</code>

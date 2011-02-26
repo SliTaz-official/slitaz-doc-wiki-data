@@ -1,0 +1,94 @@
+======X window======
+
+=====X11 - X Window系统=====
+
+X Window系统和X11提供一个在X Server上运行的窗口管理器。Slitaz默认使用Xorg计划组提供的轻量级X server ── Xvesa。Xvesa可以通过Slim登录管理器启动或者直接在终端里运行startx，不过想要直接startx必须禁用登录管理器。你可以以 root权限运行tazx来重新设置X会话。
+
+=====Tazx - Slitaz X 设置工具 =====
+
+Tazx是一个管理X window会话的Slitaz工具，你只要简单地选择并且按下OK就可以完成设置。当你选择Xorg的时候，你需要根据你的硬件选择显卡驱动。第一次运行startx命令后，设置程序将会把会话设置文件保存到~/.xsession和~/.xinitrc。这些 文件将被startx命令和Slim登录管理器使用，可以简单地用文本编辑器来编辑。Tazx可以更改你的默认窗口管理器，下面的命令可以把窗口管理器更改为jwm：
+
+<code>tazx jwm</code>
+
+=====Slim - Simple Login Manager（简单登录管理器）=====
+
+Slim是一个易设置的轻量级会话管理器，它可以使用系统主题定制。Slim的设置文件是/etc/slim.conf。你可以定义按下F1时可选择的窗口管理器，可以设置默认用户和主题，还可以设置X Window的参数。Slim提供专门的用户命令来协助管理X会话。 在LiveCD模式你可以使用screen=text启动参数来禁用Slim窗口管理器。在安装好的系统里你可以删除Slim软件包或者删除/etc/rcS.conf中RUN_DAEMONS变量里的Slim。 想得到Slim的主题和详细资料，你可以访问Slim官方网站。
+
+===默认用户===
+
+Slim可以预加载用户名，这样可以很方便地进入系统。你可以修改/etc/slim.conf中的default_user行来改变预加载的用户名，或者删除这行来关闭预加载功能。示例：
+default_user username
+
+=====Xorg=====
+
+Slitaz默认提供的是迷你Xserver──Xvesa。Xorg Server可以通过安装软件包来实现。Xorg是一个完整的X server，不过要占用更多资源。如果Xvesa使用起来没什么不便，就没有必要装Xorg了。 Xorg的安装、设置比较简单，你也可以随时用回Xvesa。Xorg是模块化的，你要安装X server、一些配置文件和正确的显卡驱动。不过xorg-server依赖于配置文件之类的东西，只要安装xorg-server软件包就可以把其它 东西装上了。如果你不知道要用什么显卡驱动，你就不要改动配置文件，这样你默认会使用通用的vesa驱动。最小安装：
+<code># tazpkg get-install xorg-server</code>
+安装以后，如果已经安装显卡驱动，你就可以直接配置了。示例：列出所有可用驱动列表，安装Nvidia驱动。
+<code>列表：
+# tazpkg search xorg-xf86-video
+安装：
+# tazpkg get-install xorg-xf86-video-nv</code>
+
+===自动设置X Server===
+
+你可以通过两种方式设置X server：Xorg -configure和脚本xorgconfig。建议你使用Xorg -configure。Xorg -configure必须要在X Server没有启动的命令行模式下使用，关闭所有程序后按下Ctrl+Alt+Del就可以进入了。登录后运行Xorg -configure然后把生成的配置文件复制到/etc/X11：
+# Xorg -configure
+# cp /root/xorg.conf.new /etc/X11/xorg.conf
+最后你要改变Slim的配置文件来用Xorg代替Xvesa，然后重启窗口管理器。
+
+===让Slim和Xorg共舞===
+
+在Slim的配置文件(/etc/slim.conf)里，我们需要注释掉和Slim有关系的行，然后改变default_xserver为Xorg：
+<code>
+default_xserver /usr/bin/Xorg
+#default_xserver /usr/bin/Xvesa
+#xserver_arguments -ac -shadow dpms +extension Composite -screen 1024x768x24
+</code>
+现在我们就可以启动Slim来返回X会话了。Slim是以服务形式工作的，你可以在命令行下输入以下命令来启动Slim：
+<code># /etc/init.d/slim start</code>
+
+===xorg.conf - 配置文件===
+
+Xorg使用/etc/X11/xorg.conf配置文件。这个文件可以自动创建，也可以手动编辑。这个文件分成几个区域，包括path的说明， 要加载的模块，默认分辨率，键盘，鼠标等等。这个文件只提供一些示例，你可以运行xorgconfig来创建一个完整的配置文件当做例子。 键盘（en布局）：
+<code>
+Section "InputDevice"
+Identifier "Keyboard0"
+Driver "kbd"
+Option "XkbRules" "xorg"
+Option "XkbModel" "pc105"
+Option "XkbLayout" "en"
+Option "XkbVariant" "en"
+EndSection
+</code>
+自动设置鼠标：
+<code>
+Section "InputDevice"
+Identifier "Mouse0"
+Driver "mouse"
+Option "Protocol" "auto"
+Option "Device" "/dev/input/mice"
+Option "ZAxisMapping" "4 5 6 7"
+EndSection
+</code>
+复合特效：
+<code>
+Section "Extensions"
+Option "Composite" "1"
+EndSection
+</code>
+
+=====把Xvesa作为X终端=====
+
+如果你有一个允许Xdmcp连接的联网机器，你可以把Xvesa作为X终端。你可以附带-query IP地址 启动Xvesa来这样做。例如：
+$ Xvesa -ac -shadow -screen 1024x768x24 -query 192.168.0.2
+
+=====字体=====
+
+字体的管理是由fontconfig软件包提供的。这个软件包提供工具来添加、列表和使用字体。字体可以在系统目录安装，也可以在个人目录安装。系 统目录安装的字体所有用户都可以使用，不过需要root权限添加，个人目录安装的字体只能由特定用户使用。在USB设备中安装的Slitaz里的字体如果 安装在个人目录，下次启动时可以保存。
+
+===安装字体===
+
+系统级别的文字安装在/usr/share/fonts文件夹，个人的字体安装在~/目录下的隐藏文件夹.fonts。这个目录默认是没有创建的，要创建它可以使用文件管理器，或者执行下列命令：
+$ mkdir ~/.fonts
+字体安装完后要运行fc-cache来创建配置文件，这样才能在应用程序中使用已安装的字体：
+$ fc-cache

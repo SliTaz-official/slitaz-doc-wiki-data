@@ -1,0 +1,80 @@
+====== Desktop ======
+
+===== Introduction =====
+
+Slitaz的默认桌面是由LXDE项目的不同组件Openbox,PCmanFM 和LXPanel等组成的，带给你简洁但功能强大的桌面系统. 
+
+Openbox
+
+Openbox是一个轻量级的窗口管理器，它占用的资源很小，是Testing版的默认窗口管理器。窗口管理器是一个可以管理窗口外观、启动一些程序的程 序，它还可以改变窗口的位置、大小等参数。 openbox提供一个右键菜单，你可以以修改文件的方式来更改。按键组合ALT+TAB可以列出当前窗口菜单供你选择。Obconf可以让你在图形界面 下设置Openbox，Slitaz的各种小工具也可以让你拥有一个简单、时尚、快速的桌面。默认情况下Slitaz使用4个虚拟桌面。 Slitaz使用Freedesktop标准的桌面，桌面管理器PCmanFM可以管理桌面图标，可以轻松挂载设备。Slitaz的面板、任务栏、图标是 由Lxpanel提供的。
+
+===== 设置Openbox =====
+
+许多选项可以由obconf程序设置。\\
+Openbox配置文件位于~/.config/openbox/rc.xml，是一个XML文件。\\
+你可以使用最喜欢的编辑器编辑。键盘快捷键被定义在配置文件的<keyboard>区域。
+
+===== Openbox 主题 =====
+
+Openbox支持主题，主题文件是使用指定语法的单个文件。\\
+Openbox默认提供了几个主题，可以在Obconf中选择，在/usr /share/themes中找到。\\
+每个用户可以把自己的主题安装在~/.themes。如果你想创建自己的主题，最简单的方法就是复制原有得主题。主题 可以给按钮、图标等使用图像，这些图像可以通过Gimp、mtPaint等创建和修改。 你可以在网上找到许多Openbox主题。欲了解更多信息，请访问Openbox官方网站
+
+
+===== Openbox 右键菜单 =====
+
+Openbox的右键菜单包含在~/.config/openbox/menu文件内。这是一个XML文件,XML的语法简单易懂。你也可以使用 obmenu软件（未默认安装）来编辑。下面是在子菜单添加一个程序的例子：
+
+
+<code>
+<item label="File Manager">
+  <action name="Execute"><command>pcmanfm</command></action>
+</item>
+</code>
+
+子菜单被定义在文件的末尾，使用menu标记。你可以用它来做各种各样的事情，例如用文件管理器打开你最喜欢的文件夹。\\
+/usr/lib/openbox 有一个小脚本，它可以自动把你喜欢的文件夹添加到Openbox右键菜单中，你可以把它作为例子。
+
+===== 自启动程序 =====
+
+当以图形界面的形式启动时，Openbox会通过~/.config/Openbox/autostart.sh自动启动一些程序。默认情况 下，Slitaz会启动PCmanFM来管理桌面，启动面板（Lxpanel）作为任务栏，还启动dbus和Ivman来管理可移动设备。要添加或删除自 启动程序，你可以直接编辑脚本文件或者使用“设置”菜单中的“自启动程序”小程序：
+
+{{:en:handbook:image:desktopbox-autostart.png }}
+
+
+===== 墙纸和桌面图标 =====
+
+Openbox不管理桌面，你可以自由选择并使用一些工具。Slitaz的默认桌面墙纸和图标是使用PCmanFM文件管理器来管理的，如果你不喜 欢，你也可以使用hsetroot软件包来显示图片或者xsetroot来选择颜色。PCmanFM随着Openbox自启动，运行快速。要更改当前的壁 纸，你可以通过文件管理器的“首选项”设置或者通过“设置”菜单-“墙纸“设置。 图标通过一个简单的文本文件显示，这个文件遵循Freedesktop标准，你可以通过你喜欢的编辑器自己创建一个。为了添加桌面图标，Slitaz提供 了一个小巧的图形界面小程序，你可以通过菜单“设置”-“桌面图标”打开，或者使用Opnebox菜单中的“桌面文件和图标”-“添加新图标”
+{{:en:handbook:image:desktopbox-add-icons.png|}} 
+
+===== LXPanel =====
+
+LXPanel是LXDE的一部分，是一遵循Freedesktop规则的面板菜单。菜单里的项目会随着/usr/share/applications 里的.desktop文件的改变而动态添加。
+
+
+*.desktop 文件
+
+一个.desktop文件可以包含数行：名字(Name)。显示名，注释，执行命令(Exec)，图标，类型和FreeDesktop分类。下面是一个.desktop文件的示例：
+<code>
+[Desktop Entry]
+Name=XTerm
+GenericName=Terminal
+Comment=Run commands in a shell
+Exec=xterm -bg black -fg white -cr orange -sb -bd violet -rightbar
+Icon=xterm.png
+Type=Application
+Categories=Utility;Terminal;
+</code>
+要注意，图标要位于/usr/share/icons 或者 /usr/share/pixmaps 中。分类(Categories)将会决定程序存放位置。 面板的系统总配置文件位于/etc/lxpanel，个人配置文件位于~/.config。不过推荐使用LXPanel的图形界面设置程序（在面板空白出点右键，弹出菜单中可以选择）来设置。
+
+LXPanel 设置程序
+
+系统配置文件位于/etc/lxpanel，可以保存在~/.config。我们强烈建议你使用“面板设定”图形界面程序来设置。 LXPanel的设置程序有三个标签：
+“一般”标签可以设置面板位置、背景、字体、属性。
+“面板元件”标签可以增加、删除、编辑和移动面板上的元件。
+“高级”标签可以设置喜爱程序，例如文件管理器、终端、注销命令等。
+LXDE计划和LXPanel的官网是http://lxde.org/
+
+视觉特效
+
+Slitaz提供一些简单的工具来给窗口和菜单制造一些视觉特效。你可以拥有透明窗口和阴影特效。这些效果通过xcompmgr（阴影管理器）和 transset-df（透明）设置，可以在Openbox菜单-“桌面特效”中找到。

@@ -1,0 +1,160 @@
+======= 处方 ======
+
+
+ Tazwok 会根据处方编译生成Slitaz专用的安装包(.tazpkg). Tazpkg 也需要根据安装包里的处方(receipt)安装tazpkg包，或根据/var/lib/tazpkg/installed/XX下的处方(receipt)来卸载已安装的包.
+
+每个处方都必须以这个注释开头:
+
+<file># SliTaz package receipt </file>
+
+===== 变量 =====
+
+
+有五个变量必须包含并定义. 
+以以下内容为例
+<file>
+PACKAGE="clex"                       #包名称
+VERSION="3.16"                       #版本号
+CATEGORY="base-apps"                 #分类
+SHORT_DESC="Text mode file manager." #简短的说明
+MAINTAINER="pankso@slitaz.org"       #包维护者
+</file>
+
+===== 变量 (可选) =====
+
+以下变量是可选的.
+
+  * **$DEPENDS:** 设置安装此包时所需要安装的依赖包, 可以包含多个依赖以空格分隔. 这个选项是最常用到的. 以下为例子.
+
+<file>DEPENDS="ncurses"</file>
+
+  * **$BUILD_DEPENDS:** 设置编译/生成此包时所需要的依赖包.
+
+<file>BUILD_DEPENDS="ncurses-dev"</file>
+
+  * **$TARBALL :** 设置编译/生成此包时所需要的源码包，通常的后缀名为 (tar.gz, tgz 或 tar.bz2).  常用的格式 (参见 $SOURCE 例子):
+
+<file>TARBALL="$PACKAGE-$VERSION.tar.gz"</file>
+
+  * **$WEB_SITE :** 此软件的官方网站.
+
+<file>WEB_SITE="http://www.clex.sk/"</file>
+
+  * **$WGET_URL :** 源码包的URL地址。 Tazwok 已包含三个默认变量: $GNU_MIRROR ，$SF_MIRROR ，$XORG_MIRROR . 例子:
+
+<file>WGET_URL="http://www.clex.sk/download/$TARBALL"</file>
+
+  * **$CONFIG_FILES :** 配置文件列表. 执行'tazpkg repack-config'命令时会用到这个变量 . 这些配置文件在重装时不会被覆盖. 
+例子:
+
+ <file>CONFIG_FILES="/etc/netatalk/AppleVolumes.* /etc/netatalk/*.conf"</file>
+
+  * **$SUGGESTED :** 推荐包
+
+  * **$WANTED :** SliTaz packages normally depend on the compilation of a source package. Sometimes the recipe of a package requires no compilation of rules, then $WANTED is used to copy files from the source of another package by using the variable $ src.
+
+  * **$SOURCE :** 当源码包名与安装包名不同时使用. 比如 Xorg 中的安装包名为'xorg-libX11' 而其源码包名为 libX11. $SOURCE 允许你使用 $src 和 $_pkg 在Cooking一个包时. 例子$TARBALL="$SOURCE-$VERSION.tar.gz"
+
+  * **$PROVIDE :** Some packages offer the same functionality, for instance the web server was at first lighttpd; now apache is available. All packages dependent on a web server refer to lighttpd. The //PROVIDE="apache"// variable in the apache recipe states that packages dependent on lighttpd do not need to install the lighttpd package if apache is already on the system. Some packages may vary according to the webserver you choose, ie. the php package is dependent on lighttpd, as is php-apache on apache. The //PROVIDE="php:apache"// in the apache recipe says that you must install php-apache instead of php, if apache is already on the system. Therefore each package dependent on php will install either php-apache or php according to the webserver on the system. This variable also chooses packages compiled with different options. The //PROVIDE="epdfview:cups"// in the epdfview-cups recipe allows you to install epdfview with printer support via cups if cups is already on the system. \\
+You can also define virtual packages with this variable. The lines //PROVIDE="libgl"// in the mesa package and //PROVIDE="libgl:nvidia"// in the ''nvidia-glx'' package, define that libgl is an optimized version when the nvidia package is installed.
+
+  * **$SELF_INSTALL :** Certain packages use commands provided by the package itself in the post_install function. To install this package into a directory other than root and still be able to use these commands, the package must have been installed in / in earlier stages. The line: //SELF_INSTALL=1// alerts tazpkg to this feature. 
+
+===== 变量 （由Tazwok自动生成) =====
+
+以下变量无需人工定义..Tazwok会在执行时自动身成..
+
+  * **$PACKED_SIZE :** Tazpkg 包大小
+
+  * **$UNPACKED_SIZE :** 解压后的大小
+
+  * **$EXTRAVERSION :** Some packages have 2 different versions. This is in case of modules added to the Linux kernel, such as squashfs, because the module depends on the version of the kernel with which it was compiled. In this case $EXTRAVERSION contains the kernel version and Tazwok determines the module from the contents of **/lib/modules**.
+
+===== Variables used in functions =====
+
+Tazwok configures several variables that facilitate the compilation and construction of Tazpkg packages. These variables are controlled automatically by Tazwok using the information contained in the recipe; they can be used by the functions compile_rules and genpkg_rules described in the chapter Functions.
+
+  * **$src :** 解压后的源码路径
+
+  * **$_pkg :** 编译生成的二进制文件的路径. .
+
+  * **$fs :** 
+  * **$CONFIGURE_ARGS :** This variable is defined in the Tazwok configuration file (tazwok.conf). It allows you to specify generic optimization arguments during construction of a package. Default is the i486 architecture. 
+
+===== Functions =====
+
+A recipe may contain 4 functions. Tazwok knows how to deal with functions containing compilation rules (compile_rules) and rules used to generate a package (genpkg_rules). These functions may contain all sorts of GNU/Linux standard commands, such as sed, awk, patch and variables automatically configured.
+
+=== compile_rules() ===
+
+To compile a package you can use the variable $src to move (cd) in the directory of sources and use $CONFIGURE_ARGS to include arguments from the Tazwok configuration file. To build the package you usually launch 'make' without any arguments, and to install the package into the directory _pkg: it's necessary to use the command 'make DESTDIR=$PWD/_pkg install'. Generic example:
+
+<file>
+# Rules to configure and make the package.
+compile_rules()
+{
+	cd $src
+	./configure --prefix=/usr --infodir=/usr/share/info \
+	--mandir=/usr/share/man $CONFIGURE_ARGS
+	make
+	make DESTDIR=$PWD/_pkg install
+}
+</file>
+
+=== genpkg_rules()===
+
+To generate a tazkg package we must specify commands in the function genpkg_rules. In this example we create a psuedo directory usr/ in the filesystem of the package, copy the whole binary(s) and finally use strip to clean the files:
+
+<file>
+# Rules to gen a SliTaz package suitable for Tazpkg.
+genpkg_rules()
+{
+	mkdir -p $fs/usr
+	cp -a $_pkg/usr/bin $fs/usr
+	strip -s $fs/usr/bin/*
+}
+</file>
+
+=== pre_install() and post_install()===
+
+These functions are initiated by Tazpkg when installing the package. They must be defined before generating the .tazpkg package with Tazwok. If no rules are given for these functions, they have no raison d'etre and can be removed. Example using echo to display some text (no function should be empty):
+
+<file>
+# Pre and post install commands for Tazpkg.
+pre_install()
+{
+	echo "Processing pre-install commands..."
+}
+post_install()
+{
+	echo "Processing post-install commands..."
+}
+</file>
+
+=== pre_remove() and post_remove() ===
+
+These functions are initiated by Tazpkg when removing the package. They must be defined before generating the .tazpkg package with Tazwok. If no rules are given for these functions, they have no raison d'etre and can be removed. Example using echo to display some text (no function should be empty):
+
+<file>
+# Pre and post remove commands for Tazpkg.
+pre_remove()
+{
+	echo "Processing pre-remove commands..."
+}
+post_remove()
+{
+	echo "Processing post-remove commands..."
+}
+</file>
+
+=== clean_wok() ===
+
+This function helps to define additional commands to be run when cleaning the wok, it is useful to delete files or directories that are not supported by Tazwok:
+
+<file>
+# clean commands for Tazwok.
+clean_wok()
+{
+	rm -rf $WOK/$PACKAGE/vim71
+}
+</file>

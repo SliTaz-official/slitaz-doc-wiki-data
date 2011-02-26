@@ -1,0 +1,125 @@
+====== LiveCD的使用说明和启动参数 ======
+
+===== 从光盘启动 =====
+
+要从CDROM启动Slitaz，你要把Slitaz LiveCD的ISO文件刻录到一张空光盘内，然后重启电脑，再从光盘启动。
+大多数情况下你的电脑已经默认设置为从光盘启动，如果你的电脑还没有设置好， 你可以在BIOS设置里设置启动顺序。你可以在开机前几秒种按下DEL键（也有可能是F11,F12等其它键，不过在中国大多数主板都是DEL）进入 BIOS，然后你就可以改变启动顺序了，你要设置CDROM为第一启动项。最后，记得在退出BIOS设置前保存设置。保存设置后电脑会自动重启，重启后就 会首先从光盘启动。 Slitaz LiveCD的启动界面是isolinux引导的，你可以直接按回车来启动系统。你还要注意一下，在启动界面按F1-F4可以显示帮助信息。Slitaz 会完全在内存中运行，不会对你在硬盘中的系统造成任何影响。启动进程结束后，你可以使用hacker用户（cooking版中是tux用户）以空密码登 录。要以root用户执行命令，你可以在Xterm或者Linux命令行中使用su命令，然后输入密码root。LiveCD中root的密码是root
+
+====在启动时传递选项和参数====
+
+Slitaz LiveCD可以通过syslinux的命令行传递各种各样的启动选项。LiveCD有两种类型的启动选项：一种是Slitaz的启动选项，一种是内核的 启动参数。Slitaz的启动选项可以被一些启动脚本使用，而例如VGA模式的一些参数直接被内核管理。要在启动时传递选项，可以在slitaz后紧接着 你的命令
+<code>slitaz vga=791 no387</code>
+Linux内核会把启动时传递的参数和信息保存在/proc./cmdline里，你可以运行以下命令来显示信息：
+<code>
+$ cat /proc/cmdline
+</code>
+===== 内核参数 =====
+
+在GNU/Linux里，不同配置文件编译的Linux内核在内核参数上有很大的不同。Slitaz内核是由很小的内核模块构成的，它提供的启动参 数较少。Slitaz内核也为VGA Vesa framebuffer提供视频输出模式，这就是显示tux标志和管理Linux命令行显示的原因。启动完成后你可以用Ctrl+alt+F1, Ctrl+alt+F2之类的按键打开6个tty终端。
+
+=== vga=XXX - 设置终端分辨率 ===
+
+<code>
+Colors | 640x480  800x600  1024x768  1280x1024  1600x1200
+-------------------------------------------------------
+256    |  769      771       773       775        796
+32768  |  784      787       790       793        797
+65536  |  785      788       791       794        798
+16,8M  |  786      789       792       795        799
+</code>
+
+===== Options =====
+
+=== Option : home=usb ===
+
+
+要永久保存你的书签、下载、Firefox插件之类的个人配置，你需要一个有ext3分区的USB设备，大多数情况下还要在启动时具体指定 home=usb为sda1 或者home=devname。要注意的是，你同样可以在home=*里使用分区的UUID。例如：
+<code>
+slitaz home=sda1
+</code>
+=== 准备好USB设备 ===
+
+所有的USB设备都可以格式化成ext3文件系统。Ext3是一个稳定的日志文件系统，它比windows更安全，你还可以在所有文件上设置权限。 要格式化USB设备，你有几个选择：你可以用mkfs.ext3命令行格式化，或者用tazusb格式化，还可以用有图形界面的Garted格式化。要得 到可用分区列表，你可以使用fdisk -l命令，然后格式化。例如：（例子里是格式化sda1分区，你得搞清楚你要格式化的是哪个分区，不要照抄照搬，否则会出现危险）
+
+<code>
+ # fdisk -l
+ # tazusb format /dev/sda1
+</code>
+
+=== lang=XX 及kmap=XX 选项===
+
+使用LiveCD时你有两个选项可以直接设置系统语言和键盘布局。一般情况下在启动后你可以跟着设置界面设置。要在启动时直接设置语言和键盘布局，你可以在命令行里输入这些选项：（英文语言，美国键盘布局）
+
+<code>
+ slitaz lang=en kmap=us
+</code>
+
+=== config=<设备>,<路径> 选项 ===
+
+config=选项可以让你在启动时运行一个脚本，脚本可以放置在硬盘和可移动媒体之类的地方。例如，某个脚本可以挂载ISO镜像到/usr以节省内存，这样就可以在32M以下的内存中使用。下面是启动/dev/sda1里一个叫slitaz.sh的脚本的命令
+
+<code>
+ slitaz config=/dev/hda1,slitaz.sh
+</code>
+
+=== screen=<水平分辨率x垂直分辨率x色深> 选项===
+
+screen=命令可以让你在启动时设置屏幕分辨率。例如：
+<code>
+ slitaz screen=1024x768x24
+</code>
+
+=== sound=<no/noconf> 选项===
+
+sound=no 命令可以让你禁用所有有关声音的内核模块来节约内存，sound=noconf命令可以让你在启动时不设置声卡，不过如果需要，你也可以手动设置
+
+<code>
+ slitaz sound=no
+</code>
+
+=== modprobe=驱动模块 选项===
+
+在启动时加载某些内核模块，例如：
+
+<code>
+ slitaz modprobe=驱动模块1,驱动模块2
+</code>
+
+=== laptop 选项===
+
+Laptop选项可以自动加载ac 和 battery 内核模块，对笔记本用户很有帮助：
+
+<code>
+ slitaz laptop
+</code>
+
+=== previous 选项===
+
+Tazusb使用者利用这个命令可以回到以前的保存的系统：
+
+<code>
+slitaz previous
+</code>
+
+===== 会话——登录名，密码和X Window =====
+
+系统启动完成后，屏幕会自动清除，登录提示界面或者Slim会话管理器就会显示。现在你就可以用hacker（cooking版中是tux）用户 （空密码）或者root用户（密码是root）登录了。登录到命令行时，你可以使用许多Busybox命令行程序，GNU Nano编辑器或者Clex文件管理器，你也可以用startx命令启动X或者连接远程电脑。Startx命令会运行Xvesa然后启动窗口管理器。 Slitaz的桌面是JWM（Cooking版中是Openbox）管理的，你可以右键点击出菜单，程序会分类存放在菜单里。菜单、桌面主题和墙纸可以根 据你的喜好改变，个人信息会保存在USB设备里。 如果在启动时带了screen=text参数或者Slim不启动，你可以以以下方式在Linux终端里运行X会话：
+<code>
+ $ startx
+</code>
+===== 硬盘/U盘Grub引导启动 =====
+<code>
+title SliTaz GNU/Linux
+ kernel (hd0,5)/boot/bzImage root=/dev/null vga=773 lang=en kmap=us screen=1024x768x24 quiet
+ initrd (hd0,5)/boot/rootfs.gz
+</code>
+
+===== 启动参数索引 =====
+  * lang=en kmap=us -设置语言和键盘布局
+  * screen=1024x768x24 -设置X图形界面的分辨率和色深，若screen=text则启动到控制台界面。
+  * sound=no -停用声音设备，以加速启动速度。
+  * laptop -自动加载电源/电池控制模块，适用于笔记本电脑。
+  * vga=773 -设置控制台模式下的分辨率和色深。
+
+  * config=<device>,<path> -设置启动脚本
+  * modprobe=modules -添加启动模块
