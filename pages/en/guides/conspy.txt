@@ -80,7 +80,7 @@ home$ firefox http://SlitazBox:5800/ultrasigned.vnc
 
 ===== Conspy and slow connections =====
 
-Launch a very verbose command into a conspy and the output is displayed at full speed in the virtual console what ever your connection speed to the remote box is, even if your connection is broken. 
+Launch a very verbose command into a conspy and the output is displayed at full speed in the virtual console whatever your connection speed to the remote box is (even if your connection is broken). 
 ===== Conspy and Busybox =====
 
 Conspy is a busybox applet since busybox 1.17.0. It adds 2.5Kb to busybox, has better terminal support and supports some new options:

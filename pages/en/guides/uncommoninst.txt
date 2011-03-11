@@ -58,7 +58,7 @@ Later, if the loopfile is too small you can extend it (assuming you don't boot f
 
 Copy files from the rootfs.gz archive of a cdrom into the loopfile:
   # mount /dev/cdrom /media/cdrom
-  # mount -o loop,ro slitaz.fs /media
+  # mount -o loop,rw slitaz.fs /mnt
   # unlzma -c /media/cdrom/boot/rootfs.gz | ( cd /mnt; cpio -idmu )
   # umount -d /mnt
   # umount /media/cdrom

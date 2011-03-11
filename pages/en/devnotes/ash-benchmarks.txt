@@ -1,10 +1,10 @@
-Some tips to speed-up scripts... Add yours, and put the better ones on the top of page :)
+Some tips to speed-up scripts... Add yours, and put the better ones on the top of the page :)
 
 ==== Sed substitution vs Variable substitution ====
 
 **Information**
 
-In some case, both tools can do the same job. As a build-in ash/bash command, variable substitution is a faster.
+In some cases, both tools can do the same job. As a built-in ash/bash command, variable substitution is faster.
 Note: this is always true - you can compare each type of variable substitution with an equivalent using an external tool.
 
 **Benchmark**
@@ -29,9 +29,9 @@ $ time /tmp/speed
 
 **Information**
 
-Group command "{}" group several commands into one (as a function). So, output can be grouped too: "{ com1; com2; } | com3". Sub-process "()" achieve something similar, but create a shell sub-process; which cost a lot more resources. Another difference is that, when you kill an application using CTRL^C, sub-process is killed instead of main application - while CTRL^C on grouped commands kill the application itself. Finally, changing directory or variables into sub-process will not affect main script while it does with grouped commands. Conclusion: always use group command instead of sub-processes, and take care ;D
+Group command "{}" groups several commands into one (as a function). So, output can be grouped too: "{ com1; com2; } | com3". Sub-process "()" achieves something similar, but creates a shell sub-process; which costs a lot more resources. Another difference is that when you kill an application using CTRL^C, a sub-process is killed instead of a main application - while CTRL^C on grouped commands kills the application itself. Finally, changing directory or variables into sub-processes will not affect the main script which it does with grouped commands. Conclusion: always use group commands instead of sub-processes, and take care ;D
 
-//Note:// group command need a newline before closing - or "; }".
+//Note:// group commands need a newline before closing - or "; }".
 
 **Benchmark**
 <code>
@@ -54,7 +54,7 @@ $ time /tmp/speed
 
 **Information**
 
-fgrep is exactly the same thing that grep if you don't use patterns (^,$,*,etc.). Fgrep is optimized to handle such case, particularly when you look for several different plain patterns. A difference can be found even if you look of only one pattern.
+fgrep is exactly the same thing as grep if you don't use patterns (^,$,*,etc.). Fgrep is optimized to handle such cases, particularly when you look for several different plain patterns. A difference can be found even if you look in only one pattern.
 
 **Benchmark**
 <code>
@@ -78,7 +78,7 @@ $ time /tmp/speed
 
 **Information**
 
-The two commands test if "text" exists. Using -n slow the process a little and weight the script a little too.
+The two commands test if "text" exists. Using -n slows the process and weighs down the script a little too.
 
 **Benchmark**
 <code>
@@ -101,7 +101,7 @@ $ time /tmp/speed
 
 **Information**
 
-Theses three commands test if text doesn't exist. [ ! "text" ] and [ -z "text" ] have a similar processing time, while ! [ "text" ] is speeder.
+These three commands test if text **doesn't** exist. [ ! "text" ] and [ -z "text" ] have a similar processing time, while ! [ "text" ] is speedier.
 
 **Benchmark**
 <code>
@@ -154,7 +154,7 @@ $ time /tmp/speed
 
 **Information**
 
-While && is a fast built-in function, in this case it uses two process (two test functions) instead one. So, using -a is a little faster, as the "AND" function itself is slower but make possible to use only one process.
+While && is a fast built-in function, in this case it uses two processes (two test functions) instead of one. So, using -a is a little faster, as the "AND" function itself is slower but makes it possible to use only one process.
 
 **Benchmark**
 <code>

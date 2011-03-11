@@ -52,6 +52,20 @@ Caso de dúvidas sobre a formatação de seu texto consulte a página de sintax 
 ^ Desempenho           | Bom desempenho, inclusive aceleração gráfica usando o driver SiS do Xorg. Fica lento com Firefox, por isso uso o Midori.|
 ^ Problemas            | Nenhum relacionado à distribuição, alguma lentidão ocorre devido ao hardware obsoleto.|
 
+^           Configuração 00000000003                                                           ^^
+^ Configuração PC      | IBM ThinkPad T41, Pentium M 1700MHz, 1033Mb Ram, Video ATI 7500.       |
+^ Versão do SliTaz     | 2.0                                                                    |
+^ Tempo de instalação  | 10 minutos                                                             |
+^ Desempenho           | Muito bom, com Firefox, aMsn, CUPS (problemas com impressora samsung ML-1710), e todos os programas que fazem falta no dia a dia.|
+^ Problemas            | O unico problema encontrado foi com a versão 3.0 que não se conseguia trabalhar com o rato do proprio portatil, a versão 2.0 para min é a mais estavel.|
+
+^           Configuração 00000000004                                                           ^^
+^ Configuração PC      | AMD Duron 1500, 512Mb Ram, video NVIDIA GeForce2 MX/MX 400, rede SIS 900.|
+^ Versão do SliTaz     | 3.0                                                                    |
+^ Tempo de instalação  | 2 horas                                                                |
+^ Desempenho           | Servidor SSH-Dropbear, Pure-FTP, MySql, PHP5, lighttpd, DynDNS e CUPS, tudo serviços que estão nos pacotes do slitaz.|
+^ Problemas            | Algum tempo a configurar o Slitaz a mão como eu gosto de fazer, para aprender.|
+                 
 \\
 * Edição : //Copie o código da tabela acima e essa frase e cole abaixo, e adicione suas novas informações, apague essa frase. Preserve este texto para o próximo usuário e assim sucessivamente. Seja ético, preserve o trabalho anterior. Grato !//
 
