@@ -22,7 +22,7 @@ Documentación en español
 
 
 
-Monthly Newsletter - Issue 22
+Monthly Newsletter - Issue 23
 Guides
 
 
@@ -216,9 +216,9 @@ Comment installer Adobe Flash Player
 
 
 A propos du cookbook
-
-
-
+Recettes
+Wok & Outils
+Scripts de démarrage et d'arrêt
 
 
 
@@ -276,9 +276,9 @@ ACPI (Advanced Configuration and Power Interface)
 
 
 
-
-
-
+Outils Slitaz
+Tâches de publication
+Rootcd
 Notes de développement
 
 
@@ -286,6 +286,7 @@ Development Notes
 
 
 
+Coin du développeur
 
 
 
@@ -294,8 +295,7 @@ Development Notes
 
 
 
-
-
+SliTaz Build Host (tank)
 
 
 
@@ -361,14 +361,14 @@ Development Notes
 
 
 
-
+Forum posts
 
 
 Unusual install methods
 
 
 
-
+Сообщения форума
 Заметки разработчика
 Boletín mensual - Número 21
 
@@ -435,3 +435,9 @@ Gestion dynamique de la fréquence du processeur
 Sed substitution vs Variable substitution
 Le nouveau tazwok illustré !
 The new tazwok illustrated!
+Monthly Newsletter - Issue 22
+Build Bot (tazbb)
+Scratchbook
+Développement
+Démarrage depuis Windows
+Méthodes d'installation moins communes

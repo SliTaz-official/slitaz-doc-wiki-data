@@ -12,7 +12,7 @@ Les choses à faire avant de publier un nouvelles version.
 
 ===== Documentation stable =====
 
-La publication d'une SliTaz stable s'accompagne de notes de publication sur le liveCD. Elles sont contenu dans le paquet slitaz-doc dont le dépôt est taggé juste avant la publication puis archivé sur le mirroir. Après que le wok ait été copié vers wok-stable, la documentation retourne dans le cycle de développement et ne contient qu'un index avec les informations de base. Dans le système, la documentation se trouve dans ///usr/share/doc/slitaz//. Un fichier .desktop et une icône son disponibles dans le paquet et permettent un accès rapide à la documentation via le menu.
+La publication d'une SliTaz stable s'accompagne de notes de publication sur le liveCD. Elles sont contenues dans le paquet slitaz-doc dont le dépôt est taggé juste avant la publication puis archivé sur le mirroir. Après que le wok ait été copié vers wok-stable, la documentation retourne dans le cycle de développement et ne contient qu'un index avec les informations de base. Dans le système, la documentation se trouve dans ///usr/share/doc/slitaz//. Un fichier .desktop et une icône sont disponibles dans le paquet et permettent un accès rapide à la documentation via le menu.
 
     * [[http://hg.slitaz.org/slitaz-doc/ | Dépôt SliTaz Doc]]
     * [[http://labs.slitaz.org/wiki/slitaz-doc | SliTaz Doc dans le laboratoire]]

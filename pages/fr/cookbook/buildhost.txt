@@ -4,10 +4,10 @@ Informations et guides pour construire l'hôte SliTaz.
 
 ===== Dossiers dans : /home/slitaz =====
 
-    * cooking/ 
-    * stable/ 
-    * repos/ 
-    * www/ 
+    * cooking/ - Chroot cooking et saveurs
+    * stable/ - Arborescence version Stable.
+    * repos/ - Tous les répertoires du projet (où les commit sont poussés). 
+    * www/ - Les hôtes virtuels (site web, hg, boot, people, etc).
 
 ===== Utilisation de tazdev =====
 
@@ -21,68 +21,69 @@ Pour aider à maintenir le miroir, les saveurs et d'autres services, la commande
 
 Vous pouvez utiliser le wok indigeste dans un environnement chrooté pour créer des paquets non-supportés. Si vous maintenez les paquets officiels et que vous réussissez à les cuire, testez-les sur votre machine puis vous pourrez les soumettre sur le wok officiel. Les mainteneurs du miroir vont ensuite reconstruire et uploader les paquets sur mirror.slitaz.org.
 
-To build packages in the undigest wok and in the chroot environment: commands are sometimes better than a long text:
+Pour construire des paquets dans le wok undigest dans l'environnement chroot: les commandes valent parfois mieux qu'un long discours:
 
 <code>
  $ ln -s /home/slitaz/cooking/chroot/home/undigest .
 </code>
 
-You can copy files with gFTP-sftp-scp directly into the wok or from the current directory:
+Vous pouvez copier les fichiers avec gFTP-sftp-scp directement dans le wok ou à partir du répertoire courant: 
 
 <code>
  $ cp -a package undigest/wok
  $ su -c "tazdev chroot"
- /# cd home/undigest
- /# tazwok cook package
- /# exit
+ # cd home/undigest
+ # tazwok cook package
+ # exit
  $ ls undigest/packages
 </code>
 
-===== Cooking official packages =====
+===== Cuisiner les paquets officiels =====
 
-Maintainers have root access and some have write access to the main mirror at mirror.slitaz.org, if you want to help in this task please contact one of the active developers (check hg repos).
+Les mainteneurs ont un accès root et certains ont accès en écriture au miroir principal à mirror.slitaz.org, si vous voulez aider dans cette tâche s'il vous plaît contacter l'un des développeurs actifs (voir dans le dépôt Hg).
 
-Everything is cooked in a chroot environment, the default path for the build wok is $CHROOT/home/slitaz/wok. Some changes can be made directly in this wok: the real Hg is copied into the chroot by tazbb (Build Bot). To chroot in cooking:
+Tout est à faire cuire dans un environnement de chroot, le chemin de défaut pour le wok de construction est CHROOT/home/slitaz/wok. Quelques changements peuvent être faits directement dans ce wok: le Hg réel est copié dans le chroot par tazbb (Build Bot). Pour chroot dans la version cooking:
 
 <code>
  # tazdev chroot
 </code>
 
-Cook all the last commited packages or cook everything with 'cook-all', note that comparison it not required if you know which packages to cook. If you want to force the cooking of some of the packages by tazbb, you can then clean with tazwok. By default tazbb cooks only the last commit:
+Faites cuire tous les derniers paquets commis ou faites tout cuire avec 'cook-all', notez que la comparaison n'est pas nécessaire si vous savez quels paquets faire cuire. Si vous voulez forcer la cuisson de certains paquets par tazbb, vous pouvez les nettoyer avec tazwok. Par défaut, tazbb fait cuire seulement le dernier commit:
 
 <code>
- /# tazbb cook-commit
+ # tazbb cook-commit
 </code>
 
-If needed (tazbb does this automatically), you can remove all the old packages and then rebuild the lists manually:
+Si nécessaire (tazbb fait ceci automatiquement), vous pouvez enlever tous les vieux paquets et puis reconstruire les listes manuellement :
 
 <code>
- /# tazbb clean-up
- /# tazwok gen-list --text
- /# exit
+ # tazbb clean-up
+ # tazwok gen-list --text
+ # exit
 </code>
 
-If you have write access to the mirror, you can make a dry-push to check and then upload; push will also remove any old packages on the mirror.
+Si vous avez accès en écriture au miroir, vous pouvez faire un dry-push pour vérifier et ensuite télécharger les paquets; push va également supprimer tout les anciens paquets sur le miroir.
 
-===== Stable packages =====
 
-Packages for the stable release are also built in a chroot environment like the Cooking packages:
+===== Paquets Stable =====
+
+Les paquets de la version Stable sont également construits dans un environnement chroot comme les paquets de Cooking:
 
 <code>
  # tazdev chroot stable
 </code>
 
-===== Upload by hand on mirror.slitaz.org =====
+===== Télécharger manuellement sur mirror.slitaz.org =====
 
-Mirror maintainers can upload by hand with tazdev (-dp for a dry push):
+Les responsables de miroirs peuvent télécharger à la main avec tazdev (-dp pour a dry push):
 
 <code>
  # tazdev -p $USER
 </code>
 
-===== Update website by hand ======
+===== Mise à jour du site web à la main ======
 
-The Website and packages web interface are updated nightly by cron and can also be updated by hand (used on the day of release for example):
+Le Site et l'interface web des paquets sont mis à jour tous les soirs par cron et peuvent également être mises à jour à la main (utilisé le jour de la diffusion d'une nouvelle version par exemple):
 
 <code>
  # tazdev update-www

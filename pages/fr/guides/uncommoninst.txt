@@ -1,0 +1,321 @@
+====== Méthodes d'installation moins communes  ======
+
+Le //slitaz-installer// installe SliTaz dans une partition ou un disque dur comme la plupart des distributions Linux le font. Cependant, il ya bien d'autres façons d'installer SliTaz ...
+
+Les configurations suivantes utilisent le chargeur d'amorçage (ou bootloader) de SliTaz 4.0 **grub4dos-linux**.
+
+===== Installation frugale =====
+
+Vous n'avez pas besoin d'une partition spéciale, le système fonctionne en mémoire vive comme un Live CD ...
+
+Voir [[http://doc.slitaz.org/fr:guides:frugal#traditional-frugal-install|installation frugale]] et [[http://doc.slitaz.org/fr:guides:frugal#iso-image-install|installation d'image ISO]]
+
+...Elle peut être sensiblement adaptée à vos besoins.
+
+Voir [[http://doc.slitaz.org/fr:guides:frugal#tuning-the-boot-process|affiner le processus de démarrage]]
+
+Vous pouvez également utiliser une saveur Loram créé avec //tazlitobox// et //le système de fichiers est toujours dans la mémoire RAM //...
+
+... Ou //Le système de fichiers peut être sur un petit CDROM//. Installez les fichiers du CD-ROM // /boot/bzImage // et // /boot/rootfs.gz // et copier // /rootfs.gz //. Disons dans // /mon/dossier //. Maintenant prenons le label de la partition. Disons mapartition :
+  # blkid
+Et ajoutons le paramètre //Loram=// à la ligne de commande :
+<file>
+kernel (hd1)/boot/bzImage rw root=/dev/null vga=normal loram=LABEL=mapartition,mon/dossier
+</file>
+<note tip>
+Vous pouvez également utiliser un nom de périphérique (loram=/dev/hda2,mon/dossier). Le nom du disque peut varier selon la version du noyau (hda ou sda) et les clés USB.</note>
+
+===== Installation sur clé USB =====
+
+==== Tazusb ====
+
+ Il s'agit d'un mix entre une installation frugale et une installation traditionnelle. Le système fonctionne entièrement en mémoire, mais le répertoire // home // est toujours sur la clé. Vous pouvez modifier le système (configurer, installer les paquets) et puis sauvegarder le nouveau système sur la clef 8-).
+Voir [[http://hg.slitaz.org/tazusb/raw-file/tip/doc/tazusb.fr.html|manuel de tazusb]]
+
+==== ISO hybride ====
+
+Cette méthode d'installation va ** effacer toute votre clef ** et installer une SliTaz ** non modifiable ** :-/. Vous pouvez créer un système personnalisé avec //tazlito// ou //tazlitobox//. Chaque image ISO SliTaz est [[http://doc.slitaz.org/fr:guides:dvd#hybrid-iso|hybride]].
+
+===== Disquettes d'installation =====
+
+==== L'installation de dernier recours ====
+
+Imaginez que vous avez un PC très ancien avec un lecteur de disquette et un disque dur. Pas de CD-ROM, pas de carte réseau, et pas de port USB. Le disque dur ne fonctionne qu'avec cette machine. Vous ne pouvez pas le brancher sur le PC de vos amis ou dans un boîtier de disque externe USB.
+
+==== Préparer un jeu de disquettes ====
+
+Récupérez un jeu de disquettes depuis http://mirror.slitaz.org/floppies/. Le sous-ensemble de base devrait être suffisant (5 disquettes).
+<note tip>Votre pouvez utiliser une disquette seulement avec [[http://pizza.slitaz.org/tiny/|tiny slitaz]] pour une installation manuelle (sans le slitaz-installer)</note>
+
+Construire un ensemble de disquettes à partir de l'image ISO :
+<code># echo "slitaz.iso" | cpio -o -H newc | split -b 1440k /dev/stdin iso
+# dd if=isoaa of=/dev/fd0
+# dd if=isoab of=/dev/fd0
+# ...</code>
+
+<note tip>Certains [[http://mirror.slitaz.org/floppies/#fdiso|jeux de disquettes]] peuvent être déjà existants sur les miroirs SliTaz</note>
+
+==== Transfert de l'image ISO sur le disque dur ====
+
+Démarrage depuis le jeu de disquettes, montage d'une partition du disque dur dans /mnt et restauration de l'ensemble des données des disquette dans /mnt :
+<code># cd /mnt
+# dd if=/dev/fd0 of=fdiso01
+# dd if=/dev/fd0 of=fdiso02
+...
+# cat fdiso* | cpio -i
+# rm fdiso*</code>
+Maintenant, vous pouvez utiliser n'importe quelle méthode d'installation à partir d'une image ISO. Exemple:
+<code># mount -o loop,ro slitaz.iso /media/cdrom
+# slitaz-installer</code>
+
+===== Installation sur un disque virtuel (loop file) =====
+
+Si vous souhaitez installer SliTaz sur un disque (pas une installation frugale), et vous ne voulez pas créer une partition pour SliTaz, mais vous avez assez de place dans un système de fichiers aux caractéristiques plutôt pauvres (FAT32 ou NTFS) ...
+
+... créer un fichier utilisé en disque virtuel (loop file) et installer SliTaz dedans!
+
+Le problème est : quelle taille? 200 Mo devrait être le minimum. Réalisez que vous pourriez apprécier cette façon de faire et installer beaucoup plus de paquets!
+
+==== Création du disque virtuel (loop file) ====
+
+Vous pouvez créer le fichier du disque virtuel avec **mountbox** (cliquez sur Loop, entrez le nom du fichier dans le champ File, puis cliquez sur Create, entrez la taille dans le champ Size, sélectionnez l'unité voulue, cliquez sur Create) ou avec la ligne de commande:
+  # dd if=/dev/zero bs=1M count=200 of=slitaz.fs
+
+Vous devez maintenant créer un système de fichiers dans ce disque virtuel :
+  # yes | mke2fs -j slitaz.fs
+
+Plus tard, si le disque virtuel devient trop petit, vous pourrez l'étendre (en supposant que vous n'avez pas démarré à partir du disque virtuel, mais d'un SliTaz Live CD par exemple) :
+  # dd if=/dev/zero bs=1M count=100 >> slitaz.fs
+  # resize2fs slitaz.fs
+
+==== Installation du système de fichiers ====
+
+Copiez les fichiers de l'archive rootfs.gz depuis le cdrom dans le disque virtuel :
+  # mount /dev/cdrom /media/cdrom
+  # mount -o loop,rw slitaz.fs /mnt
+  # unlzma -c /media/cdrom/boot/rootfs.gz | ( cd /mnt; cpio -idmu )
+  # umount -d /mnt
+  # umount /media/cdrom
+
+==== Configuration du démarrage ====
+
+Prendre un fichier iso **preinit** de la même version (la version du noyau doit correspondre à la version des modules dans le système de fichiers).
+La partition de stockage du disque virtuel (par exemple /dev/hda1) et son chemin dans la partition (par exemple /data/slitaz.fs) sont définis par les paramètres de **mount** et **loopfs** :
+<file>
+title SliTaz cooking
+  map (hd0,0)/boot/slitaz-preinit.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage mount=/dev/hda1 loopfs=data/slitaz.fs
+  initrd (hd1)/boot/rootfs.gz
+</file>
+<note tip>L'installation sur un disque virtuel (loop file) n'installe pas des packets exotiques de preinit. Vous pouvez utiliser n'importe quelle saveur SliTaz (sauf lorams).</note>
+<note tip>
+Vous pouvez faire une mise à jour de l'iso **preinit** à tout moment avec <code># tazlito get-flavor preinit
+# tazlito gen-distro</code></note>
+<file>
+title SliTaz cooking in loop file
+  map (hd0,0)/boot/slitaz-cooking.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage mount=/dev/hda1 loopfs=data/slitaz.fs
+  initrd (hd1)/boot/rootfs.gz
+  
+title SliTaz cooking in RAM (like the Live CD)
+  map (hd0,0)/boot/slitaz-cooking.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage rw root=/dev/null autologin
+  initrd (hd1)/boot/rootfs.gz
+</file>
+Ou, vous pouvez remplacer le nom du périphérique dans l'argument de mount par le UUID ou son étiquette retournée par blkid :
+<file>
+title SliTaz cooking
+  map (hd0,0)/boot/slitaz-preinit.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage mount=a4b346ee-4c7b-46aa-9fd4-6bc39ab4fa96 loopfs=data/slitaz.fs
+  initrd (hd1)/boot/rootfs.gz
+</file>
+<note tip>Vous pouvez extraire le bzImage et rootfs.gz de l'image iso pour éviter des commandes map et la défragmentation.</note>
+
+===== Installer dans un sous-répertoire =====
+
+Si vous voulez installer SliTaz sur un disque (pas une installation frugale), et vous ne voulez pas créer une partition pour SliTaz, mais vous avez la place dans un système de fichiers Unix pour un autre Unix et vous ne savez pas combien d'espace à réserver pour SliTaz ...
+
+... créez un sous-répertoire et installez SliTaz dedans!
+
+<note important>Cette méthode d'installation peut faire perdre quelques Mo de RAM : elle charge un disque virtuel (loop file) de la saveur preinit et ne désalloue pas entièrement la mémoire RAM du disque virtuel.
+</note>
+
+==== Installation du système de fichiers ====
+
+Installez simplement SliTaz dans un sous-répertoire (par exemple /var/slitaz) ou une autre partition Linux :
+  # mkdir /mnt/var/slitaz
+  # unlzma -c /media/cdrom/boot/rootfs.gz | ( cd /mnt/var/slitaz ; cpio -idmu )
+
+==== Configuration du démarrage ====
+
+Comme dans une installation sur un disque virtuel (loop file), vous avez besoin d'un fichier iso preinit de la même version.
+La partition (par exemple / dev/hda1) et le chemin d'accès dans la partition sont définis par les arguments de mount et subroot :
+<file>
+title SliTaz cooking
+  map (hd0,0)/boot/slitaz-preinit.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage mount=/dev/hda1 subroot=var/slitaz
+  initrd (hd1)/boot/rootfs.gz
+</file>
+
+Les deux notes de la section Installation sur un disque virtuel (loop file) au sujet de l'extraction de bzImage et les UUID/LABEL s'appliquent également ici.
+<note tip>L'installation en sous-répertoire n'installe pas les paquets exotiques du preinit. Vous pouvez employer n'importe quelle saveur de SliTaz (excepté des lorams). Cependant ceci n'est pas recommandé parce que la RAM du système de fichiers n'est pas désallouée entièrement.</note>
+
+===== Installation LVM =====
+
+Le Logical Volume Manager permet de gérer (ajout de disques, remplacement de disques ...) et logiquement geler tous les disques pour une sauvegarde (snapshots) sans interruption de service.
+Voir [[wp>Logical_Volume_Manager_(Linux)]]
+
+==== Configuration de la partition LVM ====
+
+Une petite quantité de stockage (en fonction de l'activité du disque, probablement entre 1% et 15%) est utilisée par les snapshots pour contenir les données gelées pendant une sauvegarde.
+En supposant que nous utilisons la partition sda1 avec 5% réservés pour les snapshots :
+  # tazpkg get-install lvm2
+  # modprobe dm-mod
+  # pvcreate /dev/sda1
+  # vgcreate slitaz /dev/sda1
+  # lvcreate -l 95%VG slitaz -n root 
+  # mke2fs -j /dev/mapper/slitaz-root        
+  # tune2fs -c 0 -i 0 /dev/mapper/slitaz-root
+  # mount /dev/mapper/slitaz-root /mnt
+
+==== Installation du système de fichiers ====
+
+Similaire à une installation sur un disque virtuel (loop file) :
+  # unlzma -c /media/cdrom/boot/rootfs.gz | ( cd /mnt ; cpio -idmu )
+
+==== Configuration du démarrage ====
+
+Comme dans une installation sur un disque virtuel (loop file), vous avez besoin d'un fichier iso preinit de la même version. L'argument **lvmroot** contient le nom du volume :
+<file>
+title SliTaz cooking
+  map (hd0,0)/boot/slitaz-preinit.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage lvmroot=slitaz-root
+  initrd (hd1)/boot/rootfs.gz
+</file>
+
+===== Installation en RAID =====
+
+==== RAID matériel ====
+
+Le [[wp> RAID]] matériel est transparent pour SliTaz. La matrice de disques est considéré comme un seul disque et rien de spécial ne doit être fait pour installer SliTaz.
+
+==== RAID pseudo-matériel ====
+
+=== Création & installation ===
+
+La chaîne de disques [[wp>RAID]] est construite avec le menu BIOS. SliTaz a besoin du pilote ** dmraid ** pour voir la chaîne et pas seulement chaque disque dur :
+  # tazpkg get-install lvm2
+  # tazpkg get-install dmraid
+  # dmraid -s            <== shows raid infomation
+  # modprobe raid1       <== could be raid0, raid456 or raid10
+  # dmraid -ay           <== activates the array in /dev/mapper
+  # mount /etc/mapper/myraid /media
+  # unlzma -c /media/cdrom/boot/rootfs.gz | ( cd /mnt ; cpio -idmu )
+
+==== Configuration du démarrage ====
+
+Comme dans une installation sur un disque virtuel (loop file), vous avez besoin d'un fichier iso preinit d'une version concordante. L'argument **dmraid** contient le nom du volume :<file>
+title SliTaz cooking
+  map (hd0,0)/boot/slitaz-preinit.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage dmraid=myraid
+  initrd (hd1)/boot/rootfs.gz
+</file>
+
+
+
+==== RAID logiciel ====
+
+La chaîne de disques n'a pas besoin du BIOS et peut être entièrement administrée à distance !
+<note tip>
+Vous devriez adapter la saveur **preinit** à vos besoins. C'est à dire rendre capable le démarrage de dropbear dans /etc/rcS.conf et installer peut-être un VPN. Si le logiciel RAID ne s'initialise pas au démarrage, vous serez en mesure de le réparer à distance ...
+</note>
+
+=== Création & installation ===
+
+Exemple de mise en miroir (RAID 1) des disques /dev/sda3 et /dev/sdb3 :
+  # tazpkg get-install lvm2
+  # tazpkg get-install mdadm
+  # echo y | mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sda3 /dev/sdb3 --bitmap=internal --assume-clean
+  # modprobe raid1
+  # mdadm --assemble --scan
+  # mount /dev/md0 /media
+  # unlzma -c /media/cdrom/boot/rootfs.gz | ( cd /mnt ; cpio -idmu )
+
+==== Configuration du démarrage ====
+
+Comme dans une installation sur un disque virtuel (loop file), vous avez besoin d'un fichier iso preinit d'une version concordante. L'argument **softraid** contient le nom du volume :
+<file>
+title SliTaz cooking
+  map (hd0,0)/boot/slitaz-preinit.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage softraid=/dev/md0
+  initrd (hd1)/boot/rootfs.gz
+</file>
+
+===== Installation chiffrée =====
+
+<note>
+Cette méthode chiffre le [[wp>Disk_encryption|système de fichiers]] complet, et pas seulement la partition /home. C'est important, car des fichiers dans /tmp, /var /tmp peuvent trahir votre travail. Le swap sera traité également sauf si vous utilisez un fichier au lieu d'une partition (comme /tmp/swapfile ; il sera donc chiffré parce que ce dossier est compris dans le système de fichiers)
+</note>
+
+==== LUKS ====
+
+[[wp>LUKS]] remplace maintenant [[wp>Cryptoloop]] et les formats Loop-AES.
+
+=== Création & installation ===
+
+Créer le périphérique chiffré avec **mountbox** (bouton crypto). Vous pourriez avoir à accepter l'installation des paquets manquants. Sélectionnez le périphérique (par exemple /dev/sda3) et cliquez sur le bouton  **create**. Maintenant vous pouvez commencer à le formater :
+  # mke2fs -j /dev/mapper/crypto-sda3
+  # tune2fs -c 0 -i 0 /dev/mapper/crypto-sda3
+  # mount /dev/mapper/crypto-sda3 /media
+  # unlzma -c /media/cdrom/boot/rootfs.gz | ( cd /mnt ; cpio -idmu )
+
+==== Configuration du démarrage ====
+
+Comme dans une installation sur un disque virtuel (loop file), vous avez besoin d'un fichier iso preinit d'une version concordante. L'argument **cryptoroot** contient le nom du volume :
+<file>
+title SliTaz cooking
+  map (hd0,0)/boot/slitaz-preinit.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage cryptoroot=sda3
+  initrd (hd1)/boot/rootfs.gz
+</file>
+
+====== TODO ======
+
+==== Compatibilité Loop-AES ====
+ 
+Ce format obsolète a besoin de la même __configuration de démarrage__ que LUKS.
+
+====== TODO ======
+
+===== Installation combinée =====
+
+Vous pouvez mélanger plusieurs méthodes ci-dessus en utilisant un device access et/ou un filesystem access.
+
+^Device access^Filesystem access^
+|mount=|subroot=|
+|*raid=|loopfs=|
+|lvmroot=|cryptoroot=|
+|*raid= + lvmroot=|loopfs= + cryptoroot=|
+
+==== Example 1 : RAID + LVM ====
+
+==== Example 2 : Loop + crypto ====
+
+==== Des améliorations possibles? ====
+
+Ajouter le support réseau : nbd/iscsi + RAID 1 net&local + crypto 
+
+====== TODO ======
+
+===== PXE: Pas d'installation ! =====
+
+Vous pouvez [[http://doc.slitaz.org/en:guides:pxe#pxe-server-set-up|configurer un serveur PXE]] (cad… vous devez configurer votre serveur) ou un [[http://doc.slitaz.org/en:guides:pxe#advanced-web-booting-configuration|PXE forwarder]], voir //démarrage à partir d'un serveur Web avec boot PXE PROM// (Le team SliTaz a [[http://boot.slitaz.org|configuré le serveur pour vous]] 8-))

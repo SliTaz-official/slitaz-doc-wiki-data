@@ -1,13 +1,10 @@
 ~~NOTRANS~~
 
 ====== SliTaz documentation ======
-
-\\
 \\
 Please select your language:
 
 **[[cn:start|Chinese]] - [[de:start|Deutsch]] - [[en:start|English]] - [[es:start|Español]] - [[fr:start|Français]] - [[id:start|Indonesian]] - [[pt:start|Português]] - [[ru:start|Русский]]**
-\\
 \\
 \\
 ===== About this Site =====

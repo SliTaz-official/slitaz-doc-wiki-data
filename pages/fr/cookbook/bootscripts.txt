@@ -2,24 +2,29 @@
 
 Les scripts de démarrage et d'arrêt avec leurs fichiers de configuration.
 
+    * SliTaz et son démarrage.
+    * /etc/init.d/* - Répertoire des scripts et des démons.
+    * /etc/init.d/rcS - Script d'initialisation principal.
+    * Specific scripts and daemons - Scripts et démons avec une tâche bien précise.
+    * /etc/inittab - Fichier de configuration init.
+
 ===== SliTaz et son démarrage =====
 
-SliTaz n'utilise pas de niveau d'exécution, tout le système est initialisé via un script principal et son fichier de configuration. Ce script lance lui-même quelques petits scripts qui s'occupent de l'internationalisation ou des options passées en ligne de commande au démarrage.
+SliTaz n'utilise pas de niveau d'exécution (runlevel), tout le système est initialisé via un script principal et son fichier de configuration. Ce script lance lui-même quelques petits scripts qui s'occupent de l'internationalisation ou des options passées en ligne de commande au démarrage.
 
 ===== /etc/init.d/* - Répertoire des scripts et démons =====
 
-Le répertoire ///etc/init.d// contient tous les vrais scripts rc, les scripts finissant par '.sh' sont de simples scripts shell, et les démons, tels que 'dropbear' ou 'lighttpd', sont aussi des scripts mais qui lancent un service. Les scripts des démons permettent de démarrer, arrêter, ou redémarrer un démon via la commande :
+Le répertoire ///etc/init.d// contient tous les scripts rc, les scripts finissant par '.sh' sont de simples scripts shell, et les démons, tels que 'dropbear' ou 'lighttpd', sont aussi des scripts mais qui lancent un service. Les scripts des démons permettent de démarrer, arrêter, ou redémarrer un démon via la commande :
 
 <code># /etc/init.d/demon [start|stop|restart]</code>
-Le répertoire ///etc/init.d// devrait déjà exister, si vous avez suivi le [[fr:cookbook:start|cookbook]] depuis le début. Si ce n'est pas le cas : 
-<code>mkdir -p /etc/init.d</code>
-Sur SliTaz vous trouverez un fichier ///etc/init.d/README// décrivant le fonctionnement de base des scripts rc. A noter aussi que tous les scripts de démarrage et démons peuvent faire appel au fichier /etc/init.d/rc.functions. Ce fichier permet d'inclure diverses fonctions dans les scripts rc. SliTaz utilise une fonction status vérifiant si la commande précédente a réussi (0) ou pas.
+
+Sur SliTaz vous trouverez un fichier ///etc/init.d/README// décrivant le fonctionnement de base des scripts rc. À noter aussi que tous les scripts de démarrage et démons peuvent faire appel au fichier /etc/init.d/rc.functions. Ce fichier permet d'inclure diverses fonctions dans les scripts rc. SliTaz utilise une fonction //status// vérifiant si la commande précédente a réussi (0) ou pas.
 
 ===== /etc/init.d/rcS - Script d'initialisation principale =====
 
-Le script ///etc/init.d/rcS// configure tous les services de base et initialise le système de base. Il commence par monter les systèmes de fichiers, démarrer syslogd et klogd, lancer mdev, nettoyer le système, etc. Il utilise le fichier de configuration /etc/rcS.conf pour connaître les démons et scripts à lancer au démarrage. Vous pouvez parcourir le script pour connaître en détail les commandes exécutées :
+Le script ///etc/init.d/rcS// configure tous les services de base et initialise le système de base. Il commence par monter les systèmes de fichiers, démarrer des services comme syslogd et klogd, lancer mdev, nettoyer le système, etc. Il utilise le fichier de configuration ///etc/rcS.conf// pour connaître les démons et scripts à lancer au démarrage. Vous pouvez parcourir le script pour connaître en détail les commandes exécutées :
 
-<code># nano rootfs/etc/init.d/rcS</code>
+<code> # nano rootfs/etc/init.d/rcS</code>
 
 ====== Scripts et démons spécifiques ======
 
@@ -29,7 +34,7 @@ Ce script est utilisé pour configurer les options du mode LiveCD, passées en l
 
 === network.sh - Initialisation du réseau ===
 
-Le script network.sh utilise le fichier de configuration ///etc/netwok.conf// pour connaître l'interface à utiliser, si l'on veut lancer le client DHCP ou pas, une IP fixe ou pas. Sur SliTaz le script ///etc/init.d/network.sh// configure les interfaces réseau au démarrage en se servant des informations contenues dans ///etc/network.conf//. Si la variable $DHCP est égale à 'yes', alors le script ///etc/init.d/network.sh// lancera le client DHCP sur l'interface $INTERFACE.
+Le script network.sh utilise le fichier de configuration ///etc/netwok.conf// pour connaître l'interface à utiliser; si l'on veut lancer le client DHCP ou pas, une IP fixe ou pas. Sur SliTaz le script ///etc/init.d/network.sh// configure les interfaces réseau au démarrage en se servant des informations contenues dans ///etc/network.conf//. Si la variable $DHCP est égale à 'yes', alors le script ///etc/init.d/network.sh// lancera le client DHCP sur l'interface $INTERFACE.
 
 === i18n.sh - Internationalisation ===
 
@@ -37,16 +42,21 @@ SliTaz sauvegarde la configuration de la locale par défaut dans le fichier ///e
 
 === local.sh - Commande local ===
 
-Création d'un script ///etc/init.d/local.sh// permettant à l'administrateur système d'ajouter facilement des commandes locales exécutées au démarrage :
+Le script ///etc/init.d/local.sh// permet à l'administrateur système d'ajouter facilement des commandes locales à exécuter au démarrage :
 
-<code>#!/bin/sh
+<file>
+#!/bin/sh
 # /etc/init.d/local.sh: Local startup commands.
 # All commands here will be executed at boot time.
 #
 . /etc/init.d/rc.functions
 
-echo "Starting local startup commands... "</code>
+echo "Starting local startup commands... "
+</file>
 
+=== wpa_action.sh - Réseau sans-fil ===
+
+Ce script est employé par //network.sh// pour démarrer/redémarrer le serveur DHCP si vous utilisez une adresse IP dynamique.
 
 === rc.shutdown ===
 
@@ -54,9 +64,10 @@ Ce script est invoqué par ///etc/inittab// lors de l'arrêt du système. Il sto
 
 === /etc/inittab - Fichier de configuration d'init ===
 
-Le premier fichier lu par le noyau au démarrage. Il définit le script d'initialisation (///etc/init.d/rcS//), les shells, et les actions en cas d'arrêt ou de redémarrage. Vous trouverez un exemple, complet et commenté, dans l'archive de Busybox et un petit sur cette page :
+Le premier fichier lu par le noyau au démarrage. Il définit le script d'initialisation (///etc/init.d/rcS//), les terminaux virtuels (ttys), et les actions en cas de redémarrage ou d'interruption. Vous trouverez un exemple, complet et commenté, dans [[fr:cookbook:slitaztools|Outils SliTaz]] :
 
-<code># /etc/inittab: init configuration for SliTaz GNU/Linux.
+<file>
+# /etc/inittab: init configuration for SliTaz GNU/Linux.
 # Boot-time system configuration/initialization script.
 #
 ::sysinit:/etc/init.d/rcS
@@ -74,4 +85,5 @@ tty6::respawn:/sbin/getty 38400 tty6
 ::restart:/etc/init.d/rc.shutdown
 ::restart:/sbin/init
 ::ctrlaltdel:/sbin/reboot
-::shutdown:/etc/init.d/rc.shutdown</code>
+::shutdown:/etc/init.d/rc.shutdown
+</file>

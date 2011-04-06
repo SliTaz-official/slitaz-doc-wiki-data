@@ -48,7 +48,7 @@ Dans la majorité des cas le nom du paquet est celui des sources exception faite
 
 Tous les sous-projets tels que Tazpkg, Tazwok ou Tazlito ont leurs propres dépôts Hg sur le serveur du projet, tout comme le wok. Les développeurs ont un compte et des droits en écriture afin de pouvoir envoyer leurs recettes, mises à jour ou modifications. Il est bien sûr possible de demander la création d'un nouveau dépôt pour collaborer sur un nouveau sous-projet lié à SliTaz. A noter qu'il y a 2 domaines : hg.slitaz.org est public et repos.slitaz.org nécessite une authentification, c'est-à-dire que vous pouvez cloner [[http://hg.slitaz.org|hg.slitaz.org]] mais pas y pousser vos changements ou fichiers. 
 
-Mercurial utilise python est peut être installé avec la commande :
+Mercurial utilise python et peut être installé avec la commande :
 
    tazpkg get-install mercurial
 

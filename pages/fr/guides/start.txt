@@ -9,7 +9,7 @@ Vous trouvez ici les guides de démarrage rapide et les guides complets de SliTa
    * [[bugs | Les bugs qu'il faut connaitre ]]
    * [[faq | FAQ]] - Foire aux questions
    * [[testingapps | Test des paquets]]
-   * [[ http://scn.slitaz.org/image | Artwork]] - Exposez vos impressions d'écran, fond d'écran, thèmes et autres artworks.
+   * [[ http://scn.slitaz.org/groups/artwork/ | Artwork]] - Exposez vos impressions d'écran, fond d'écran, thèmes et autres artworks.
 
 ===== Installation, saveurs et virtualisation =====
   * [[pxe|Démarrage PXE]] - Démarrer depuis le web
@@ -26,6 +26,8 @@ Vous trouvez ici les guides de démarrage rapide et les guides complets de SliTa
   * [[vmware| VMware]] - SliTaz GNU/Linux avec VMware
   * [[virtualbox | Virtualbox]]- SliTaz GNU/Linux avec Virtualbox
   * [[netstart|Démarrage depuis le web et installation immédiate sur le disque dur ]]
+  * [[http://blog.bodhizazen.net/linux/how-to-install-slitaz-with-ext4-and-grub2/|Grub2]] - Installer SliTaz avec grub2 (et ext4)
+
 ===== Réseaux / LAN =====
     * [[wifi-easy|Configurer le Wifi facilement]] 
     * [[wifi-hard|Configuration du Wifi pas à pas]]
@@ -111,5 +113,5 @@ Vous trouvez ici les guides de démarrage rapide et les guides complets de SliTa
   * [[chroot|Chroot]] - Comment configurer un chroot pour cuire des paquets
   * [[tazwoktips | Astuces pour tazwok ]] - Compiler des paquets pour SliTaz plus efficacement
 
-===== Bas à sable =====
-  * [[playground|Bas à sable]] - Pour tests seulement
+===== Bac à sable =====
+  * [[playground|Bac à sable]] - Pour tests seulement

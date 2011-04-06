@@ -6,13 +6,13 @@ A la base, le Cookbook contenait les instructions pour créer son propre LiveCD,
 
 ==== Table des matières ====
 
-    * [[fr:cookbook:devcorner|Coin du développeur]] - Page lisez-moi pour développeurs
-    * [[fr:cookbook:wok|Wok & Outils]]  - Le wok avec Tazwok, les outils du projet SliTaz et la création de paquets.
-    * [[fr:cookbook:receipt|Recettes des paquets]] - Description des recettes utilisées pour compiler et créer un paquet automatiquement.
-    * [[fr:cookbook:buildhost|Build Host]] - SliTaz Build host (tank).
-    * [[fr:cookbook:buildbot|Build Bot]] - SliTaz Build bot (tazbb).
-    * [[fr:cookbook:bootscripts|Scripts de démarrage et d'arrêt]] - Description des fichiers de configuration rc.
+    * [[fr:cookbook:devcorner|Coin du développeur]] - Page lisez-moi pour développeurs.
+    * [[fr:cookbook:receipt|Recettes]] - Description des recettes utilisées pour concocter des paquets SliTaz.
+    * [[fr:cookbook:wok|Wok]] - Créer des paquets SliTaz à partir des sources avec Tazwok, (utilise les recettes).
+    * [[fr:cookbook:buildbot|Build Bot]] - Robot de création automatique, avec contrôles et rapports, des paquets du Wok.
+    * [[fr:cookbook:buildhost|Build Host]] - Informations et guides pour construire l'hôte SliTaz.
     * [[fr:cookbook:slitaztools|Outils SliTaz]] - Les outils SliTaz, les boîtes de dialogues, l'installateur, etc.
-    * [[fr:cookbook:advancedhg|Utilisation avancée de Hg]] - Ajouter des extensions à Mercurial et utiliser MQ.
-    * [[fr:cookbook:releasetasks|release-tasks.txt]] - Liste des tâches à effectuer avant de publier une nouvelle version (Cooking ou Stable).
-    * [[fr:cookbook:rootcd|Racine du cdrom (rootcd)]] - Descriptions et améliorations des fichiers contenus dans le cdrom, utilisation de GRUB pour booter le CD, installation de Memtest86.
+    * [[fr:cookbook:advancedhg|Utilisation avancée de Mercurial]] - Ajouter des extensions à Mercurial et utiliser MQ.
+    * [[fr:cookbook:releasetasks|Tâches de publication]] - Liste des tâches à effectuer avant de publier une nouvelle version (Cooking ou Stable).
+    * [[fr:cookbook:bootscripts|Scripts de démarrage et d'arrêt]] - Description des fichiers de configuration rc.
+    * [[fr:cookbook:rootcd|Racine du cdrom (rootcd)]] - Descriptions des fichiers contenus dans le cdrom, utilisation de GRUB pour booter le CD, installation de Memtest86.

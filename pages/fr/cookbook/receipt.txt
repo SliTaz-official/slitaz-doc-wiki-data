@@ -1,20 +1,22 @@
-======= Recettes des paquets =======
+======= Recettes =======
 
 
-Ce document décrit les possibilités offertes par les recettes utilisées par Tazwok pour compiler et générer des paquets pour SliTaz et tazpkg, via (le wok et les outils). La recette d'un paquet est aussi utilisée par Tazpkg pour installer/désinstaller et donner des informations à propos d'un paquet .tazpkg (package). Chaque recette commence par un commentaire en anglais :
+Ce document décrit les possibilités offertes par les recettes utilisées par Tazwok pour compiler et générer des paquets pour SliTaz et tazpkg, via le wok. La recette d'un paquet est aussi utilisée par Tazpkg pour installer/désinstaller et donner des informations à propos d'un paquet .tazpkg (package). Chaque recette commence par un commentaire en anglais :
 
-<code># SliTaz package receipt.</code>
+<file># SliTaz package receipt.</file>
 
-===== Variables de base =====
+===== Variables =====
 
 
 Les 5 premières variables devraient toujours être présentes et configurées. Elles configurent respectivement le nom du paquet ($PACKAGE), sa version, sa catégorie, une courte description et le nom du mainteneur. Exemple pour le paquet du gestionnaire de fichiers Clex :
 
-<code>PACKAGE="clex"
+<file>
+PACKAGE="clex"
 VERSION="3.16"
 CATEGORY="base-apps"
 SHORT_DESC="Text mode file manager."
-MAINTAINER="pankso@slitaz.org"</code>
+MAINTAINER="pankso@slitaz.org"
+</file>
 ===== Variables optionnelles =====
 
 
@@ -22,29 +24,29 @@ Tazwok sait aussi utiliser diverses variables optionnelles si elles existent, il
 
   * **$DEPENDS :** spécifie les dépendances, il peut y avoir plusieurs paquets séparés par un espace ou sur plusieurs lignes. Cette variable est principalement utilisée par Tazpkg lors de l'installation du paquet et Tazwok pour construire de gros paquets comme Xorg. Exemple pour Clex qui dépend du paquet ncurses :
 
-<code>DEPENDS="ncurses"</code>
+<file>DEPENDS="ncurses"</file>
 
   * **$BUILD_DEPENDS :** spécifie les dépendances de compilation, séparées par un espace ou sur plusieurs lignes. Cette variable est utilisée par Tazwok lors de la cuisson d'un paquet. Exemple :
  
- <code>BUILD_DEPENDS="ncurses-dev"</code>
-
-  * **$SUGGESTED :** liste les paquets pouvant être utiles sans pour autant être indispensables. Ils serviront à activer des fonctionnalités optionnelles.
+<file>BUILD_DEPENDS="ncurses-dev"</file>
 
   * **$TARBALL :** l'archive source avec son extension (tar.gz, tgz ou tar.bz2). En générale, les variables $PACAKAGE et $VERSION sont utilisées et il suffit de modifier l'extension, cela permet de mettre à jour le paquet en ne modifiant que la variable de la version. Exemple générique (voir aussi la variable $SOURCE) :
 
-<code>TARBALL="$PACKAGE-$VERSION.tar.gz"</code>
+<file>TARBALL="$PACKAGE-$VERSION.tar.gz"</file>
 
   * **$WEB_SITE :** le site web officiel du paquet. Il se peut que certaines bibliothèques n'aient pas de site Web, dans ce cas il n'y a pas besoin de spécifier d'URL. Tazwok et Tazpkg s'attendent a trouver l'URL complet avec le http :
 
-<code>WEB_SITE="http://www.clex.sk/"</code>
+<file>WEB_SITE="http://www.clex.sk/"</file>
 
   * **$WGET_URL :** l'url de téléchargement de l'archive source. En générale la variable $TARBALL devrait être utilisée pour faciliter la mise à jour du paquet en ne modifiant que $VERSION. Le fichier de configuration de Tazwok configure aussi, par défaut, 3 variables de miroir souvent utilisées. $GNU_MIRROR pour les miroirs GNU, $SF_MIRROR pour SourceForge et XORG_MIRROR pour le miroir du serveur graphique Xorg. Exemple pour Clex :
 
-<code>WGET_URL="http://www.clex.sk/download/$TARBALL"</code>
+<file>WGET_URL="http://www.clex.sk/download/$TARBALL"</file>
 
   * **$CONFIG_FILES :** certains paquets fournissent des fichiers de configuration à adapter. La variable $CONFIG_FILES donne la liste de ces fichiers qui pourront être sauvegardés par la commande 'tazpkg repack-config'. Ces fichiers ne seront pas écrasés lors de l'installation du paquet s'ils existent déjà et le paquet pourra être récréé avec 'tazpkg repack' même s'ils ont été modifiés par la suite. Exemple pour Netatalk :
 
-<code>CONFIG_FILES="/etc/netatalk/AppleVolumes.* /etc/netatalk/*.conf"</code>
+<file>CONFIG_FILES="/etc/netatalk/AppleVolumes.* /etc/netatalk/*.conf"</file>
+
+  * **$SUGGESTED :** liste les paquets pouvant être utiles sans pour autant être indispensables. Ils serviront à activer des fonctionnalités optionnelles.
 
   * **$WANTED :** il y a des paquets SliTaz qui sont dépendants de la compilation d'un paquet source. La recette de ces paquets ne nécessite pas de règles de compilation, une variable $WANTED peut être utilisée pour copier des fichiers depuis les sources du paquet voulu, en utilisant la variable $src.
 
@@ -57,7 +59,6 @@ On peut aussi définir des paquets virtuels avec cette variable. Les lignes //PR
 
 ===== Variables générées automatiquement par tazwok =====
 
-
 Certaines variables ne sont connues qu'au moment de la cuisson du paquet ou juste après la cuisson. Tazwok se charge de les ajouter à la recette automatiquement.
 
   * **$PACKED_SIZE :** taille du ficher tazpkg.
@@ -67,7 +68,6 @@ Certaines variables ne sont connues qu'au moment de la cuisson du paquet ou just
   * **$EXTRAVERSION :** certains paquets ont besoin de 2 numéros de version distincts. C'est le cas des modules ajoutés au noyau Linux comme squashfs car le module produit dépend aussi de la version du noyau avec laquelle il a été compilé. Dans ce cas $EXTRAVERSION contient la version du noyau et tazwok le détermine à partir du contenu de **/lib/modules**.
 
 ===== Variables utilisables dans les fonctions =====
-
 
 Tazwok configure plusieurs variables permettant de faciliter la compilation et la construction de paquets Tazpkg. Ces variables sont gérées automatiquement par Tazwok en utilisant les informations contenues dans les recettes, elles peuvent être utilisées par les fonctions compile_rules et genpkg_rules décrites toutes deux dans le chapitre : Fonctions.
 
@@ -88,7 +88,8 @@ Une recette peut contenir 4 fonctions. Tazwok sait traiter les fonctions contena
 
 Pour compiler un paquet vous pouvez utiliser la variable $src pour vous déplacer (cd) dans le répertoire des sources et utiliser $CONFIGURE_ARGS pour inclure les arguments depuis le fichier de configuration de Tazwok. Pour construire le paquet il suffit généralement de lancer 'make' sans argument et pour installer le paquet dans un répertoire _pkg/ il faut utiliser la commande 'make DESTDIR=$PWD/_pkg install'. Exemple générique :
 
-<code># Rules to configure and make the package.
+<file>
+# Rules to configure and make the package.
 compile_rules()
 {
 	cd $src
@@ -96,27 +97,31 @@ compile_rules()
 	--mandir=/usr/share/man $CONFIGURE_ARGS
 	make
 	make DESTDIR=$PWD/_pkg install
-}</code>
+}
+</file>
 
 === genpkg_rules() ===
 
 
 Pour générer un paquet Tazpkg il faut mettre les commandes à lancer dans la fonction genpkg_rules. Dans cet exemple on créé le répertoire usr/ dans le pseudo système de fichiers du paquet, on copie tou(t)(s) le(s) binaires(s) et on finit par un strip pour nettoyer les fichiers :
 
-<code># Rules to gen a SliTaz package suitable for Tazpkg.
+<file>
+# Rules to gen a SliTaz package suitable for Tazpkg.
 genpkg_rules()
 {
 	mkdir -p $fs/usr
 	cp -a $_pkg/usr/bin $fs/usr
 	strip -s $fs/usr/bin/*
-}</code>
+}
+</file>
 
 === pre_install() et post_install() ===
 
 
 Ces deux fonctions sont lancées par Tazpkg lors de l'installation du paquet. Il faut les définir avant de générer le paquet tazpkg avec Tazwok. Si aucune commande n'est nécessaire ces deux fonctions n'ont aucune raison d'être et peuvent être supprimées. Exemple avec echo pour afficher un peu de texte (aucune fonction ne doit être vide) :
 
-<code># Pre and post install commands for Tazpkg.
+<file>
+# Pre and post install commands for Tazpkg.
 pre_install()
 {
 	echo "Processing pre-install commands..."
@@ -124,15 +129,33 @@ pre_install()
 post_install()
 {
 	echo "Processing post-install commands..."
-}<code>
+}
+</file>
+
+=== pre_remove() and post_remove() ===
+
+Ces fonctions sont lancées par Tazpkg lors de la suppression du paquet.Elles doivent être définies avant de générer le paquet .tazpkg avec Tazwok. Si aucune règle n'est nécessaire pour ces fonctions, elles n'ont pas raison d'être et peuvent être supprimées. Exemple utilisant echo pour afficher un texte (aucune fonction ne doit être vide):
+<file>
+# Pre and post remove commands for Tazpkg.
+pre_remove()
+{
+	echo "Processing pre-remove commands..."
+}
+post_remove()
+{
+	echo "Processing post-remove commands..."
+}
+</file>
 
 === clean_wok() ===
 
 
 Cette fonction est lancée par Tazwok avec la commande clean. Elle permet de définir des commandes supplémentaires à exécuter lors du nettoyage du wok. Elle est très utile pour supprimer des fichiers ou répertoires qui ne sont pas pris en charge par Tazwok.
 
-<code># clean commands for Tazwok.
+<file>
+# clean commands for Tazwok.
 clean_wok()
 {
 	rm -rf $WOK/$PACKAGE/vim71
-}</code>
+}
+</file>

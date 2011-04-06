@@ -1,0 +1,60 @@
+====== Build Bot (tazbb) ======
+
+Le but de Tazbb est d'automatiser, de vérifier et d'établir un rapport de la construction des paquets dans un wok. *tazbb usage* permet d'obtenir la liste des commandes disponibles avec une courte description. Le statut du Build Bot sur Tank est sur bb.slitaz.org via une interface web à Tazbb, pour la coopération, utiliser le [[http://labs.slitaz.org/wiki/distro/Tazbb|Tazbb Wiki]].
+
+===== Comment ça marche? =====
+
+Tazbb peut être exécuté par une tâche cron pour vérifier les dernières mises à jour faites par les contributeurs et 'cuisiner' alors les packets modifiés. Lancer 'tazbb cook-commit' reconstruit juste les derniers paquets modifiés. Pour reconstruire tous les paquets manquants, modifiés ou non-construits, vous devez utiliser la commande 'tazbb cook-all'.
+
+La génération d'un rapport liste toutes les recettes dans le wok et vérifie si un fichier paquet existe, sinon le nom du paquet est ajouté à la liste de cuisson actuelle. Pour les paquets existants on compare les dates de tous les fichiers dans le wok Hg (recette, stuff) avec la date du fichier package.tazpkg, si elle est différente, le paquet est ajouté à la liste de cuisson.
+
+Tazbb doit aussi regarder dans le chroot wok pour vérifier si le paquet a déjà été construit, (il devrait y avoir un répertoire taz/), sinon il est tracé dans le journal et nous l'ajoutons également à la liste de cuisson. Tous les paquets se font 'cuire' avec un 'script'. Les journaux de construction des paquets  sont stockés dans $LOG_DIR et il existe un lien pour l'interface Web afin que les développeurs puissent vérifier facilement les bugs.
+
+Lorsqu'il est exécuté avec  l'option « cook » - Tazbb va également supprimer les anciens paquets et ceux corrompus, puis exécuter <nowiki>« tazwok genlist --text »</nowiki> pour reconstruire toutes les listes de paquets. Pour fonctionner correctement, la configuration des chemins de Tazwok et Tazbb doit correspondre. Le fichier système de configuration Tazbb est: ///etc/slitaz/tazbb.conf//
+
+===== Commandes =====
+
+Tazbb peut être installé sur votre machine et lancé manuellement à partir de la ligne de commande - il suffit de juste saisir « tazbb usage » pour obtenir une liste des fonctions disponibles. Tazbb peut être exécuté en mode rapport et paramétré pour afficher plus d'informations avec l'option  //<nowiki>--verbose</nowiki>//.
+
+===== Hg et chroot Wok =====
+
+Tazbb utilise 2 woks: un wok Hg propre et un wok de construction des paquets dans un environnement chroot. Chaque fois que Tazbb est appelé, le wok Hg est mis à jour, avec copie au wok de construction, ainsi la pollution par les résultats de la construction est évitée et il est également possible de modifier manuellement des recettes ou apporter des corrections directement sans affecter le wok Hg principal. S'il est configuré correctement 'tazdev update-wok' peut également mettre à jour le wok Hg et copier des fichiers.
+
+===== Les fichiers journaux =====
+
+Tazbb utilise les outils existants tels que tazwok pour construire les paquets, mais il génère ses propres fichiers journaux et a sa propre base de données stockée dans un fichier texte. Les fichiers journaux sont disponibles via l'interface Web et le chemin par défaut pour ces fichiers est: ///var/log/tazbb//
+
+
+===== Interface Web =====
+
+Tazbb enregistre toutes ses activités dans des fichiers journaux et une liste de cuisson. Ces informations peuvent être affichées via une jolie interface web de façon à ce que les développeurs aient un aperçu rapide de la dernière génération des résultats. Le paquet Tazbb fournit une interface web PHP, avec des feuilles de style CSS et des images installées par défaut dans ///var/lib/tazbb/web//. Un lien symbolique est créé dans ///var/www/vhosts// par paquet, il offre un accès facile aux fichiers journaux générés par un hôte virtuel, ou vous pouvez utiliser: http://localhost/vhosts/bb
+
+===== Hg hook =====
+
+Mercurial offre un mécanisme puissant pour effectuer des actions automatiques en réponse aux événements qui se produisent dans un dépôt. Le nom que Mercurial utilise pour l'une de ces actions est hook. Ainsi Tazbb peut être exécuté à chaque fois qu'un commit est fait dans le wok à travers un simple hook dans le fichier .Hgrc du dépôt. Exemple:
+
+<file>
+[hooks]
+commit = tazbb cook-commit
+</file>
+
+===== Cron Job =====
+
+Tazbb peut également être exécuté par une tâche cron, de sorte que chaque nouveau commit dans le wok fait 'cuire' le bon paquet quand vous le voulez.  Cron peut également être utilisé pour actualiser le rapport ou tout 'cuire'. Si la dernière cuisson n'est pas encore terminée ou si tazbb a été exécuté à la main (et est toujours en cours d'exécution), il s'arrêtera immédiatement en raison de la présence d'un fichier verrou dans ///var/lock//. Exemple d'une tâche cron pour 'tazbb cook commit' toutes les 2 heures et faire cuire tous les paquets manquants, modifiés ou non bâtis, chaque nuit:
+
+<file>
+*/2 * * * * /usr/bin/tazbb cook-commit
+03 02 * * * /usr/bin/tazbb cook-all
+</file>
+
+===== Database Files =====
+
+    * blocked : Liste de paquets bloqués
+    * cooklist : Liste de cuisson courante ou prochaine
+    * corrupted : Liste des paquets corrompus
+    * packaged : Tous les paquets du wok de construction
+    * removed : Derniers paquets supprimés
+    * report : Dernier rapport de check_{wok,commit}
+    * running : La tâche courante en cours d'exécution
+    * summary : Dernier résumé pour l'interface de Web
+    * unbuilt : Liste des packages non construits

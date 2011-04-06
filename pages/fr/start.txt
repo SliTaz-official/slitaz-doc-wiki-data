@@ -12,11 +12,12 @@ Nous croyons que les utilisateurs de SliTaz veulent échanger leurs connaissance
   * [[fr:guides:start|Guides]] - Les guides des utilisateurs.
   * [[fr:references:start|Références]] - Articles/tutoriels intéressants à propos de Linux que vous souhaitez partager.
   * [[fr:devnotes:start|Notes de développement]] - Informations concernant la version en développement (cooking)
+  * [[fr:forum:start|Articles du Forum]] - Documentation supplémentaire par les utilisateurs du forum.
 
 ==== Livres ====
   * [[fr:handbook:start|Handbook]] - Le livre de main de SliTaz. Référence au sujet de l'utilisation du système au niveau utilisateur, administrateur et développeur en général. Il réunit des travaux de référence, des mini manuels et une collection d'instructions destinées à fournir un livre complet, de haute qualité, facilement consultable et fournissant des réponses rapides sur un sujet spécifique. Le Handbook explique comment utiliser le LiveCD, donne les instructions d'installation, fournit des références pour vous aidez à lancer une ligne de commandes, installer des paquets logiciels générer un LiveCD et touche à de nombreux sujets, de près ou de loin. C'est le livre que nous vous conseillons de consulter en premier, de re-consulter, de lire en entier et d'apprendre par cœur...
-  * [[fr:cookbook:start|Cookbook]] - Le livre de cuisine de SliTaz. informations au sujet de la gestion, du fonctionnement et du développement de la distribution. Création de paquets, description des recettes, du wok, des scripts de démarrages, etc. Le Cookbook complet se trouve pour le moment ici : http://www.slitaz.org/fr/doc/cookbook/index.html
-  * [[fr:scratchbook:start|Scratchbook]] - Le livre de création de Slitaz. Description des étapes de création de SliTaz, en commençant par la compilation du noyau Linux, en passant par l'installation d'un serveur graphique (Xvesa), de bibliothèques GTK+ et d'applications graphiques. Le Cookbook est un livre technique permettant de construire un système GNU/Linux depuis les sources, il demande du temps et de la motivation. Le Scratchbook se trouve pour le moment ici : http://www.slitaz.org/fr/doc/scratchbook/index.html
+  * [[fr:cookbook:start|Cookbook]] - Le livre de cuisine de SliTaz. Informations relatives à la gestion, l'exploitation et le développement de la distribution. Instructions sur la façon d'utiliser le wok et les recettes des paquets, descriptions des scripts de démarrage et les fichiers rootcd, et divers outils.
+  * [[fr:scratchbook:start|Scratchbook]] - Le livre de création de Slitaz. Description des étapes de création de SliTaz, en commençant par la compilation du noyau Linux, en passant par l'installation d'un serveur graphique (Xvesa), de bibliothèques GTK+ et d'applications graphiques. Le Cookbook est un livre technique permettant de construire un système GNU/Linux depuis les sources, il demande du temps et de la motivation.
 
 ==== Manuels ====
 

@@ -10,7 +10,7 @@ The SliTaz GNU/Linux quick start and complete guides by the community. You will 
    * [[bugs | Most Annoying Bugs ]]
    * [[faq | FAQ]]
    * [[testingapps | Testing Packages]] - Quality Management
-   * [[ http://scn.slitaz.org/image | Artwork]] - Showcase your screenshots, wallpaper, themes and other Artwork 
+   * [[ http://scn.slitaz.org/groups/artwork/ | Artwork]] - Showcase your screenshots, wallpaper, themes and other Artwork 
 
 ===== Installation, flavors and virtualization =====
   * [[pxe|PXE boot]] - Boot from the web

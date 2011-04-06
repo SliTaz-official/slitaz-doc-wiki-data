@@ -1,0 +1,12 @@
+Cette catégorie sert à fournir des références/articles/signets utiles sur GNU/Linux. Soyez libre svp d'ajouter toute matière que vous pensez être utile pour la communauté.
+
+===== Développement ======
+
+  * Guide avancé d'écriture des scripts Bash http://abs.traduc.org/abs-fr/
+  * ...
+
+===== Références GNU/Linux =====
+
+  * [[http://www.lesitedemika.org/ressources/commandes_linux.pdf|Memo des commandes LINUX]] Aide sur les commandes.
+  * [[http://fr.tldp.org/howtos.php|Les HOWTOs français]] La liste de tous les HOWTOs en français à jour.
+  * [[http://jp.barralis.com/linux-man/|Les MAN Linux en français]] Cette page, regroupe l'ensemble des documentations man Linux officielles, traduites en français.
