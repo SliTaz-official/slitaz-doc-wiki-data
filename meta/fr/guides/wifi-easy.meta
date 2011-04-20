@@ -1,0 +1,11 @@
+a:2:{s:7:"current";a:7:{s:4:"date";a:2:{s:7:"created";i:1271512260;s:8:"modified";i:1278602066;}s:7:"creator";s:11:"fandesandro";s:11:"last_change";b:0;s:5:"title";s:39:"Configuration du Wifi : méthode facile";s:11:"description";a:2:{s:15:"tableofcontents";a:9:{i:0;a:4:{s:3:"hid";s:36:"configuration-du-wifi-methode-facile";s:5:"title";s:39:"Configuration du Wifi : méthode facile";s:4:"type";s:2:"ul";s:5:"level";i:1;}i:1;a:4:{s:3:"hid";s:12:"introduction";s:5:"title";s:12:"Introduction";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:2;a:4:{s:3:"hid";s:22:"connaitre-son-materiel";s:5:"title";s:24:"Connaître son matériel";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:3;a:4:{s:3:"hid";s:44:"configurer-le-wifi-graphiquement-avec-netbox";s:5:"title";s:44:"Configurer le Wifi graphiquement avec Netbox";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:4;a:4:{s:3:"hid";s:31:"configurer-le-wifi-manuellement";s:5:"title";s:31:"Configurer le Wifi manuellement";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:5;a:4:{s:3:"hid";s:32:"configuration-de-etc-networkconf";s:5:"title";s:34:"Configuration de /etc/network.conf";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:6;a:4:{s:3:"hid";s:27:"installation-des-programmes";s:5:"title";s:27:"Installation des programmes";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:7;a:4:{s:3:"hid";s:21:"mise-en-route-du-wifi";s:5:"title";s:21:"Mise en route du wifi";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:8;a:4:{s:3:"hid";s:42:"aide-a-la-configuration-de-etc-networkconf";s:5:"title";s:45:"Aide à la configuration de /etc/network.conf";s:4:"type";s:2:"ul";s:5:"level";i:2;}}s:8:"abstract";s:439:"Introduction
+
+
+Pour installer le Wifi sur Linux, deux méthodes sont possibles :
+
+
+	*  Utiliser un module du noyau linux spécifique à votre carte Wifi.
+		*  Utiliser le module NDISwrapper qui se servira d'un pilote Windows. 
+
+
+Nous ne traitons ici que de l'utilisation d'un module du noyau Linux spécifique à votre carte. NDISwrapper fera l'objet d'une autre documentation. Pour utiliser un module spécifique du noyau Linux, il faut :";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:8:"relation";a:1:{s:10:"firstimage";s:0:"";}}s:10:"persistent";a:3:{s:4:"date";a:1:{s:7:"created";i:1271512260;}s:7:"creator";s:11:"fandesandro";s:11:"last_change";b:0;}}
