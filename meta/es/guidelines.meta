@@ -1,0 +1,13 @@
+a:2:{s:7:"current";a:7:{s:4:"date";a:2:{s:7:"created";i:1295047827;s:8:"modified";i:1295047827;}s:7:"creator";s:8:"Fernando";s:11:"last_change";a:7:{s:4:"date";i:1295047827;s:2:"ip";s:14:"190.247.198.13";s:4:"type";s:1:"C";s:2:"id";s:13:"es:guidelines";s:4:"user";s:6:"seacat";s:3:"sum";s:7:"created";s:5:"extra";s:0:"";}s:5:"title";s:44:"Directrices para la Documentación de SliTaz";s:11:"description";a:2:{s:15:"tableofcontents";a:5:{i:0;a:4:{s:3:"hid";s:43:"directrices-para-la-documentacion-de-slitaz";s:5:"title";s:44:"Directrices para la Documentación de SliTaz";s:4:"type";s:2:"ul";s:5:"level";i:1;}i:1;a:4:{s:3:"hid";s:23:"verano-de-documentacion";s:5:"title";s:24:"Verano de Documentación";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:2;a:4:{s:3:"hid";s:23:"instrucciones-generales";s:5:"title";s:23:"Instrucciones Generales";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:3;a:4:{s:3:"hid";s:19:"diseno-de-la-pagina";s:5:"title";s:21:"Diseño de la Página";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:4;a:4:{s:3:"hid";s:7:"formato";s:5:"title";s:7:"Formato";s:4:"type";s:2:"ul";s:5:"level";i:2;}}s:8:"abstract";s:506:"Este documento provee directrices para la escritura de artículos del wiki y las tareas a realizarse para mantener actualizada la documentación de SliTaz.
+
+
+
+
+Verano de Documentación
+
+	*  Centralization of all documentation to <http://doc.slitaz.org> 
+		*  Complete migration of Handbook and Cookbook (Scratchbook, if possible) 
+		*  Translation of Handbook and Cookbook
+		*  Link or translate the wiki articles on the labs website
+		*  Review and update Handbook and Cookbook as of 3.0
+		*  Add new g…";}s:8:"relation";a:2:{s:10:"references";a:1:{s:13:"en:guides:faq";b:1;}s:10:"firstimage";s:0:"";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}}s:10:"persistent";a:3:{s:4:"date";a:1:{s:7:"created";i:1295047827;}s:7:"creator";s:8:"Fernando";s:11:"last_change";a:7:{s:4:"date";i:1295047827;s:2:"ip";s:14:"190.247.198.13";s:4:"type";s:1:"C";s:2:"id";s:13:"es:guidelines";s:4:"user";s:6:"seacat";s:3:"sum";s:7:"created";s:5:"extra";s:0:"";}}}
