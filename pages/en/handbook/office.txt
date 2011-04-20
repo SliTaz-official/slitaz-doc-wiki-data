@@ -28,11 +28,13 @@ Gnumeric is free spreadsheet program and has the ability to import/export severa
 
 Homebank is a handy program to manage and compare bank accounts. Lightweight, fast and comprehensive, homebank is a good addition to Abiword and Gnumeric for an office suite that's light and easy to use. Website: [[http://homebank.free.fr/|homebank.free.fr]]. To install homebank, you can use the graphical package manager or the command:
 
- <code># tazpkg get-install homebank</code>
+<code> # tazpkg get-install homebank</code>
 
 ===== Notecase - Notes manager =====
 
-Notecase is software designed to organize and manage notes. It allows you to link pages, import or export notes and format text (bold, italics, etc). Notecase is installed by default in the heart of the system and is located in the //Menu → Office → Notecase notes manager//. 
+Notecase is software designed to organize and manage notes. It allows you to link pages, import or export notes and format text (bold, italics, etc). After installation notecase is located in the //Menu → Office → Notecase notes manager//. 
+
+<code> # tazpkg get-install notecase</code>
 
 ===== Wikipedia - Online Encyclopedia =====
 

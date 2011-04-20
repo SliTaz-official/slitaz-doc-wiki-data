@@ -1,0 +1,28 @@
+====== ACPI (Interface avancée de configuration et de gestion de l’énergie) ======
+
+Pour installer le démon et les modules d'acpi :
+<code>
+# tazpkg get-install acpid
+# tazpkg get-install linux-acpi
+</code>
+
+Le démon acpi doit être démarré avant dbus et hal, donc éditez votre ///etc/rcS.conf// pour ressembler à ceci :
+<file>
+RUN_DAEMONS="acpid, dbus, hald, etc..."
+</file>
+
+Ou, pour démarrer manuellement :
+<code>
+# /etc/init.d/hald stop
+# /etc/init.d/dbus stop
+# /etc/init.d/acpid start
+# /etc/init.d/dbus start
+# /etc/init.d/hald start
+</code>
+
+Pour vérifier que cela fonctionne, il suffit de:
+<code>
+$ cat /proc/acpi/battery/{BAT0}/info
+</code>
+
+Vous trouverez des scripts d'exemple dans ///etc/acpi//.

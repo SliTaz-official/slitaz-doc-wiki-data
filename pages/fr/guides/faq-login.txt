@@ -1,0 +1,37 @@
+====== Problèmes de connexion, d'ouverture de session ======
+
+===== Symptômes =====
+
+  * Slim, le Gestionnaire de connexion de SliTaz, échoue avec le message :
+<code> failed to execute login command </code>
+
+===== Explication =====
+
+Ceci est dû à des fichiers dans le répertoire de l'utilisateur /home qui ne sont pas correctement configurés. Les fichiers suivants doivent exister, ils peuvent être vérifiés avec la commande ''ls-la'' :
+  * .Xdefaults
+  * .xinitrc
+  * autre chose ?
+
+===== Solution =====
+Vous devez copier les fichiers par défaut à partir du modèle situé dans le répertoire /etc/skel. Cela se fait automatiquement quand un utilisateur est créé avec la boîte de contrôle de SliTaz, mais pas lorsque vous utilisez les utilitaires en ligne de commande. De temps en temps les utilisateurs constatent que ces fichiers sont supprimés, modifiés ou cassés.
+
+Connectez-vous avec le (super) utilisateur root :
+<code> su root </code>
+Passez dans le répertoire /home de l'utilisateur concerné :
+<code> cd /home/USERNAME </code>
+Définissez les options shell afin de permettre l'inclusion du point dans les noms de fichiers (.) :
+<code> shopt -s dotglob </code>
+Copiez tous les fichiers, de manière récursive :
+<code> cp -r /etc/skel/* /home/USERNAME </code>
+Modifiez le propriétaire de tous les fichiers et répertoires dans /home de l'utilisateur par celui de l'utilisateur concerné :
+<code> chown -R USERNAME:USERGROUP /home/USERNAME/* </code>
+Restaurer les options du shell :
+<code> shopt -u dotglob </code>
+Les fichiers essentiels devraient maintenant être restaurés!
+
+ÉDITION :
+
+<code> shopt -u dotglob </code>
+ne fonctionne pas dans slitaz-3.0.iso - à la place, utilisez cette commande :
+<code> chown -R USERNAME:USERGROUP /home/USERNAME/.[a-zA-Z0-9]*</code>
+----

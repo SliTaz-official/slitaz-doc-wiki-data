@@ -1,0 +1,52 @@
+====== LiveUSB ======
+
+===== Innerhalb von SliTaz =====
+
+Herunterladen > Brennen > Booten eines SliTaz ISO Image. Terminal öffnen > eingeben von (wechsle ///dev/sda// wenn notwendig):
+
+<code>
+$ su root
+# tazusb format
+</code>
+Wenn der Name des Gerät (z.B. USB-Stick) bekannt ist:
+    /dev/sda1            eingeben
+oder:
+'list'   und dann 
+    /dev/sdb1            eingeben
+... warten ...
+
+Anschließend das selbe Gerät mit dem folgenden Befehl angeben
+<code>
+# tazusb gen-liveusb /dev/sda1          oder
+# tazusb gen-liveusb /dev/sdb1
+</code>
+
+Warten…. und dann neu starten!
+
+===== Innerhalb von Windows =====
+
+Eine SliTaz Live USB Installation oder eine Frugal Installallation kann mit [[http://unetbootin.sourceforge.net/|UNetbootin]] gemacht werden.
+
+Sie können entweder: 
+  * die Standard Version ([[http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe|Windows]] | [[http://unetbootin.sourceforge.net/unetbootin-linux-latest|Linux]]) : Auswahl der SliTaz ISO Version von der Distribution Liste in unetbootin, 
+  oder 
+  * die spezielle SliTaz version ([[http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe|Windows]] | [[http://unetbootin.sourceforge.net/unetbootin-linux-latest|Linux]])
+  nutzen.
+
+Um die Live USB zu erstellen, wähle das passende “USB Drive” unter Installation type aus.
+
+Du kann ebenfalls eine frugal Installation machen. Dazu wähle “Hard Disk” unter Installation type aus;
+
+---- 
+\\
+^  Page Review Section  ^^ 
+|Quality| in work/in Arbeit |
+|Review| Minor Updates  |
+|Priority| Medium |
+|Problems| add a [[http://forum.slitaz.org|forum post link]]|
+|:::     | OR add a [[http://labs.slitaz.org/issues |lab issue tracker link ]]|
+|How to Improve| Add tazusb.exe, a SliTaz alternative to unetbootin |
+|::: |   |
+
+\\
+----

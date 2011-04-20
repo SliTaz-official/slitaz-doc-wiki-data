@@ -1,5 +1,6 @@
 ======Ежемесячный бюллетень — архив выпусков======
 
+  * [[ru:newsletter:oldissues:22|Выпуск № 22]]
   * [[ru:newsletter:oldissues:21|Выпуск № 21]]
   * [[ru:newsletter:oldissues:20|Выпуск № 20]]
   * [[ru:newsletter:oldissues:19|Выпуск № 19]]

@@ -1,0 +1,21 @@
+====== Installer sur SliTaz un paquet d'une autre distribution ======
+
+ ===== Symptômes =====
+
+  * Il y a un paquet utile qui n'est pas encore disponible dans les dépôts SliTaz.
+  * Puis-je utiliser des paquets d'autres distributions sur mon installation SliTaz?
+
+===== Explication =====
+
+Les paquets dans un sens général sont simplement une collection de dossiers et des méta-données, compilées à partir du code source pour l'adapter à un environnement et à une installation particuliers.  Les binaires d'un logiciel d'autres distributions peuvent parfois fonctionner si les bibliothèques qui le font marcher existent pour SliTaz. C'est une manière facile mais pas-toujours-précise d'essayer des paquets avant d'écrire une [[en:cookbook:receipt |recette]] pour une version du paquet pour SliTaz.
+
+Le gestionnaire de paquet de SliTaz, Tazpkg, peut [[http://hg.slitaz.org/tazpkg/raw-file/tip/doc/tazpkg.en.html#convert|convertir]] des paquets aux formats Debian, RedHat, Slackware et Arch Linux, en les dépaquetant et en employant l'information de méta-données présentes en interne pour créer un Tazpkg.
+
+===== Solution =====
+
+Il suffit d'exécuter la commande suivante dans un Terminal :
+''tazpkg convert //filename//''
+
+Le Tazpkg converti sera créé après auto-détection du format original. 
+
+<note important>Il peut y avoir des cas où le paquet généré ne fonctionne pas. Cela peut être le résultat d'une désadaptation des bibliothèques ou l'absence d'un logiciel dépendant. De même, les fichiers binaires peuvent sous-performer vu qu'ils ont été compilés pour un environnement différent et doivent s'adapter. Pour ces raisons, il est fortement recommandé de compiler le logiciel à partir du code source et créer un bon Tazpkg.</note>

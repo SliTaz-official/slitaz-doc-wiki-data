@@ -1,0 +1,143 @@
+====== Live CD für Low-RAM Systeme ======
+
+Die minimale Anforderung an RAM für die SliTaz core Live CD ist 160 MB (128 MB für 1.0). Viele grafische Applkationen werden mit wenig Arbeitsspeicher nicht laufen, daher wird der Textmodus empfohlen - Bootoption //screen=text// .
+
+Die Pakete //slitaz-loram//, //slitaz-loram-http// oder //slitaz-loram-cdrom// können dazu verwendet werden um LiveCD's zu erzeugen für Systeme mit 24MB, 32MB oder 64MB. Diese können direkt auf dem Host-System installiert werden, anstatt in den angegebenen Paketlisten die Sie für LiveCD verwenden.
+
+    * //slitaz-loram// komprimiert das Verzeichnis ///usr// und das System laeuft im RAM. Es wird keine CD-ROM, Festplatte oder USB-Stick benutzt
+    * //slitaz-loram-http// holt sich das Verzeichnis ///usr// von einem ISO Image, welches auf http://mirror.slitaz.org/ gespeichert ist. 
+    * //slitaz-loram-cdrom// verschiebt das Verzeichnis ///usr// auf die CD-ROM
+
+Das Verzeichnis ///usr// ist schreibgeschützt (RO). Wenn das Paket //funionfs// oder //aufs// installiert ist, dann kann man Schreibzugriff auf das Verzeichnis ///usr// haben.
+
+Diese Pakete modifizieren die Datei ///etc/init.d/rcS// damit das Verzeichnis ///usr// gemountet wird und installieren zwei Skripte in ///etc/tazlito//:
+
+    * //loram.rootfs// wird von //tazlito gen-distro// aufgerufen, um das Verzeichnis ///usr// zu packen oder zu verschieben.
+    * //loram.extract// wird von //slitaz-installer// aufgerufen, um das Verzeichnis ///usr// zu entpacken oder zu verschieben und die selbe Distribution wie die SliTaz core LiveCD zu installieren
+
+Laßt uns eine //slitaz-loram-cdrom.iso// erzeugen!
+
+===== slitaz-loram-cdrom =====
+
+Wir booten die Live CD und installieren das Paket slitaz-loram-cdrom :
+
+<code> # tazpkg get-install slitaz-loram-cdrom </code>
+
+//tazlito gen-distro// wird ein ISO erzeugen, welches die Pakete aus ///etc/tazlito/distro-packages.list// oder //./distro-packages.list// enthält. Zuerst entfernen wird die Paketlisten, um nur die wirklich installierten Pakete zu nutzen.
+
+<code> # rm -f /etc/tazlito/distro-packages.list ./distro-packages.list </code>
+
+Nun können wir das ISO Image erzeugen...
+
+<code> # tazlito gen-distro </code>
+
+…und dann brennen wir es auf CD.
+
+<code># wodim dev=1,0,0 /home/slitaz/distro/slitaz-hacked.iso </code>
+
+===== Variationen von slitaz-loram & slitaz-loram-cdrom =====
+
+//slitaz-loram// compresses ///usr// with //cromfs// by default, which gives a higher compression ratio but is very slow. You can use //squashfs// instead:
+
+    * refuse to install cromfs during the slitaz-loram installation
+
+<code> # yes n | tazpkg get-install slitaz-loram </code>
+
+    * install squashfs with its dependencies
+
+<code> # yes y | tazpkg get-install squashfs </code>
+
+//slitaz-loram-cdrom// moves ///usr// uncompressed to the cdrom and produces a 90MB iso. If you install cromfs or squashfs, ///usr// will be compressed on the LiveCD and the ISO size will be around 30 megabytes.
+
+===== Erzeugung eines slitaz-loram-cdrom-sqfs.iso!=====
+
+Installiere die Pakete //slitaz-loram-cdrom// und //squashfs// (sqfs) auf dem host system:
+
+<code>
+ # tazpkg get-install slitaz-loram-cdrom
+ # yes y | tazpkg get-install squashfs
+</code>
+
+Jetzt wiederholen wir die letzten Punkte des obigen Verfahrens:
+<code>
+ # rm -f /etc/tazlito/distro-packages.list ./distro-packages.list
+ # tazlito gen-distro
+ # wodim dev=1,0,0 /home/slitaz/distro/slitaz-hacked.iso
+</code>
+
+===== slitaz-loram-cdrom und Large Memory Systems =====
+
+When the //slitaz-loram-cdrom// LiveCD detects enough memory during boot, ///usr// is copied from the CD-ROM to RAM. You can eject and/or use the CD drive. The system behaves as a regular LiveCD in this case:
+
+    * a slitaz LiveCD (/usr was not compressed on the cdrom)
+    * a slitaz-loram LiveCD (/usr was compressed on the cdrom by squashfs or cromfs)
+
+===== slitaz-loram-cdrom und Tiny Memory Systems =====
+
+The boot command line is usually:
+
+<code> boot: slitaz args... </code>
+
+Slitaz boots on a 9MB RAM system with the boot command:
+
+<code> boot: loram single root=/dev/hdc </code>
+
+Where ///dev/hdc// is the CD-ROM device, the loram boot entry avoids RAM disk creation and CD-ROM detection.
+
+<note tip>Note that on a system with such a low amount of memory, the first thing to do is add swap!</note>
+
+You need 10MB to use the boot scripts with:
+
+<code> boot: loram root=/dev/hdc </code>
+
+In this case you can add arguments like kmap=, config=, etc.
+
+===== slitaz-loram Auto-Extraction =====
+
+Jede slitaz-loram* Version can beim Start in den Arbeitsspeicher (RAM) geladen werden (Wenn genug RAM vorhanden ist). Dazu muss die Boot-Option extarct-loram verwendet werden. Als Ergebnis bekommst Du eine Version ohne die Beschraenkungen des Schreibschutzes.
+
+Zum Beispiel: Angenommen Du gibst beim Start des sliTaz-loram-cdrom-sqfs folgendes ein:
+
+<code> boot: slitaz extract-loram </code>
+
+Du bekommst:
+
+    * /usr schreibgeschützt (RO) squashfs auf der CD-ROM    (bei wenig Arbeitsspeicher     (RAM))
+    * /usr schreibgeschützt (RO) squashfs im      RAM       (bei mittlerem Arbeitsspeicher (RAM)) (like slitaz-loram)
+    * /usr beschreibbar (RW)     tmpfs    im      RAM       (bei viel Arbeitsspeicher      (RAM)) (like slitaz-core)
+
+===== Erzeuge ein slitaz-loram mit tazlitobox =====
+
+Seit SliTaz 3.0, du kannst eine slitaz-loram LiveCD sehr einfach erzeugen:
+    * Start: tazlitobox
+    * Klicke auf den Reiter: Low RAM
+    * Wähle: //The filesystem is always in RAM// (für slitaz-loram) oder //The filesystem may be on a CDROM// (für slitaz-loram-cdrom)
+    * Fülle das Feld ISO input mit Deinem Slitaz flavor (3.0 or more recent)
+    * Aktualisiere: ISO output
+    * Klicke auf: //Build ISO//
+
+The filesystem root (/) is compressed (not /usr only) and mounted read-write thanks to the aufs package.
+The //mount// and //df// commands will show a strange output, handy to detect that this kind of loram is running.
+
+Alternativ kannst Du auch folgende Befehle auf der Konsole verwenden:
+<code> # tazlito build-loram original.iso loram.iso</code>
+oder:
+<code> # tazlito build-loram original.iso loram-cdrom.iso cdrom</code>
+
+Meta flavors werden unterstuetzt; Du kannst ein slitaz-3in1.iso speicherminimieren!
+
+===== And what to do with only 8MB RAM? =====
+Try Tiny Slitaz : http://pizza.slitaz.org/tiny/ !
+---- 
+\\
+^  Page Review Section  ^^ 
+|Quality| in work / in Arbeit  |
+|Review| Minor Updates  |
+|Priority| Medium |
+|Problems| add a [[http://forum.slitaz.org|forum post link]]|
+|:::     | OR add a [[http://labs.slitaz.org/issues |lab issue tracker link ]]|
+|How to Improve|Needs a review by developers|
+|::: | Add new rows like this ;-)  |
+
+\\
+----

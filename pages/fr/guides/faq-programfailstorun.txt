@@ -1,0 +1,17 @@
+====== Un programme ne s'exécute pas ou s'arrête de façon inattendue  ======
+
+===== Symptômes =====
+
+  * Rien ne se passe quand une application est exécutée à partir du menu de lancement.
+  * Une application se ferme sans avertissement.
+
+===== Explication =====
+
+Un ou plusieurs des problèmes peut avoir causé cela. Exécutez le programme dans un terminal pour voir les messages d'erreur que le programme peut afficher.
+
+===== Solution =====
+
+Lancement d'un terminal (ligne de commande) et exécuter l'application en tapant son nom. Voir la FAQ ci-après sur la résolution des problèmes communs.
+
+
+----

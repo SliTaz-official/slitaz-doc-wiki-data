@@ -1,0 +1,156 @@
+====== Wifi, pas à pas =======
+
+===== Introduction =====
+
+Si vous souhaitez utiliser votre wifi tout de suite, cette page n'est pas faite pour vous.  Vous devriez plutôt regarder le didacticiel du wifi facile qui explique comment utiliser les outils livrés avec SliTaz. 
+Mais si vous voulez savoir comment utiliser le wifi (sous linux), cette page vous expliquera comment, et vous aidera à le configurer //à partir de zéro//.
+
+Avant de continuer :
+
+    * Vous devez connaître le module du noyau nécessaire à votre carte wifi.
+    * Si vous avez besoin du firmware, vous devez savoir où le télécharger.
+
+Nous allons :
+
+    -Installer n'importe quel logiciel et progiciels utiles.
+    -Charger le module du noyau.
+    -Configurer la connexion wifi.
+    -Configurer le WPA.
+    -Rester connecté et surfer.
+    -Arrêter le wifi.
+
+//PS:// Sur SliTaz, le script /usr/bin/get-wifi-firmware  prend en charge les étapes 1 et 2, et le script /etc/init.d/network.sh; les étapes 3 à 6.
+
+===== Installer les logiciels nécessaires =====
+
+Vous aurez besoin des modules wifi du noyau et d'un logiciel pour gérer les réseaux WiFi. Si vous utilisez une clé WPA, vous aurez également besoin de wpa_supplicant :
+
+<code>
+# tazpkg get-install linux-wireless
+# tazpkg get-install wireless_tools
+# tazpkg get-install wpa_supplicant
+</code>
+
+Si vous avez besoin du firmware :
+<code>
+# cd /lib/firmware
+# wget http://www.address/of/my/firmware
+</code>
+
+Untar pour installer :
+<code>
+# tar -xvf my_firmware.tar*
+# rm my_firmware.tar*
+</code>
+
+===== Charger le module de noyau =====
+
+<code>
+# modprobe -v my_module
+</code>
+Si vous avez des erreurs, vérifiez que votre firmware est placé à l'endroit où il faut et regardez la sortie de dmesg :
+<code>
+$ ls -l /lib/firmware
+$ dmesg
+</code>
+Si vous n'avez pas d'erreurs, vous pouvez continuer. 
+
+===== Configurer l'interface wifi =====
+
+Avant de configurer une nouvelle interface, vous devez dé-configurer l'ancienne. Si votre interface Ethernet est encore configurée, vous devriez commencer par :
+<code>
+# ifconfig eth0 down
+</code>
+
+iwconfig permet de configurer votre carte wifi, pour qu'elle puisse se connecter à votre point d'accès. Vous devez connaître le nom de votre interface wifi (habituellement //wlan0// or //eth1//). Si vous ne connaissez pas son nom, il suffit d'exécuter la commande iwconfig :
+<code>
+# iwconfig
+</code>
+
+Maintenant, nous pouvons configurer l'interface wifi et la démarrer :
+<code>
+# ifconfig WIFI_INTERFACE up
+# iwconfig WIFI_INTERFACE txpower on
+</code>
+
+Testons que la carte fonctionne :
+<code>
+# iwlist scan
+</code>
+Si vous avez obtenu une liste de points d'accès, vous pouvez dire maintenant à votre interface wifi à quel ESSID se connecter : 
+<code>
+# iwconfig WIFI_INTERFACE essid MY_ESSID 
+</code>
+iwconfig peut également accepter d'autres arguments, consultez sa page de manuel pour en savoir plus.
+
+===== Configurer une clé WEP ou WPA =====
+
+Vous pouvez configurer facilement une clé WEP avec iwconfig :
+<code>
+# iwconfig WIFI_INTERFACE key my_wep_key
+</code>
+
+Mais vous devriez //toujours// utiliser une clé WPA, car les clés WEP peuvent être facilement cassées avec aircrack, comme expliqué [[http://www.tuto-fr.com/tutoriaux/tutorial-crack-wep-aircrack.php|ici]], mais le WPA n'est pas infaillible non plus, voir [[http://fr.wikipedia.org/wiki/Wi-Fi_Protected_Access|ici]].
+wpa_supplicant vous permet d'utiliser une clé WPA (certaines cartes peuvent utiliser le WPA sans wpa_supplicant). Il a besoin d'un fichier de configuration, habituellement ///etc/wpa_supplicant.conf//. Si vous utilisez wpa_psk (normalement, oui), ajoutez ceci au fichier :
+<file>
+ap_scan=1
+network={
+	ssid="my_essid"
+	scan_ssid=1
+	proto=WPA
+	key_mgmt=WPA-PSK
+	psk="my_clear_key"
+	priority=5
+}
+</file>
+ou, essayez :
+<file>
+ap_scan=1
+network={
+	ssid="my_essid"
+	scan_ssid=1
+	key_mgmt=WPA-EAP WPA-PSK IEEE8021X NONE
+	group=CCMP TKIP WEP104 WEP40
+	pairwise=CCMP TKIP
+	psk="my_clear_key"
+	priority=5
+}
+</file>
+Il est maintenant possible de démarrer wpa_supplicant :
+<code>
+ # wpa_supplicant -B -w -c/etc/wpa_supplicant.conf -DWPA_DRIVER -iWIFI_INTERFACE
+</code>
+WPA_DRIVER est le nom du pilote employé par wpa_supplicant.
+Habituellement, c'est //wext//, mais parfois, un autre est nécessaire. Voici une liste des pilotes possibles :
+
+    * //wext// = Linux wireless extensions (générique, devrait fonctionner dans la plupart des cas)
+    * //hostap// = Host AP driver (Intersil Prism2/2.5/3)
+    * //atmel// = ATMEL AT76C5XXx (USB, PCMCIA)
+    * //wired// = pilote wpa_supplicant pour câble Ethernet
+
+L'option //-B// démarre  wpa_supplicant en tant que démon. Si vous voulez l'arrêter :
+
+<code>
+# killall wpa_supplicant
+</code>
+
+===== Se connecter =====
+
+Si vous voulez vous connecter en dhcp, il suffit d'exécuter :
+<code>
+# /sbin/udhcpc -b -i WIFI_INTERFACE -p /var/run/udhcpc.WIFI_INTERFACE.pid
+</code>
+Normalement, vous devriez surfer!
+
+===== Arrêter le wifi =====
+
+Pour arrêter le wifi, vous devez couper votre carte wifi, et arrêter les démons wpa_supplicant et udhcpc :
+<code>
+# iwconfig WIFI_INTERFACE txpower off
+# kill `cat /var/run/udhcpc.WIFI_INTERFACE.pid`
+# killall wpa_supplicant
+</code>
+Vous pouvez également retirer le module du noyau :
+<code>
+# rmmod my_module
+</code>

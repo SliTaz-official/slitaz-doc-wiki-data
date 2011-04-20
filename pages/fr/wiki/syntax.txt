@@ -1,0 +1,462 @@
+====== Syntaxe de mise en page ======
+
+[[http://www.dokuwiki.org/fr:dokuwiki|DokuWiki]] utilise un langage de balisage simple, qui essaie de rendre les fichiers de données aussi lisibles que possible. Cette page contient toutes les syntaxes possibles que vous pouvez utiliser en éditant les pages. Regardez simplement le code source de cette page en cliquant sur le bouton //Éditer cette page// en haut ou en bas de cette page. Si vous souhaitez essayer quelque chose, rendez-vous dans la page du [[playground:playground|bac à sable]]. Les balises les plus simples sont aussi facilement accessibles depuis les [[doku>fr:toolbar|raccourcis]].
+
+===== Mise en forme de texte basique =====
+
+DokuWiki accepte les textes en **gras**, //italique//, __souligné__ et ''à chasse fixe''. 
+
+  DokuWiki accepte les textes en **gras**, //italique//, __souligné__ et ''à chasse fixe''.
+
+Bien sûr, vous pouvez tous les **__//''combiner''//__**.
+
+  Bien sûr, vous pouvez tous les **__//''combiner''//__**.
+
+Vous pouvez aussi utiliser <sub>indice</sub> et <sup>exposant</sup>.
+
+  Vous pouvez aussi utiliser <sub>indice</sub> et <sup>exposant</sup>.
+
+De plus, vous pouvez marquer un passage comme <del>supprimé</del>.
+
+  De plus, vous pouvez marquer un passage comme <del>supprimé</del>.
+
+**Les paragraphes** sont créés à partir des lignes vides. Si vous souhaitez **forcer un saut de ligne** sans paragraphe, vous pouvez utiliser deux contre-obliques suivies par un espace ou une fin de ligne. 
+
+Voici du texte avec des sauts de ligne\\ remarquez que les
+deux contre-obliques sont reconnues uniquement en fin de ligne\\
+ou suivies par\\ un espace ; \\ceci se produit sinon.
+
+  Voici du texte avec des sauts de ligne\\ remarquez que les
+  deux contre-obliques sont reconnues uniquement en fin de ligne\\
+  ou suivies par\\ un espace ; \\ceci se produit sinon.
+
+Vous ne devriez forcer des sauts de ligne que si c'est vraiment nécessaire. 
+
+===== Liens =====
+
+DokuWiki propose plusieurs moyens pour créer des liens. 
+
+==== Externes ====
+
+Les liens externes sont reconnus « automatiquement » : http://www.google.fr ou simplement www.google.fr - Vous pouvez aussi donner des noms aux liens : [[http://www.google.fr|Ce lien pointe vers Google]]. Les adresses de courriel comme celle-ci : <andi@splitbrain.org> sont également reconnues. 
+
+  Les liens externes sont reconnus « automatiquement » : http://www.google.fr 
+  ou simplement www.google.fr - Vous pouvez aussi donner des noms aux 
+  liens : [[http://www.google.fr|Ce lien pointe vers Google]]. Les adresses 
+  de courriel comme celle-ci : <andi@splitbrain.org> sont également reconnues. 
+
+==== Internes ====
+
+Les liens internes sont créés en utilisant les crochets. Vous pouvez soit juste donner un [[doku>fr:pagename|nom de page]] soit utiliser un [[doku>fr:pagename|texte pour le titre]]. Les noms de pages (//pagenames//) wiki sont convertis automatiquement en minuscules ; les caractères spéciaux ne sont pas autorisés.
+
+  Les liens internes sont créés en utilisant les crochets. Vous pouvez soit
+  juste donner un [[nom de page]] soit utiliser un
+  [[nom de page|texte pour le titre]]. Les noms de pages (//pagenames//) wiki
+  sont convertis automatiquement en minuscules ; les caractères spéciaux ne
+  sont pas autorisés.
+
+Vous pouvez utiliser des [[doku>fr:namespaces|catégories]] (//namespaces//) en utilisant les //deux points// ('':'') dans le nom de page //pagename//.
+
+  Vous pouvez utiliser des [[catégories]] (//namespaces//) en utilisant les //deux points// ('':'') dans le nom de page //pagename//.
+
+Pour plus de détails sur les catégories (//namespaces//), voir [[doku>fr:namespaces|Catégories]].
+
+Les liens vers une section spécifique sont également possibles. Ajoutez simplement le nom de la section après un caractère dièse (#) comme en HTML. Ce lien renvoie vers [[syntax#internes|cette section]].
+
+  Ce lien renvoie vers [[syntax#internes|cette section]].
+
+Notes :
+
+  * Les liens vers des [[syntax|pages existantes]] sont montrés dans un style différent des liens vers des pages [[inexistantes]].
+  * DokuWiki n'utilise pas la syntaxe [[wpfr>CamelCase]] pour utiliser des liens par défaut, mais ce comportement peut être activé dans le fichier de [[doku>fr:config|configuration]]. Astuce : si le mot DokuWiki apparaît sur cette page comme un lien, alors c'est que la syntaxe CamelCase est activée. 
+  * Lorsque le titre d'une section est modifié, alors son lien change aussi. Donc ne comptez pas trop sur les liens de section. 
+
+==== Interwiki ====
+
+DokuWiki propose les liens [[doku>fr:interwiki|Interwiki]]. Ce sont des liens rapides vers d'autres Wikis. Par exemple ceci est un lien vers la définition des Wikis dans Wikipedia en français : [[wp>fr:Wiki|Wiki]].
+
+  DokuWiki propose les liens [[doku>fr:interwiki|Interwiki]]. Ce sont des
+  liens rapides vers d'autres Wikis. Par exemple ceci est un lien vers la
+  définition des Wikis dans Wikipedia en français : [[wp>fr:Wiki|Wiki]].
+
+
+==== Partages Windows ====
+
+Les partages Windows tels que [[\\serveurnt4\partage|ceci]] sont également reconnus. Veuillez noter qu'ils n'ont un sens que dans un groupe d'utilisateurs homogène tels qu'un [[wp>Intranet]] d'entreprise. 
+
+  Les partages Windows tels que [[\\serveur\partage|ceci]] sont également reconnus.
+
+Notes :
+
+  * Pour des raisons de sécurité, la navigation directe sur partages Windows ne fonctionne que dans //Microsoft Internet Explorer// par défaut (et seulement dans la « zone locale »). 
+  * Pour //Mozilla// et //Firefox//, elle peut être mise en place dans l'option de configuration [[http://www.mozilla.org/quality/networking/docs/netprefs.html#file|security.checkloaduri]] mais ceci n'est pas conseillé.
+     * Je viens de tester en passant la valeur à "false", mais cela ne change rien !? (même après redémarrage de FF 2.0.0.6 sous Windows)
+  * Veuillez consulter [[dokubug>151]] pour plus d'informations.
+==== Liens images ====
+
+Vous pouvez aussi utiliser une image afin de créer un lien vers une autre page interne ou externe en combinant les syntaxes des liens et des [[#Images et autres fichiers|images]] (voir plus bas) comme ceci :
+
+  [[http://www.php.net|{{wiki:dokuwiki-128.png}}]]
+
+[[http://www.php.net|{{wiki:dokuwiki-128.png}}]]
+
+NB : la mise en forme image est la seule syntaxe de mise en forme acceptée comme nom de lien.
+
+Les syntaxes d'[[#Images et autres fichiers|image]] complète et de [[#Liens]] sont possibles (incluant le redimensionnement d'image, les images internes et externes, les URL et les liens interwikis).
+
+===== Notes de pied de page =====
+
+Vous pouvez ajouter des notes de pied de page ((Ceci est une note de pied de page)) en utilisant des parenthèses doubles.
+
+  Vous pouvez ajouter des notes de pied de page ((Ceci est une note de pied de page)) en utilisant des parenthèses doubles.
+
+
+===== Découpage en sections =====
+
+Vous pouvez utiliser jusqu'à cinq niveaux de titres différents afin de **structurer** le contenu. Si vous avez plus de trois titres, une table des matières est construite automatiquement -- ceci peut être désactivé en incluant la chaîne 
+''<nowiki>~~NOTOC~~</nowiki>'' dans le document.
+
+
+
+==== Titre niveau 3 ====
+=== Titre niveau 4 ===
+== Titre niveau 5 ==
+
+  ==== Titre niveau 3 ====
+  === Titre niveau 4 ===
+  == Titre niveau 5 ==
+
+En utilisant quatre tirets ou plus, vous pouvez créer une ligne horizontale :
+
+----
+\\
+<code>----</code>
+===== Images et autres fichiers =====
+
+Vous pouvez inclure des [[doku>fr:images|images]] externes et internes avec des accolades. Vous pouvez spécifier leur taille (facultatif).
+
+Taille réelle :                                          {{wiki:dokuwiki-128.png}}
+
+Redimensionnement à une largeur donnée :                 {{wiki:dokuwiki-128.png?50}}
+
+Redimensionnement à une largeur et une hauteur données((Si les proportions de l'image ne sont pas respectées, celle-ci sera <<découpée>> avant redimensionnement selon les nouvelles proportions)) : {{wiki:dokuwiki-128.png?200x50}}
+
+Image externe redimensionnée :                           {{http://de3.php.net/images/php.gif?200x50}}
+
+  Taille réelle :                                          {{wiki:dokuwiki-128.png}}
+  Redimensionnement à une largeur donnée :                 {{wiki:dokuwiki-128.png?50}}
+  Redimensionnement à une largeur et une hauteur données : {{wiki:dokuwiki-128.png?200x50}}
+  Image externe redimensionnée :                           {{http://de3.php.net/images/php.gif?200x50}}
+
+
+En utilisant des espaces à gauche ou à droite, vous pouvez choisir l'alignement.
+
+{{ wiki:dokuwiki-128.png}}
+
+{{wiki:dokuwiki-128.png }}
+
+{{ wiki:dokuwiki-128.png }}
+
+  {{ wiki:dokuwiki-128.png}}
+  {{wiki:dokuwiki-128.png }}
+  {{ wiki:dokuwiki-128.png }}
+
+Bien sûr, vous pouvez aussi ajouter un titre (affiché comme une bulle d'aide par la plupart des navigateurs). 
+
+{{ wiki:dokuwiki-128.png |Ceci est le titre}}
+
+  {{ wiki:dokuwiki-128.png |Ceci est le titre}}
+
+On peut proposer une image en téléchargement sans l'afficher, en utilisant ''?linkonly'' après le nom de l'image
+
+{{ wiki:dokuwiki-128.png?linkonly|le logo de DokuWiki}}
+
+  {{ wiki:dokuwiki-128.png?linkonly|le logo de DokuWiki}}
+
+ 
+Si vous spécifiez un nom de fichier (externe ou interne) qui n'est pas une image (''gif, jpeg, png''), alors il sera affiché comme un lien et non comme une image. 
+
+Pour lier une image à une autre page, voir [[#Liens images]] ci-dessus.
+
+===== Listes =====
+
+DokuWiki accepte les listes ordonnées et non ordonnées. Pour créer un élément de liste, indentez votre texte par deux espaces et utilisez une ''*'' pour une liste non ordonnée ou un ''-'' pour une liste ordonnée. 
+
+  * Ceci est une liste
+  * Le second élément
+    * Vous pouvez avoir plusieurs niveaux
+  * Un autre élément
+
+  - La même liste mais ordonnée
+  - Un autre élément
+    - Utilisez simplement l'indentation pour des niveaux plus profonds
+  - Et voilà
+
+<code>
+  * Ceci est une liste
+  * Le second élément
+    * Vous pouvez avoir plusieurs niveaux
+  * Un autre élément
+
+  - La même liste mais ordonnée
+  - Un autre élément
+    - Utilisez simplement l'indentation pour des niveaux plus profonds
+  - Et voilà
+</code>
+
+Vous pouvez aussi consulter notre [[http://www.dokuwiki.org/fr:faq:lists|FAQ sur les listes]] 
+
+===== Conversions textuelles =====
+
+DokuWiki peut convertir certains caractères ou chaines de caractère prédéfinis en image, autre texte, ou HTML.
+
+Les conversions en image sont principalement utilisée pour les émoticônes (//smileys//). Les conversions en texte ou HTML sont utilisées pour des raisons de typographie, mais peuvent également être configurées pour utiliser d'autres balises HTML.
+
+==== Emoticônes (smileys) ====
+
+DokuWiki transforme les [[wpfr>Émoticône]]s courantes en leurs équivalents graphiques. Plus d'émoticônes (//smileys//) peuvent être placées dans le répertoire ''smiley'' et configurées dans le fichier ''conf/smileys.conf''. Voici une vue d'ensemble des émoticônes incluse dans DokuWiki. 
+
+  * 8-) %%  8-)  %%
+  * 8-O %%  8-O  %%
+  * :-( %%  :-(  %%
+  * :-) %%  :-)  %%
+  * =)  %%  =)   %%
+  * :-/ %%  :-/  %%
+  * :-\ %%  :-\  %%
+  * :-? %%  :-?  %%
+  * :-D %%  :-D  %%
+  * :-P %%  :-P  %%
+  * :-O %%  :-O  %%
+  * :-X %%  :-X  %%
+  * :-| %%  :-|  %%
+  * ;-) %%  ;-)  %%
+  * ^_^ %%  ^_^  %%
+  * :?: %%  :?:  %%
+  * :!: %%  :!:  %%
+  * LOL %%  LOL  %%
+  * FIXME %%  FIXME %%
+  * DELETEME %% DELETEME %%
+
+==== Typographie ====
+
+[[http://www.dokuwiki.org/fr:dokuwiki|DokuWiki]] peut convertir de simples caractères de texte brut en leurs entités typographiques correctes. Voici un exemple des caractères reconnus. 
+
+-> <- <-> => <= <=> >> << -- --- 640x480 (c) (tm) (r)
+"He thought 'It's a man's world'..."
+
+<code>
+-> <- <-> => <= <=> >> << -- --- 640x480 (c) (tm) (r)
+"He thought 'It's a man's world'..."
+</code>
+
+Il est possible de faire la même chose pour n'importe quelle balise HTML. Il suffit pour cela de rajouter une ligne dans le [[http://www.dokuwiki.org/fr:entities|fichier de motifs]].
+
+Il existe trois exceptions à ce mécanisme. le symbole de multiplication (640x480), les %%'%%apostrophes%%'%% et les "guillemets". On peut toutefois désactiver ces trois substitutions par une [[http://www.dokuwiki.org/fr:config:typography|option de configuration]].
+===== Citations =====
+
+Parfois vous souhaitez marquer du texte afin de montrer que c'est une réponse ou un commentaire. Vous pouvez utiliser la syntaxe suivante :
+
+  Je pense que nous devrions le faire
+  
+  > Non nous ne devrions pas
+  
+  >> Eh bien, je pense que si
+  
+  > Vraiment ?
+  
+  >> Oui !
+  
+  >>> Alors faisons-le !
+
+Je pense que nous devrions le faire
+
+> Non nous ne devrions pas
+
+>> Eh bien, je pense que si
+
+> Vraiment ?
+
+>> Oui !
+
+>>> Alors faisons-le !
+
+===== Tableaux =====
+
+DokuWiki propose une syntaxe simple pour créer des tableaux. 
+
+^ Titre 1         ^ Titre 2           ^ Titre 3                            ^
+| Ligne 1 Col 1   | Ligne 1 Col 2     | Ligne 1 Col 3                      |
+| Ligne 2 Col 1   | colonnes fusionnées (notez la double barre verticale) ||
+| Ligne 3 Col 1   | Ligne 2 Col 2     | Ligne 2 Col 3                      |
+
+Les lignes de tableau doivent commencer et se terminer avec une //barre verticale// ''|'' pour des lignes normales ou avec un ''^'' pour les titres. 
+
+  ^ Titre 1         ^ Titre 2           ^ Titre 3                            ^
+  | Ligne 1 Col 1   | Ligne 1 Col 2     | Ligne 1 Col 3                      |
+  | Ligne 2 Col 1   | colonnes fusionnées (notez la double barre verticale) ||
+  | Ligne 3 Col 1   | Ligne 2 Col 2     | Ligne 2 Col 3                      |
+
+Pour fusionner des cellules horizontalement, videz simplement complètement la cellule suivante comme il est montré ci-dessus. Assurez-vous d'avoir toujours le même nombre de séparateurs de cellules !
+
+Les titres de tableau verticaux sont également possibles. 
+
+|              ^ Titre 1                  ^ Titre 2          ^
+^ Titre 3      | Ligne 1 Col 2            | Ligne 1 Col 3    |
+^ Titre 4      | pas de fusion cette fois |                  |
+^ Titre 5      | Ligne 2 Col 2            | Ligne 2 Col 3    |
+
+Comme vous pouvez le constater, c'est le séparateur ('|' ou '^') précédant une cellule qui détermine le format :
+
+  |              ^ Titre 1                  ^ Titre 2          ^
+  ^ Titre 3      | Ligne 1 Col 2            | Ligne 1 Col 3    |
+  ^ Titre 4      | pas de fusion cette fois |                  |
+  ^ Titre 5      | Ligne 2 Col 2            | Ligne 2 Col 3    |
+
+Vous pouvez fusionner des cellules verticalement en ajoutant ::: dans les cellules sous celles avec laquelle elles doivent fusionner.
+:!: Cette fonctionnalité n'est disponible que pour les versions supérieures à 2009-02-14b
+
+^ Titre 1       ^ Titre 2                                  ^ Titre 3       ^
+| Ligne 1 Col 1 |  Cette cellule s'étend\\ verticalement   | Ligne 1 Col 3 |
+| Ligne 2 Col 1 | :::                                      | Ligne 2 Col 3 |
+| Ligne 3 Col 1 | :::                                      | Ligne 3 Col 3 |
+
+Ces cellules ne doivent rien contenir d'autre que l'indicateur de fusion vertical.
+
+  ^ Titre 1       ^ Titre 2                                  ^ Titre 3       ^
+  | Ligne 1 Col 1 |  Cette cellule s'étend\\ verticalement   | Ligne 1 Col 3 |
+  | Ligne 2 Col 1 | :::                                      | Ligne 2 Col 3 |
+  | Ligne 3 Col 1 | :::                                      | Ligne 3 Col 3 |
+
+
+Vous pouvez également aligner les contenus du tableau. Ajoutez simplement au moins deux espaces à l'extrémité opposée de votre texte : ajoutez deux espaces sur la gauche pour aligner à droite, deux espaces sur la droite pour aligner à gauche et deux espaces au moins à chaque extrémité pour centrer le texte. 
+
+^          Tableau avec alignement         ^^^
+|        droite|    centré    |gauche        |
+|gauche        |        droite|    centré    |
+| xxxxxxxxxxxx | xxxxxxxxxxxx | xxxxxxxxxxxx |
+
+Voici à quoi ça ressemble dans le code source :
+
+  ^          Tableau avec alignement         ^^^
+  |        droite|    centré    |gauche        |
+  |gauche        |        droite|    centré    |
+  | xxxxxxxxxxxx | xxxxxxxxxxxx | xxxxxxxxxxxx |
+
+===== Blocs non analysés =====
+
+Vous pouvez inclure des blocs non analysés dans vos documents soit en les indentant avec au moins deux espaces (comme on peut le voir dans les exemples précédents) soit en utilisant les balises ''code'' ou ''file''.
+
+
+<code>
+Ceci est du code préformaté, tous les espaces sont préservés : comme           <-ceci
+</code>
+
+<file>
+Ceci est pratiquement la même chose, mais vous pouvez l'utiliser pour montrer que vous avez cité un fichier. 
+</file>
+
+Pour laisser l'analyseur ignorer complètement un bloc (comme ne pas faire lui appliquer de mise en forme), encadrez ce bloc soit avec des balises ''nowiki'' ou, encore plus simple, avec des caractères pourcent doubles ''<nowiki>%%</nowiki>''.
+
+  <nowiki>
+  Voici du texte qui contient des adresses comme ceci : http://www.spiltbrain.org et de la **mise en forme**, mais rien ne se passe. 
+  </nowiki>
+
+<nowiki>
+Voici du texte qui contient des adresses comme ceci : http://www.spiltbrain.org et de la **mise en forme**, mais rien ne se passe. 
+</nowiki>
+
+Consultez le code source de cette page pour voir comment utiliser ces blocs. 
+
+==== Coloration syntaxique ====
+
+[[http://www.dokuwiki.org/fr:dokuwiki|DokuWiki]] peut mettre en forme et en couleur du code source, ce qui facilite sa lecture. Il utilise le Generic Syntax Highlighter [[http://qbnz.com/highlighter/|GeSHi]] -- donc n'importe quel langage connu de GeSHi est accepté. La syntaxe est la même que dans le bloc de code de la section précédente, mais cette fois le nom du langage utilisé est inséré dans la balise. Par exemple : ''<nowiki><code java></nowiki>''.
+
+<code java>
+/** 
+ * La classe HelloWorldApp implémente une application qui
+ * affiche simplement "Hello World!" dans la sortie standard.
+ */
+class HelloWorldApp {
+    public static void main(String[] args) {
+        System.out.println("Hello World!"); //Affiche la chaîne.
+    }
+}
+</code>
+
+Les identificateurs de langage suivants sont actuellement reconnus : //4cs, abap, actionscript-french, actionscript, actionscript3, ada, apache, applescript, asm, asp, autoconf, autohotkey, autoit, avisynth, awk, bash, basic4gl, bf, bibtex, blitzbasic, bnf, boo, c, c_mac, caddcl, cadlisp, cfdg, cfm, chaiscript, cil, clojure, cmake, cobol, cpp, cpp-qt, csharp, css, cuesheet, d, dcs, delphi, diff, div, dos, dot, ecmascript, eiffel, email, erlang, fo, fortran, freebasic, fsharp, gambas, genero, genie, gdb, glsl, gml, gnuplot, groovy, gettext, gwbasic, haskell, hicest, hq9plus, html, icon, idl, ini, inno, intercal, io, j, java5, java, javascript, jquery, kixtart, klonec, klonecpp, latex, lisp, locobasic, logtalk, lolcode, lotusformulas, lotusscript, lscript, lsl2, lua, m68k, magiksf, make, mapbasic, matlab, mirc, modula2, modula3, mmix, mpasm, mxml, mysql, newlisp, nsis, oberon2, objc, ocaml-brief, ocaml, oobas, oracle8, oracle11, oxygene, oz, pascal, pcre, perl, perl6, per, pf, php-brief, php, pike, pic16, pixelbender, plsql, postgresql, povray, powerbuilder, powershell, progress, prolog, properties, providex, purebasic, python, q, qbasic, rails, rebol, reg, robots, rpmspec, rsplus, ruby, sas, scala, scheme, scilab, sdlbasic, smalltalk, smarty, sql, systemverilog, tcl, teraterm, text, thinbasic, tsql, typoscript, unicon, vala, vbnet, vb, verilog, vhdl, vim, visualfoxpro, visualprolog, whitespace, winbatch, whois, xbasic, xml, xorg_conf, xpp, z80//
+
+==== Bloc de code téléchargeables ====
+
+
+Quand vous utilisez les balises //%%<code>%%// ou //%%<file>%%//, vous pouvez rendre disponible en téléchargement le code affiché. Il faut alors préciser un nom de fichier juste après le code du langage.
+
+<file php monexemple.php>
+<?php echo "hello world!"; ?>
+</file>
+
+  <file php monexemple.php>
+  <?php echo "hello world!"; ?>
+  </file>
+
+Si vous ne voulez pas de coloration syntaxique, il suffit de fournir un tiret (-) en guise de code de langage:\\
+ %%<code - monfichier.toto>%%.
+
+===== Agrégation de fils RSS/ATOM =====
+[[http://www.dokuwiki.org/fr:dokuwiki|DokuWiki]] peut agréger les données de fils XML externes. Pour l'analyse des fils XML, [[http://simplepie.org/|SimplePie]] est utilisé. Tous les formats connus de SimplePie peuvent aussi être utilisés dans DokuWiki. Vous pouvez modifier le comportement en ajoutant plusieurs paramètres séparés par des espaces :
+
+^ Paramètre   ^ Description ^
+| tout nombre | sera utilisé comme le nombre maximum d'éléments à montrer, 8 par défaut |
+| reverse     | affiche les derniers éléments en premier dans le fil |
+| author      | affiche le nom des auteurs des éléments |
+| date        | affiche les dates des éléments |
+| description | affiche les descriptions des éléments. Si [[doku>config#htmlok|HTML]] est désactivé, toutes les étiquettes (//tags//) seront enlevées |
+| //n//[dhm]  | durée de rafraîchissement, ou d=days (jours), h=heures, m=minutes. (Par exemple 12h = 12 heures). |
+
+La durée de rafraîchissement est par défaut de 4 heures. Toute valeur inférieure à 10 minutes sera traitée comme 10 minutes. [[http://www.dokuwiki.org/fr:dokuwiki|DokuWiki]] essaiera en général de fournir une version de la page à partir du cache, évidemment, cela est inadapté quand la page a un contenu dynamique externe. Le paramètre dit à [[DokuWiki]] de ré-engendrer la page s'il y a plus que la //durée de rafraîchissement// depuis que la page a été engendrée pour la dernière fois.
+
+**Exemple :**
+
+  {{rss>http://slashdot.org/index.rss 5 author date 1h }}
+
+{{rss>http://slashdot.org/index.rss 5 author date 1h }}
+
+===== Inclure du code HTML ou PHP =====
+
+Vous pouvez inclure du code HTML ou PHP pur dans vos documents en utilisant les balises ''html'' ou ''php'' comme ceci :
+<code>
+<html>
+Ceci est du <font color="red" size="+1">HTML</font>
+</html>
+</code>
+
+<html>
+Ceci est du <font color="red" size="+1">HTML</font>
+</html>
+
+<code>
+<php>
+echo 'Un logo produit par PHP :';
+echo '<img src="' . $_SERVER['PHP_SELF'] . '?=' . php_logo_guid() . '" alt="Logo PHP !" />';
+</php>
+</code>
+
+<php>
+echo 'Un logo produit par PHP :';
+echo '<img src="' . $_SERVER['PHP_SELF'] . '?=' . php_logo_guid() . '" alt="Logo PHP !" />';
+</php>
+
+**NB** : L'inclusion de code HTML et PHP est désactivée dans la configuration par défaut. Dans ce cas, le code est affiché au lieu d'être exécuté. 
+
+===== Macros =====
+
+Certains mot-clef modifient la manière dont DokuWiki génère une page, sans rajouter aucun contenu. Les macros suivantes sont disponibles :
+
+^ Macro           ^ Description |
+| %%~~NOTOC~~%%   | Si cette macro est présente dans une page, aucune table des matières ne sera générée. |
+| %%~~NOCACHE~~%% | Par défaut, DokuWiki met en cache les pages qu'il génère. Parfois, ce n'est pas ce qui est voulu (par exemple quand la syntaxe %%<php>%% vue ci dessus est utilisée), ajouter cette macro va forcer DokuWiki à générer une page à chaque appel de celle ci.  |
+
+===== Extensions de syntaxe =====
+
+La syntaxe de DokuWiki peut être étendue par des [[doku>fr:plugins|extensions]]. Comment utiliser les extensions installées est décrit dans leurs pages de description respectives. Les extensions de syntaxe suivantes sont disponibles dans cette installation particulière de DokuWiki :
+
+~~INFO:syntaxplugins~~

@@ -1,0 +1,27 @@
+====== Vue d'ensemble ======
+
+Il existe une variété d'émulateurs de terminaux disponibles pour SliTaz et plus encore pour Linux. SliTaz est livré avec le vénérable XTerm, un programme de base, mais fonctionnement.
+
+<note tip>Vous pouvez rencontrer quelques problèmes avec n'importe quel programme graphique, certains plus sérieux que d'autres. En les faisant s'exécuter depuis un Terminal, la sortie apparaît dans la fenêtre du Terminal donc vous pouvez identifier les problèmes. Il suffit juste de trouver la commande du programme, de la saisir dans le terminal et d'appuyer sur 'Entrée'.</note>
+
+\\
+----
+====== XTerm ======
+
+===== Copier/coller impossible =====
+
+=== Symptômes ===
+  * Je ne peux pas copier / coller
+  * Le clic droit pour un menu ne fonctionne pas comme prévu
+
+=== Explication ===
+
+XTerm n'a pas de menu clic-droit - ou tout autre menu, d'ailleurs - mais la sélection est activée en utilisant les boutons de la souris.
+
+=== Solution ===
+
+La sélection, copier et coller se font en utilisant les boutons de la souris. Les trois boutons de la souris fonctionnent ainsi :
+
+  * //Clic gauche// définit l'endroit où la sélection commence
+  * //Clic droit// définit où la sélection se termine et la copie dans le presse-papiers
+  * //Bouton du milieu// colle le contenu du presse-papiers au curseur, pas à la position de la de souris

@@ -21,12 +21,11 @@ In extensions enable: Advertisement blocker
 
 Most people like ad blocking that FireFox has through an extension called Adblock Plus(ABP). Well Midori has an adblocker that uses the well known "easylist" from ABP. Now that you have it enabled we need to edit it. Click on the "Tools Menu", now click on "Configure Advertisement filters". This should now open a box looking like this:
 
-{{http://img541.yfrog.com/img541/4508/beforeadded.png}}
+{{:en:guides:image:beforeadded.png}}
 
 From the picture you can see that adding a ruleset is pretty self explanatory. As an example click on Add, then insert this url: <code>http://easylist-downloads.adblockplus.org/easyprivacy.txt</code> 
 
-
-{{http://img541.yfrog.com/img541/2485/added.png}}
+{{:en:guides:image:added.png}}
 
 That is what it should now look like. Now to block a single image just right click the image on the page you want to block. Go down to Block Image and click Add. Now that image is blocked.
 ===== Managing Search Engines ===== 
@@ -34,11 +33,11 @@ No extension needs to be enabled for this feature.
 
 This is one of my favorite things in any browser. I use this for other things then just search engines. I will share that later. Click on the "Tools Menu", then click on "Manage Search Engines". Just like Ad blocking you should get a box to pop up that looks like this:
 
-{{http://img541.yfrog.com/img541/7471/manage.png}}
+{{:en:guides:image:manage.png}}
 
 Since I don't really use anything else but google I am just going to add Yahoo! as an example of how to add it and use it. Click add and fill it in to look like this:
 
-{{http://img542.yfrog.com/img542/4866/yahoo.png}}
+{{:en:guides:image:yahoo.png}}
 
 Once that is done go up to the URL bar in midori and type: "y slitaz linux" without the quotes. [[http://img30.yfrog.com/img30/6048/yslitazlinux.png|Example:y slitax linux]]. After pressing Enter you should now see the yahoo search results for slitaz. [[http://img402.yfrog.com/img402/2932/yslitazresults.png|Yahoo Results]] Typing "g slitaz" again without the quotes would give you the google results for SliTaz.
 
@@ -46,7 +45,7 @@ Here is what I use it for besides search engines. In Opera when you bookmark som
 
 For all you twitter users or people that like shortened urls. Add this to custom searches: 
 <code>http://is.gd/create.php?longurl=</code>
-{{http://img260.yfrog.com/img260/7176/isgd.png}}
+{{:en:guides:image:isgd.png}}
 
 I give mine the Token letter "u". When I have a big url I want to shorten, I go to the URL bar, go to the left of the "http" in the url, then I type "u". Then press space then enter it takes me to that site and shortens the url. Example:[[http://img260.yfrog.com/img260/6982/shorten.png|Shortening URL]]
 Result:[[http://img30.yfrog.com/img30/6563/shortened.png|Shortened URL]]
@@ -86,7 +85,7 @@ In extensions enable: shortcuts
 
 I try to use the mouse as little as possible. So shortcuts come in handy. Here is how to view and/or edit them to your taste. Open up the "Tools Menu" go down to and click on "Customize Shortcuts." You will get a popup that looks like this:
 
-{{http://img21.yfrog.com/img21/1046/shortcuts.png}}
+{{:en:guides:image:shortcuts.png}}
 
 In the picture you will see an action along with an assigned "shortcut". Some show an action but are disabled. I will show you how to change a "shortcut" or to enabled one that is disabled. To assign a "shortcut" click on what you would like to change to highlight. Now go to the right and click the mouse where the "shortcut" or word "disabled" is and click. It should change the text to "New accelerator..." Now all you have to do is press a combination of keys you would like to make up your shortcut. Popular choices to start your shortcut with are any of these:
 <code> Control, Alt, or either Winkeys</code>

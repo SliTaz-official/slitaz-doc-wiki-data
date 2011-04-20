@@ -1,0 +1,59 @@
+====== QEMU ======
+
+===== Introduction =====
+
+QEMU est une machine virtuelle libre qui fonctionne dans XP. Référez-vous à la documentation de QEMU pour une description détaillée de la machine virtuelle.
+
+QEMU permet de tester un système d'exploitation sans réellement l'installer et sans avoir à redémarrer XP, par exemple vous pouvez tester SliTaz de cette façon, avant de décider si vous voulez ou non l'installer sur votre machine.
+
+Par rapport à Virtual Box (que j'utilise également régulièrement), QEMU est au départ beaucoup plus rapide et plus facile à mettre en place.  Vous aurez également moins de problèmes si vous êtes un peu limite en mémoire (ce qui est le cas, si vous avez moins de 1,0 ou 1,5 Go de RAM). Performance mise à part, les deux plateformes de virtualisation m'ont paru similaires (bien que évidemment plus lentes qu'une installation native).
+
+Si vous voulez juste essayer Slitaz dans votre environnement de XP, préférez donc la solution de QEMU décrite ici (à moins que VirtualBox soit déjà installé et configuré sur votre machine).
+
+===== Mise en route =====
+==== Besoins ====
+Fonctionner sur XP avec SliTaz 3.0 (devrait fonctionner avec toutes les versions de SliTaz).
+
+==== Install QEMU ====
+Aller sur le site Pendrivelinux.com et télécharger l'installateur de l'émulateur de matériel QEMU PC (QPU804.exe).
+Cet exécutable est en fait une archive auto-extractible. Lorsque vous le lancez, vous devez juste préciser à l'installateur où décompresser le contenu (qui peut être sur votre disque dur ou sur un lecteur flash). Le résultat donnera un dossier nommé QPU804.
+L'installation de QEMU peut exécuter n'importe quelle ISO que vous avez mis dans ce dossier.
+Copiez l'ISO SliTaz dans ce dossier.
+Vous avez maintenant une installation virtualisée SliTaz qui peut fonctionner dans Windows.
+
+ ==== Démarrer QEMU ====
+Exécuter QPU804.bat (double-cliquez dessus à partir d'une fenêtre de l'explorateur) pour démarrer votre machine virtuelle  (il dira qu'il démarre Ubuntu, mais en réalité il démarrera l'ISO que vous avez copié dans ce dossier, Slitaz.iso dans ce cas).
+
+Vous verrez votre machine virtuelle démarrer à partir du fichier ISO, comme si elle faisait le démarrage à partir d'un LiveCD SliTaz. Reportez-vous à d'autres parties de la documentation SliTaz pour une présentation détaillée de ce que vous pouvez faire à partir de là.
+
+==== Entrer et sortir de la fenêtre QEMU ====
+Pour sortir la souris de la fenêtre de l'écran QEMU, maintenez-la touche Ctrl enfoncée et appuyez sur la touche Alt en même temps. Pour revenir en arrière, faites juste un clic gauche dans la fenêtre QEMU.
+
+==== Dossier partagé ====
+ Ouvrez une fenêtre pcmanfm : la partition SliTaz étiquetée "QEMU VVFAT" se réfère au même emplacement physique (partagé) que le dossier XP "QPU804\shared folder".
+
+==== Résolution de l'écran ====
+Ma résolution d'écrannétait de 800x600. Vous pouvez lire la documentation QEMU et jouer avec les options disponibles à la fois de QEMU et SliTaz pour obtenir une résolution plus élevée.
+
+Pour obtenir un écran SliTaz pleine page, essayez d'ajouter l'option -full-screen à la ligne de commande qemu du fichier QPU804.BAT.
+
+===== Je veux garder les changements que j'ai fait dans Slitaz =====
+
+==== Les données personnelles ====
+Copiez toutes les données personnelles créées avec SliTaz dans le répertoire partagé : il subsiste suite à un redémarrage de la machine virtuelle.
+
+==== Garder les modifications du système ====
+2 façons de faire :
+  * Créer une nouvelle image ISO avec vos modifications
+  * Installer SliTaz dans un disque virtuel qemu
+
+== Créer une nouvelle image ISO avec vos modifications ==
+Dans le menu SliTaz sélectioner //Outils système-> Créer un LiveCD// (se reporter à la section LiveCD de la documentation).
+
+Le panneau writeISO va créer une image bootable de SliTaz avec toutes les modifications apportées, et stocker ce fichier image en tant que /home/slitaz/distro/ slitaz.iso.
+
+Dans l'environnement SliTaz, copier-coller ce fichier slitaz.iso dans le dossier partagé. Puis dans XP, vous pourrez copier le fichier slitaz.iso depuis le dossier partagé QPU804, en remplaçant le fichier ISO (supprimer le vieux fichier iso si il a un nom différent). La prochaine fois que vous lancerez QEMU, il va charger votre nouvelle ISO qui vous ramènera au même environnement.
+
+== Installer SliTaz dans un disque virtuel qemu ==
+
+Sinon, reportez-vous à la documentation de QEMU pour démarrer QEMU avec un fichir en "disque virtuel", où vous serez en mesure d'installer SliTaz en utilisant le menu Outils système -> Installer SliTaz.

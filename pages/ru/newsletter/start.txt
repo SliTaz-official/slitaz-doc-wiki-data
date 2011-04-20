@@ -1,232 +1,241 @@
-====== Ежемесячный бюллетень — выпуск 22 ======
+====== Ежемесячный бюллетень — выпуск 23 ======
 
-  * от 30 января 2011
+  * от 2 апреля 2011
 
 
 ===== Последние новости =====
 
-  * Обновлены веб-сайт, вики, лабы
-  * Бюллетень переведен на испанский (благодаря seacat)
+  * Новый веб-сайт, сайт Сообщества и форум
+  * Выпущен новый ISO — Cooking 20110329
 
 
 ===== Новые пакеты =====
 
-  * airoscript-ng
-  * alsaequal
-  * asleap
-  * at
-  * bzflag
-  * cairo-dock
-  * cairo-dock-plugins
-  * caps
-  * celestia
-  * chntpw
-  * clisp
-  * cowpatty
-  * disktype
-  * dvgrab
-  * ecm
-  * fakeroot
-  * fcitx-zm
-  * freerdp
-  * gambas2
-  * garcon
-  * get-LibreOffice
-  * gnome-mime-data.
-  * gnome-python
-  * gnome-vfs
-  * gzip
-  * igmpproxy
-  * libmicrohttpd
-  * libQtTest
-  * libssh
-  * libxfce4ui
-  * linapple
-  * linux-without-modules
-  * mdk3
-  * miro
-  * ogmrip
-  * openmpi
-  * ovz-web-panel
-  * perl-libwww
-  * perl-smtp-ssl
-  * perl-text-csv
-  * php-dbase
-  * phpqrcode
-  * php-soap
-  * phpvirtualbox
-  * pidgin-musictracker
-  * pktstat
-  * polkit
-  * postfixadmin
-  * pycurl
-  * pyorbit
-  * pyrex
-  * pysqlite
-  * pywebkitgtk
-  * qrencode
-  * remminia
-  * scrub
-  * shellinabox
-  * sqlite3-ruby
-  * TeXmacs 
-  * thunar-vfs
-  * urlgrabber
-  * util-linux-ng-setterm
-  * vzctl
-  * vzquota
-  * weechat
-  * wyrd
-  * xorg-makedepend
-  * xorg-xf86-input-vmmouse
-  * yajl
+  * backuppc
+  * bazzar-tools
+  * connman
+  * deutex-devel
+  * dkms
+  * dokuwiki
+  * e3
+  * emacs-pkg-{vala-mode,text-translator}
+  * firmware-iwlwifi-{1000,3945}
+  * firmware-radeon
+  * fpc-{src,bootstrap}
+  * freedoom
+  * getmail
+  * gnu-netcat
+  * gource
+  * gtkaml
+  * htmldoc
+  * httptunnel
+  * lfs-book
+  * libltdl
+  * libofx
+  * libshout
+  * libsvn
+  * libtdb
+  * lingot
+  * linux-libre
+  * metasploit
+  * mk-livestatus
+  * nagios-{doc,dev,nrpe,nsca,plugins}
+  * nagvis-{doc,flex}
+  * nareto
+  * nconf
+  * ndoutils
+  * ofono
+  * opensp
+  * p910nd
+  * par2
+  * perl-file-rsync
+  * perl-texi2html
+  * polkit-qt
+  * ptunnel
+  * python-cython
+  * qca
+  * ratmenu
+  * rfkill
+  * ruby-enterprise
+  * tcpick
+  * unionfs-fuse
+  * wbar2
+  * youtube-dl
 
 
 ===== Обновленные пакеты (сокращенный список) =====
 
-  * aria2 => 1.10.9
-  * audacious => 2.4.3
-  * aufs => 20110122
-  * bash=> 4.1
-  * beautifulsoup => 3.2.0
-  * bluez => 4.82
-  * bogofilter=> 1.2.2
-  * buildbot => 0.8.2
-  * busybox => 1.18.2
-  * cairomm => 1.8.6
-  * catalyst => 10.12
-  * cherokee => 1.0.18
-  * clutter-gtk => 0.10.8
-  * coreutils => 0.9
-  * cryptsetup => 1.2.0
-  * cups => 1.4.6
-  * curl => 7.21.3
-  * dbus => 1.4.1
-  * ddrescue  => 1.14
-  * deadbeef => 0.4.4
-  * dhcp => 4.2.0-P2
-  * dmidecode => 2.11
-  * docbook-xsl => 1.76.1
-  * drupal => 6.20
-  * e2fsprogs => 1.41.14
-  * elfutils=> 0.151
-  * ethtool => 2.6.36
-  * evilvte => 0.4.7
-  * exiv => 0.20
-  * exo => 0.6.0
-  * feh => 1.11
-  * file => 5.0.5
-  * firefox => 3.6.13
-  * fotoxx => 11.01
-  * freeciv => 2.2.4
-  * fsarchiver => 0.6.12
-  * geany => 0.20
-  * git => 1.7.3.5
-  * gnupg => 2.0.17
-  * gnutls => 2.10.4
-  * gparted => 0.7.1
-  * gpodder => 2.12
-  * gst-plugins-good => 0.10.26
-  * gst-plugins-{good, bad, base, ugly} => 0.10.*
-  * htop => 0.9
-  * inkscape => 0.48.1
-  * isomaster => 1.3.8
-  * kismet => 2011-01-R1
-  * leafpad => 0.8.18.1
-  * libburn => 0.9.0
-  * libdrm => 2.4.23
-  * libdrm => 2.4.23
-  * libisofs => 0.6.40
-  * libogg => 1.2.2
-  * libwebkit => 1.2.6
-  * linux => 2.6.37
-  * lmms => 0.4.9
-  * lvm2 => 2.02.79
-  * lvm2 => 2.02.81
-  * make => 3.82
-  * mc => 4.7.5
-  * memtest => 4.20
-  * mercurial => 1.7.3
-  * mesa => 7.10
-  * mixxx => 1.8.2
-  * mlt => 0.6.0
-  * module-init-tools => 1.12
-  * mpc => 0.20
-  * mplayer => 1.0rc4
-  * murrine => 2011-01-R1
-  * mysql => 5.1.54
-  * nasm => 2.09.04
-  * ncmpcpp => 0.5.6
-  * netatalk=> 2.1.5
-  * nicotine  => 1.2.16
-  * nmap => 5.10
-  * ntfs-3g => 2011.1.15
-  * openssh => 5.7p1
-  * orage => 4.8.0
-  * parcellite => 0.9.3
-  * pcre => 8.12
-  * php => 5.2.17
-  * pidgin => 2.7.9
-  * postfix => 2.8.0
-  * postgresql => 9.0.2
-  * py3k=> 3.1.3
-  * pyneighborhood => 0.5.3
-  * rrdtool => 1.4.5
-  * ruby => 1.9.2-p136
-  * scite => 2.23
-  * scribus => 1.3.9
-  * seamonkey => 2.0.11
-  * shell-fm => 0.7
-  * sip => 4.12
-  * snort => 2.9.0.3
-  * speedometer => 2.7
-  * sqlite => 3.7.4
-  * sudo => 1.7.4p5
-  * task => 1.9.3
-  * terminal => 0.4.5
-  * thunderbird => 3.1.7
-  * tor => 0.2.1.29
-  * transmission => 2.13
-  * udev => 1.6.5
-  * units=> 1.88
-  * vala => 0.10.2
-  * viewnoir => 1.1
-  * vlc => 1.1.6
-  * whois => 5.0.10
-  * winetricks => 20110123
-  * wipe=> 2.3.1
-  * wireshark => 1.4.3
-  * wordpress => 3.0.4
-  * xfce4-* => 4.8.0
-  * xorg-server => 1.9.3
-  * xorg-xproto => 7.0.20
-  * xterm => 267
-  * xz => 5.0.1
-  * yad => 0.7.2
-  * zenity => 2.32.1
-  * zile => 2.3.21
-  * zsh => 4.3.11
+  * aria2 => 1.11.1
+  * ario => 1.5
+  * aspell-en => 7.1-0
+  * b43-fwcutter => 014
+  * babl => 0.1.4
+  * bash => 4.2
+  * bazaar => 2.3.0
+  * bind => 9.8.0
+  * bluefish => 2.0.3
+  * bluez => 4.90
+  * busybox => 1.18.4
+  * cairo => 1.10.2
+  * cherokee => 1.2.1
+  * clamav => 0.97
+  * clutter => 1.6.6
+  * cmake => 2.8.4
+  * coreutils => 8.10
+  * couchdb => 1.0.2
+  * curl => 7.21.4
+  * desktop-file-utils => 0.18
+  * dialog => 1.1-20110118
+  * dnsmasq => 2.57
+  * dosfstools => 3.0.11
+  * emacs => 23.3
+  * emotion => 55225
+  * enna => 0.4.1
+  * evince => 2.32.0
+  * ffmpeg => 0.6.2
+  * firefox => 4.0
+  * fluxbox => 1.3.1
+  * fotoxx => 11.02
+  * freeciv => 2.2.5
+  * fribidi => 0.19.2
+  * gcc => 4.5.2
+  * gcompris => 9.6
+  * ghostscript => 9.01
+  * ghostscript => 9.02
+  * git => 1.7.4.2
+  * glew => 1.5.8
+  * glibc => 2.13
+  * glpi => 0.78.2
+  * gmime => 2.4.22
+  * gnome-doc-utils => 0.20.4
+  * gnome-mplayer => 1.0.2
+  * gnuchess => 5.08
+  * gnumeric => 1.10.14
+  * gnutls => 2.12.0
+  * gnutls => 2.12.0
+  * goffice => 0.8.14
+  * gparted => 0.8.0
+  * guile => 1.8.8
+  * hplip => 3.11.3
+  * hydrogen => 0.9.5
+  * icedtea6-jdk => 1.9.7
+  * icu => 4.6
+  * imagemagick => 6.6.8-10
+  * iproute2 => 2.6.37
+  * irzip => 0.552
+  * jack-audio-connection-kit => 0.120.1
+  * libnet => 1.1.5
+  * libsmpeg => 390
+  * libwebkit => 1.2.7
+  * lirc => 0.9.0-pre1
+  * lmms => 0.4.10
+  * lvm2 => 2.02.84
+  * lyx => 1.6.9
+  * m4 => 1.4.16
+  * mc => 4.7.5.1
+  * mercurial => 1.8.1
+  * mesa => 7.10.1
+  * midori => 0.3.3
+  * mlt => 0.6.2
+  * mlt => 0.7.0
+  * mono => 2.10.1
+  * mousepad => 0.2.16
+  * mpd => 15.16
+  * mpg123 => 1.13.2
+  * nmap => 5.51
+  * nscd => 2.13
+  * nspr => 4.8.7
+  * nss => 3.12.9
+  * ntp => 4.2.6p3
+  * openal => 1.13
+  * openjpeg => 1.4
+  * openldap => 2.4.24
+  * openmpi => 1.5.3
+  * openssl => 1.0.0.d
+  * openvas-administrator => 1.0.1
+  * openvas-manager => 1.0.4
+  * orage => 4.8.1
+  * pan => 0.134
+  * pangomm => 2.26.3
+  * partimage => 0.6.9
+  * phpvirtualbox => 4.0-3
+  * pidgin => 2.7.11
+  * poppler => 0.16.2
+  * postfix => 2.8.2
+  * PyQt-x11-gpl => 4.8.3
+  * python-pysqlite => 2.6.0
+  * qt4 => 4.7.2
+  * readline => 6.2
+  * rsync => 3.0.8
+  * ruby => 1.9.2-p180
+  * ruby-gtk2 => 0.90.7
+  * samba => 3.5.8
+  * samba-pam => 3.5.7
+  * sane-backends => 1.0.22
+  * scite => 2.24
+  * scummvm => 1.2.1
+  * seamonkey => 2.0.13
+  * shared-mime-info => 0.90
+  * sip => 4.12.1
+  * slang => 2.2.3
+  * snort => 2.9.0.4
+  * sox => 14.3.2
+  * sqlite => 3.7.5
+  * squashfs => 4.2
+  * stellarium => 0.10.6
+  * subversion => 1.6.16
+  * sudo => 1.8.0
+  * swig => 2.0.2
+  * sylpheed => 3.1.0
+  * synergy => 1.3.6
+  * tar => 1.26
+  * task => 1.9.4
+  * terminal => 0.4.6
+  * thunar => 1.2.1
+  * thunderbird => 3.1.8
+  * tmux => 1.4
+  * tor => 0.2.1.30
+  * transmission => 2.22
+  * udev => 166
+  * uget => 1.6.2a
+  * util-linux-ng => 2.19
+  * vala => 0.11.6
+  * valgrind => 3.6.1
+  * vim => 7.3
+  * virtualbox-ose => 4.0.4
+  * vlc => 1.1.8
+  * whois => 5.0.11
+  * wireshark => 1.4.4
+  * wordpress => 3.0.5
+  * xchm => 1.18
+  * xfce4-* => 4.8.1
+  * xorg-libX11 => 1.4.2
+  * xorg-server => 1.9.4
+  * xorg-setxkbmap => 1.2.1
+  * xorg-xf86-input-evdev => 2.6.0
+  * xorg-xf86-video-ati => 6.14.1
+  * xorg-xrdb => 1.0.8
+  * yad => 0.9.1
 
 
 ===== Улучшения =====
 
-  * добавлен slitaz-configs-base (4.0) 
-  * slitaz-tools (4.0.2)
-  * slitaz-boot-scripts (3.4.3.1)
-  * slitaz-configs (4.1)
-  * slitaz-base-files (4.1.2)
-  * tazpkg (4.2.3)
-  * tazlito (3.3)
-  * tazchroot (0.0.4)
-  * libtaz (0.0.4)
-
+  * slitaz-tools (4.0.3)
+  * slitaz-boot-scripts (4.2)
+  * slitaz-base-files (4.2)
+  * tazpkg (4.2.6)
+  * tazwok (4.2.9)
+  * tazlito (4.0)
+  * tazchroot (1.0.6)
+  * libtaz (1.0.4)
+ 
 
 ===== Ошибки =====
 
 ^  Активность  ^  Открыто  ^  Закрыто  ^
-|  ошибки      |    102    |    118    |
-|  изменения   |    44     |    43     |  
-|  задачи      |    22     |    79     |
+|  ошибки      |     65    |     77    |
+|  изменения   |     44    |     35    |  
+|  задачи      |     9     |     81    |
 
 
   * Основано на текущих событиях
@@ -234,17 +243,18 @@
 
 ===== Карикатура =====
 
-{{http://people.slitaz.org/~paul/cartoons/cartoon%233.png}}
+{{http://people.slitaz.org/~paul/cartoons/cartoon%235.png}}
 
+| Ничего себе! Неужели это…\\ Да, новый ноутбук. | Здесь все версии Vista, глянцевый корпус,\\ 32 Гб оперативки,\\ сканер отпечатков пальцев… | Подожди. Глянцевая крышка, … и …\\ Хи-хи. Ну ты посмотри!\\ Конечно, отпечатки пальцев.\\ трясь! |
 
 ===== Советы и секреты =====
 
-  * [[http://temporaryland.wordpress.com/2011/01/26/python-for-newbies/ | Python для новичков. Часть 1]] //(англ.)//
+  * [[http://www.petur.eu/blog/?p=320 | Использование файловой системы /proc]]
 
 
 ===== Онлайн =====
 
-  * [[http://www.unixweblog.com/2011/01/installing-linux-slitaz-small-30-mb-linux-operating-system-in-virtualbox/ | Установка операционной системы SliTaz в VirtualBox]]
+  * [[http://www.unixmen.com/software/1600-slitaz-linux-30-an-awesome-30-mo-linux-distribution | Slitaz Linux 3.0 — удивительный 30 МБ дистрибутив Linux]]
 
 
 ===== Старые выпуски =====

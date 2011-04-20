@@ -1,0 +1,28 @@
+
+====== Une application ne peut pas trouver des bibliothèques/dossiers  ======
+
+===== Symptômes =====
+
+  * Lorsqu'elle est exécutée dans un terminal, une application échoue avec le message :
+<code> [name]: error while loading shared libraries: [library].so.*: cannot open shared object file: No such file or directory</code>
+
+===== Explication =====
+
+Il manque au programme certains fichiers dont il a besoin pour s'exécuter. Ceci est causé dans l'information du paquet par l'absence de lien vers un autre programme, ou un fichier omis.
+
+===== Solution =====
+
+Vérifier si le fichier requis est disponible dans un autre paquet. Utiliser le gestionnaire de paquets (Tazpkg) pour rechercher le fichier :
+  * démarrer le gestionnaire de paquets
+  * 'Recharger' la liste des paquets, si nécessaire
+  * cliquer sur l'onglet "Search"
+  * dans la boîte de //Search//, inscrivez le nom du fichier ([bibliothèque] .so) et cliquer sur "Files"
+  * installer le paquet (prenez le nom le plus proche s'il n'y a plus d'un) en double-cliquant sur l'entrée et en cliquant sur //Install Package//
+
+Alternativement, exécuter la commande suivante dans un terminal :
+<code>tazpkg search-pkgname library.so</code>
+
+... et installer le packet approprié avec : 
+<code> tazpkg get-install [package] </code>
+
+Si aucun paquet n'est donné, faire un rapport de bug sur le [[http://labs.slitaz.org|Labs]] car la bibliothèque manquante doit être inclue ou la dépendance retirée lors de la construction du paquet.

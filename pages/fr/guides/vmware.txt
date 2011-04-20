@@ -1,0 +1,16 @@
+====== VMWare ======
+
+===== Essayer SliTaz GNU/Linux avec VMware =====
+
+Ce qu'il vous faut :
+    * [[http://dl.free.fr/getfile.pl?file=/Dz6bYtdE/slitaz.7z|SliTaz GNU/Linux Virtual Appliance]], le fichier de la machine virtuelle.
+    * [[http://www.7-zip.org/fr/download.html|7-Zip]] nécessaire pour décompresser le fichier.
+    * [[http://www.vmware.com/products/player/overview.html|VMware Player]] fait fonctionner la machine virtuelle sur votre système Windows.
+
+   -  Télécharger et installer 7-Zip.
+   -  Télécharger et installer VMware Player.
+   -  Télécharger le fichier SliTaz GNU/Linux et le décompresser avec 7-zip.
+   -  Vous pouvez maintenant lancer la  machine virtuelle SliTaz (slitaz.vmx) avec VMware Player.
+
+<note>Lors du premier démarrage de la machine virtuelle, VMware Player détecte que des fichiers ont été déplacés depuis un autre endroit. Conservez l'option par défaut dans la boîte de dialogue et cliquez sur le bouton [OK].
+</note>

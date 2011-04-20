@@ -1,5 +1,4 @@
 ~~NOTRANS~~
-
 ====== SliTaz documentation ======
 \\
 Please select your language:
@@ -19,7 +18,7 @@ Share this page or another one on your Blog, Twitter, Identica account or Like t
 
 ==== Contributing ====
 
-If you'd like to help with the documentation, jump in! Take a look at the [[guidelines| SliTaz Documentation Guidelines]], pick your page and go!
+If you'd like to help with the documentation, jump in! Take a look at the [[http://doc.slitaz.org/en:guidelines| SliTaz Documentation Guidelines]], pick your page and go!
 
 There's many areas in which you can help:
 

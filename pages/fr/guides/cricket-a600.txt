@@ -1,0 +1,108 @@
+====== Configurer le modem Cricket A600 Broadband ======
+
+===== Introduction =====
+
+La première chose à faire est de télécharger wvdial et toutes ses dépendances. Il fera la connexion automatiquement. Depuis le terminal en tant que root, faire :
+<code> # tazpkg get-install wvdial</code>
+
+Télécharger [[http://people.slitaz.org/~jozee/packages/3G_modem/usb_modeswitch-1.0.5.tazpkg|Jozee's USB_Modeswitch]] et l'installer depuis le terminal en tant que root :
+<code> # tazpkg install /path/to/usb_modeswitch-1.0.5.tazpkg</code>
+/path/to est l'emplacement où vous l'avez téléchargé. Vous devrez donc ajuster la ligne de commande qui précède en fonction de l'emplacement.
+
+Faites un script appelé flipflop.sh. Vous pouvez le placer n'importe où, mais je vais utiliser là où je l'ai mis comme exemple:
+///home/tux/scripts///
+
+Si vous utilisez un autre nom que "tux", ajustez en conséquence.  Maintenant, ouvrez flipflop.sh dans votre éditeur préféré. Insérez le texte suivant et enregistrez le fichier :
+<file>
+/usr/sbin/usb_modeswitch
+sleep 15
+usb_modeswitch -v 0x1f28 -p 0x0020 -R 1
+</file>
+Depuis le terminal, rendons ce script exécutable :
+<code> # chmod a+x /home/tux/scripts/flipflop.sh</code>
+De même, si vous l'avez mis ailleurs, ajustez le chemin dans la commande en conséquence.
+
+===== wvdial.conf =====
+
+Nous avons installé tout ce que nous avons besoin. Il y a juste quelques étapes supplémentaires. Commençons par éditer wvdial.conf. Dans un terminal root, entrer :
+<code> # leafpad /etc/wvdial.conf</code>
+wvdial.conf devra avoir l'air de ceci :
+<file>
+[Dialer Defaults]
+Modem = /dev/ttyACM0
+Baud = 460800
+Stupid Mode = 1
+Auto DNS = 1
+Init1 = ATZ
+Init2 = ATQ0 V1 E1 S0=0 &C1 &D2 +FCLASS=0
+ISDN = 0
+Modem Type = USB Modem
+Phone = #777
+FlowControl = Hardware (CRTSCTS)
+Dial Command = ATDT
+Username = UTILISATEUR
+Password = PASS
+</file>
+
+Les codes UTILISATEUR et PASS dépendent de votre opérateur. Enregistrez le fichier.
+
+Maintenant, lancer cette commande dans un terminal root :
+<code> # /home/tux/scripts/flipflop.sh</code>
+
+Vous devriez obtenir quelque chose comme ceci :
+<code>
+Looking for target devices ...
+ No devices in target mode or class found
+Looking for default devices ...
+ Found default devices (1)
+ Found a default device NOT in target class mode
+Accessing device 003 on bus 002 ...
+Using endpoints 0x08 (out) and 0x87 (in)
+Inquiring device details; driver will be detached ...
+Looking for active driver ...
+ OK, driver found ("dummy")
+ OK, driver "dummy" detached
+
+Received inquiry data (detailed identification)-------------------------
+  Vendor String: Cricket 
+   Model String: T-Flash Disk    
+Revision String: 2.31
+-------------------------
+
+Device description data (identification)
+-------------------------
+Manufacturer: Cal-comp E&CC Limited 
+     Product: USB Micro SD Storage
+  Serial No.: XXXXXXXXXXXXXXX
+-------------------------
+Setting up communication with interface 0 ...
+Trying to send the message to endpoint 0x08 ...
+ OK, message successfully sent
+ Device is gone, skipping any further commands
+-> Run lsusb to note any changes. Bye.
+
+
+Looking for target devices ...
+ No devices in target mode or class found
+Looking for default devices ...
+ No default device found. Is it connected? Bye.
+
+tux@slitaz:~$
+</code>
+
+On dirait que cela a complètement échoué, mais pas tout à fait. Il n'a tout simplement pas trouvé le pilote. Chargez-le avec encore cette commande sous root :
+<code> # modprobe cdc_acm</code>
+Cela devrait être la dernière fois que vous aurez à entrer cette commande. Nous allons maintenant rajouter le pilote à la ligne LOAD_MODULES dans /etc/rcS.conf pour le charger au démarrage.
+
+===== rcS.conf =====
+
+<code> # leafpad /etc/rcS.conf</code>
+Descendre à la ligne suivante :
+<file>LOAD_MODULES="snd_intel8x0 yenta_socket rtc agpgart intel-agp"</file>
+et ajouter "cdc_acm" à la fin de la ligne, elle devrait ensuite ressembler à ceci :
+<file>LOAD_MODULES="snd_intel8x0 yenta_socket rtc cdc_acm agpgart intel-agp"</file>
+
+Nous avons presque terminé. Tapons encore cette dernière commande :
+<code>  # wvdial</code>
+
+Le modem devrait maintenant composer et se connecter. Ne pas fermer le terminal ou le modem se déconnectera. Chaque fois que vous arrêtez le système ou débranchez le modem, vous aurez à lancer flipflop.sh comme je l'ai montré ci-dessus. Si vous venez de redémarrer votre ordinateur, vous n'avez pas à lancer flipflop.sh.  Bonne chance.

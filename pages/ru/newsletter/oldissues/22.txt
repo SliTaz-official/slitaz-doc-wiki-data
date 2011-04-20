@@ -1,0 +1,252 @@
+====== Ежемесячный бюллетень — выпуск 22 ======
+
+  * от 30 января 2011
+
+
+===== Последние новости =====
+
+  * Обновлены веб-сайт, вики, лабы
+  * Бюллетень переведен на испанский (благодаря seacat)
+
+
+===== Новые пакеты =====
+
+  * airoscript-ng
+  * alsaequal
+  * asleap
+  * at
+  * bzflag
+  * cairo-dock
+  * cairo-dock-plugins
+  * caps
+  * celestia
+  * chntpw
+  * clisp
+  * cowpatty
+  * disktype
+  * dvgrab
+  * ecm
+  * fakeroot
+  * fcitx-zm
+  * freerdp
+  * gambas2
+  * garcon
+  * get-LibreOffice
+  * gnome-mime-data.
+  * gnome-python
+  * gnome-vfs
+  * gzip
+  * igmpproxy
+  * libmicrohttpd
+  * libQtTest
+  * libssh
+  * libxfce4ui
+  * linapple
+  * linux-without-modules
+  * mdk3
+  * miro
+  * ogmrip
+  * openmpi
+  * ovz-web-panel
+  * perl-libwww
+  * perl-smtp-ssl
+  * perl-text-csv
+  * php-dbase
+  * phpqrcode
+  * php-soap
+  * phpvirtualbox
+  * pidgin-musictracker
+  * pktstat
+  * polkit
+  * postfixadmin
+  * pycurl
+  * pyorbit
+  * pyrex
+  * pysqlite
+  * pywebkitgtk
+  * qrencode
+  * remminia
+  * scrub
+  * shellinabox
+  * sqlite3-ruby
+  * TeXmacs 
+  * thunar-vfs
+  * urlgrabber
+  * util-linux-ng-setterm
+  * vzctl
+  * vzquota
+  * weechat
+  * wyrd
+  * xorg-makedepend
+  * xorg-xf86-input-vmmouse
+  * yajl
+
+
+===== Обновленные пакеты (сокращенный список) =====
+
+  * aria2 => 1.10.9
+  * audacious => 2.4.3
+  * aufs => 20110122
+  * bash=> 4.1
+  * beautifulsoup => 3.2.0
+  * bluez => 4.82
+  * bogofilter=> 1.2.2
+  * buildbot => 0.8.2
+  * busybox => 1.18.2
+  * cairomm => 1.8.6
+  * catalyst => 10.12
+  * cherokee => 1.0.18
+  * clutter-gtk => 0.10.8
+  * coreutils => 0.9
+  * cryptsetup => 1.2.0
+  * cups => 1.4.6
+  * curl => 7.21.3
+  * dbus => 1.4.1
+  * ddrescue  => 1.14
+  * deadbeef => 0.4.4
+  * dhcp => 4.2.0-P2
+  * dmidecode => 2.11
+  * docbook-xsl => 1.76.1
+  * drupal => 6.20
+  * e2fsprogs => 1.41.14
+  * elfutils=> 0.151
+  * ethtool => 2.6.36
+  * evilvte => 0.4.7
+  * exiv => 0.20
+  * exo => 0.6.0
+  * feh => 1.11
+  * file => 5.0.5
+  * firefox => 3.6.13
+  * fotoxx => 11.01
+  * freeciv => 2.2.4
+  * fsarchiver => 0.6.12
+  * geany => 0.20
+  * git => 1.7.3.5
+  * gnupg => 2.0.17
+  * gnutls => 2.10.4
+  * gparted => 0.7.1
+  * gpodder => 2.12
+  * gst-plugins-good => 0.10.26
+  * gst-plugins-{good, bad, base, ugly} => 0.10.*
+  * htop => 0.9
+  * inkscape => 0.48.1
+  * isomaster => 1.3.8
+  * kismet => 2011-01-R1
+  * leafpad => 0.8.18.1
+  * libburn => 0.9.0
+  * libdrm => 2.4.23
+  * libdrm => 2.4.23
+  * libisofs => 0.6.40
+  * libogg => 1.2.2
+  * libwebkit => 1.2.6
+  * linux => 2.6.37
+  * lmms => 0.4.9
+  * lvm2 => 2.02.79
+  * lvm2 => 2.02.81
+  * make => 3.82
+  * mc => 4.7.5
+  * memtest => 4.20
+  * mercurial => 1.7.3
+  * mesa => 7.10
+  * mixxx => 1.8.2
+  * mlt => 0.6.0
+  * module-init-tools => 1.12
+  * mpc => 0.20
+  * mplayer => 1.0rc4
+  * murrine => 2011-01-R1
+  * mysql => 5.1.54
+  * nasm => 2.09.04
+  * ncmpcpp => 0.5.6
+  * netatalk=> 2.1.5
+  * nicotine  => 1.2.16
+  * nmap => 5.10
+  * ntfs-3g => 2011.1.15
+  * openssh => 5.7p1
+  * orage => 4.8.0
+  * parcellite => 0.9.3
+  * pcre => 8.12
+  * php => 5.2.17
+  * pidgin => 2.7.9
+  * postfix => 2.8.0
+  * postgresql => 9.0.2
+  * py3k=> 3.1.3
+  * pyneighborhood => 0.5.3
+  * rrdtool => 1.4.5
+  * ruby => 1.9.2-p136
+  * scite => 2.23
+  * scribus => 1.3.9
+  * seamonkey => 2.0.11
+  * shell-fm => 0.7
+  * sip => 4.12
+  * snort => 2.9.0.3
+  * speedometer => 2.7
+  * sqlite => 3.7.4
+  * sudo => 1.7.4p5
+  * task => 1.9.3
+  * terminal => 0.4.5
+  * thunderbird => 3.1.7
+  * tor => 0.2.1.29
+  * transmission => 2.13
+  * udev => 1.6.5
+  * units=> 1.88
+  * vala => 0.10.2
+  * viewnoir => 1.1
+  * vlc => 1.1.6
+  * whois => 5.0.10
+  * winetricks => 20110123
+  * wipe=> 2.3.1
+  * wireshark => 1.4.3
+  * wordpress => 3.0.4
+  * xfce4-* => 4.8.0
+  * xorg-server => 1.9.3
+  * xorg-xproto => 7.0.20
+  * xterm => 267
+  * xz => 5.0.1
+  * yad => 0.7.2
+  * zenity => 2.32.1
+  * zile => 2.3.21
+  * zsh => 4.3.11
+
+
+===== Улучшения =====
+
+  * добавлен slitaz-configs-base (4.0) 
+  * slitaz-tools (4.0.2)
+  * slitaz-boot-scripts (3.4.3.1)
+  * slitaz-configs (4.1)
+  * slitaz-base-files (4.1.2)
+  * tazpkg (4.2.3)
+  * tazlito (3.3)
+  * tazchroot (0.0.4)
+  * libtaz (0.0.4)
+
+
+===== Ошибки =====
+
+^  Активность  ^  Открыто  ^  Закрыто  ^
+|  ошибки      |    102    |    118    |
+|  изменения   |    44     |    43     |  
+|  задачи      |    22     |    79     |
+
+
+  * Основано на текущих событиях
+
+
+===== Карикатура =====
+
+{{http://people.slitaz.org/~paul/cartoons/cartoon%233.png}}
+
+
+===== Советы и секреты =====
+
+  * [[http://temporaryland.wordpress.com/2011/01/26/python-for-newbies/ | Python для новичков. Часть 1]] //(англ.)//
+
+
+===== Онлайн =====
+
+  * [[http://www.unixweblog.com/2011/01/installing-linux-slitaz-small-30-mb-linux-operating-system-in-virtualbox/ | Установка операционной системы SliTaz в VirtualBox]]
+
+
+===== Старые выпуски =====
+
+  * Вы можете найти их [[ru:newsletter:oldissues|здесь]]

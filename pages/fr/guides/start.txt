@@ -79,11 +79,11 @@ Vous trouvez ici les guides de démarrage rapide et les guides complets de SliTa
   * [[nvidia|Nvidia]] - Installer le pilote non-libre Nvidia le plus récent
   * [[ati | ATI]] - Installer le pilote non-libre Catalyst le plus récent
   * [[webcam | Webcam]] - Comment faire fonctionner une webcam
-  * [[printer | Printing]] - Manuel pour installer et configurer CUPS puis imprimer
+  * [[printer | Imprimer]] - Manuel pour installer et configurer CUPS puis imprimer
   * [[scanner | Scanner]]
   * [[udev | UDEV et HAL]]
   * [[troubleshoot | Résolution des problèmes]]
-  * [[powermgmt | Gestion de l'énergie ]]
+  * [[powermgmt | Gestion de l'énergie ]] - ACPI (Interface avancée de configuration et de gestion de l’énergie)
   * [[CPU-frequency | Gestion fréquence CPU]] - Gestion dynamique de la fréquence du processeur 
 ===== Configuration de serveurs et administration du système =====
   * [[apache | Serveur web Apache ]]

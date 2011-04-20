@@ -1,0 +1,55 @@
+====== Foire aux Questions ======
+
+Voici la liste des questions les plus fréquemment posées par les utilisateurs fu forum. Vérifier ici svp, s'il existe une réponse à votre problème avant d'entamer un nouveau fil de discussion sur le forum.
+
+Elles sont organisées en groupes par scénario - du niveau système à l'interface du bureau. Pour chacune, un symptôme est décrit pour identifier le problème; une solution largement utilisable est ensuite présentée.
+
+\\
+===== Général  =====
+  * [[faq-login|Problèmes de connexion, d'ouverture de session]]
+  * [[faq-terminal|Terminaux (Copy/Coller etc.)]]
+
+\\
+
+===== Paquet ou Application  =====
+  * [[faq-dependency| Une application ne peut pas trouver des bibliothèques/dossiers ]]
+  * [[faq-programfailstorun | Un programme ne s'exécute pas ou s'arrête de façon inattendue ]]
+  * [[faq-pkgconv | Est-ce que je peux installer sur SliTaz un paquet d'une autre distribution ? ]] 
+
+\\
+
+===== Matériel  =====
+  * ...
+
+\\
+
+===== Des questions encore sans réponse ? =====
+
+Aucun problème ! Nous sommes heureux de lire votre question sur notre [[http://forum.slitaz.org/|Forum]] - ou même sur la liste de diffusion [[http://www.slitaz.org/en/mailing-list.html|Mailing List]] s'il s'agit d'une discussion plus longue - une fois que vous aurez consulté notre [[http://doc.slitaz.org/fr:start|documentation]]!
+
+Cependant, répondre aux questions prend du temps, et bien y répondre encore légèrement plus long. Ce temps nous pourrait être mieux utilisé à d'autres choses nécessaires, comme l'amélioration de SliTaz ou écrire de la documentation.
+
+** Votre premier message doit comprendre les éléments suivants: **
+
+  * des informations détaillées sur votre matériel
+    *  par exemple, le fabricant et le modèle de votre ordinateur, la carte mère ou (encore mieux) des informations détaillées sur les chipsets employés. Celles-ci peuvent êtres trouvées en exécutant la commande suivante et en téléchargeant le fichier produit :
+ 
+<code>
+echo '=== PCI Devices: ===' >> SysInfo.txt && lspci >> SysInfo.txt && echo '=== USB Devices: ===' \ 
+>> SysInfo.txt && lsusb >> SysInfo.txt && echo '=== Kernel Modules: ===' >> SysInfo.txt && lsmod >> SysInfo.txt
+</code>
+
+  * des informations précises sur votre installation de SliTaz :
+    *  quelle version avez-vous ? Stable ou Cooking?
+    *  utilisez-vous l'ISO standard ou une saveur spécifique (XVESA, Lo-RAM etc.)?
+    *  est-elle installée sur un disque dur ou sur une clé USB ?
+    *  savez-vous quel système de fichiers vous avez employé ?
+
+  * identifiez quand votre problème est apparu :
+    *  était-ce juste après l'installation ou après une mise à jour ?
+    *  y a-t-il eu des changements dans votre mode normal d'utilisation ou dans la configuration ?
+
+Ceci devrait fournir assez d'informations sur le système pour que de l'aide puisse être apportée.
+
+
+---- 

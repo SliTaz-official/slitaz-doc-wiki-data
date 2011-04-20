@@ -1,245 +1,252 @@
-====== Newsletter mensuelle - N°22 ======
-Langue:[[cn:newsletter:start|cn]] [[en:newsletter:start|en]] [[es:newsletter:start|es]] [[fr:newsletter:start|fr]] [[ru:newsletter:start|ru]]
+====== Newsletter mensuelle - N°23 ======
 
-	* Écrite le 30th janvier 2011
-	* Traduite le 4 février 2010
+	* Écrite le 2 avril 2011
+	* Traduite le 6 avril 2010
 
 ===== Dernières nouvelles =====
 
-        * Site web, Wiki, Labs mis à jours
-        * Newsletter traduite en Espagnol (merci seacat)
+        * Nouveaux site web, communauté & forum
+        * Nouvelle ISO Cooking (20110329) publiée
 
 ===== Nouveaux paquets =====
 
-        * ecm
-        * mdk3
-        * airoscript-ng
-        * php-dbase
-        * pycurl
-        * pidgin-musictracker
-        * linapple
-        * dvgrab
-        * ogmrip
-        * at
-        * chntpw
-        * disktype
-        * fakeroot
-        * xorg-xf86-input-vmmouse
-        * caps
-        * alsaequal
-        * linux-without-modules
-        * TeXmacs 
-        * bzflag
-        * pysqlite
-        * celestia
-        * perl-libwww
-        * pyrex
-        * pywebkitgtk
-        * pyorbit
-        * gnome-mime-data.
-        * php-soap
-        * phpvirtualbox
-        * libmicrohttpd
-        * gnome-vfs
-        * fcitx-zm
-        * gnome-python
-        * miro
-        * clisp
-        * cowpatty
-        * asleap
-        * scrub
-        * postfixadmin
-        * igmpproxy
-        * wyrd
-        * pktstat
-        * get-LibreOffice
-        * weechat
-        * qrencode
-        * phpqrcode
-        * perl-smtp-ssl
-        * cairo-dock
-        * cairo-dock-plugins
-        * gambas2
-        * util-linux-ng-setterm
-        * yajl
-        * urlgrabber
-        * perl-text-csv
-        * polkit
-        * garcon
-        * libxfce4ui
-        * gzip
-        * vzctl
-        * vzquota
-        * thunar-vfs
-        * ovz-web-panel
-        * sqlite3-ruby
-        * xorg-makedepend
-        * libQtTest
-        * libssh
-        * openmpi
-        * shellinabox
-        * freerdp
-        * remminia
-
+        * nagios-{doc,dev,nrpe,nsca,plugins}
+        * p910nd
+        * emacs-pkg-{vala-mode,text-translator}
+        * opensp
+        * libofx
+        * libltdl
+        * mk-livestatus
+        * nagvis-{doc,flex}
+        * nconf
+        * ndoutils
+        * nareto
+        * libsvn
+        * perl-file-rsync
+        * bazzar-tools
+        * wbar2
+        * dokuwiki
+        * libshout
+        * perl-texi2html
+        * youtube-dl
+        * htmldoc
+        * unionfs-fuse
+        * dkms
+        * httptunnel
+        * ptunnel
+        * libtdb
+        * getmail
+        * tcpick
+        * ratmenu
+        * linux-libre
+        * deutex-devel
+        * freedoom
+        * par2
+        * backuppc
+        * firmware-iwlwifi-{1000,3945}
+        * rfkill
+        * ofono
+        * connman
+        * gtkaml
+        * lingot
+        * qca
+        * polkit-qt
+        * python-cython
+        * lfs-book
+        * e3
+        * fpc-{src,bootstrap}
+        * ruby-enterprise
+        * gource
+        * firmware-radeon
+        * metasploit
+        * gnu-netcat
 
 ===== Paquets mis à jours (abrégé) =====
 
-        * scribus => 1.3.9
-        * libogg => 1.2.2
-        * gpodder => 2.12
-        * gnutls => 2.10.4
-        * feh => 1.11
-        * xterm => 267
-        * gst-plugins-good => 0.10.26
-        * cairomm => 1.8.6
-        * lvm2 => 2.02.81
-        * clutter-gtk => 0.10.8
-        * aria2 => 1.10.9
-        * fotoxx => 11.01
-        * whois => 5.0.10
-        * py3k=> 3.1.3
-        * firefox => 3.6.13
-        * seamonkey => 2.0.11
-        * thunderbird => 3.1.7
-        * audacious => 2.4.3
-        * transmission => 2.13
-        * nasm => 2.09.04
-        * cherokee => 1.0.18
-        * libisofs => 0.6.40
-        * libburn => 0.9.0
-        * dhcp => 4.2.0-P2
-        * pcre => 8.12
-        * sqlite => 3.7.4
-        * php => 5.2.17
-        * docbook-xsl => 1.76.1
-        * zenity => 2.32.1
-        * gparted => 0.7.1
-        * xorg-server => 1.9.3
-        * buildbot => 0.8.2
-        * beautifulsoup => 3.2.0
-        * e2fsprogs => 1.41.14
-        * mixxx => 1.8.2
-        * curl => 7.21.3
-        * mysql => 5.1.54
-        * postgresql => 9.0.2
-        * postfix => 2.8.0
-        * freeciv => 2.2.4
-        * git => 1.7.3.5
-        * viewnoir => 1.1
-        * drupal => 6.20
-        * scite => 2.23
-        * udev => 1.6.5
-        * libdrm => 2.4.23
-        * terminal => 0.4.5
-        * evilvte => 0.4.7
-        * bogofilter=> 1.2.2
-        * bluez => 4.82
-        * pyneighborhood => 0.5.3
-        * lmms => 0.4.9
-        * wipe=> 2.3.1
-        * tor => 0.2.1.29
-        * pidgin => 2.7.9
-        * leafpad => 0.8.18.1
-        * zsh => 4.3.11
-        * snort => 2.9.0.3
-        * parcellite => 0.9.3
-        * busybox => 1.18.2
-        * netatalk=> 2.1.5
-        * lvm2 => 2.02.79
-        * winetricks => 20110123
-        * ethtool => 2.6.36
-        * speedometer => 2.7
-        * task => 1.9.3
-        * units=> 1.88
-        * cryptsetup => 1.2.0
-        * deadbeef => 0.4.4
-        * exiv => 0.20
-        * zile => 2.3.21
-        * sip => 4.12
-        * fsarchiver => 0.6.12
-        * ruby => 1.9.2-p136
-        * mc => 4.7.5
-        * vala => 0.10.2
-        * mercurial => 1.7.3
-        * wordpress => 3.0.4
-        * elfutils=> 0.151
-        * yad => 0.7.2
-        * libwebkit => 1.2.6
-        * rrdtool => 1.4.5
-        * htop => 0.9
-        * cups => 1.4.6
-        * geany => 0.20
-        * shell-fm => 0.7
-        * bash=> 4.1
-        * module-init-tools => 1.12
-        * make => 3.82
-        * coreutils => 0.9
-        * isomaster => 1.3.8
-        * ncmpcpp => 0.5.6
-        * sudo => 1.7.4p5
-        * wireshark => 1.4.3
-        * nicotine  => 1.2.16
-        * mlt => 0.6.0
-        * mpc => 0.20
-        * gnupg => 2.0.17
-        * dbus => 1.4.1
-        * file => 5.0.5
-        * exo => 0.6.0
-        * xfce4-* => 4.8.0
-        * dmidecode => 2.11
-        * gst-plugins-{good, bad, base, ugly} => 0.10.*
-        * libdrm => 2.4.23
-        * mesa => 7.10
-        * linux => 2.6.37
-        * aufs => 20110122
-        * catalyst => 10.12
-        * orage => 4.8.0
-        * kismet => 2011-01-R1
-        * murrine => 2011-01-R1
-        * ntfs-3g => 2011.1.15
-        * vlc => 1.1.6
-        * openssh => 5.7p1
-        * memtest => 4.20
-        * inkscape => 0.48.1
-        * nmap => 5.10
-        * ddrescue  => 1.14
-        * xz => 5.0.1
-        * mplayer => 1.0rc4
-        * xorg-xproto => 7.0.20
+        * bluez => 4.90
+        * terminal => 0.4.6
+        * xfce4-* => 4.8.1
+        * gmime => 2.4.22
+        * thunar => 1.2.1
+        * vlc => 1.1.8
+        * midori => 0.3.3
+        * git => 1.7.4.2
+        * fribidi => 0.19.2
+        * uget => 1.6.2a
+        * babl => 0.1.4
+        * cherokee => 1.2.1
+        * sqlite => 3.7.5
+        * gnuchess => 5.08
+        * dialog => 1.1-20110118
+        * poppler => 0.16.2
+        * lirc => 0.9.0-pre1
+        * glpi => 0.78.2
+        * xchm => 1.18
+        * mercurial => 1.8.1
+        * gnumeric => 1.10.14
+        * gcc => 4.5.2
+        * coreutils => 8.10
+        * nspr => 4.8.7
+        * shared-mime-info => 0.90
+        * desktop-file-utils => 0.18
+        * xorg-xrdb => 1.0.8
+        * whois => 5.0.11
+        * stellarium => 0.10.6
+        * scite => 2.24
+        * mc => 4.7.5.1
+        * sylpheed => 3.1.0
+        * guile => 1.8.8
+        * pangomm => 2.26.3
+        * xorg-xf86-input-evdev => 2.6.0
+        * fotoxx => 11.02
+        * nss => 3.12.9
+        * mousepad => 0.2.16
+        * transmission => 2.22
+        * pidgin => 2.7.11
+        * clamav => 0.97
+        * wordpress => 3.0.5
+        * xorg-server => 1.9.4
+        * openssl => 1.0.0.d
+        * libwebkit => 1.2.7
+        * lyx => 1.6.9
+        * nmap => 5.51
+        * aspell-en => 7.1-0
+        * openldap => 2.4.24
+        * slang => 2.2.3
+        * lvm2 => 2.02.84
+        * util-linux-ng => 2.19
+        * snort => 2.9.0.4
+        * bazaar => 2.3.0
+        * irzip => 0.552
+        * emotion => 55225
+        * openjpeg => 1.4
+        * libsmpeg => 390
+        * PyQt-x11-gpl => 4.8.3
+        * libnet => 1.1.5
+        * sip => 4.12.1
+        * sane-backends => 1.0.22
+        * lmms => 0.4.10
+        * udev => 166
+        * scummvm => 1.2.1
+        * synergy => 1.3.6
+        * glew => 1.5.8
+        * partimage => 0.6.9
+        * clutter => 1.6.6
+        * ghostscript => 9.01
+        * busybox => 1.18.4
+        * cmake => 2.8.4
+        * gparted => 0.8.0
+        * virtualbox-ose => 4.0.4
+        * curl => 7.21.4
+        * ntp => 4.2.6p3
+        * valgrind => 3.6.1
+        * readline => 6.2
+        * bash => 4.2
+        * ruby => 1.9.2-p180
+        * ruby-gtk2 => 0.90.7
+        * bind => 9.8.0
+        * glibc => 2.13
+        * fluxbox => 1.3.1
+        * ario => 1.5
+        * mpg123 => 1.13.2
+        * phpvirtualbox => 4.0-3
+        * postfix => 2.8.2
+        * bluefish => 2.0.3
+        * tor => 0.2.1.30
+        * mono => 2.10.1
+        * orage => 4.8.1
+        * dnsmasq => 2.57
+        * samba => 3.5.8
+        * firefox => 4.0
+        * thunderbird => 3.1.8
+        * swig => 2.0.2
+        * sudo => 1.8.0
+        * m4 => 1.4.16
+        * iproute2 => 2.6.37
+        * wireshark => 1.4.4
+        * seamonkey => 2.0.13
+        * squashfs => 4.2
+        * python-pysqlite => 2.6.0
+        * subversion => 1.6.16
+        * mlt => 0.6.2
+        * tmux => 1.4
+        * nscd => 2.13
+        * qt4 => 4.7.2
+        * icu => 4.6
+        * samba-pam => 3.5.7
+        * jack-audio-connection-kit => 0.120.1
+        * gnome-mplayer => 1.0.2
+        * couchdb => 1.0.2
+        * freeciv => 2.2.5
+        * pan => 0.134
+        * sox => 14.3.2
+        * xorg-setxkbmap => 1.2.1
+        * emacs => 23.3
+        * mesa => 7.10.1
+        * enna => 0.4.1
+        * icedtea6-jdk => 1.9.7
+        * tar => 1.26
+        * openmpi => 1.5.3
+        * dosfstools => 3.0.11
+        * hydrogen => 0.9.5
+        * openvas-manager => 1.0.4
+        * openvas-administrator => 1.0.1
+        * gcompris => 9.6
+        * vala => 0.11.6
+        * yad => 0.9.1
+        * gnome-doc-utils => 0.20.4
+        * evince => 2.32.0
+        * ffmpeg => 0.6.2
+        * xorg-libX11 => 1.4.2
+        * aria2 => 1.11.1
+        * cairo => 1.10.2
+        * openal => 1.13
+        * xorg-xf86-video-ati => 6.14.1
+        * goffice => 0.8.14
+        * b43-fwcutter => 014
+        * rsync => 3.0.8
+        * mpd => 15.16
+        * task => 1.9.4
+        * gnutls => 2.12.0
+        * vim => 7.3
+        * gnutls => 2.12.0
+        * mlt => 0.7.0
+        * imagemagick => 6.6.8-10
+        * hplip => 3.11.3
+        * ghostscript => 9.02
 
 ===== Améliorations =====
 
-        * slitaz-configs-base ajouté (4.0) 
-        * slitaz-tools (4.0.2)
-        * slitaz-boot-scripts (3.4.3.1)
-        * slitaz-configs (4.1)
-        * slitaz-base-files (4.1.2)
-        * tazpkg (4.2.3)
-        * tazlito (3.3)
-        * tazchroot (0.0.4)
-        * libtaz (0.0.4)
+        * slitaz-tools (4.0.3)
+        * slitaz-boot-scripts (4.2)
+        * slitaz-base-files (4.2)
+        * tazpkg (4.2.6)
+        * tazwok (4.2.9)
+        * tazlito (4.0)
+        * tazchroot (1.0.6)
+        * libtaz (1.0.4)
 
 ===== Bugs =====
 
 \\
 
 ^   Activité   ^    Ouverts   ^    Fermés  ^
-|    Bugs      |     102   |      118    |
-|    Fonctionnalités  |     44    |      43    |  
-|    Tâches     |     22    |      79    |
+|    Bugs      |     65     |     77     |
+|    Fonctionnalités  |     44     |     35     |  
+|    Tâches     |     9      |     81     |
 
 ===== Cartoon =====
 
 
-{{http://people.slitaz.org/~paul/cartoons/cartoon%233.png}}
+{{http://people.slitaz.org/~paul/cartoons/cartoon%235.png}}
 
 ===== Trucs et astuces (en anglais) =====
 
-        * Python pour les débutants – Part1: http://temporaryland.wordpress.com/2011/01/26/python-for-newbies/
+        * Utiliser le système de fichiers /proc : http://www.petur.eu/blog/?p=320
 
 ===== En ligne (en anglais) =====
 
-        * Installer SliTaz dans VirtualBox  - http://www.unixweblog.com/2011/01/installing-linux-slitaz-small-30-mb-linux-operating-system-in-virtualbox/			
+        * Slitaz GNU/Linux 3.0 — Une distribution GNU/Linux incroyable de 30Mo — http://www.unixmen.com/software/1600-slitaz-linux-30-an-awesome-30-mo-linux-distribution			
 
 ===== Anciens Numéros =====
 
