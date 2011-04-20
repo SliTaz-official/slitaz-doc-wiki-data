@@ -1,0 +1,9 @@
+a:2:{s:7:"current";a:8:{s:4:"date";a:2:{s:7:"created";i:1266792313;s:8:"modified";i:1266792828;}s:7:"creator";s:17:"Claudinei Pereira";s:11:"last_change";b:0;s:11:"contributor";a:1:{s:9:"claudinei";s:17:"Claudinei Pereira";}s:5:"title";s:7:"Desktop";s:11:"description";a:2:{s:15:"tableofcontents";a:6:{i:0;a:4:{s:3:"hid";s:7:"desktop";s:5:"title";s:7:"Desktop";s:4:"type";s:2:"ul";s:5:"level";i:1;}i:1;a:4:{s:3:"hid";s:10:"introducao";s:5:"title";s:12:"Introdução";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:2;a:4:{s:3:"hid";s:7:"openbox";s:5:"title";s:7:"Openbox";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:3;a:4:{s:3:"hid";s:41:"papel-de-parede-e-icones-usando-o-pcmanfm";s:5:"title";s:42:"Papel de Parede e Ícones usando o PCManFM";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:4;a:4:{s:3:"hid";s:7:"lxpanel";s:5:"title";s:7:"LXPanel";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:5;a:4:{s:3:"hid";s:15:"efeitos-visuais";s:5:"title";s:15:"Efeitos Visuais";s:4:"type";s:2:"ul";s:5:"level";i:2;}}s:8:"abstract";s:517:"Introdução
+
+
+O desktop (área de trabalho) padrão do SliTaz é formado por diferentes componentes do Projeto LXDE. O Openbox, o PCmanFM e o LXPanel combinam-se para prover um desktop que seja simples e funcional.
+
+Openbox
+
+
+O Gerenciador de Janelas padrão do SliTaz é o Openbox. Ele é simples, rápido e com suporte a temas e, além disso, consome poucos recursos da máquina. Um Gerenciador de Janelas é o programa que roda sobre um servidor gráfico e controla a aparência das janelas, abre um terminal g…";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:8:"relation";a:1:{s:10:"firstimage";s:42:"en:handbook:image:desktopbox-autostart.png";}}s:10:"persistent";a:4:{s:4:"date";a:2:{s:7:"created";i:1266792313;s:8:"modified";i:1266792828;}s:7:"creator";s:17:"Claudinei Pereira";s:11:"last_change";b:0;s:11:"contributor";a:1:{s:9:"claudinei";s:17:"Claudinei Pereira";}}}

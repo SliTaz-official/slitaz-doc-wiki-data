@@ -1,0 +1,8 @@
+a:2:{s:7:"current";a:8:{s:4:"date";a:2:{s:7:"created";i:1266735643;s:8:"modified";i:1266736211;}s:7:"creator";s:17:"Claudinei Pereira";s:11:"last_change";b:0;s:5:"title";s:6:"VMWare";s:11:"description";a:2:{s:15:"tableofcontents";a:1:{i:0;a:4:{s:3:"hid";s:6:"vmware";s:5:"title";s:6:"VMWare";s:4:"type";s:2:"ul";s:5:"level";i:1;}}s:8:"abstract";s:290:"Teste o SliTaz GNU/Linux usando o VMWare.
+
+O que será necessário:
+
+
+	*  SliTaz GNU/Linux Virtual Appliance - Arquivo de máquina virtual do SliTaz.
+		*  7-Zip - Necessário para descompactar o arquivo anterior.
+		*  VMware Player - Para executar a máquina virtual em seu sistema Windows.";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:8:"relation";a:1:{s:10:"firstimage";s:0:"";}s:11:"contributor";a:1:{s:9:"claudinei";s:17:"Claudinei Pereira";}}s:10:"persistent";a:4:{s:4:"date";a:2:{s:7:"created";i:1266735643;s:8:"modified";i:1266736211;}s:7:"creator";s:17:"Claudinei Pereira";s:11:"last_change";b:0;s:11:"contributor";a:1:{s:9:"claudinei";s:17:"Claudinei Pereira";}}}

@@ -1,0 +1,9 @@
+a:2:{s:7:"current";a:8:{s:4:"date";a:2:{s:7:"created";i:1268716252;s:8:"modified";i:1268716360;}s:7:"creator";s:17:"Claudinei Pereira";s:11:"last_change";b:0;s:11:"contributor";a:1:{s:9:"claudinei";s:17:"Claudinei Pereira";}s:5:"title";s:7:"3G-UMTS";s:11:"description";a:2:{s:15:"tableofcontents";a:4:{i:0;a:4:{s:3:"hid";s:6:"g-umts";s:5:"title";s:7:"3G-UMTS";s:4:"type";s:2:"ul";s:5:"level";i:1;}i:1;a:4:{s:3:"hid";s:10:"introducao";s:5:"title";s:12:"Introdução";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:2;a:4:{s:3:"hid";s:10:"wvdialconf";s:5:"title";s:11:"wvdial.conf";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:3;a:4:{s:3:"hid";s:15:"entrada-de-menu";s:5:"title";s:15:"Entrada de Menu";s:4:"type";s:2:"ul";s:5:"level";i:2;}}s:8:"abstract";s:251:"Introdução
+
+
+Pequeno howto sobre conexões à internet usando modem (3g e conexões discadas).
+
+O sinal # significa que os comandos devem ser executados como root a partir de um console:
+
+# tazpkg get-install wvdial
+# tazpkg get-install linux-dialup";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:8:"relation";a:1:{s:10:"firstimage";s:0:"";}}s:10:"persistent";a:4:{s:4:"date";a:2:{s:7:"created";i:1268716252;s:8:"modified";i:1268716360;}s:7:"creator";s:17:"Claudinei Pereira";s:11:"last_change";b:0;s:11:"contributor";a:1:{s:9:"claudinei";s:17:"Claudinei Pereira";}}}
