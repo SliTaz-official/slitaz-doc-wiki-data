@@ -1,0 +1,14 @@
+a:2:{s:7:"current";a:8:{s:4:"date";a:2:{s:7:"created";i:1264762348;s:8:"modified";i:1266755498;}s:7:"creator";s:10:"damhyojung";s:11:"last_change";b:0;s:11:"contributor";a:2:{s:10:"damhyojung";s:10:"damhyojung";s:9:"draplater";s:10:"Chen Yufei";}s:5:"title";s:19:"Slitaz 开发手册";s:11:"description";a:2:{s:15:"tableofcontents";a:2:{i:0;a:4:{s:3:"hid";s:19:"slitaz-开发手册";s:5:"title";s:19:"Slitaz 开发手册";s:4:"type";s:2:"ul";s:5:"level";i:1;}i:1;a:4:{s:3:"hid";s:6:"说明";s:5:"title";s:6:"说明";s:4:"type";s:2:"ul";s:5:"level";i:2;}}s:8:"abstract";s:412:"说明
+
+
+本手册为Slitaz的开发手册，根据Slitaz的官方英文版手册翻译而来。
+
+安装指南
+
+	*  Wok & Tools  - 打包工具。
+	*  Receipts - 创建软件包的脚本。
+	*  Build Host - SliTaz 编译主机(tank). 
+	*  Boot Scripts - 启动和关机脚本. 
+	*  SliTaz Tools - Slitaz工具.
+	*  Release Tasks - 新版本发布前的任务列表. 
+	*  Root cdrom (rootcd) - 光盘说明文件.";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:8:"relation";a:1:{s:10:"firstimage";s:0:"";}}s:10:"persistent";a:4:{s:4:"date";a:2:{s:7:"created";i:1264762348;s:8:"modified";i:1266755498;}s:7:"creator";s:10:"damhyojung";s:11:"last_change";b:0;s:11:"contributor";a:2:{s:10:"damhyojung";s:10:"damhyojung";s:9:"draplater";s:10:"Chen Yufei";}}}

@@ -1,0 +1,6 @@
+a:2:{s:7:"current";a:7:{s:4:"date";a:2:{s:7:"created";i:1278479148;s:8:"modified";i:1278602079;}s:7:"creator";s:10:"Chen Yufei";s:11:"last_change";b:0;s:5:"title";s:12:"应用程序";s:11:"description";a:2:{s:15:"tableofcontents";a:4:{i:0;a:4:{s:3:"hid";s:12:"应用程序";s:5:"title";s:12:"应用程序";s:4:"type";s:2:"ul";s:5:"level";i:1;}i:1;a:4:{s:3:"hid";s:7:"leafpad";s:5:"title";s:7:"Leafpad";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:2;a:4:{s:3:"hid";s:38:"iso-大师-创建并且编辑iso文件";s:5:"title";s:45:"ISO 大师 —— 创建并且编辑ISO文件";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:3;a:4:{s:3:"hid";s:32:"xpad-小巧的桌面笔记程序";s:5:"title";s:34:"Xpad - 小巧的桌面笔记程序";s:4:"type";s:2:"ul";s:5:"level";i:2;}}s:8:"abstract";s:251:"Leafpad
+
+Leafpad是一个十分小巧、快捷的图形界面文本编辑器，它可以用于作笔记或者编辑文件。你可以在菜单中找到它，或者直接在命令行中指定Leafpad编辑文件：
+
+
+ $ leafpad Templates/script-shell.sh";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:8:"relation";a:1:{s:10:"firstimage";s:0:"";}}s:10:"persistent";a:3:{s:4:"date";a:1:{s:7:"created";i:1278479148;}s:7:"creator";s:10:"Chen Yufei";s:11:"last_change";b:0;}}
