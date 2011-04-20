@@ -1,0 +1,12 @@
+1298582604	79.80.31.143	C	fr:devnotes:new-tazwok-illustrated	gokhlayeh	created	
+1298585064	213.245.61.154	e	fr:devnotes:new-tazwok-illustrated	bellard	[DEPENDS/BUILD_DEPENDS :] 	
+1298585682	213.245.61.154	e	fr:devnotes:new-tazwok-illustrated	bellard	[TARBALL/WGET_URL/SOURCE/téléchargement depuis les VCS] 	
+1298585991	213.245.61.154	e	fr:devnotes:new-tazwok-illustrated	bellard	[Définir src/_pkg & déplacer $src au bon endroit (hacks dans la recette) :] 	
+1298586484	213.245.61.154	e	fr:devnotes:new-tazwok-illustrated	bellard	[Définir les chemins par défaut dans configure:] 	
+1298586823	213.245.61.154	e	fr:devnotes:new-tazwok-illustrated	bellard	[DESTDIR=$PWD/_pkg] 	
+1298587343	213.245.61.154	e	fr:devnotes:new-tazwok-illustrated	bellard	[Les variables $stuff, $wanted_stuff et $fs] 	
+1298587960	213.245.61.154	e	fr:devnotes:new-tazwok-illustrated	bellard	[Conclusion - Choses à faire lors de la mise à jour d'une recette:] 	
+1298589164	213.245.61.154	e	fr:devnotes:new-tazwok-illustrated	bellard	[Quelques cas plus complexes...] 	
+1298589847	79.80.31.143	E	fr:devnotes:new-tazwok-illustrated	gokhlayeh	[Quelques cas plus complexes...]  Add !unpack COOK_OPT	
+1298621831	213.245.61.154	e	fr:devnotes:new-tazwok-illustrated	bellard	[TARBALL/WGET_URL/SOURCE/téléchargement depuis les VCS] 	
+1298621873	213.245.61.154	e	fr:devnotes:new-tazwok-illustrated	bellard	[TARBALL/WGET_URL/SOURCE/téléchargement depuis les VCS] 	
