@@ -1,0 +1,15 @@
+a:2:{s:7:"current";a:7:{s:4:"date";a:2:{s:7:"created";i:1302349261;s:8:"modified";i:1302349261;}s:7:"creator";s:5:"Chris";s:11:"last_change";a:7:{s:4:"date";i:1302349261;s:2:"ip";s:13:"94.217.64.120";s:4:"type";s:1:"C";s:2:"id";s:15:"de:guides:flash";s:4:"user";s:8:"funkturm";s:3:"sum";s:7:"created";s:5:"extra";s:0:"";}s:5:"title";s:42:"Wie installiere ich den Adobe Flash Player";s:11:"description";a:2:{s:15:"tableofcontents";a:1:{i:0;a:4:{s:3:"hid";s:42:"wie-installiere-ich-den-adobe-flash-player";s:5:"title";s:42:"Wie installiere ich den Adobe Flash Player";s:4:"type";s:2:"ul";s:5:"level";i:1;}}s:8:"abstract";s:451:"Öffne ein Terminal. Werde super-user:
+
+
+ $ su -
+
+
+
+Das Standard Passwort für den root Account ist root .
+
+Gebe den folgenden Befehl ein:
+
+ # tazpkg get-install get-flash-plugin && get-flash-plugin
+
+
+Das Paket get-flash-plugin installiert ein Skript, welches dann den Quelltext von der Adobe-Webseite holt. Anschließend wird das Paket für die Installation erstellt, installiert und gelöscht. Fehlende Abhängigkeiten werden zusätzlich aufgelöst.";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:8:"relation";a:1:{s:10:"firstimage";s:0:"";}}s:10:"persistent";a:3:{s:4:"date";a:1:{s:7:"created";i:1302349261;}s:7:"creator";s:5:"Chris";s:11:"last_change";a:7:{s:4:"date";i:1302349261;s:2:"ip";s:13:"94.217.64.120";s:4:"type";s:1:"C";s:2:"id";s:15:"de:guides:flash";s:4:"user";s:8:"funkturm";s:3:"sum";s:7:"created";s:5:"extra";s:0:"";}}}
