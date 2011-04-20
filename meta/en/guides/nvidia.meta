@@ -1,0 +1,12 @@
+a:2:{s:7:"current";a:8:{s:4:"date";a:2:{s:7:"created";i:1266715408;s:8:"modified";i:1284152738;}s:7:"creator";s:5:"Rohit";s:11:"last_change";a:7:{s:4:"date";i:1284152738;s:2:"ip";s:14:"91.104.110.245";s:4:"type";s:1:"E";s:2:"id";s:16:"en:guides:nvidia";s:4:"user";s:5:"linea";s:3:"sum";s:24:"mark for deletion review";s:5:"extra";s:0:"";}s:11:"contributor";a:2:{s:5:"linea";s:11:"Paul Issott";s:5:"jozee";s:5:"Rohit";}s:5:"title";s:41:"Install the latest non-free Nvidia driver";s:11:"description";a:2:{s:15:"tableofcontents";a:5:{i:0;a:4:{s:3:"hid";s:41:"install-the-latest-non-free-nvidia-driver";s:5:"title";s:41:"Install the latest non-free Nvidia driver";s:4:"type";s:2:"ul";s:5:"level";i:1;}i:1;a:4:{s:3:"hid";s:16:"required-reading";s:5:"title";s:16:"Required Reading";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:2;a:4:{s:3:"hid";s:7:"prepare";s:5:"title";s:7:"Prepare";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:3;a:4:{s:3:"hid";s:18:"install-the-driver";s:5:"title";s:18:"Install the driver";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:4;a:4:{s:3:"hid";s:7:"restart";s:5:"title";s:7:"Restart";s:4:"type";s:2:"ul";s:5:"level";i:2;}}s:8:"abstract";s:257:"Required Reading
+
+	*  Handbook - Xorg Installation
+		*  Quickstart Guide - Build your own custom Linux Kernel
+
+Prepare
+
+	*  Download the installer from the Nvidia website. Latest version 190.53
+		*  Install the Xorg server
+
+
+# tazpkg get-install xorg-server";}s:8:"relation";a:2:{s:10:"references";a:1:{s:16:"en:guides:kernel";b:1;}s:10:"firstimage";s:0:"";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}}s:10:"persistent";a:4:{s:4:"date";a:2:{s:7:"created";i:1266715408;s:8:"modified";i:1284152738;}s:7:"creator";s:5:"Rohit";s:11:"last_change";a:7:{s:4:"date";i:1284152738;s:2:"ip";s:14:"91.104.110.245";s:4:"type";s:1:"E";s:2:"id";s:16:"en:guides:nvidia";s:4:"user";s:5:"linea";s:3:"sum";s:24:"mark for deletion review";s:5:"extra";s:0:"";}s:11:"contributor";a:2:{s:5:"linea";s:11:"Paul Issott";s:5:"jozee";s:5:"Rohit";}}}

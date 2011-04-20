@@ -1,0 +1,7 @@
+a:2:{s:7:"current";a:8:{s:4:"date";a:2:{s:7:"created";i:1272894465;s:8:"modified";i:1272991183;}s:7:"creator";s:10:"Ben Arnold";s:11:"last_change";b:0;s:11:"contributor";a:1:{s:5:"jozee";s:5:"Rohit";}s:5:"title";s:20:"Testing Applications";s:11:"description";a:2:{s:15:"tableofcontents";a:3:{i:0;a:4:{s:3:"hid";s:20:"testing-applications";s:5:"title";s:20:"Testing Applications";s:4:"type";s:2:"ul";s:5:"level";i:1;}i:1;a:4:{s:3:"hid";s:12:"system-tools";s:5:"title";s:12:"system-tools";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:2;a:4:{s:3:"hid";s:8:"x-window";s:5:"title";s:8:"x-window";s:4:"type";s:2:"ul";s:5:"level";i:2;}}s:8:"abstract";s:498:"As a result of discussions in the forum, this is the page for documentation - please take part and report any troubles with packages here.
+
+system-tools
+  Package    Maintainer   Tester   Status    Problems    Link Midnight Commander~kultextestedok~pcmanfm~~not tested~~
+x-window
+  Package    Maintainer  Tester   Status    Problems    Link  xorg-xf86-video-intel~kultextestedshould be updated to 2.7.1
+update in progress<http://hg.slitaz.org/wok/rev/c86710039a5f>xorg-xf86-video-nv~kultexstarted~~";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:8:"relation";a:1:{s:10:"firstimage";s:0:"";}}s:10:"persistent";a:4:{s:4:"date";a:2:{s:7:"created";i:1272894465;s:8:"modified";i:1272991183;}s:7:"creator";s:10:"Ben Arnold";s:11:"last_change";b:0;s:11:"contributor";a:1:{s:5:"jozee";s:5:"Rohit";}}}

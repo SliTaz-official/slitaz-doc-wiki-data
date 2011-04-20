@@ -1,0 +1,58 @@
+1271852784	188.23.102.104	C	en:guides:xorg-xvesa	kultex	created	
+1271853211	188.23.102.104	E	en:guides:xorg-xvesa	kultex		
+1271853840	188.23.102.104	E	en:guides:xorg-xvesa	kultex		
+1271854468	188.23.102.104	E	en:guides:xorg-xvesa	kultex		
+1271858377	188.23.102.104	E	en:guides:xorg-xvesa	kultex		
+1271859034	188.23.2.24	E	en:guides:xorg-xvesa	kultex		
+1271859175	188.23.2.24	E	en:guides:xorg-xvesa	kultex		
+1271859293	188.23.2.24	E	en:guides:xorg-xvesa	kultex		
+1271859427	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1271859448	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1271860082	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1271860354	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1271860521	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1271860597	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1271860626	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1271860638	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1271860857	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1271860883	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1271861050	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1271861074	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1271861657	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1271861721	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1271878968	188.23.2.24	E	en:guides:xorg-xvesa	kultex		
+1271881883	91.104.84.50	E	en:guides:xorg-xvesa	linea		
+1272055686	188.23.15.67	E	en:guides:xorg-xvesa	kultex		
+1272056958	188.23.15.67	E	en:guides:xorg-xvesa	kultex		
+1272136162	91.104.105.206	E	en:guides:xorg-xvesa	linea		
+1272196752	91.104.104.81	E	en:guides:xorg-xvesa	linea		
+1272985849	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1272985866	24.53.147.62	E	en:guides:xorg-xvesa	jozee		
+1273147000	188.23.98.148	E	en:guides:xorg-xvesa	kultex		
+1273149473	188.23.98.148	E	en:guides:xorg-xvesa	kultex		
+1273149788	188.23.98.148	E	en:guides:xorg-xvesa	kultex		
+1273158913	188.23.3.41	E	en:guides:xorg-xvesa	kultex		
+1273244358	188.23.12.114	E	en:guides:xorg-xvesa	kultex		
+1273244405	188.23.12.114	E	en:guides:xorg-xvesa	kultex		
+1273244513	188.23.12.114	E	en:guides:xorg-xvesa	kultex		
+1273313775	91.104.71.3	E	en:guides:xorg-xvesa	linea		
+1273561863	188.23.15.118	E	en:guides:xorg-xvesa	kultex		
+1273562651	188.23.15.118	E	en:guides:xorg-xvesa	kultex		
+1273563117	188.23.15.118	E	en:guides:xorg-xvesa	kultex		
+1273563494	91.109.42.188	E	en:guides:xorg-xvesa	seawolf	added intel_agp line	
+1273777185	91.104.91.158	E	en:guides:xorg-xvesa	linea		
+1274816787	91.104.119.18	E	en:guides:xorg-xvesa	linea	add toc	
+1277051071	91.109.54.127	E	en:guides:xorg-xvesa	seawolf	switched XVesa/Xorg priority to follow distro, checked headings	
+1277051137	91.109.54.127	e	en:guides:xorg-xvesa	seawolf	cleaned intro	
+1277051943	91.109.54.127	E	en:guides:xorg-xvesa	seawolf	improved Xorg section structure & content	
+1277052282	91.109.54.127	e	en:guides:xorg-xvesa	seawolf	added modesetting to intel section	
+1277052812	91.109.54.127	e	en:guides:xorg-xvesa	seawolf	improved Intel and 'restarting X' sections	
+1277052843	91.109.54.127	e	en:guides:xorg-xvesa	seawolf	improved XVesa section	
+1277052915	91.109.54.127	e	en:guides:xorg-xvesa	seawolf	updated review section	
+1277056025	91.109.54.127	e	en:guides:xorg-xvesa	seawolf	fix numbering	
+1278602051	127.0.0.1	E	en:guides:xorg-xvesa		external edit	
+1282512052	91.104.109.239	E	en:guides:xorg-xvesa	linea		
+1284107919	91.110.89.126	E	en:guides:xorg-xvesa	seawolf	improvd nVidia section, needs check from those with nVidia hardware	
+1284108751	91.110.89.126	E	en:guides:xorg-xvesa	seawolf	improved ATI section, needs check from those with ATI hardware	
+1284116575	91.110.89.126	e	en:guides:xorg-xvesa	seawolf		
+1284299397	91.104.70.113	E	en:guides:xorg-xvesa	linea		

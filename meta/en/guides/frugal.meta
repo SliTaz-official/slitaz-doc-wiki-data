@@ -1,0 +1,12 @@
+a:2:{s:7:"current";a:8:{s:4:"date";a:2:{s:7:"created";i:1266716948;s:8:"modified";i:1293395293;}s:7:"creator";s:5:"Rohit";s:11:"last_change";a:7:{s:4:"date";i:1293395293;s:2:"ip";s:14:"91.104.112.222";s:4:"type";s:1:"E";s:2:"id";s:16:"en:guides:frugal";s:4:"user";s:5:"linea";s:3:"sum";s:0:"";s:5:"extra";s:0:"";}s:11:"contributor";a:3:{s:5:"jozee";s:5:"Rohit";s:5:"linea";s:11:"Paul Issott";s:7:"bellard";s:14:"Pascal Bellard";}s:5:"title";s:7:"Winboot";s:11:"description";a:2:{s:15:"tableofcontents";a:7:{i:0;a:4:{s:3:"hid";s:7:"winboot";s:5:"title";s:7:"Winboot";s:4:"type";s:2:"ul";s:5:"level";i:1;}i:1;a:4:{s:3:"hid";s:45:"frugal-install-to-microsoft-windows-partition";s:5:"title";s:45:"Frugal install to Microsoft Windows partition";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:2;a:4:{s:3:"hid";s:26:"traditional-frugal-install";s:5:"title";s:26:"Traditional frugal install";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:3;a:4:{s:3:"hid";s:17:"iso-image-install";s:5:"title";s:17:"ISO image install";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:4;a:4:{s:3:"hid";s:16:"web-boot-install";s:5:"title";s:16:"Web boot install";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:5;a:4:{s:3:"hid";s:23:"tuning-the-boot-process";s:5:"title";s:23:"Tuning the boot process";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:6;a:4:{s:3:"hid";s:45:"automated-graphical-approach-using-unetbootin";s:5:"title";s:45:"Automated Graphical Approach using UNetbootin";s:4:"type";s:2:"ul";s:5:"level";i:2;}}s:8:"abstract";s:346:"Frugal install to Microsoft Windows partition
+
+
+Install Grub4dos.
+
+This article will assume that your C: drive is (hd0,0).
+You need at least 160MB to run Slitaz cooking (128MB for Slitaz 1.0).
+
+Tested with Windows XP on FAT32 and on NTFS.
+
+For Windows XP, 2000 or NT, copy <http://mirror.slitaz.org/boot/grldr>
+into C:\ and append to C:\boot.ini:";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:8:"relation";a:1:{s:10:"firstimage";s:0:"";}}s:10:"persistent";a:4:{s:4:"date";a:2:{s:7:"created";i:1266716948;s:8:"modified";i:1293395293;}s:7:"creator";s:5:"Rohit";s:11:"last_change";a:7:{s:4:"date";i:1293395293;s:2:"ip";s:14:"91.104.112.222";s:4:"type";s:1:"E";s:2:"id";s:16:"en:guides:frugal";s:4:"user";s:5:"linea";s:3:"sum";s:0:"";s:5:"extra";s:0:"";}s:11:"contributor";a:3:{s:5:"jozee";s:5:"Rohit";s:5:"linea";s:11:"Paul Issott";s:7:"bellard";s:14:"Pascal Bellard";}}}
