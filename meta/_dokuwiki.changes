@@ -1,27 +1,42 @@
-1302974046	86.194.78.101	C	fr:guides:bluetooth	domcox	created	
-1303035443	91.104.101.45	E	en:handbook:office	linea	update notecase	
-1303070673	83.197.44.35	C	fr:guides:wifi-hard	domcox	création par traduction de la page en anglais	
-1303070815	83.197.44.35	C	fr:guides:modem	domcox	création par traduction de la page en anglais	
-1303073876	86.193.109.245	C	fr:guides:cricket-a600	domcox	création par traduction de la page en anglais	
-1303158995	86.193.107.203	C	fr:guides:powermgmt	domcox	création par traduction de la page en anglais	
-1303159063	86.193.107.203	e	fr:guides:start	domcox	Fix typos	
-1303159224	86.193.107.203	e	fr:guides:start	domcox	fix typos	
-1303189188	75.68.6.221	E	en:guides:midori	godane	[Ad Blocking] 	
-1303189526	75.68.6.221	E	en:guides:midori	godane	[Ad Blocking] 	
-1303189725	75.68.6.221	E	en:guides:midori	godane	[Ad Blocking] 	
-1303189865	75.68.6.221	E	en:guides:midori	godane	[Managing Search Engines] 	
-1303189901	75.68.6.221	E	en:guides:midori	godane	[Shortcuts] 	
-1303238758	86.193.238.10	e	fr:start	domcox	Modif typo	
-1303238800	86.193.238.10	e	fr:start	domcox	fix typos	
-1303245643	86.193.238.10	C	fr:guidelines	domcox	création par traduction de la page en anglais	
-1303245737	86.193.238.10	e	fr:guidelines	domcox	fix typos	
-1303245773	86.193.238.10	e	fr:guidelines	domcox	Correction typo	
-1303245880	86.193.238.10	C	fr:guides:playground	domcox	création par traduction de la page en anglais	
-1303245944	86.193.238.10	e	fr:guides:playground	domcox	Modif typo	
-1303295732	83.197.37.25	C	en:guidelines	domcox	move from http://doc.slitaz.org/guidelines to http://doc.slitaz.org/en:guidelines	
-1278602065	127.0.0.1	E	guidelines		external edit	
-1303295757	83.197.37.25	D	guidelines	domcox	move to http://doc.slitaz.org/en:guidelines	
-1303295844	83.197.37.25	e	start	domcox	move guidelines to http://doc.slitaz.org/en:guidelines	
-1303295926	83.197.37.25	e	fr:guidelines	domcox	Modif typo	
-1303297377	83.197.37.25	C	fr:wiki:syntax	domcox	création par copie de la page de DokuWiki en français	
-1303297863	83.197.37.25	e	fr:wiki:syntax	domcox	fix typos	
+1303841560	86.197.4.25	C	fr:guides:conspy	domcox	translated from English	
+1303841845	86.197.4.25	e	fr:guidelines	domcox	migration of Scratchbook: completed	
+1303842302	86.197.4.25	e	fr:guides:contributor	domcox	fix: broken links	
+1303842366	86.197.4.25	E	fr:guides:contributor	domcox	fix: broken links	
+1303842438	86.197.4.25	e	en:guides:contributor	domcox	fix: broken links	
+1303842520	86.197.4.25	e	en:guides:contributor	domcox	fix: broken links	
+1303843610	86.197.4.25	e	en:guides:contributor	domcox	fix: broken links	
+1303843652	86.197.4.25	e	fr:guides:contributor	domcox	fix: broken links	
+1303844322	86.197.4.25	C	fr:guides:alsaequal	domcox	translated from English	
+1303851828	86.197.4.25	C	fr:guides:midori	domcox	translated from English	
+1303851862	86.197.4.25	E	fr:guides:midori	domcox	translated from English	
+1303852608	86.197.4.25	E	fr:guides:midori	domcox	translated from English	
+1304009168	94.248.117.189	e	ru:guides:start	lexeii	update from en	
+1304011576	94.248.117.189	C	ru:guides:alsaequal	lexeii	created	
+1304025782	86.193.234.138	C	fr:guides:xorg-xvesa	domcox	translated from English	
+1304071124	94.248.117.189	C	ru:guides:boottime	lexeii	created	
+1304071525	94.248.117.189	C	ru:guides:flash	lexeii	created	
+1304071944	94.248.117.189	C	ru:guides:tor	lexeii	created	
+1304073898	94.248.117.189	C	ru:handbook:webserver	lexeii	created	
+1304113328	86.193.105.135	E	fr:guides:contributor	domcox	update	
+1304179626	213.3.10.214	E	start	pankso	Add link for Italian doc	
+1304179812	213.3.10.214	C	it:start	pankso	created	
+1304190453	83.197.47.174	E	fr:guides:pxe	domcox	update	
+1304190858	83.197.47.174	E	fr:guides:liveusb	domcox	update	
+1304192942	83.197.47.174	E	fr:guides:virtualbox	domcox	update	
+1278602066	127.0.0.1	E	fr:guides:wifi-easy		external edit	
+1304230107	83.197.161.91	E	fr:guides:wifi-easy	domcox	u	
+1304230145	83.197.161.91	E	fr:guides:wifi-easy	domcox	update	
+1304230282	83.197.161.91	E	fr:guides:xorg-xvesa	domcox	update	
+1278602067	127.0.0.1	E	fr:guides:network-script		external edit	
+1304232156	83.197.161.91	E	fr:guides:network-script	domcox	update	
+1304233946	83.197.161.91	E	fr:guides:vpn	domcox	update	
+1304236522	83.197.161.91	E	fr:guides:boottime	domcox	update	
+1304236938	83.197.161.91	E	en:guides:nvidia	domcox	fix: broken links	
+1304237080	83.197.161.91	e	en:guides:nvidia	domcox	fix: broken links	
+1304237878	83.197.161.91	E	fr:guides:nvidia	domcox	update	
+1304241973	83.197.161.91	E	fr:guides:printer	domcox	update	
+1304242132	83.197.161.91	e	fr:guides:cpu-frequency	domcox	typo edit	
+1304242614	83.197.161.91	E	fr:guides:kernel	domcox	update	
+1304242964	83.197.161.91	e	fr:handbook:start	domcox	tiny edit	
+1304243595	83.197.161.91	e	fr:cookbook:advancedhg	domcox	typo edit	
+1304247021	83.197.161.91	e	fr:handbook:commands	domcox	tiny edit	
