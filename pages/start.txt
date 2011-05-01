@@ -3,7 +3,7 @@
 \\
 Please select your language:
 
-**[[cn:start|Chinese]] - [[de:start|Deutsch]] - [[en:start|English]] - [[es:start|Español]] - [[fr:start|Français]] - [[id:start|Indonesian]] - [[pt:start|Português]] - [[ru:start|Русский]]**
+**[[cn:start|Chinese]] - [[de:start|Deutsch]] - [[en:start|English]] - [[es:start|Español]] - [[fr:start|Français]] - [[id:start|Indonesian]] - [[it:start|Italian]] - [[pt:start|Português]] - [[ru:start|Русский]]**
 \\
 \\
 ===== About this Site =====
@@ -23,9 +23,9 @@ If you'd like to help with the documentation, jump in! Take a look at the [[http
 There's many areas in which you can help:
 
   * **Are you an experienced SliTaz user?**
- Go for the Guides. They take users through a process and range from customising your desktop to getting networking set-up.
+ Go for the [[en:guides:start|guides]]. They take users through a process and range from customising your desktop to getting networking set-up.
   * **Are you a general Linux user?**
-Take a look at the Handbook. A lot of general introduction to SliTaz, Linux or available software can be written there. Some people find it difficult to write technically, others struggle with more generically informative writing. Both are needed, in describing the topic and scope before brief instructions.
+Take a look at the [[en:handbook:start|handbook]]. A lot of general introduction to SliTaz, Linux or available software can be written there. Some people find it difficult to write technically, others struggle with more generically informative writing. Both are needed, in describing the topic and scope before brief instructions.
   * **Are you a non-English speaker?**
 Translations are very important to the global audience SliTaz attracts. We need speakers of the above languages to ensure non-English readers experience better translations than automated services can provide! Those are the locales supported by the SliTaz system. We are aiming to add more in the future -- if you can help, please do!
 

@@ -1,0 +1,32 @@
+====== Установка Tor без лишних слов ======
+
+===== Установка =====
+
+<code>
+# tazpkg get-install tor
+# tazpkg get-install privoxy
+# echo 'forward-socks4a /        127.0.0.1:9050   .' >> /etc/privoxy/config
+# sed -r '/RUN_DAEMONS/s/(" *)$/ privoxy\1/' -i /etc/rcS.conf
+# echo 'tor > /dev/tty2 & ' >> /etc/init.d/local.sh
+</code>
+
+Используйте Bridges для запуска tor, если вышеуказанные опции не сработали:
+
+<code>
+# echo '
+UseBridges 1
+UpdateBridgesFromAuthority 1
+bridge 66.160.141.98:6085 ' >> /etc/tor/torrc
+</code>
+
+
+===== Перезагрузка системы и повторный вход =====
+
+Для проверки работы tor войдите в tty2 (комбинация клавиш Ctrl+Alt+F2 для входа, а Alt+F7 — для возврата в рабочий стол). Если появится надпись Success… — значит, работает.
+
+После этого установите плагин для Firefox «tor button».
+
+И теперь, находясь за каменной стеной, можно ходить куда угодно.
+
+----
+Статью перевел Кирилл Шевцов

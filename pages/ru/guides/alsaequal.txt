@@ -1,0 +1,91 @@
+====== Alsaequal ======
+
+===== Установка (только для версии cooking) =====
+
+Для начала скачаем alsaequal:
+
+<code># tazpkg get-install alsaequal</code>
+
+После этого создадим файл ///home/tux/.asoundrc// с таким содержимым:
+
+<file>
+ctl.equal {
+  type equal;
+}
+
+pcm.plugequal {
+  type equal;
+  # Исправьте следующую строку,если не хотите использовать звуковую карту 0.
+  # slave.pcm "plughw:0,0";
+  # Или для использования с выводом от нескольких приложений на dmix
+  slave.pcm "plug:dmix"
+}
+
+pcm.equal {
+  # Если эквалайзер должен быть вашей звуковой картой по умолчанию,
+  # снимите комментарий со строки ниже и поставьте его на предыдущую строку.
+# pcm.!default {
+  type plug;
+  slave.pcm plugequal;
+}
+</file>
+
+
+===== mpg123 =====
+
+Перейдите в свою музыкальную директорию и выполните команду
+
+<code>$ mpg123 -a equal *</code>
+
+или
+
+<code>$ mpg123 -a equal track1</code>
+
+Теперь откройте еще один терминал и введите:
+
+<code>$ alsamixer -D equal</code>
+
+
+===== mpd =====
+
+Отредактируйте раздел audio_output файла ///etc/mpd.conf//:
+
+<file>
+audio_output {
+	type		"alsa"
+	name		"equal"
+	device		"plug:plugequal"
+##	format		"44100:16:2"	# необязательный параметр
+##	mixer_device	"default"	# необязательный параметр
+##	mixer_control	"PCM"		# необязательный параметр
+##	mixer_index	"0"		# необязательный параметр
+}
+</file>
+
+После чего перезапустите mpd и выполните команду
+
+<code>$ alsamixer -D equal</code>
+
+
+===== moc =====
+
+Скопируйте файл //config.example// из директории ///usr/share/doc/moc// в директорию //~/.moc//:
+
+<code>$ cp /usr/share/doc/moc/config.example ~/.moc/config</code>
+
+Затем измените устройство вывода ALSA: 
+
+<file>
+# ALSA output device
+AlsaDevice    = equal
+</file>
+
+И запустите или перезапустите moc. 
+
+
+===== Ссылка =====
+
+[[http://www.thedigitalmachine.net/alsaequal.html|www.thedigitalmachine.net/alsaequal.html]]
+
+----
+Статью перевел Кирилл Шевцов
