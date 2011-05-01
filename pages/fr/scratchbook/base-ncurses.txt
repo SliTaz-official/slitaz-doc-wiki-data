@@ -1,0 +1,303 @@
+====== Bibliothèques et applications ncurses ======
+
+Installation et configuration des bibliothèques et d'applications ncurses.
+
+===== À propos =====
+
+Ce chapitre décrit la construction et l'installation des bibliothèques, et de quelques applications ncurses dans SliTaz. La procédure consiste à se déplacer dans le répertoire /src, télécharger les sources de l'application en question, les dés-archiver, lire les info du (des) fichier(s) README et/ou INSTALL, compiler, et installer le binaire dans SliTaz. Une fois l'application installée il faut créer une nouvelle initramfs, la copier dans la racine du cdrom, et créer une nouvelle image ISO. Pour cela vous pouvez utiliser "mktaziso" contenu dans : [[http://doc.slitaz.org/fr:cookbook:slitaztools|SliTaz tools]].
+
+==== Affecter une variable d'environnement ($fs) ====
+
+Une variable d'environnement permet de ne pas spécifier tout le chemin vers le répertoire, mais simplement $NomDeVariable. Nous allons affecter un variable '$fs' pour indiquer le chemin vers le système de fichier racine 'rootfs'. Pour cela vous pouvez vous placer dans le répertoire de travail de SliTaz, et tapez:
+
+   # export fs=$PWD/rootfs
+
+Pour vérifier:
+
+   # echo $fs
+
+===== ncurses-5.6 - Utilitaires et bibliothèques pour terminal =====
+
+ncurses ([[http://dickey.his.com/ncurses/|dickey.his.com/ncurses/]]) contient des fonctions pour afficher le texte de plusieurs manières sur l'écran d'un terminal Linux, et il nous fourni aussi les fichier terminfo. Les bibliothèques ncurses, sont, entre-autre, utilisée par retawq, nano, et certains jeux. Nous installons les bibliothèques dans /lib et le reste dans /usr/bin, avec un petit strip pour nettoyer le tout:
+
+   # cd src
+   # wget ftp://invisible-island.net/ncurses/ncurses-5.6.tar.gz
+   # tar xzf ncurses-5.6.tar.gz
+   # cd ncurses-5.6
+   # ./configure --prefix=/usr \\
+     --libdir=/lib --sysconfdir=/etc \\
+     --infodir=/usr/share/info --mandir=/usr/share/man \\
+     --with-shared --without-debug --without-ada
+   # make
+   # make DESTDIR=$PWD/_pkg install
+   # strip -v _pkg/lib/*
+   # strip -v _pkg/usr/bin/*
+
+Copie de la bibliothèque libncurses dans SliTaz, et de quelques applications. L'utilitaire 'reset' est et utilisé à la fin du script d'initialisation rcS, pour enlever le logo Linux. Si vous le désirez, vous pouvez aussi copier tous les utilitaires associés (tack,tic,toe,etc), attention à ne pas écraser un lien Busybox:
+
+   # cp -a _pkg/lib/libncurses.so* $fs/lib
+   # cp -ia _pkg/usr/bin/{clear,ncurses5-config,tset,reset} \\
+     $fs/usr/bin
+
+Copie de quelques fichiers terminfo, nous n'utilisons que quelques fichiers, si vous en désirez plus à vous de les copier:
+
+   # mkdir -v $fs/usr/share/terminfo
+   # mkdir -v $fs/usr/share/terminfo/{a,l,r,v,x}
+   # cp _pkg/usr/share/terminfo/a/ansi \\
+     $fs/usr/share/terminfo/a
+   # cp _pkg/usr/share/terminfo/l/linux \\
+     $fs/usr/share/terminfo/l
+   # cp _pkg/usr/share/terminfo/r/rxvt \\
+     $fs/usr/share/terminfo/r
+   # cp _pkg/usr/share/terminfo/x/{xterm,xterm-color,xterm-new,xterm-vt220} \\
+     $fs/usr/share/terminfo/x
+   # cp _pkg/usr/share/terminfo/v/{vt100,vt102*} \\
+     $fs/usr/share/terminfo/v
+
+Copie des fichiers tabset:
+
+   # cp -a _pkg/usr/share/tabset $fs/usr/share
+
+===== clex-3.16 - Gestionnaire de fichiers =====
+
+CLEX ([[http://www.clex.sk/|http://www.clex.sk/]]) est un petit gestionnaire de fichiers ncurses (160 Ko stripé). Le fichier de configuration rc est ~./.clexrc et le fichier ~/.clexbm est utilisé pour les bookmarks:
+
+   # cd ..
+   # wget http://www.clex.sk/download/clex-3.16.tar.gz
+   # tar xzf clex-3.16.tar.gz
+   # cd clex-3.16
+   # ./configure --prefix=/usr --infodir=/usr/share/info \\
+     --mandir=/usr/share/man
+   # make
+   # make DESTDIR=$PWD/_pkg install
+   # strip -v _pkg/usr/bin/clex
+
+Installation du binaire clex dans le rootfs de SliTaz:
+
+   # cp _pkg/usr/bin/clex $fs/usr/bin
+
+==== libs ====
+
+Si on lance la commande "ldd" sur clex, les dépendances suivantes devraient être affichées:
+<file>
+          libncurses.so.5 => /lib/libncurses.so.5 (0x40025000)
+          libc.so.6 => /lib/libc.so.6 (0x40064000)
+          /lib/ld-linux.so.2 => /lib/ld-linux.so.2 (0x40000000)
+</file>
+===== nano-2.0.6 - Editeur de texte avancé =====
+
+GNU nano ([[http://www.nano-editor.org/|www.nano-editor.org]]) est un éditeur de texte bien connu du monde GNU/Linux, efficace et rapide, supportant la colorisation syntaxique. C'est l'éditeur de texte par défaut de SliTaz:
+
+   # cd ..
+   # wget http://www.nano-editor.org/dist/v2.0/nano-2.0.6.tar.gz
+   # tar xzf nano-2.0.6.tar.gz
+   # cd nano-2.0.6
+   # ./configure --enable-all --enable-extra --prefix=/usr \\
+     --infodir=/usr/share/info --mandir=/usr/share/man \\
+     --sysconfdir=/etc
+   # make
+   # make DESTDIR=$PWD/_pkg install
+   # strip -v _pkg/usr/bin/nano
+
+Copie du binaire nano et du lien rnano, dans SliTaz:
+
+   # cp -a _pkg/usr/bin/* $fs/usr/bin
+
+Copie des fichiers de configuration de nano dans /usr/share/nano de notre rootfs:
+
+   # cp -a _pkg/usr/share/nano $fs/usr/share
+
+==== libs ====
+
+Si on lance la commande "ldd" sur nano, les dépendances suivantes devraient être affichées:
+<file>
+          libncurses.so.5 => /lib/libncurses.so.5 (0x40025000)
+          libc.so.6 => /lib/libc.so.6 (0x40064000)
+          /lib/ld-linux.so.2 => /lib/ld-linux.so.2 (0x40000000)
+</file>
+==== locale ====
+
+Au sujet de la langue, vous pouvez copier les fichiers .mo, créé lors de l'installation de nano, dans /usr/share/locale/{fr,en,de,es,etc}/LC_MESSAGES. Exemple pour la langue française:
+
+   # cp -a _pkg/usr/share/locale/fr/LC_MESSAGES $fs/usr/share/locale/fr
+
+==== Personnaliser nano ====
+
+Vous pouvez personnaliser nano via le fichier /etc/nanorc, ou ~/.nanorc propre à chaque utilisateur du système, c'est dans ce fichier que vous pouvez, par exemple, définir les couleur utilisées par nano grâce au fichiers contenus dans /usr/share/nono. Vous trouverez un large exemple de ce fichier dans l'archive de nano et dans [[http://doc.slitaz.org/en:cookbook:slitaztools|SliTaz tools]].
+
+Pour un fichier de configuration système, vous pouvez copier le fichier nanorc de SliTaz tools, dans /etc du rootfs:
+
+   # cd ..
+   # cp -a slitaz-tools-1.1/etc/nanorc $fs/etc
+
+===== retawq-0.2.6c - Navigateur web en mode texte =====
+
+retawq ([[http://retawq.sourceforge.net/|retawq.sourceforge.net]]) est petit navigateur web en mode texte. Nous passons quelques options utiles lors de la configuration, retawq a besoin des fichiers terminfo, des bibliothèques libncurses, et libpthread:
+
+   # wget http://switch.dl.sourceforge.net/sourceforge/retawq/retawq-0.2.6c.tar.gz
+   # tar xzf retawq-0.2.6c.tar.gz
+   # cd retawq-0.2.6c
+   # ./configure --enable-i18n --enable-local-cgi --path-prefix=/usr \\
+     --path-doc=/usr/share/doc/retawq --path-man=/usr/share/man
+   # make
+   # strip -v retawq
+
+Copie du binaire retawq dans SliTaz:
+
+   # cp retawq $fs/usr/bin
+
+==== libs ====
+<file>
+          libncurses.so.5 => /lib/libncurses.so.5 (0x40025000)
+          libpthread.so.0 => /lib/libpthread.so.0 (0x40064000)
+          libc.so.6 => /lib/libc.so.6 (0x40074000)
+          /lib/ld-linux.so.2 => /lib/ld-linux.so.2 (0x40000000)
+</file>
+Vous pouvez copier libpthread depuis votre système hôte, ou utiliser le paquet glibc-minimum-2.3.6 distribué par SliTaz:
+
+   # cp -a /lib/libpthread* $fs/lib
+   # strip --strip-unneeded $fs/lib/*
+
+==== locale ====
+
+Pour la langue, vous pouvez copier les fichiers .mo, contenu dans /i18n de l'archive de retawq, dans /usr/share/locale/{fr,en,de,es, etc}/LC_MESSAGES. Exemple pour la langue française, en renommant le fichier fr.mo en retawq.mo:
+
+   # cp -v i18n/fr.mo $fs/usr/share/locale/fr/LC_MESSAGES/retawq.mo
+
+==== Personnaliser retawq ====
+
+Pour personnaliser retawq, vous pouvez utiliser un répertoire personnel ~/.retawq, contenant un fichier config. Vous pouvez aussi mettre un fichier bookmarks (pour les marques pages) à la racine du répertoire de l'utilisateur. Vous trouverez un large exemple dans l'archive de retawq, ou dans SliTaz tools, contenant un fichier bookmarks.html avec une liste de favoris web. Vous pouvez aussi copier la doc (/docu) de retawq dans /usr/share/doc/retawq.
+
+===== htop-0.6.5 - Visionneur de processus système =====
+
+htop ([[http://htop.sourceforge.net/|htop.sourceforge.net/]]) est un logiciel qui pemet d'afficher les processus du système, avec une interface ncurses.
+
+Retour au répertoire /src, téléchargement, détarrage, configuration, compilation, et nettoyage avec strip:
+
+   # cd ..
+   # wget http://switch.dl.sourceforge.net/sourceforge/htop/htop-0.6.5.tar.gz
+   # tar xzf htop-0.6.5.tar.gz
+   # cd htop-0.6.5
+   # ./configure --prefix=/usr --mandir=/usr/share/man
+   # make
+   # make DESTDIR=$PWD/_pkg install
+   # strip -v _pkg/usr/bin/htop
+
+Copie du binaire htop dans SliTaz:
+
+   # cp _pkg/usr/bin/htop $fs/usr/bin
+
+Vous pouvez encore copier l'icone d'htop, ce trouvant dans: _pkg/usr/share/pixmaps.
+
+==== libs ====
+<file>
+          libm.so.6 => /lib/libm.so.6 (0xb7f97000)
+          libncurses.so.5 => /lib/libncurses.so.5 (0xb7f55000)
+          libc.so.6 => /lib/libc.so.6 (0xb7e20000)
+          /lib/ld-linux.so.2 => /lib/ld-linux.so.2 (0xb7fc9000)
+</file>
+===== dialog-1.1-20070409 - Interfaces graphiques aux scripts shell =====
+
+dialog,([[http://invisible-island.net/dialog/dialog.html|invisible-island.net/dialog/dialog.html]]), est un utilitaire permettant de construire des interfaces graphiques basées sur la console:
+
+   # cd ..
+   # wget ftp://invisible-island.net/dialog/dialog.tar.gz
+   # tar xzf dialog.tar.gz
+   # cd dialog-1.1-20070409
+   # ./configure --enable-nls --with-ncurses --prefix=/usr \\
+     --sysconfdir=/etc --mandir=/usr/share/man
+   # make
+   # make DESTDIR=$PWD/_pkg install
+   # strip -v _pkg/usr/bin/dialog
+
+Copie du binaire dialog dans SliTaz:
+
+   # cp _pkg/usr/bin/dialog $fs/usr/bin
+
+==== libs ====
+<file>
+          libncurses.so.5 => /lib/libncurses.so.5 (0x40027000)
+          libm.so.6 => /lib/libm.so.6 (0x40066000)
+          libc.so.6 => /lib/libc.so.6 (0x40089000)
+          /lib/ld-linux.so.2 => /lib/ld-linux.so.2 (0x40000000)
+</file>
+==== locale ====
+
+Vous pouvez installer les fichiers pour la localisation, si vous le désirez:
+
+   # cp -a _pkg/usr/share/locale/fr $fs/usr/share/locale
+
+Le fichier de configuration de dialog est /etc/dialogrc, et/ou ~/.dialogrc pour chaque utilisateur. Il y a aussi pleins d'exemples de scripts dans le répertoire /sample des sources de dialog.
+
+===== ninvaders-0.1.1 - Clone du jeu Space Invaders =====
+
+nIvaders ([[http://ninvaders.sourceforge.net/|http://ninvaders.sourceforge.net/]]) est un clone du eu Space Invaders, qui ne fait que 46 ko une fois stripé. Nous commençons par nous placer dans le répertoire /src, téléchargement, détarrage, compilation, nettoyage avec l'utilitaire "strip" et copie du binaire nInvaders dans /usr/games de SliTaz :
+
+   # cd ..
+   # wget http://ovh.dl.sourceforge.net/sourceforge/ninvaders/ninvaders-0.1.1.tar.gz
+   # tar xzf ninvaders-0.1.1.tar.gz
+   # cd ninvaders-0.1.1
+   # make
+   # strip -v nInvaders
+   # cp nInvaders $fs/usr/games
+
+===== bastet-0.41 - Bastard tetris clone =====
+
+Un petit jeu de tetris (17 Ko strippé) :
+
+   # wget http://fph.altervista.org/prog/bastet-0.41.tgz
+   # tar xzf bastet-0.41.tgz
+   # cd bastet-0.41
+   # make
+   # strip bastet
+   # cp bastet $fs/usr/games
+   # mkdir -p $fs/var/games
+   # touch $fs/var/games/bastet.scores
+   # chmod 666 $fs/var/games/bastet.scores
+
+===== rhapsody-0.28b - Client de chat IRC =====
+
+Rhapsody ([[http://rhapsody.sourceforge.net/|http://rhapsody.sourceforge.net/]]) est un client de chat supportant le protocole IRC, rapide et léger. Rhapsody fournit un menu pour une gestion des serveurs, des canaux, et sa propre configuration. Il est donc facile d'utilisation:
+
+   # cd ..
+   # wget http://switch.dl.sourceforge.net/sourceforge/rhapsody/rhapsody_0.28b.tgz
+   # tar xzf rhapsody_0.28b.tgz
+   # cd rhapsody-0.28b
+   # ./configure -i /usr/bin -d /usr/share/doc/rhapsody
+   # make
+   # strip -v rhapsody
+
+Installation du binaire dans Slitaz, et des fichiers d'aide. Il faut aussi ajuster les permissions sur ces fichiers afin que tout le monde puisse les lire:
+
+   # cp rhapsody $fs/usr/bin
+   # mkdir $fs/usr/share/doc/rhapsody
+   # cp -a help $fs/usr/share/doc/rhapsody/help
+   # chmod 644 $fs/usr/share/doc/rhapsody/help/*
+
+==== libs ====
+
+Rhapsody utilise les librairies suivantes :
+<file>
+          libncurses.so.5 => /lib/libncurses.so.5 (0x40026000)
+          libc.so.6 => /lib/libc.so.6 (0x40066000)
+          /lib/ld-linux.so.2 => /lib/ld-linux.so.2 (0x40000000))
+</file>
+==== Personnaliser rhapsody ====
+
+Vous pouvez personnaliser rhapsody via le fichier ~/.rhapsodyrc, ou utiliser <Ctrl+T> pour afficher les options.
+
+===== Génération de l'initramfs, et d'une image ISO =====
+
+Pour créer une nouvelle image ISO vous pouvez utiliser 'mktaziso' contenu dans SliTaz tools. Ou vous pouvez créer un nouvelle image initramfs, et la copier dans /boot de la racine de cd-rom (rootcd), et pour finir créer un image ISO avec genisoimage:
+
+   # cd $fs
+   # find . -print | cpio -o -H newc | gzip -9 > ../rootfs.gz
+   # cd ..
+   # cp rootfs.gz rootcd/boot
+   # genisoimage -R -o slitaz-cooking.iso -b boot/isolinux/isolinux.bin \\
+     -c boot/isolinux/boot.cat -no-emul-boot -boot-load-size 4 \\
+     -V "SliTaz" -input-charset iso8859-1 -boot-info-table rootcd
+
+==== Suite ====
+
+Le prochain chapitre du Cookbook déccript l'installation des [[locale|locale pour le français]] (Locale & i18n).

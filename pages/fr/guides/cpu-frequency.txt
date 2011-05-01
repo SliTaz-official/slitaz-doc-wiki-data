@@ -87,6 +87,6 @@ Utilisez la commande 'cpufreq-set ' pour activer l'un des gouverneurs - par exem
 
 <code> # cpufreq-set -g ondemand</code>
 
-il est à noter que si vous avez un processeur dual-core ou multi-core, vous devez spécifier explicitement le CPU. Il y a des CPU où chaque noyau peut fonctionner avec des réglages différents! Exemple pour un CPU dual-core:
+il est à noter que si vous avez un processeur dual-core ou multi-core, vous devez spécifier explicitement le CPU. Il y a des CPUs où chaque noyau peut fonctionner avec des réglages différents! Exemple pour un CPU dual-core:
 
 <code> # cpufreq-set -c 0 -c 1 -g conservative</code>

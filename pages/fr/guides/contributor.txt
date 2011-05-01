@@ -1,12 +1,10 @@
 ====== Contribuer à SliTaz ======
 
-(date de MAJ: 29/07/2010)
-
 Vous pouvez contribuer à SliTaz de plusieurs manières, même avec peu de temps libre. Voici quelques exemples.
 
 En cas de doute, demandez nous par un message sur le forum ou la liste de distribution mail.
 
-<note tip>Nous avons un [[http://scn.slitaz.org/|site communautaire]] où vous pouvez notamment contribuer à un blog, partager des fonds d'écran et autre logos.</note>
+<note tip>Visitez notre [[http://scn.slitaz.org/|site communautaire]] où vous pouvez notamment contribuer à un blog, partager des fonds d'écran et autre logos.</note>
 
 \\
 
@@ -22,12 +20,12 @@ Tous les paquets SliTaz comportent une [[fr:cookbook:receipt|"recette"]] - un fi
 Vous trouverez [[http://hg.slitaz.org/wok|ici]] des exemples de "recettes".
 Avant de vous lancer, familiarisez-vous avec [[fr:cookbook:devcorner|la page des développeurs]] et [[http://doc.slitaz.org/fr:cookbook:wok|l'environnement et l'outillage disponible]]
 
-Quand vous vous sentez prêt, sélectionnez [[http://labs.slitaz.org/wiki/13/Pkgscooklist|l'un des paquets ]] et faites quelques essais. Vous pouvez soumettre vos "recettes" à la liste de distribution ou contacter l'un des développeurs SliTaz, pour que nous puissions revoir votre travail et vous donner accès aux dépôts. 
+Quand vous vous sentez prêt, sélectionnez [[http://labs.slitaz.org/projects/distro/wiki/Pkgscooklistt|l'un des paquets ]] et faites quelques essais. Vous pouvez soumettre vos "recettes" à la liste de distribution ou contacter l'un des développeurs SliTaz, pour que nous puissions revoir votre travail et vous donner accès aux dépôts. 
 
 
 === Test des paquets ===
 
-Vous pouvez tester les paquets existants et signaler les éventuels bugs  [[http://labs.slitaz.org/issues|ici]]. Suivez les [[http://labs.slitaz.org/wiki/packages|recommandations de test]]. Vous pouvez discuter les difficultés sur le forum ou la liste de distribution email.
+Vous pouvez tester les paquets existants et signaler les éventuels bugs  [[http://bugs.slitaz.org/|ici]]. Suivez les [[http://labs.slitaz.org/wiki/packages|recommandations de test]]. Vous pouvez discuter les difficultés sur le forum ou la liste de distribution email.
 
 \\
 -----------------------------------------
@@ -45,7 +43,7 @@ Sous la fenêtre de modification se trouvent les boutons "Save" "Preview" "Cance
 
 Partir d'un document existant pour démarrer évite l'apprentissage de la syntaxe de formatage du wiki.
 
-Parcourez le [[fr:guides:guidelines| guide de documentation SliTaz]], choisissez une page et lancez-vous. Vos contributions seront ensuite revues et corrigées. 
+Parcourez le [[fr:guidelines| guide de documentation SliTaz]], choisissez une page et lancez-vous. Vos contributions seront ensuite revues et corrigées. 
 
   * **Vous êtes expérimenté avec SliTaz**
 Écrivez l'un des guides. Destinés aux utilisateurs, ils couvrent personnalisation et configuration du système. Vous pouvez partager votre propre expérience, ou améliorer l'un des guides existants.
@@ -59,4 +57,24 @@ Les traductions sont importantes car SliTaz attire une audience internationale. 
 
 Nous projetons également d'augmenter le nombre de langues supportées, merci de nous aider si vous le pouvez.
 
+===== Artistes et Dessinateurs =====
+
+Les [[http://scn.slitaz.org/groups/artwork/|fonds d'écran]] peuvent avoir un impact énorme sur la première impression des utilisateurs. Certains critiques poussent à peine plus loin leurs observations sur l'apparence générale que sur le fond d'écran !
+
+===== Communication & Journalisme =====
+
+(Pourrions-nous monter quelques textes de présentation ou de courts articles à destination de la presse et des collectivités? Peut-être des contacts pour eux?)
+
 \\
+---- 
+\\
+^   Section Révision de la page  ^^ 
+|Qualité| Bonne  |
+|Revue|  |
+|Priorité|  |
+|Problèmes| Lien cassé vers [[http://labs.slitaz.org/wiki/packages|recommandations de test]]|
+|Comment améliorer|  |
+
+
+\\
+----

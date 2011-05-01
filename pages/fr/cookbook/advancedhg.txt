@@ -76,7 +76,7 @@ Not : Les patchs sont enregistrés dans .hg/patches. Le fichier .hg/patches/seri
 
 **Principe général**
 
-Les patchs peuvent être mis à jour en utilisant l'outil merge de Mercurial: c'est plus facile que de les éditer manuellement. Pour cela, il est nécéssaire d'avoir deux têtes (heads) dans le dépot. L'une étant le dépôt avec les patchs appliqués; l'autre le dépôt avec les nouveaux commits/update/etc:
+Les patchs peuvent être mis à jour en utilisant l'outil merge de Mercurial: c'est plus facile que de les éditer manuellement. Pour cela, il est nécéssaire d'avoir deux têtes (heads) dans le dépot. L'une étant le dépôt avec les patchs appliqués; l'autre le dépôt avec les nouveaux commits/updates/etc:
 
 <code>
 o Nouvelle version du dépôt

@@ -1,0 +1,36 @@
+====== WICD ======
+
+[[http://doc.slitaz.org/fr:guides:network-script|Les scripts Openbox de Pankso]] sont très proche de wicd, mais si vous voulez installer SliTaz pour des utilisateurs pas très expérimentés, il est possible d'utiliser WICD pour le Contrôle d'Internet sans fil.
+
+Faites en tant que root :
+
+<code># tazpkg get-install wicd
+# leafpad /etc/rcS.conf</code>
+
+Dans ///etc/rcS.conf// enlevez de la section  RUN_SCRIPTS: **network.sh** et ajoutez à la section  RUN_DAEMONS: **wicd**
+
+puis en tant qu'utilisateur :
+
+<code>$ leafpad .config/openbox/autostart.sh</code>
+et ajoutez à la fin :
+
+<file># wicd Network Configuration
+wicd-client &</file>
+
+Ensuite, retirez l'applet réseau de la barre des tâches de LX-Panel par un clic droit sur l'applet.
+
+Redémarrez - ne pas tester avant de redémarrer, car network.sh interfère avec wicd (même si vous l'arrêter en tapant /etc/int.d/network.sh stop).
+
+\\
+---- 
+\\
+^   Section Révision de la page  ^^ 
+|Qualité| Bonne  |
+|Revue|  |
+|Priorité|  |
+|Problèmes| |
+|Comment améliorer|  |
+
+
+\\
+----

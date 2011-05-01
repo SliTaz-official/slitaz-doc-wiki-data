@@ -47,4 +47,4 @@ Nous pouvons maintenant monter //rootfs.ext2// en boucle, grâce à l'option //-
 
 <code> # umount rootfs </code>
 
-Maintenant nous pouvons procéder à la construction du [[http://www.slitaz.org/fr/doc/scratchbook/base-system.html|Système de base de SliTaz]]. 
+Maintenant nous pouvons procéder à la construction du [[base-system|Système de base de SliTaz]]. 

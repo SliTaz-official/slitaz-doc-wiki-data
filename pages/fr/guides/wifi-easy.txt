@@ -7,9 +7,11 @@ Pour installer le Wifi sur Linux, deux méthodes sont possibles :
     * Utiliser un module du noyau linux spécifique à votre carte Wifi.
     * Utiliser le module NDISwrapper qui se servira d'un pilote Windows. 
 
-Nous ne traitons ici que de l'utilisation d'un module du noyau Linux spécifique à votre carte. NDISwrapper fera l'objet d'une autre documentation. Pour utiliser un module spécifique du noyau Linux, il faut :
+Nous ne traitons ici que de l'utilisation d'un module du noyau Linux spécifique à votre carte. NDISwrapper fera l'objet d'une autre documentation. 
 
-Connaître son matériel Wifi.
+Pour utiliser un module spécifique du noyau Linux, il faut :
+
+    - Connaître son matériel Wifi.
     - Savoir quel module correspond à sa carte Wifi.
     - Installer ce module, ainsi que le firmware de la carte qui y correspond.
     - Configurer sa connexion au point d'accès.
@@ -17,127 +19,170 @@ Connaître son matériel Wifi.
 
 L'outil Netbox de Slitaz permet d'effectuer les 3 dernières étapes en quelques clics. Il est aussi possible de configurer le Wifi simplement en ligne de commande.
 
-===== Connaître son matériel =====
+===== Utilitaire graphique Wifibox/Netbox =====
 
-=== Identifier sa carte Wifi ===
+Avec //netbox// ou //wifibox// vous pouvez configurer votre wifi en seulement quelques clics de souris. Si vous savez déjà de quel module vous avez besoin, il est facile à utiliser //wifibox// :
+<code>
+$ subox wifibox
+</code>
+//Wifibox// va installer tous les logiciels nécessaires, et puis lancera le wifi. Vous n'aurez pas à installer manuellement votre wifi.
 
-Certaines commandes lancées dans un terminal permettent de lister le matériel installé sur son ordinateur. C'est utile pour identifier sa carte Wifi. Si la carte est reliée par USB, il faut l'outil lsusb disponible dans le paquet usbutils taper :
+Voici les étapes nécessaires pourr //Wifibox// :
 
+    * Tout d'abord, allez sur l'onglet Pilotes, et installez le module dont vous avez besoin. SliTaz va charger le firmware (si nécessaire), le module du noyau, configurer votre wifi, et se connecter au point d'accès.
+    * Ensuite, allez dans "//Configuration//", et commencez la configuration. Si vous ne savez pas comment faire, jetez un oeil à /etc/network.conf - Wifibox utilise les mêmes paramètres. Cliquez sur "//Start//"
+    * Si tout va bien, vous pouvez commencer à surfer!
+
+===== Configurer manuellement votre Wifi =====
+
+Si vous voulez comprendre comment le wifi fonctionne dans SliTaz, alors vous pouvez essayer de configurer votre wifi manuellement.
+
+Mais si vous voulez savoir comment fonctionne généralement wifi sous linux, ou si votre module de noyau n'est pas sur cette liste, vous devriez plutôt regarder la [[fr:guides:wifi-hard|configuration du wifi pas à pas]]. 
+
+Voici un résumé rapide des étapes nécessaires : 
+
+    * Connaître votre carte wifi
+    * Vérifier si votre carte wifi a besoin d'un firmware, par exemple b43, et l'installer
+    * Charger le module du noyau spécifique à votre carte wifi
+    * Vérifier que la carte wifi est détectée et le module chargé
+    * Configurer /etc/network.conf
+    * Démarrer l'interface Wifi
+    * Lancer /etc/init.d/network.sh
+
+Les commandes suivantes font toutes les étapes ci-dessus. C'est aussi la méthode la plus facile : 
+
+<code>
+# tazhw detect-pci --get-firmware
+# /etc/init.d/network.sh restart
+</code>
+
+Maintenant, pour des instructions plus détaillées : 
+
+===== Instructions détaillées =====
+===== Connaître son matériel (Identifier sa carte Wifi) ===
+
+Certaines commandes lancées dans un terminal permettent de lister le matériel installé sur son ordinateur. Cela permet d'identifier sa carte Wifi. 
+
+Si vous avez une carte wifi intégrée : 
+<code>
+$ lspci | grep -i network
+</code>
+
+Si la carte est reliée par USB, il faut l'outil //lsusb// disponible dans le paquet //usbutils// :
 <code>
 # tazpkg get-install usbutils
 $ lsusb
 </code>
 
-Sinon, taper :
+Dans les deux cas, vous aurez une ligne du genre :
 
 <code>
-$ lspci | grep -i network
-</code>
-
-Ce qui retourne une ligne du genre :
-
-<code>
-02:02.0 Network controller: Intel Corporation PRO/Wireless LAN 2100 3B Mini PCI 
-Adapter (rev 04)
+02:02.0 Network controller: Intel Corporation PRO/Wireless LAN 2100 3B Mini PCI Adapter (rev 04)
 </code>
 
 Nous obtenons ainsi des informations sur la carte Wifi :
-    * Le fabricant de la carte Wifi: Intel Corporation.
-    * Le modèle de la carte : Pro/Wireless Lan 2100 3B.
-    * Le chipset de la carte : IPW 2100 (Intel Pro Wireless 2100).
-    * L'interface : Mini PCI.
 
+    * Le fabricant de la carte Wifi: //Intel Corporation//.
+    * Le modèle de la carte : //Pro/Wireless Lan 2100 3B//.
+    * Le chipset de la carte : //IPW 2100 (Intel Pro Wireless 2100)//.
+    * L'interface : //Mini PCI//.
 
 === Déterminer le module du noyau et le firmware nécessaires ===
 
-Le noyau Linux de Slitaz est volontairement allégé. Certaines parties logicielles, notamment celles permettant de reconnaître les cartes Wifi, ne sont pas présentes par défaut, mais doivent être chargées par l'utilisateur. C'est ce qu'on appelle un module.
+Le noyau Linux de Slitaz est volontairement allégé. Certains modules, notamment ceux permettant de reconnaître les cartes Wifi, ne sont pas présents par défaut, mais doivent être chargées par l'utilisateur.
 
-Le module seul ne permet pas d'utiliser la carte Wifi. Il faut aussi un firmware. Les firmwares des cartes Wifi sont très rarement libres. Ils ne peuvent pas être distribués de la même manière que les autres programmes de Slitaz. Il faut donc généralement aller les chercher sur le site du constructeur, et les placer dans le répertoire /lib/firmware. Nous verrons que Slitaz fournit des programmes qui automatisent cette manipulation.
+Beaucoup de cartes wifi fonctionneront si vous chargez le module correct. Le plus facile est de laisser SliTaz auto-detecter votre matériel. 
 
-Avec les informations obtenues sur la carte, nous pouvons trouver sur internet le nom du module nécessaire, et l'adresse ou obtenir le firmware. Voici quelques liens utiles :
-
-    * L'assistance linux du matériel sans fil (la colonne commentaire indique l'adresse où obtenir le firmware).
-    * La documentation d'Ubuntu (spécifique à Ubuntu, mais bien faite).
-    * Faire une recherche dans google avec "le nom de ma carte Wifi" + "modprobe" ou "Linux".
-    * Enfin, si toutes ces solutions échouent, demandez de l'aide sur le [[http://forum.slitaz.org|forum]].
-
-Nous apprenons donc, que la carte Intel Corporation PRO/Wireless LAN 2100 3B
-Mini PCI Adapter fonctionne avec le module IPW2100 et que le firm
-ware est disponible à l'adresse http://ipw2100.sourceforge.net/.
-
-===== Configurer le Wifi graphiquement avec Netbox =====
-
-L'outil Netbox permet d'installer le Wifi graphiquement. Maintenant que
-vous savez quel module du noyau utiliser pour votre carte, il est très facile d
-'utiliser Netbox. Pour le lancer, faites :
-
+Pour les cartes wifi intégrées :
 <code>
-$ subox netbox
+# tazhw detect-pci
 </code>
 
-Si vous l'utilisez, vous n'avez pas besoin de configurer le Wifi manuellement :
-Netbox installe les programmes nécessaires et lance le Wifi tout seul. Voici un
-récapitulatif des étapes de l'utilisation de Netbox :
+Pour les cartes usb :
+<code>
+# tazhw detect-usb
+</code>
 
-    * Commencez par aller dans l'onglet Wifi de Netbox, et cliquez sur Install pour installer les programmes nécessaires au Wifi.
-    * Après le redémarrage de Netbox, allez dans l'onglet Interface de l'onglet Wifi, et configurez-le. Si jamais vous vous posezdes questions sur une des données à y insérer, consultez l'aide à la configuration de /etc/network.conf car les paramètres sont les mêmes. Cliquez sur Record pour les enregistrer.
-    * Allez maintenant dans l'onglet Kernel Modules de l'onglet Wifi, et installez le firmware correspondant à votre carte. Le firmware est téléchargé puis installé, le module du noyau est chargé, le Wifi est configuré, puis lancé.
-    * Normalement, vous pouvez surfer !
+Parfois, cependant, le module ne suffit pas. Certains types de cartes (Intel par exemple) ont également besoin du firmware. Ce firmware n'est pas un logiciel libre, nous ne pouvons pas le distribuer en tant qu'élément de SliTaz. Vous devrez peut-être aller chercher le firmware sur le site Web du fabricant de votre carte et le télécharger dans ///lib/firmware//. Mais vous allez voir que SliTaz peut parfois le faire pour vous!
 
+=== Pour les modules du noyau b43, b43legacy, ipw2100 ou ipw2200 ===
 
-===== Configurer le Wifi manuellement =====
-
-Si vous voulez comprendre comment Slitaz gère le Wifi, ou si vous n'aimez pas les interfaces graphiques, alors cette section est faite pour vous ! Par contre, si vous voulez comprendre en détail comment fonctionne le Wifi sous Linux, ou si les outils de Slitaz dont il est question ci-dessous ne fonctionnent pas, consultez la page expliquant la configuration pas à pas du Wifi.
-
-
-===== Configuration de /etc/network.conf =====
-
-Slitaz démarre le Wifi par le script /etc/init.d/network.sh. Ce script appelle un fichier de configuration /etc/network.conf. Commencez par le configurer. Vous trouverez une aide à la configuration de /etc/network.conf en bas de page. Vous trouverez des explications détaillées sur /etc/init.d/network.sh ici.
-
-
-===== Installation des programmes =====
-
-Le lancement de get-wifi-firmware provoquera l'installation de tous les programmes nécessaires au Wifi. Installons-le, avec ses dépendances :
-
+Si le module du noyau dont vous avez besoin est b43, b43legacy, ipw2100 ou ipw2200, vous devriez également installer le paquet: get-wifi-firmware. Installez-le comme ceci :
 <code>
 # tazpkg get-install get-wifi-firmware
 </code>
 
-Si vous utilisez une clef WPA (ce qui est fortement conseillé), il vous faudra aussi le paquet wpa_supplicant :
+=== Démarrer le Wifi ===
 
-<code>
-# tazpkg get-install wpa_supplicant
-</code>
-
-
-===== Mise en route du wifi =====
-
-Nous avons pu déterminer le module du noyau qui nous est nécessaire. Il suffit maintenant de lancer le programme correspondant à ce module. Commençons par lister les programmes disponibles :
-
+get-wifi-firmware va installer des commandes nommées get-"//un module//"-firmware. Pour voir la liste :
 <code>
 # ls /usr/bin/get-*-firmware
 </code>
-
-Puis lançons le programme correspondant au module mon_module (ipw2100 dans notre exemple) :
-
+Lancez le logiciel qui correspond à votre module (ipw2100 dans l'exemple précédent) :
 <code>
-# get-mon_module-firmware
+# get-my_module-firmware
 </code>
 
-Ce dernier programme n'est qu'un lien vers get-wifi-firmware. Voici une description de ce qu'il fait :
+Par exemple, supposons que votre module est ipw2200, vous pouvez taper :
 
-    * Il télécharge le firmware correspondant à mon_module, crée le paquet mon_module-firmware, et l'installe.
-    * Il charge le module mon_module dans le noyau Linux.
-    * Il appelle /etc/init.d/network.sh restart, qui lance le Wifi.
-    * Si /etc/network.conf est correctement configuré, vous pouvez surfer !
+<code>
+# get-ipw2200-firmware
+</code>
 
-Il faut maintenant que le module mon_module soit chargé à chaque démarrage. Ajouter mon_module à la ligne LOAD_MODULES de /etc/rcS.conf:
+Cette commande va :
+
+    * Télécharger le firmware correspondant à "//mon_module//", créer le paquet "//mon_module-firmware//", et l'installer.
+    * Télécharger les logiciels nécessaires au support du wifi (iwconfig, wpa_supplicant si nécessaire. ..)
+    * Charger le module "//mon_module//" dans le noyau Linux.
+    * Appeller ///etc/init.d/network.sh restart//, qui lance le Wifi.
+
+Si ///etc/network.conf// est correctement configuré, vous pouvez surfer !
+
+La façon la plus facile de le faire est de télécharger le firmware graphiquement en utilisant Wifibox (SliTaz Wireless Manager). Effectivement, le gestionnaire du sans-fil en mode graphique de SliTaz (Wifibox) peut réaliser ces étapes dans l'onglet Driver (après avoir choisi le module correct, soit ipw2200, appuyez sur install).
+
+===== Dépanner votre wifi =====
+
+Voici un bref résumé des étapes nécessaires (résumé répété à nouveau pour la compréhension) :
+
+    * Connaître votre carte wifi
+    * Vérifier si votre carte wifi a besoin d'un firmware, par exemple b43, et l'installer
+    * Charger le module du noyau spécifique à votre carte wifi
+    * Vérifier que la carte wifi est détectée et le module chargé
+    * Configurer /etc/network.conf
+    * Démarrer l'interface Wifi
+    * Lancer /etc/init.d/network.sh
+
+Les commandes suivantes exécutent toutes les étapes ci-dessus mentionnées. C'est également la meilleure manière de résoudre les problèmes. Pour obtenir une aide maximale sur les forums, ; veuillez svp inclure la sortie de chacune de ces commandes.
+
+<code bash> 
+lspci | grep -i network
+modprobe your_module
+dmesg | tail 
+lsmod 
+nano /etc/network.conf
+ifconfig eth1 up 
+ifconfig -a 
+iwconfig 
+/etc/init.d/network.sh restart 
+ifconfig -a 
+</code>
+
+===== Configuration de /etc/network.conf =====
+
+Slitaz démarre le Wifi à l'aide du script /etc/init.d/network.sh. Ce script se sert du fichier de configuration ///etc/network.conf//. Vous devez d'abord modifier votre fichier de configuration en suivant les exemples d'instructions données dans /etc/network.conf.
+ Vous trouverez des explications détaillées sur /etc/init.d/network.sh [[fr:guides:network-script|ici]].
+
+Votre module doit cependant être chargé à chaque démarrage. Pour cela, ajouter  « //mon_module// » à la ligne //LOAD_MODULES// dans ///etc/rcS.conf// :
 
 <code>
 # geany /etc/rcS.conf
-
-LOAD_MODULES="vfat nls_utf8 ohci_hcd mon_module"
 </code>
+
+<file>
+LOAD_MODULES="nls_utf8 mon_module"
+</file>
+
+
 ===== Aide à la configuration de /etc/network.conf =====
 
 <code bash>
@@ -161,7 +206,7 @@ WIFI_ESSID="any"
 # modes de connexion
 # les divers modes possibles sont :
 # ad-hoc : la carte peut se connecter à un réseau d'une seule cellule sans point
- d'accès
+ d'accès, sert à monter un petit réseau point à point
 # managed : la carte peut se connecter à un réseau d'une ou plusieurs cellules
 #         avec point d'accès
 # master : la carte joue le rôle d'un point d'accès maître
@@ -207,8 +252,29 @@ WIFI_CHANNEL=""
 ranché.
 #       la commande : iwconfig txpower on rebranchera le wifi à la demande.
 WIFI_IWCONFIG_ARGS=""
- 
 
-# nom des drivers nécessaires pour NDISwrapper, séparés par un simple espace.
-NDISWRAPPER_DRIVERS=""
 </code>
+
+===== Informations supplémentaires =====
+Pour des instructions plus détaillées : 
+Premièrement faire « lspci » pour connaître la carte Wifi que vous avez. Une fois que vous savez quelle carte vous avez, vous pouvez lancer une recherche sur Internet pour trouver quel est le module dont vous avez besoin, et si un firmware spécial est nécessaire. Pour vous aider, voici quelques liens utiles:
+
+    * [[http://linux-wless.passys.nl/|Linux wireless LAN support]] (La colonne de droite, indique où trouver le firmware, le cas échéant)
+    * [[http://doc.ubuntu-fr.org/wifi|Documentation Wifi Ubuntu]] (Site Web d'Ubuntu, page wifi)
+    * [[http://www.google.com/|Google]] avec « //le nom de votre carte wifi// » « //modprobe// » ou « //linux// »
+Si ces liens ne sont pas utiles, vous pouvez demander au [[http://forum.slitaz.org/|forum SliTaz]]
+
+Par exemple, nous pouvons apprendre que le //Intel Corporation PRO/Wireless LAN 2100 3B Mini PCI Adapter// fonctionne avec le module //ipw2100//  et que le firmware est disponible à http://ipw2100.sourceforge.net/.
+
+----
+\\
+^   Section Révision de la page  ^^ 
+|Qualité| Bonne  |
+|Revue|  |
+|Priorité|  |
+|Problèmes| |
+|Comment améliorer|  |
+
+
+\\
+----

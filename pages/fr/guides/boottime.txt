@@ -1,29 +1,27 @@
 ===== Temps de boot =====
 
-SliTaz démarre très rapidement ! Cependant vous n'avez certainement pas activé le démarrage super rapide. Pour ce faire,  il suffit d'éditer le fichier ///etc/rcS.conf// :
+SliTaz démarre très rapidement ! Et pourtant vous n'avez sans doute pas activé le démarrage super rapide. Pour le faire,  il suffit d'éditer le fichier ///etc/rcS.conf// :
 <code> FAST_BOOT_X="yes" </code>
 
+Retirez dbus, hald et slim des RUN_DAEMONS. Voilà tout. À noter que sur certaines machines FAST_BOOT_X ne peut pas démarrer correctement. Toutefois, si Xvesa/ Xorg fonctionne une fois que vous activez cette fonctionnalité, c'est fiable de le laisser activé.
 
-Retirez dbus, hald et slim des RUN_DAEMONS. Voilà tout. A noter que sur certaines machines FAST_BOOT_X ne peut pas démarrer correctement. Toutefois, si Xvesa/ Xorg fonctionne une fois que vous activez cette fonctionnalité, il est sûr de le laisser activé.
 
+Maintenant, comment mesurez-vous le temps de démarrage ? Les enregistrements du temps que prennent les scripts dans rcS à démarrer sont dans ///var/log/boot-time// . Dans mon cas, cela prend 5 secondes. 
 
-Maintenant, comment mesurez-vous le temps de démarrage ? Les logs du temps que prend les scripts présents dans rcS à démarrer sont dans ///var/log/boot-time// . Dans mon cas, cela prend 5 secondes. 
-
-Mais, comment mettez-vous vos processus de démarrage dans un graphique ? C'est très simple sur SliTaz. Il suffit d'installer les éléments suivants :
+Mais, comment faire un graphique du processus complet de démarrage ? C'est très simple sur SliTaz. Il suffit d'installer les éléments suivants :
 
 <code> tazpkg get-install pybootchartgui </code>
 
 Pybootchartgui va ensuite créer un graphique automatiquement dans ///var/log//. 
 
-Maintenant, il suffit de modifier votre fichier menu.lst et d'y ajouter init =/sbin/bootchartd. Dans mon cas, c'est comme ça :
+Ensuite, il suffit juste de modifier votre fichier menu.lst de grub et d'y ajouter init =/sbin/bootchartd. Dans mon cas, c'est comme ça :
 
-<code> 
+<file> 
 title slitaz with bootchart
 root (hd0,8)
 kernel /boot/vmlinuz-2.6.30.6-slitaz root=/dev/sda9 init=/sbin/bootchartd quiet
+</file>
 
-</code>
-
-Voici ma liste de démarrage avec wifi WPA2 (moins de 10 secondes sur le temps de démarrage d'un ordinateur portable avec disque dur) :
+Voici mon graphe de démarrage avec wifi WPA2 (moins de 10 secondes de temps de démarrage sur un ordinateur portable avec disque dur). Configuration d'origine!!
 
 {{ :en:guides:image:bootchart.png?100 |Mon bootchart}}

@@ -6,7 +6,7 @@ Ce document fournit des directives pour écrire un article du wiki et les tâche
 
 ===== Les jobs d'été de la documentation =====
     - Centralisation de toute la documentation sur http://doc.slitaz.org
-    - Migration complète du manuel (Handbook) et du livre de recettes (Cookbook) (Scratchbook, si possible)
+    - <del>Migration complète du manuel (Handbook) et du livre de recettes (Cookbook) (Scratchbook, si possible)</del>
     - Traduction du manuel (Handbook) et du livre de recettes (Cookbook)
     - Mettre un lien ou traduire les articles du wiki sur le [[http://labs.slitaz.org|website du labs]]
     - Vérifier et mettre à niveau 3.0 le manuel (Handbook) et le livre de recettes (Cookbook)

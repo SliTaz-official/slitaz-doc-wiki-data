@@ -1,0 +1,81 @@
+====== Boot scripts ======
+
+Les scripts de démarrage et d'arrêt avec leurs fichiers de configuration.
+
+===== SliTaz et son démarrage =====
+
+Dans les premières versions du livre, les scripts étaient créés à la main avec la commande "cat". Avec le temps, les scripts de démarrage et le fichier de configuration principale sont devenus trop gros et sont trop souvent modifiés pour être inclus dans le Cookbook. Tous les scripts et fichiers de configuration se trouvent dans l'archive des outils SliTaz ou le paquet [[http://doc.slitaz.org/fr:cookbook:slitaztools|slitaz-tools]]. Vous pouvez les ouvrir avec un éditeur de texte et les étudier.
+
+SliTaz n'utilise pas de niveau d'exécution, tout le système est initialisé via un script principal et son fichier de configuration. Ce script lance lui-même quelque petits scripts qui s'occupent de l'internationalisation ou des options passées en ligne de commande au démarrage.
+
+===== /etc/init.d/* - Répertoire des scripts et démons =====
+
+Le répertoire /etc/init.d contient tous les vrais scripts rc. Les scripts finissant par '.sh' sont de simples scripts shell, et les démons, tel que 'dropbear' ou 'lighttpd', sont aussi des scripts mais qui lancent un service. Les scripts des démons permettent de démarrer, arrêter, ou redémarrer un démon via la commande :
+
+   # /etc/init.d/demon [start|stop|restart]
+
+Le répertoire /etc/init.d devrait déjà exister, si vous avez suivi le cookbook depuis le début. Si ce n'est pas le cas: "mkdir -p /etc/init.d". Sur SliTaz vous trouverez un fichier /etc/init.d/README décrivant le fonctionnement de base des scripts rc. À noter aussi que tous les scripts de démarrage et démons peuvent faire appel au fichier "/etc/init.d/rc.functions". Ce fichier permet d'inclure divers fonctions dans les scripts rc. SliTaz utilise une fonction "status" vérifiant si la commande précédente a réussi (0) ou pas.
+
+===== /etc/init.d/rcS - Script d'initialisation principale =====
+
+Le script "/etc/init.d/rcS" configure tous les services de base et initialise le système de base. Il commence par monter les systèmes de fichiers, démarrer syslogd et klogd, lancer mdev, nettoyer le système, etc. Il utilise le fichier de configuration "/etc/rcS.conf" pour connaître les démons et scripts à lancer au démarrage. Vous pouvez parcourir le script pour connaître en détail les commandes exécutées :
+
+   # nano rootfs/etc/init.d/rcS 
+
+===== Scripts et démons spécifiques =====
+
+==== bootopts.sh - Les options du mode LiveCD ====
+
+Ce script est utilisé pour configurer les options du mode LiveCD, passées en ligne de commande au boot, et lisible via le fichier /proc/cmdline. C'est le script qui permet d'utiliser une clé USB ou un disque dur externe comme partition /home avec l'option home=usb ou home=sda[1-9], ou encore de spécifier directement la langue et le clavier à utiliser.
+
+==== network.sh - Initialisation du réseau ====
+
+Le script network.sh utilise le fichier de configuration /etc/netwok.conf pour connaître l'interface à utiliser, si l'on veut lancer le client DHCP ou pas, un IP fixe ou pas. Sur SliTaz le script /etc/init.d/network.sh configure les interfaces réseau au boot, en ce servant des informations contenues dans /etc/network.conf. Si la variable $DHCP est égale à yes, alors le script /etc/init.d/network.sh lancera le client DHCP sur l'interface $INTERFACE.
+
+==== i18n.sh - Internationalisation ====
+
+SliTaz sauvegarde la configuration de la locale par défaut dans le fichier /etc/locale.conf qui est lu par /etc/profile, à chaque login. Le fichier /etc/locale.conf est généré lors du boot grâce au script /etc/init.d/i18n.sh. Ce script lance l'application 'tazlocale' que vous trouverez dans [[http://doc.slitaz.org/fr:cookbook:slitaztools|SliTaz tools]], si le fichier de configuration /etc/locale.conf n'existe pas. Nous utilisons le même processus pour la configuration du clavier en utilisant 'tazkmap' et le fichier de configuration /etc/kmap.conf. Ces deux applications s'intallent dans /sbin sur SliTaz, et utilise [[base-ncurses|les bibliothèques ncurses]], ainsi que [[base-ncurses#dialog-11-20070409-interfaces-graphiques-aux-scripts-shell|dialog]]. Ce script vérifie aussi si le fichier de configuration du fuseau horaire /etc/TZ existe, sinon il le crée en se basant sur la configuration du clavier.
+
+==== local.sh - Commande local ====
+
+Création d'un script /etc/init.d/local.sh pour permettant à l'administrateur système d'ajouter facilement des commandes local exécutées au boot:
+<file>
+  #!/bin/sh
+  # /etc/init.d/local.sh: Local startup commands.
+  # All commands here will be executed at boot time.
+  #
+  . /etc/init.d/rc.functions
+
+  echo "Starting local startup commands... "
+</file>
+==== rc.shutdown ====
+
+Ce script est invoqué par /etc/inittab lors de l'arrêt du système. Il stoppe aussi tous les démons via la variable RUN_DAEMONS du fichier de configuration pricipale "/etc/rcS.conf".
+
+===== /etc/inittab - Fichier de configuration d'init =====
+
+Le premier fichier lu par le noyau au boot. Il définit le script d'initialisation (/etc/init.d/rcS), les shells, et les actions en cas d'arrêt ou de reboot. Vous trouverez une exemple complet et commenté dans l'archive de Busybox et un plus petit sur cette page :
+<file>
+  # /etc/inittab: init configuration for SliTaz GNU/Linux.
+  # Boot-time system configuration/initialization script.
+  #
+  ::sysinit:/etc/init.d/rcS
+
+  # /sbin/getty respawn shell invocations for selected ttys.
+  tty1::respawn:/sbin/getty 38400 tty1
+  tty2::respawn:/sbin/getty 38400 tty2
+  tty3::respawn:/sbin/getty 38400 tty3
+  tty4::respawn:/sbin/getty 38400 tty4
+  tty5::respawn:/sbin/getty 38400 tty5
+  tty6::respawn:/sbin/getty 38400 tty6
+
+  # Stuff to do when restarting the init 
+  # process, or before rebooting.
+  ::restart:/etc/init.d/rc.shutdown
+  ::restart:/sbin/init
+  ::ctrlaltdel:/sbin/reboot
+  ::shutdown:/etc/init.d/rc.shutdown
+</file>
+==== Suite ====
+
+Le Cookbook continue via le chapitre : [[x-window-system|X window system]].

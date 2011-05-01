@@ -1,0 +1,305 @@
+====== Xorg & XVesa ======
+
+Par défaut, SliTaz v3 utilise Xorg v.7.4 avec le pilote //xorg-xf86-video-vesa// v2.0.0. Quelques problèmes peuvent arriver avec ce pilote basique dans le cas de certaines combinaisons matérielles, ce qui peut même quelquefois entrainer une trop basse résolution. Parfois, X ne démarre pas du tout, et on se retrouve avec l'écran de connexion ou une invite en mode texte. Il y a toutefois quelques solutions simples qui peuvent apporter des améliorations importantes : 
+
+  * vérifier qu'il y a assez de RAM pour exécuter l'ISO par défaut. Sinon, utiliser la saveur [[http://mirror.slitaz.org/iso/3.0/flavors/|Low RAM ISO]].
+  * essayer la saveur [[http://mirror.slitaz.org/iso/3.0/flavors/slitaz-3.0-xvesa.iso|XVesa ISO]] (ou TinyX)
+  * installer le pilote spécifique à la carte graphique
+  * optimiser le fichier de configuration Xorg
+
+De bonnes introductions à la configuration de Xorg peuvent être trouvées sur le [[http://www.freebsd.org/doc/fr/books/handbook/x-config.html|Manuel FreeBSD]] et [[http://doc.ubuntu-fr.org/carte_graphique|Les cartes graphiques sous Ubuntu]].
+
+<note tip>Jusqu'à la v7.3, la combinaison de touches Ctrl + Alt + Backspace permettait de stopper le serveur X. Pour l'activer à nouveau dans les versions 7.4 et ultérieures, tapez la commande suivante dans n'importe quel émulateur de terminal X:
+
+<code>setxkbmap -option terminate:ctrl_alt_bksp</code>
+
+</note>
+
+<note important>
+Tout au long de cette page, les commandes précédées d'un signe dièse (#) doivent être exécutées par l'utilisateur **root**, et il est conseillé que ce soit dans la fenêtre d'un terminal. Sinon, le symbole dollar ($) désigne un utilisateur régulier (tux).
+</note>
+
+
+===== Utiliser Xorg & des pilotes de cartes graphiques =====
+
+Quand SliTaz est utilisé en tant que système principal, il est recommandé d'employer Xorg à la place de XVesa. La qualité et performance d'affichage seront bien meilleurs qu'en utilisant Xvesa tinyX.
+
+
+=== Cartes AGP ===
+
+Toutes les cartes vidéo AGP ont besoin de modules supplémentaires du noyau pour fonctionner sous Xorg. Vérifiez si vous avez une carte vidéo AGP avec //lspci//; si c'est le cas, installez les modules nécessaires du paquet //linux-agp// avant d'utiliser Xorg : 
+
+<code>
+# tazpkg get-install linux-agp
+</code>
+
+Charger les modules en utilisant l'outil de détection du matériel de SliTaz :
+
+<code># tazhw detect-pci</code>
+
+Vous pouvez utiliser maintenant l'outil de configuration de X de SliTaz pour détecter vos paramètres : 
+
+<code># tazx</code>
+
+Sélectionnez le pilote approprié pour votre carte vidéo à partir de la liste.
+
+
+=== Problème DRI / DRM ===
+
+Parfois, l'auto-détection ne suffit pas. Les cartes qui nécessitent [[http://www.bitwiz.org.uk/s/how-dri-and-drm-work.html|DRI / DRM]] sont prises en charge par SliTaz, quoique la v3 a quelques bogues ! Le fichier ///dev/dri// devrait être un répertoire et non un fichier, et pour obtenir un DRI fonctionnant correctement, il faut ajouter tux au groupe vidéo ou modifier les autorisations dans le fichier de configuration de Xorg :
+
+
+<code>
+# tazpkg get-install linux-drm
+# tazpkg get-install mesa-demos (for glxinfo and glxgears)
+# rm /dev/dri
+# mkdir /dev/dri/
+# addgroup tux video
+</code>
+
+Le module //drm// n'est pas chargé par //tazhw// donc vous devez le faire manuellement :
+<code># modprobe drm</code>
+
+<note tip>Tous les modules, qu'ils soient chargés par tazhw ou vous-mêmes, doivent être ajoutés à la Boîte de Contrôle de SliTaz dans "Load Modules" pour rendre vos modifications permanentes.</note>
+
+
+=== Cartes Intel ===
+
+Le pilote xorg-xf86-video-vesa 2.0.0 a beaucoup de problèmes avec les puces Intel. Par exemple, avec un chipset 82945GM, il n'affiche pas en 1280x1024 ou en 1024x768, mais par contre le 1600x1200 n'est pas un problème.
+
+Utiliser "tazx" pour sélectionner le pilote intel, puis « tazhw detect-pci », ensuite corriger le problème de dri et charger drm (voir ci-dessus), redémarrer X - normalement c'est ok (vous devrez peut-être aussi modifier le fichier xorg.conf).
+
+Certains utilisateurs devront peut-être ajouter le module "intel_agp" dans le fichier xorg.conf :
+
+<file>
+Section "Module"
+        ...
+	Load  "intel_agp"
+	...
+EndSection
+</file>
+
+pour faire fonctionner le pilote.
+
+Selon le matériel, la fonction //mode-setting// doit être activée ou désactivée. Pour la désactiver, ajoutez une des options suivantes à la ligne du //kernel//  dans la configuration de GRUB boot-loader :
+
+  *  //nomodeset//
+  *  //i810.modeset=0//
+  *  //i915.modeset=0//
+
+Si le //mode-setting// est désactivé par défaut et devrait plutôt être activé, , ajoutez une des options suivantes :
+
+  *  //modeset//
+  *  //i810.modeset=1//
+  *  //i915.modeset=1//
+
+=== Cartes Trident ===
+
+Utiliser "tazx" pour sélectionner le pilote trident, puis installer mesa-dri-trident
+<code># tazpkg get-install mesa-dri-trident</code> et redémarrer X
+
+
+=== Cartes nVidia ===
+
+SliTaz fournit la configuration automatique des cartes nVidia.  Il y a deux pilotes possibles, celui de Xorg //[[#Pilote libre (nv)|nv]]// et celui non-libre de nVidia //[[#Pilote nVidia non-libre (nvidia)|nvidia]]//. Le pilote //nv// devrait être essayé en premier lieu car celui-ci a été compilé pour SliTaz, tandis que le pilote fourni par nVidia est un //blob binaire// qui tente de s'adapter à toute distribution Linux.
+\\
+
+== Pilote libre (nv) ==
+
+Pour installer le pilote nVidia libre, utilisez l'outil de Configuration matérielle de SliTaz :
+<code># tazhw setup nvidia </code>
+
+Alternativement, vous pouvez réaliser cette opération manuellement :
+  * Télécharger les paquets suivants :
+    *  mesa, mesa-demos, linux-agp, xorg-xf86-video-nv
+<code># tazpkg get-install xorg-xf86-video-nv
+# tazpkg get-install mesa
+# tazpkg get-install mesa-demos
+# tazpkg get-install linux-agp</code>
+
+  * Charger les modules du noyau
+<code># tazhw detect-pci</code>
+
+  * Remplacer le pilote standard //vesa// par //nv//
+<code># sed -i 's/vesa/nv/' /etc/X11/xorg.conf
+</code>
+
+== Pilote nVidia non-libre (nvidia) ==
+
+Pour mettre en place le pilote nVidia non-libre, utilisez l'outil de configuration matériel de SliTaz avec le commutateur //--non-free// :
+<code># tazhw setup nvidia --non-free </code>
+
+Alternativement, vous pouvez faire cette opération manuellement :
+  * Télécharger les paquets suivants :
+    *  mesa mesa-demos linux-agp nvidia
+<code># tazpkg get-install nvidia
+# tazpkg get-install mesa
+# tazpkg get-install mesa-demos
+# tazpkg get-install linux-agp</code>
+
+  * Charger les modules du noyau
+<code># tazhw detect-pci</code>
+
+  * Essayer de configurer la carte avec l'outil de nVidia :
+<code># nvidia-xconfig</code>
+  * Pour tester si le rendu fonctionne :
+<code># glxinfo | grep render</code>
+  * Pour changer les paramètres du pilote nVidia, utiliser l'outil de paramètrage de nVidia :
+ <code># nvidia-settings</code>
+
+== Cacher le logo ==
+Pour cacher le logo de nVidia quand le système démarre, ajoutez ce qui suit dans ///etc/X11/xorg.conf// à la fin de la section //Device// :
+ <file>Option "NoLogo" "True"</file>
+
+
+=== Cartes ATI ===
+
+SliTaz fournit la configuration automatique des cartes ATI. Il y a deux pilotes disponibles, celui de Xorg //[[#free-driver-radeon|radeon]]// et celui non-libre fourni par ATI //[[#non-free-driver-catalyst|catalyst]]//. Le pilote //radeon// devrait être essayé en premier lieu car celui-ci a été compilé pour SliTaz, tandis que le pilote fourni par ATI est un //blob binaire// qui tente de s'adapter à toute distribution Linux.
+\\
+
+== Pilote libre (radeon) ==
+
+Pour installer le pilote libre ATI, installez les modules AGP et DRM, puis utilisez l'outil de configuration du matériel de SliTaz :
+
+<code># tazpkg get-install linux-agp
+# tazpkg get-install linux-drm
+# tazhw setup ati</code>
+
+Mais cela ne suffira peut-être pas - vérifiez /var/log/Xorg.0.log pour voir si d'autres modules nécessitent d'être chargés : Voir [[#dri-drm-problem |problème  DRI / DRM]]
+Alternativement, vous pouvez faire cette opération manuellement :
+  * Télécharger les paquets suivants :
+    *  xorg-xf86-video-ati mesa-dri-ati mesa-demos linux-agp
+<code># tazpkg get-install xorg-xf86-video-ati
+# tazpkg get-install mesa-dri-ati
+# tazpkg get-install mesa-demos
+# tazpkg get-install linux-agp
+# tazpkg get-install linux-drm</code>
+
+  * Charger les modules du noyau
+<code># tazhw detect-pci</code>
+
+Pour installer le pilote radeon libre ATI, remplacer //vesa// with //radeon// dans le fichier ///etc/X11/xorg.conf// :
+<code># sed -i 's/vesa/radeon/' /etc/X11/xorg.conf</code>
+
+
+== Pilote non-libre (catalyst) ==
+
+Pour installer le pilote non-libre d'ATI, utilisez l'outil de configuration matériel de SliTaz avec le commutateur //--non-free// :
+<code># tazhw setup ati --non-free </code>
+
+
+=== Modifier la Configuration de Xorg ===
+
+Normalement Xorg démarre sans problème, mais peut-être pas avec la bonne résolution. Voir [[#Ajouter des résolutions|comment ajouter des résolutions]] au bas de cette page, ou parfois vous devrez aussi faire des recherches sur Internet sur le xorg.conf correspondant à votre carte et votre moniteur - ou utiliser un autre LiveCD et copier le fichier de configuration fonctionnant sur SliTaz.
+
+
+
+===== Configurer X =====
+
+X va faire de son mieux pour s'auto-configurer en fonction de votre carte graphique existante, mais parfois il a besoin d'un petit coup de pouce. Le fichier de configuration de X, ///etc/X11/xorg.conf//, est l'endroit où optimiser la configuration. Un bon exemple est le changement de pilote par un autre ou l'ajout de résolutions non détectées.
+
+=== Ajouter des résolutions ===
+1. Insérer //HorizSync// et //VertRefresh// (timings de rafraîchissement) dans la section //Monitor// :
+
+<file>
+Section "Monitor"
+	Identifier   "Monitor0"
+	VendorName   "Monitor Vendor"
+	ModelName	 "Monitor Model"
+	HorizSync	 28-64
+	VertRefresh  60
+EndSection
+</file>
+
+2. Insérer un //DefaultDepth// dans la section //Screen// :
+ 
+<file>
+Section "Screen"
+	Identifier "Screen0"
+	Device     "Card0"
+	Monitor    "Monitor0"
+**	DefaultDepth 24 **
+</file>
+
+3. Ajouter un //Mode// supplémentaire dans la ligne de la sous-section //Display// :
+
+<file>
+   SubSection "Display"
+		Viewport   0 0
+		Depth     24
+		Modes 	  "1024x768" "800x600"
+	EndSubSection
+</file>
+
+4. Ajouter aussi les chemins des polices par défaut dans la section //Files// :
+
+<file>
+Section "Files"
+	ModulePath   "/usr/lib/X11/modules"
+	FontPath     "/usr/share/fonts/X11/misc/"
+	FontPath     "/usr/share/fonts/X11/TTF/"
+	FontPath     "/usr/share/fonts/X11/OTF"
+	FontPath     "/usr/share/fonts/X11/Type1/"
+	FontPath     "/usr/share/fonts/X11/100dpi/"
+	FontPath     "/usr/share/fonts/X11/75dpi/"
+	FontPath     "/usr/share/fonts/truetype/ttf-dejavu"
+EndSection
+</file>
+
+  *  Si vous avez DRI / DRM activé, il peut être plus facile de changer ici les permissions pour que tous les utilisateurs puissent l'utiliser, plutôt que d'assigner à chacun le groupe //video//. Dans ce cas, ajoutez la section suivante :
+
+<file>
+Section "DRI"
+        Mode 0666
+EndSection
+</file>
+
+
+<note tip>Vous pouvez employer xrandr pour identifier vos moniteurs. Cette utilitaire se trouve dans le paquet //xorg-xrandr// :
+
+<code># tazpkg get-install xorg-xrandr</code>
+
+Voir le [[http://wiki.debian.org/XStrikeForce/HowToRandR12|Debian RandR 1.2 Wiki]] pour plus d'information.
+</note>
+
+
+=== Redémarrer Xorg ===
+
+Pour que les changements entrent en vigueur, vous devez redémarrer Xorg. Cela peut être fait en vous déconnectant simplement de votre session et en vous reconnectant. Choisir //Déconnexion// à partir du menu et sélectionner le bouton //Déconnexion session X//. Si vous voyez le log-in de Slim manager, Xorg a redémarré avec succès!
+
+===== Utiliser XVesa et les pilotes génériques (TinyX) =====
+
+La saveur [[http://mirror.slitaz.org/iso/3.0/flavors/slitaz-3.0-xvesa.iso|SliTaz-3.0-xvesa.iso]] qui utilise Xvesa au lieu de Xorg, propose un driver plus générique au prix d'une diminution de la performance. Il démarre sur presque tous les ordinateurs et ordinateurs portables, mais ne peut afficher qu'une résolution en 4:3.
+
+Pour découvrir les résolutions possibles avec votre carte, tapez :
+
+<code># Xvesa -listmodes</code>
+
+Voici, par exemple, une partie de la liste des résolutions d'une carte-mère Intel Atom :
+
+<file>VBE version 3.0 (Intel(r) 82945GM Chipset Family Graphics Chip Accelerated VGA BIOS)
+DAC is switchable, controller is VGA compatible, RAMDAC causes snow
+Total memory: 7872 kilobytes
+0x015A: 1600x1200x24 TrueColor [8:8:8:8]
+0x011B: 1280x1024x24 TrueColor [8:8:8:8]
+0x0118: 1024x768x24 TrueColor [8:8:8:8]
+0x0112: 640x480x24 TrueColor [8:8:8:8]
+0x0115: 800x600x24 TrueColor [8:8:8:8]</file>
+
+La sortie obtenue montre que les résolutions à large écran ne peuvent pas être affichées avec Xvesa.
+
+Si X ne démarre pas avec l'ISO SliTaz par défaut, vous pouvez utiliser l'ISO Xvesa pour installer votre pilote Xorg. Au démarrage, quand il vous est demandé la résolution souhaitée, //avant// que XVesa ne démarre, faites défiler la fenêtre jusqu à ce que vous trouviez l'option nécessaire pour installer votre pilote Xorg. N'utilisez cependant pas "tazx" et "tazhw setup ati" ou "tazhw setup nv" sur l'ISO Xvesa pour installer votre pilote Xorg parce que vous allez vous retrouver avec un écran vide et embrouillé!
+
+
+---- 
+\\
+^   Section Révision de la page  ^^ 
+|Qualité| Bonne |
+|Revue|  |
+|Priorité|  |
+|Problèmes| |
+|Comment améliorer|  |
+
+
+\\
+----

@@ -1,0 +1,73 @@
+====== Applications et configuration d'un bureau "sexy" ======
+
+===== Introduction =====
+
+Cette page fournit des informations sur la création d'un joli bureau, les applications disponibles via le gestionnaire de paquets SliTaz, des exemples de fichiers de configuration ou des réglages.
+Wbar and Tint2 desktop
+
+Commencer par installer les paquets utilisés : 
+
+    * wbar
+    * tint2
+    * nitrogen
+    * cairo-clock
+
+Il est nécessaire de créer, modifier ou configurer 3 fichiers dans le répertoire personnel (cliquez sur les liens au bas de la page pour télécharger les fichiers) :
+
+    * //~/.wbar//
+    * //~/.config/tint2/tint2rc//
+    * //~/.config/openbox/autostart.sh//
+
+Les fichiers de configuration de Wbar et Tint2 ne seront pas présents si vous n'avez jamais démarré ces applications auparavant, mais les scripts de démarrage automatique d'Openbox devraient exister puisque c'est le gestionnaire de fenêtres par défaut utilisé dans SliTaz. Enregistrez les fichiers de configuration et  mettez-les dans le bon répertoire.
+
+L'horloge de bureau analogique cairo a besoin de l'extension "Composite" activée et d'un gestionnaire de composite en cours d'exécution (les deux sont activés par défaut dans SliTaz). Si vous utilisez Xorg, vous devez adapter votre fichier xorg.conf. Le gestionnaire composite utilisé dans SliTaz est appelé xcompmgr, il est léger et dispose de quelques options de ligne de commande pour les ombrages, etc
+
+Pour exécuter automatiquement toutes ces applications lorsque votre session X démarre vous devez modifier le script de démarrage automatique d'Openbox avec votre éditeur favori ou utiliser l'interface graphique //$(desktopbox autostart)// et ajouter les lignes suivantes :
+
+<file>
+# Start the Freedesktop standard menu panel.
+#lxpanel &
+
+# Tint2 - Simple and clean panel.
+tint2 &
+
+# Desktop Wallpaper with Nitrogen.
+nitrogen --restore &
+
+# Desktop effects composer (xcompmgr -c -r 10 &).
+xcompmgr &
+
+# Wbar icons panel.
+(sleep 4 && wbar -above-desk -bpress -pos top center -isize 24 -jumpf 0 -zoomf 2.0 -balfa 0) &
+
+# Nice clock for the desktop.
+(sleep 2 && cairo-clock) &
+</file>
+
+Assurez-vous de commenter lxpanel et de modifier les préférences de pcmanfm pour laisser Nitrogen gérer le fond d'écran. Pour choisir votre image :
+
+<code> $ nitrogen /usr/share/images </code>
+
+Maintenant déconnectez-vous et reconnectez-vous dans votre bureau personnalisé.. Ou tuez le processus courant, puis redémarrez les applications :
+
+<code>
+$ killall lxpanel
+$ tint2 &
+$ wbar -above-desk -bpress -pos top center -isize 24 -jumpf 0 -zoomf 2.0 -balfa 0 &
+</code>
+{{ :en:guides:image:wbar-tint2-desktop.preview.png?100|Cliquez pour agrandir}}
+[[http://savedonthe.net/download/185/dot.html|Lien pour télécharger .wbar file]]
+[[http://savedonthe.net/download/186/tint2rc.html|Lien pour télécharger tint2rc file]]
+
+\\
+---- 
+\\
+^   Section Révision de la page  ^^ 
+|Qualité| Bonne  |
+|Revue|  |
+|Priorité| |
+|Problèmes| |
+|Comment améliorer| |
+
+\\
+----

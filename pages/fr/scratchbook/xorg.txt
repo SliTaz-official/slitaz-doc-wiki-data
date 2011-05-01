@@ -1,0 +1,59 @@
+====== Howto Xorg - Serveur graphique modulaire ======
+
+Note : SliTaz utilise le serveur Xvesa fournit par XFree86 et les bibliothèques d'Xorg, cette page décrit la compilation des bibliothèques d'Xorg utilisées sur SliTaz. Ce document est principalement destiné aux développeurs et contributeurs du projet, mais il peut être utile à toutes personnes cherchant à compiler Xorg et les bibliothèques Xlib depuis les sources en générant un minimum de dépendances.
+
+===== Construire Xorg automatiquement avec Tazwok =====
+
+Sur SliTaz, ou si vous avez installé Tazwok, vous pouvez compiler Xorg en quelques commandes. Le wok contient un meta-paquet nommé "xorg" et un autre nommé "xorg-dev", ils permettent de compiler/cuire tous les paquets Xorg utilisé par SliTaz. Pour compiler vous devez avoir installé la plupart des paquets de développement, si ce n'est pas le cas :
+
+   # tazpkg get-install slitaz-dev-pkgs
+
+Ensuite vous pouvez lancer la cuisson (si tout est prêt, wok et paquets de développement), en commençant par les proto's (xproto, etc) :
+
+   # tazwok cook xorg-dev-proto
+   # tazwok cook xorg
+   # tazwok cook xorg-dev
+
+===== Obtenir Xorg (7.2) avec wget =====
+
+Xorg est distribuée sous forme de modules, ce qui est bien pratique, car l'on peut installer uniquement ce que l'on veut, mais cela demande beaucoup de téléchargements. Pour vous aider nous avons créé un petit script qui télécharge le minimum pour SliTaz, vous trouverez le script "getXorg.sh" dans [[http://doc.slitaz.org/fr:cookbook:slitaztools|SliTaz tools (1.1)]]. À noter que ce script n'est plus mis à jour, les développeurs utilisent [[http://doc.slitaz.org/fr:cookbook:wok|les outils et le wok]]. Pour utiliser le script de téléchargement, il faut se placer dans le répertoire dans lequel vous désirez télécharger Xorg, puis lancer le script préalablement copié :
+
+   # cd ..
+   # mkdir Xorg && cd Xorg
+   # cp slitaz-tools-1.1/utils/getXorg-7.2.sh .
+   # ./getXorg-7.2.sh
+
+===== Compiler Xorg à la main =====
+
+La compilation d'Xorg est assez longue, il y a beaucoup de paquets. Pour commencer il faut compiler tous les paquets proto téléchargés, vous pouvez utiliser la commande "make DESTDIR=$PWD/_pkg install" pour installer le paquet dans un répertoire donné. Exemple avec xproto:
+
+   # cd proto
+   # tar xzf xproto-X11R7.2-7.0.10.tar.gz
+   # cd xproto-X11R7.2-7.0.10
+   # ./configure --prefix=/usr --sysconfdir=/etc \\
+     --mandir=/usr/share/man --localstatedir=/var \\
+     --build=i486-pc-linux-gnu --host=i486-pc-linux-gnu
+    # make
+    # make install
+
+Compilation des bibliothèques en reprenant les options utilisées pour les proto. Exemple avec le premier paquet à compiler xtrans, n'oubliez pas de lancer "ldconfig" si vous installez le paquet sur la machine de développement:
+
+   # cd .. && cd lib
+   # tar xzf xtrans-X11R7.2-1.0.3.tar.gz
+   # cd xtrans-X11R7.2-1.0.3
+   # ./configure --prefix=/usr --sysconfdir=/etc \\
+     --mandir=/usr/share/man --localstatedir=/var \\
+     --build=i486-pc-linux-gnu --host=i486-pc-linux-gnu
+   # make
+   # make install
+   # ldconfig
+
+Une fois que tous les paquets des bibliothèques sont compilés, vous pouvez commencer à compiler des applications pour X tels que le terminal graphique Xterm. SliTaz utilise encore le paquet 'rgb' contenant le fichier /usr/share/X11/rgb.txt définissant les couleurs. Exemple de compilation pour "xsetroot", application permettant de changer la couleur du fond d'écran (modifiez $VERSION par la version que vous avez téléchargé :
+
+   # cd .. && cd app
+   # tar xzf xsetroot-$VERSION.tar.gz
+   # cd xsetroot-$VERSION
+   # ./configure --prefix=/usr --sysconfdir=/etc \\
+     --mandir=/usr/share/man --localstatedir=/var \\
+     --build=i486-pc-linux-gnu --host=i486-pc-linux-gnu
+   # make && make install

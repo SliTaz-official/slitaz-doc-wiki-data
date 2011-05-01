@@ -1,5 +1,6 @@
 ====== PXE =======
-=====PXE boot =====
+
+Le PXE, prononcé 'pixie' (ou //Preboot eXecution Environment//) est le processus de démarrage d'un ordinateur à partir d'une connexion réseau. Il est comparable au démarrage d'un LiveCD à partir d'un lecteur de CD à distance.
 
 Cette méthode de boot par le réseau a besoin de : 
 
@@ -8,52 +9,95 @@ Cette méthode de boot par le réseau a besoin de :
 
 ===== Configuration du serveur PXE =====
 
-Un serveur PXE = un serveur DHCP + les fichiers de boot DHCP + un serveur TFTP
+Un serveur PXEcomprend :
 
-Démonstration avec un LiveCD de SliTaz : Lancez netbox (menu System/netbox)
+  * un serveur DHCP pour accepter des clients ;
+  * les fichiers de boot DHCP pour les configurer ;
+  * un serveur TFTP pour fournir un OS.
 
-    * dans l'onglet Static IP cliquez sur start. Cette boîte sera le serveur DHCP. Il ne peut pas utiliser DHCP pour obtenir la configuration IP.
-    * dans l'onglet Server/INETD vérifiez que la ligne tftpd n'est pas commentée dans /etc/initd.conf et cliquez sur start (ce qui lancera le serveur TFTP).
-    * dans l'onglet Server/PXE éditez la configuration et ajoutez vos options de boot. Cette action mettra à jour automatiquement la configuration du serveur DHCP.
-    * dans l'onglet Server/DHCP vérifiez la configuration. Les actions antérieures ont ajoutés les lignes boot_file et siaddr. Cliquez alors sur start (ce qui lancera le serveur DHCP)
-    * vérifiez que les fichiers bzImage et rootfs.gz sont présents dans /boot
+Le LiveCD SliTaz peut être utilisé comme un serveur PXE. Pour démarrer le processus, lancez netbox (menu System/netbox)
+
+    * dans l'onglet //Static IP// cliquez sur //Start//. 
+      *  Cette boîte sera le serveur DHCP. Il ne peut pas utiliser DHCP pour obtenir la configuration IP.
+
+<note tip>Depuis SliTaz 3.0, l'application Netbox est maintenant divisée en Netbox et Serverbox. Si vous utilisez une version récente SliTaz, veuillez svp lire application **Serverbox** au lieu de onglet **Server** ci-dessous</note>
+
+    * dans l'onglet //Server//, sélectionnez le sous-onglet //INETD// et vérifiez que la ligne tftpd n'est pas commentée dans /etc/initd.conf. C'est le comportement par défaut. Cliquez sur //Start//.
+      *   ce qui lancera le serveur TFTP, lequel diffusera le LiveCD SliTaz à travers tout le réseau..
+    * dans l'onglet //Server//, sélectionnez le sous-onglet //PXE//
+    * éditez la configuration et ajoutez vos options de boot.
+      *  Cette action mettra à jour automatiquement la configuration du serveur DHCP.
+    * dans l'onglet //Server//, sélectionnez le sous-onglet //DHCP//. Vérifiez que la configuration correspond à vore réseau. Les actions antérieures ont ajouté les lignes //boot_file// et //siaddr//. Cliquez alors sur //Start//. 
+      *  ce qui lancera le serveur DHCP. Si les clients ne reçoivent pas une adresse IP, vérifiez cette configuration.
+    * vérifiez que les fichiers //bzImage// et //rootfs.gz// sont présents dans le répertoire // /boot// du LiveCD.
 
 ===== PXE client bootloader =====
 
-La plupart des machines récentes avec Ethernet embarqués ont BIOS compatible avec PXE. Recherchez cette fonctionnalité dans les menus du BIOS et le menu de démarrage du BIOS.
-Sinon vous pouvez créer un cdrom ou une disquette de démarrage avec un outil de création de boot sur disquette/cdrom. Dans l'onglet PXE Network cliquez sur Write Floppy. Ensuite, bootez sur elle.
-Votre carte Ethernet n'est pas reconnue ? Voir http://rom-o-matic.net/
+La plupart des machines récentes avec Ethernet embarqués ont un BIOS compatible avec PXE. Recherchez cette fonctionnalité dans les menus du BIOS et le menu de démarrage du BIOS et assurez-vous qu'elle est activée. Elle peut exiger que vous appuyez sur une touche, comme F12, pendant le processus de démarrage.
+
+Si votre ordinateur ne prend pas en charge le démarrage PXE, vous pouvez utiliser SliTaz comme client à la place. Créez un cdrom ou une disquette de démarrage avec le // Boot Floppy/CDROM // un outil qui se trouve dans le menu //Outils système//. 
+
+Dans l'onglet PXE Network cliquez sur Write Floppy. Ensuite, redémarrez avec.
+
+<note tip>Votre carte Ethernet n'est pas reconnue ? Voir [[http://rom-o-matic.net/|ROM-O-Matic]]</note>
+
+\\
 
 
-===== PXE boot sans serveur PXE : WEB boot =====
+===== Démarrage PXE à partir du WEB =====
 
-Vous avez besoin d'un serveur DHCP pour récupérez l'adresse IP, le masque de réseau, et l'adresse de la passerelle (plus d'informations sur [[http://boot.slitaz.org|la doc]]).
+Le LiveCD SliTaz est configuré pour démarrer votre ordinateur via Internet. Cela sert à utiliser une version plus récente de SliTaz sur un média plus ancien.
 
+Vous pouvez lancer le processus automatique avec la commande suivante dans l'écran de démarrage du LiveCD SliTaz :
 
-===== PXE boot sans serveur DHCP : WEB boot et ligne de commande =====
+web
 
-Vous avez besoin d'une adresse IP avec un masque de réseau, une adresse de passerelle et éventuellement une adresse DNS (plus d'informations sur [[http://boot.slitaz.org|la doc]]). 
+C'est tout!
+
+Vous trouverez plus d'informations sur l'utilisation d'une connexion Internet pour démarrer votre ordinateur sur [[http://boot.slitaz.org/fr|SliTaz Web Boot - Démarrage via le réseau]]
+
+Vous avez besoin d'un serveur DHCP pour se faire attribuer une adresse IP, le masque réseau, et l'adresse de la passerelle comme pour une connexion normale. Un routeur résidentiel standard (une 'box') devrait suffire. (plus d'informations sur [[http://boot.slitaz.org/fr|la doc]]).
+
+\\
+
+===== Démarrage PXE boot sans serveur DHCP : ligne de commande démarrage web =====
+
+Si vous n'avez aucun matériel qui puisse faire fonction de serveur DHCP, vous avez besoin d'une adresse IP avec un masque réseau, une adresse de passerelle et éventuellement une adresse de serveur DNS (plus d'informations sur [[http://boot.slitaz.org/fr|la doc]]).
+ 
 Exemple d'utilisation avec GRUB :
 
-
-<code>
+<file>
 title Slitaz Web
   kernel /boot/gpxe ip=192.168.0.12/24 gw=192.168.0.1 dns=192.168.0.1 url=http://mirror.slitaz.org/pxe/pxelinux.0
-</code>
-Vous pouvez personnaliser l'url du boot :
-Replacez :
+</file>
 
-<code> http://mirror.slitaz.org/pxe/pxelinux.0 </code>
+Vous pouvez personnaliser l'url :
+<file>
+title Slitaz Web
+  kernel /boot/gpxe ip=192.168.0.12/24 gw=192.168.0.1 dns=192.168.0.1 url=ip=192.168.0.12/24 gw=192.168.0.1
+  dns=192.168.0.1 url=http://mirror.slitaz.org/pxe/pxelinux.0
+</file>
 
-Par :
-<code>
-ip=192.168.0.12/24 gw=192.168.0.1 dns=192.168.0.1 url=http://mirror.slitaz.org/pxe/pxelinux.0
-</code>
-Seul "ip=", "gw=", "dns=", "url=" et nodhcp sont les mots-clés reconnus. nodhcp est utile pour éviter timeout dhcp.
+Noter que les seuls mots-clés reconnus sont :
+
+  * ip=
+  * gw=
+  * dns=
+  * url=
+  * nodhcp (utile pour éviter une erreur de tempo dhcp)
+
+\\
+
+===== Configuration avancée du démarrage Web =====
+
+Le processus de démarrage Web peut être intégré dans des routeurs et autres matériels, de même qu'être adapté aux besoins du client. 
+
+\\
+
 ===== Démarrage WEB avec un boot PROM intégré (transitaire PXE) =====
 
-Configuration d'un serveur PXE avec http://download.tuxfamily.org/slitaz/boot/gpxe.pxe comme fichier de boot.
-Testé avec succès avec un routeur http://openwrt.org/ :
+Configurer un serveur PXE avec http://download.tuxfamily.org/slitaz/boot/gpxe.pxe, chargeur de deuxième étape de 42Ko, comme fichier de boot.
+Testé avec succès avec un routeur [[http://openwrt.org/|http://openwrt.org/|OpenWRT]] :
 
     * Installez http://mirror.slitaz.org/boot/mips/tftpd (version MIPS) dans /jffs/usr/sbin
     * Installez gpxe.exe dans /jffs/boot
@@ -61,38 +105,41 @@ Testé avec succès avec un routeur http://openwrt.org/ :
 
 <code> # echo "dhcp-boot=gpxe.pxe" >> /tmp/dnsmasq.conf </code>
 
-lancer le serveur TFTP pour votre réseau local (par exemple 192.168.0.1/24)
+lancez le serveur TFTP pour votre réseau local (par exemple 192.168.0.1/24)
 
 <code> # /jffs/usr/sbin/tftpd 192.168.0.1 /jffs/boot </code>
+
+\\
 
 ===== Modifier l'URL de démarrage de gPXE WEB boot =====
 
 L'URL est stocké à l'offset 519 en 255 octets maximum.
 
-Voir l'URL courante :
+  * Voir l'URL courante :
 
 <code> $ dd bs=1 skip=519 count=255 if=gpxe 2> /dev/null | strings </code>
 
-Modifier l'URL :
+  * Modifier l'URL :
 
 <code>$ echo -n "http://myurl.org/myboot" | cat - /dev/zero | dd conv=notrunc bs=1 seek=519 count=255 of=gpxe
 </code>
-Modifier l'URL et l'IP stuff :
+
+  * Modifier l'URL et l'IP stuff :
 
 <code>$ echo -n "ip=192.168.0.10/24 gw=192.168.0.1 dns=192.168.0.1 url=http://myurl.org/myboot" | cat - /dev/zero | dd conv=notrunc bs=1 seek=519 count=255 of=gpxe
 </code>
 
-Supprimer l'URL (il se comportera alors comme un gPXE classique).
+  * Supprimer l'URL (il se comportera alors comme un gPXE classique).
 
-<code>$ dd if=/dev/zero conv=notrunc bs=1 seek=519 count=255 of=gpxe
-</code>
+<code>$ dd if=/dev/zero conv=notrunc bs=1 seek=519 count=255 of=gpxe</code>
+
+\\
 
 ===== Modifier l'URL par défaut du WEB boot gpxe.pxe =====
 
-L'URL est stocké à l'offset 519 en 255 octets maximum.
+L'URL est stocké à l'offset 5 en 255 octets maximum.
 
 Voir l'URL courante :
-
 
 <code>$ dd bs=1 skip=5 count=255 if=gpxe.pxe 2> /dev/null | strings
 </code>
@@ -108,9 +155,11 @@ Supprimer l'URL (il se comportera alors comme un gpxe.pxe classique).
 <code>$ dd if=/dev/zero conv=notrunc bs=1 seek=5 count=255 of=gpxe.pxe
 </code>
 
+\\
+
 ===== Démarrage sur des serveurs web en redondance =====
 
-Séparées par des virgules, les listes d'URL sont supportées.
+Les listes d'URL, séparées par des virgules, sont supportées.
 
 Le client PXE essaiera de charger la première URL. Si le chargement échoue, il va essayer l'URL suivante, et ainsi de suite.
 
@@ -118,3 +167,17 @@ Exemple avec les serveurs actuels de SliTaz boot Web:
 
 <code>$ echo -n "http://mirror.slitaz.org/pxe/pxelinux.0,http://mirror.switch.ch/ftp/mirror/pxe/pxelinux.0,http://download.tuxfamily.org/slitaz/pxe/pxelinux.0" | cat - /dev/zero | dd conv=notrunc bs=1 seek=519 count=255 of=gpxe
 </code>
+
+
+---- 
+\\
+^   Section Révision de la page  ^^ 
+|Qualité| Bonne  |
+|Revue|  |
+|Priorité|  |
+|Problèmes| |
+|Comment améliorer|  |
+
+
+\\
+----

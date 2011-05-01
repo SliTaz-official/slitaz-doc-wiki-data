@@ -1,56 +1,246 @@
 ====== Impression ======
-======   Cas d'une imprimante HP ======
- 
- 
-Ceci est pour une installation propre de SliTaz GNU/Linux cooking-20100314
 
-  - Une fois l'imprimante branchée et allumée, lancez : <code>
-su root
-tazpkg recharge
-tazhw setup printer</code>
-  - Installez seulement hplip et hal-cups-utils
-  - L'imprimante devrait apparaître dans la liste des imprimantes s'affichant dans le cadre de cette commande. Il tentera alors d'ouvrir les pages d'administration CUPS dans Midori (à http://localhost:631).
-  - Sur mon système, l'imprimante n'apparaît pas dans le navigateur sous la rubrique "Find printers" et j'ai une erreur 403 lorsque je tentez d'ajouter une imprimante via le navigateur.
-  - Au lieu de cela, exécutez <code> hp-setup </code> et suivez les instructions. La page de test doit s'imprimer correctement. L'imprimante devrait également apparaître dans la liste des imprimantes dans les applications (comme l'éditeur de texte) et apparaîtra également dans la liste des imprimantes sur les pages du navigateur CUPS, bien que dans mon cas, il n'est pas encore possible d'apporter des modifications à l'imprimante.
+Le CUPS (Common Unix Printing System) gère les imprimantes connectées à l'ordinateur en local ou en réseau. Les imprimantes locales sont gérées par l'intermédiaire d'une connexion loopback (IP 127.0.0.1), une interface réseau virtuelle.
+
+===== Installation d'une imprimante réseau =====
+
+Installez CUPS et ajoutez les utilisateurs au groupe //lp// pour avoir les autorisations d'accès aux périphériques. Cela peut être fait en tant que root dans un terminal:
+
+<code>
+# tazpkg get-install cups
+# addgroup tux lp
+</code>
+
+En tant que root encore, personnalisez la configuration par défaut dans /etc/cupsd.conf : 
+<file>
+# Administrator user group...
+SystemGroup lp
+
+# Restrict access to the admin pages...
+
+  Order allow,deny
+  Allow 127.0.0.1
 
 
- ====== Installation d'une imprimante USB Brother HL 2030 ======
+# Restrict access to configuration files...
+
+  AuthType Default
+  Require user @SYSTEM
+  Order allow,deny
+  Deny From None
+  Allow From 127.0.0.1
+</file>
+
+Définissez le mot de passe administrateur pour CUPS et ajoutez un utilisateur avec les privilèges d'administration :
+
+<code>
+# lppasswd -g lp -a tux
+</code>
+
+Vous devriez maintenant être en mesure d'avoir accès à l'administration  de CUPS via votre navigateur en entrant l'adresse ''<nowiki>http://localhost:631/</nowiki>''
+
+Installez les pilotes d'imprimantes avec les paquets suivants :
+
+    - hplip : pour les imprimantes HP
+    - gutenprint : pour Canon, Epson, Lexmark, Sony, Olympus
+    - foomatic-db, foomatic-db-engine, foomatic-db-nonfree et foomatic-filters : plusieurs logiciels libres de pilotes d'impression
+    - ufr2 : pour les imprimantes Canon (pilotes supplémentaires)
+    - splix : pour Samsung
+    - cups-pdf : pour « l'impression » dans un document PDF
+
+Par exemple, installez les pilotes d'imprimantes HP avec la commande suivante sous //root// :
+
+<code>
+# tazpkg get-install hplip
+</code>
+
+Vous pouvez maintenant ajouter une nouvelle imprimante dans l'interface du navigateur et sélectionner :
+
+<nowiki>LPD/LPR Host or Printer (Unknown),
+and add the address socket//192.168.2.1:9100</nowiki>
+
+Si vous obtenez l'erreur "//Returning IPP client-error-document-format-not-supported for Print-Job in /var/log/cups/error.log//" ajoutez alors deux fichiers dans le répertoire /etc/cups. La méthode la plus simple est de lancer un éditeur de texte tel que Leafpad à partir d'un terminal root; démarrez le terminal et passez à l'utilisateur root.
+
+  * ''mime.convs'' (/etc/cups/mime.convs):
+<file>
+application/pdf		application/postscript	33	pdftops
+application/postscript	application/vnd.cups-postscript	66	pstops
+application/vnd.hp-HPGL	application/postscript	66	hpgltops
+application/x-cshell	application/postscript	33	texttops
+application/x-csource	application/postscript	33	texttops
+application/x-perl	application/postscript	33	texttops
+application/x-shell	application/postscript	33	texttops
+text/plain		application/postscript	33	texttops
+text/html		application/postscript	33	texttops
+image/gif		application/vnd.cups-postscript	66	imagetops
+image/png		application/vnd.cups-postscript	66	imagetops
+image/jpeg		application/vnd.cups-postscript	66	imagetops
+image/tiff		application/vnd.cups-postscript	66	imagetops
+image/x-bitmap		application/vnd.cups-postscript	66	imagetops
+image/x-photocd		application/vnd.cups-postscript	66	imagetops
+image/x-portable-anymap	application/vnd.cups-postscript	66	imagetops
+image/x-portable-bitmap	application/vnd.cups-postscript	66	imagetops
+image/x-portable-graymap application/vnd.cups-postscript	66	imagetops
+image/x-portable-pixmap	application/vnd.cups-postscript	66	imagetops
+image/x-sgi-rgb		application/vnd.cups-postscript	66	imagetops
+image/x-xbitmap		application/vnd.cups-postscript	66	imagetops
+image/x-xpixmap		application/vnd.cups-postscript	66	imagetops
+image/x-sun-raster	application/vnd.cups-postscript	66	imagetops
 
 
-On s'intéresse ici au cas particulier d'une imprimante Brother USB, mais la méthode est générale.
+image/gif		application/vnd.cups-raster	100	imagetoraster
+image/png		application/vnd.cups-raster	100	imagetoraster
+image/jpeg		application/vnd.cups-raster	100	imagetoraster
+image/tiff		application/vnd.cups-raster	100	imagetoraster
+image/x-bitmap		application/vnd.cups-raster	100	imagetoraster
+image/x-photocd		application/vnd.cups-raster	100	imagetoraster
+image/x-portable-anymap	application/vnd.cups-raster	100	imagetoraster
+image/x-portable-bitmap	application/vnd.cups-raster	100	imagetoraster
+image/x-portable-graymap application/vnd.cups-raster	100	imagetoraster
+image/x-portable-pixmap	application/vnd.cups-raster	100	imagetoraster
+image/x-sgi-rgb		application/vnd.cups-raster	100	imagetoraster
+image/x-xbitmap		application/vnd.cups-raster	100	imagetoraster
+image/x-xpixmap		application/vnd.cups-raster	100	imagetoraster
+image/x-sun-raster	application/vnd.cups-raster	100	imagetoraster
 
-Os : slitaz -3.0-loram-cdrom
-pc : compacq deskpro 1998 ; Ram : 64 Mio.
+application/vnd.cups-postscript	application/vnd.cups-raster	100	pstoraster
+</file>
 
-L'utilisateur a pour nom de compte tux.
+  * ''mime.types'' (/etc/cups/mime.types):
 
-Quand tout est installé, on fait une mise à jour : 
-on va dans le menu **//outil système//**, puis  **//gestionnaire de paquets//**, puis **//recharge list//** et enfin **//upgrade all//**
+<file>
+application/pdf			pdf string(0,%PDF)
+application/postscript		ai eps ps string(0,%!) string(0,<04>%!) \
+				contains(0,128,<1B>%-12345X) + \
+				(contains(0,4096,"LANGUAGE=POSTSCRIPT") \
+				 contains(0,4096,"LANGUAGE = Postscript") \
+				 contains(0,4096,"LANGUAGE = PostScript") \
+				 contains(0,4096,"LANGUAGE = POSTSCRIPT") \
+				 (contains(0,4096,<0a>%!) + \
+				  !contains(0,4096,"ENTER LANGUAGE")))
+application/vnd.hp-HPGL		hpgl \
+				string(0,<1B>E<1B>%0B) \
+				string(0,<1B>%-1B) string(0,<201B>)\
+				string(0,BP;) string(0,IN;) string(0,DF;) \
+				string(0,BPINPS;) \
+				(contains(0,128,<1B>%-12345X) + \
+				 (contains(0,4096,"LANGUAGE=HPGL") \
+				  contains(0,4096,"LANGUAGE = HPGL")))
 
-On installe cups, hal-cups-utils et usbutils. En root, on tape:
-  
+########################################################################
+#
+# Image files...
+#
+
+image/gif			gif string(0,GIF87a) string(0,GIF89a)
+image/png			png string(0,<89>PNG)
+image/jpeg			jpeg jpg jpe string(0,) &&\
+				(char(3,0xe0) char(3,0xe1) char(3,0xe2) char(3,0xe3)\
+				 char(3,0xe4) char(3,0xe5) char(3,0xe6) char(3,0xe7)\
+				 char(3,0xe8) char(3,0xe9) char(3,0xea) char(3,0xeb)\
+				 char(3,0xec) char(3,0xed) char(3,0xee) char(3,0xef))
+image/tiff			tiff tif string(0,MM<002A>) string(0,II<2A00>)
+image/x-photocd			pcd string(2048,PCD_IPI)
+image/x-portable-anymap		pnm
+image/x-portable-bitmap		pbm string(0,P1) string(0,P4)
+image/x-portable-graymap	pgm string(0,P2) string(0,P5)
+image/x-portable-pixmap		ppm string(0,P3) string(0,P6)
+image/x-sgi-rgb			rgb sgi bw icon short(0,474)
+image/x-xbitmap			xbm
+image/x-xpixmap			xpm ascii(0,1024) + string(3,"XPM")
+#image/x-xwindowdump		xwd string(4,<00000007>)
+image/x-sun-raster		ras string(0,<59a66a95>)
+
+#image/fpx			fpx
+image/x-alias			pix short(8,8) short(8,24)
+image/x-bitmap			bmp string(0,BM) && !printable(2,14)
+image/x-icon			ico
+
+########################################################################
+#
+# Text files...
+#
+
+application/x-cshell		csh printable(0,1024) + string(0,#!) +\
+				(contains(2,80,/csh) contains(2,80,/tcsh))
+application/x-perl		pl printable(0,1024) + string(0,#!) +\
+				contains(2,80,/perl)
+application/x-shell		sh printable(0,1024) + string(0,#!) +\
+				(contains(2,80,/bash) contains(2,80,/ksh)\
+				 contains(2,80,/sh) contains(2,80,/zsh))
+application/x-csource		c cxx cpp cc C h hpp \
+				printable(0,1024) + \
+				(string(0,/*) string(0,//)
+				 string(0,#include) contains(0,1024,<0a>#include) \
+				 string(0,#define) contains(0,1024,<0a>#define))
+text/html			html htm printable(0,1024) +\
+				(istring(0,"") istring(0,"))
+text/plain			txt printable(0,1024)
+text/css			css
+
+
+########################################################################
+#
+# RSS feed type...
+#
+
+application/rss+xml		rss
+
+
+########################################################################
+#
+# CUPS-specific types...
+#
+
+application/vnd.cups-command	string(0,'#CUPS-COMMAND')
+application/vnd.cups-form	string(0,"")
+application/vnd.cups-pdf
+application/vnd.cups-postscript
+application/vnd.cups-ppd	ppd string(0,"*PPD-Adobe:")
+application/vnd.cups-raster	string(0,"RaSt") string(0,"tSaR")
+application/vnd.cups-raw	(string(0,<1B>E) + !string(2,<1B>%0B)) \
+				string(0,<1B>@) \
+				(contains(0,128,<1B>%-12345X) + \
+				 (contains(0,4096,"LANGUAGE=PCL") \
+				  contains(0,4096,"LANGUAGE = PCL")))
+
+########################################################################
+#
+# Raw print file support...
+#
+# Comment the following type to prevent raw file printing.
+#
+
+application/octet-stream
+</file>
+
+<note tip>Si à la fin de la procédure, l'imprimante ne fonctionne pas, le redémarrage du service cups ou de l'ordinateur peut dépanner.</note>
+
+====== Installation d'une imprimante USB Brother HL 2030 ======
+
+Pour installer cups, hal-cups-utils, usbutils. En tant que root, tapez :
+
 <code>
 root@slitaz:# tazpkg get-install cups
 root@slitaz:# tazpkg get-install hal-cups-utils
 root@slitaz:# tazpkg get-install usbutils
 </code>
 
-Cups sert à la gestion de l'imprimante, hal-cups-utils permet à Cups d'utiliser HAL pour les branchements à chaud d'imprimantes usb, et usbutils nous permet d'avoir la commande lsusb qui nous permet de savoir où est branché l'imprimante et quelles sont ces droits. 
+Cups est utilisé pour gérer l'imprimante, hal-cups-utils permet à cups d'utiliser HAL pour les connexions d'imprimante et usbutils apporte l'utilitaire lsusb qui permet de savoir comment l'imprimante est connectée.
 
-On va ensuite devoir ajouter le compte tux au groupe d'impression lp. En root, on fait:
+Ajoutez maintenant tux au groupe lp (imprimante). En tant que root, faire :
    
 <code>
 root@slitaz:#addgroup tux lp
 </code>
 
-Pour que l'interface web de cups puisse être correctement activé, il nous faut encore changé quelques points dans /etc/cupsd.conf.
+Pour que l'interface web de cups puisse être correctement activée, il nous faut encore changer quelques points dans ///etc/cupsd.conf//.
  
 <code>
 root@slitaz:#leafpad /etc/cups/cupsd.conf
 </code>
-   
-On lance ainsi un éditeur de texte, qui nous permet d'inscrire ceci
- <code>
+
+<file>
    # Administrator user group...
    SystemGroup lp
    
@@ -67,9 +257,9 @@ On lance ainsi un éditeur de texte, qui nous permet d'inscrire ceci
    Order allow,deny
    Deny From None
    Allow From 127.0.0.1
- </code>
+</file>
    
-Pour modifier les droits sur l'imprimante, il faut connaître ces coordonnées de bus et de device. Pour cela, on fait en root:
+Pour modifier les droits sur l'imprimante, il faut connaître ses coordonnées de bus et de device. Pour cela, on fait sous root:
 <code>
 root@slitaz:#lsusb
 </code>
@@ -77,23 +267,22 @@ root@slitaz:#lsusb
 On obtient une sortie du type:
 <code>
    Bus 001 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-   Bus 001 Device 002: ID 04f9:0027 Brother Industries, Ltd HL-2030 Laser Printer
-   
+   Bus 001 Device 002: ID 04f9:0027 Brother Industries, Ltd HL-2030 Laser Printer  
 </code>
    
-Il faut alors changer les droits sur le fichier associé:
+On peut alors changer les droits sur le fichier associé :
    
 <code>
 root@slitaz:#chmod 666 /dev/bus/usb/001/002
 </code>
 
-On redémarre ensuite cups:
+Et redémarrer ensuite cups:
 <code>
 root@slitaz:#/etc/init.d/cupsd start
 </code>
 
 Il faut ensuite configurer l'imprimante, en allant chercher sur le site openprinting le fichier ppd correspondant à ce modèle d'imprimante:
-http://www.openprinting.org/printer/Brother/Brother-HL-2030 et l'on ajouter les paquets suivants: foomatic-filters foomatic-db foomatic-db-engine
+http://www.openprinting.org/printer/Brother/Brother-HL-2030 et ajouter aussi les paquets suivants: foomatic-filters foomatic-db foomatic-db-engine
 
 <code>
 root@slitaz:# tazpkg get-install foomatic-filters
@@ -101,34 +290,100 @@ root@slitaz:# tazpkg get-install foomatic-db
 root@slitaz:# tazpkg get-install foomatic-db-engine
 </code>
 
-On ouvre cups comme précédemment indiqué. On met dans midori l'adresse suivante: http://localhost:631
+Redémarrez maintenant cups comme précédemment indiqué et avec midori, aller à l'adresse suivante: http://localhost:631
 
-Cups demande :
+Cups demande alors :
 
 - le login "root" (tux par défaut)
 
 - le mot de passe correspondant.
 
-Ensuite on va dans > imprimante > Add Printer  > clic sur le nom de l'imprimante qui est reconnue > ne pas oublier d'indiquer le chemin dans la case Location taper : /dev/bus/usb/001/002 (dans mon cas)
+Ensuite on va dans > imprimante > Add Printer  > cliquer sur le nom de l'imprimante qui est reconnue et ne pas oublier d'indiquer le chemin dans la case Location taper : /dev/bus/usb/001/002 (dans mon cas)
 
-Puis depuis l'interface web ppd de cups, on installe la nouvelle imprimante en utilisant le fichier Brother-HL-2030-hl1250.ppd qui se trouve dans le compte de l'utilisateur.
-Il faut ensuite redémarrer automatique le démon cupsd.
+Puis depuis l'interface web ppd de cups, installez la nouvelle imprimante en utilisant le fichier Brother-HL-2030-hl1250.ppd qui se trouve dans le compte de l'utilisateur. Il faut ensuite automatiser le démarrage du démon cupsd à chaque redémarrage du système en utilisant les Outils Système dans le menu, puis boite de contrôle, puis Initialisation et ajouter **//cupsd//** à la section 'Run daemons' :
 
-On va dans:
-Outils systeme, puis boite de contrôle, puis initialization et en face de **//run daemont//** on ajoute **//cupsd//** au bout de la phrase : **//dbus hald firewall slim//** (on obtient :** //dbus hald firewall slim cupsd//**).
+<file>
+dbus hald firewall slim cupsd
+</file> 
+
+======   Cas d'une imprimante HP ======
+
+<note>Ceci est dans le cas d'une installation propre de SliTaz GNU/Linux cooking-20100314</note>
+
+  - Une fois l'imprimante branchée et allumée, lancez : <code>
+# su root
+# tazpkg recharge
+# tazhw setup printer</code>
+  - Installez seulement hplip et hal-cups-utils
+  - L'imprimante devrait apparaître dans la liste des imprimantes s'affichant dans le cadre de cette commande. L'utilitaire tentera alors d'ouvrir les pages d'administration CUPS dans Midori (à http://localhost:631).
+  - Sur mon système, l'imprimante n'apparaît pas dans le navigateur sous la rubrique "Find printers" et j'ai une erreur 403 lorsque je tente d'ajouter une imprimante via le navigateur.
+  - Au lieu de cela, exécutez <code> hp-setup </code> et suivez les instructions. La page de test doit s'imprimer correctement. L'imprimante devrait également apparaître dans la liste des imprimantes dans les applications (comme l'éditeur de texte) et apparaîtra également dans la liste des imprimantes sur les pages du navigateur CUPS, bien que dans mon cas, il n'est pas encore possible d'apporter de modifications à l'imprimante.
+
+===== Installer une imprimante HP All-In-One Printer/Scanner =====
+
+=== Preparation & paquets ===
+
+Allumez le scanner avant d'installer les paquets suivants :
+
+  * xsane
+  * sane-backends
+  * libusb
+  * libusb-compat
+  * usbtools
+  * usbutils
+
+<note tip>Vous pouvez automatiser le processus avec la commande Bash suivante en tant qu'utilisateur root :
+<code>for PKG in xsane sane-backends-libusb libusb-compat usbtools usbutils; do 
+tazpkg get-install $PKG
+done</code>
+</note>
+
+=== Détection ===
+
+Avec ces paquets installés, utilisez le Hardware Detection Tool (Menu> Outils système> Détection matérielle et des pilotes), 
+Cliquez sur le bouton Scanner
+
+Si votre scanner ne s'affiche pas immédiatement, entrez none dans le set-up, le device du scanner doit être maintenant affiché en texte violet, par exemple:
+
+<file>/dev/bus/usb/004/002</file>
+
+=== Vérifier les permissions ===
+
+Votre scanner doit faire partie dux groupe scanner avec les permissions 666
+
+<code>$ crw-rw-rw-    1 root     scanner  189, 385 Jun 22 19:44 /dev/bus/usb/0 </code>
+
+Répondre y pour démarrer le scanner
+
+Un avertissement apparaît à propos de l'exécution du scanner en tant que root
+
+Cliquez sur le bouton continuer à vos risques et périls
+
+Accepter la license
+
+Xsane devrait s'ouvrir et fonctionner !
+
+l'utilisateur //tux// est automatiquement ajouté au groupe scanner, de sorte que tux peut scanner, mais vous ne pourrez pas scanner avec un autre utilisateur tant que vous ne l'aurez pas ajouté au groupe scanner. Faites-le avec la commande suivante (en tant que //root//)_:
+
+<code># addgroup //username// scanner</code>
+
+===== Liens =====
+
+    * http://www.openprinting.org/printers
+
+===== Imprimer avec Abiword =====
 
 Pour que  Abiword puisse utiliser notre imprimante, on fait l'ultime commande suivante:
 
-<code>lpoptions -d le_nom_de_ma_super_imprimante
-</code>
+<code>lpoptions -d le_nom_de_ma_super_imprimante</code>
 
-On redémarre ensuite et normalement c'est bon.  
+On redémarre ensuite et normalement c'est bon.
 
-**Franciser le choix du format de papier par défaut dans abiword :**
+**Franciser le choix du format de papier par défaut dans abiword :**
 
-Aller en root dans :
+Aller en root dans :
 /usr/share/abiword-2.6/templates
-et faire une copie de normal.awt en normalold.awt (au cas ou !!)
+et faire une copie de normal.awt en normalold.awt (au cas ou !!)
 
 <code># cp normal.awt normalold.awt</code>
 
@@ -136,3 +391,18 @@ ensuite
 
 <code># cp normal.awt-fr_FR normal.awt</code>
 
+===== TODO =====
+
+    * Imprimante parallèle
+---- 
+\\
+^   Section Révision de la page  ^^ 
+|Qualité| Bonne  |
+|Revue|  |
+|Priorité|  |
+|Problèmes| |
+|Comment améliorer|  |
+
+
+\\
+----

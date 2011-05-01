@@ -3,11 +3,10 @@
 
 ===== Généralités =====
 
-  * [[livecd|Utiliser le LiveCD]] - Comment démarrer ? Conserver ses données en utilisant un media externe (clé USB). Login, des mots de passes et session graphique (X).
+  * [[livecd|Utiliser le LiveCD]] - Comment démarrer, définir les options à l'invite de commande, conserver ses données en utilisant un media externe (clé USB).
   * [[desktop|Bureau]] - Configurer le bureau et le gestionnaire de fenêtres Openbox.
   * [[commands|Références en ligne de commandes]] - Utiliser SliTaz en ligne de commandes via un terminal Linux ou graphique.
   * [[installation|Instructions d'installation]] - Description des étapes à réaliser manuellement pour installer Slitaz sur un disque dur.
-  * [[netstart|Démarrer depuis le net]] - Démarrer Slitaz avec une image téléchargée depuis internet et installation.
   * [[accessibility|Accessibilité]] - Utiliser les outils d'accessibilité.
 
 

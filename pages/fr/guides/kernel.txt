@@ -3,7 +3,7 @@
 ===== Préparez votre système =====
 
 
-    * Installation du meta-paquet slitaz-toolchain. Ce paquet contient les fichiers de base requis.
+    * Installez le meta-paquet slitaz-toolchain. Ce paquet contient les fichiers de base requis.
         * binutils
         * linux-headers
         * glibc-dev
@@ -14,7 +14,7 @@
 # tazpkg get-install slitaz-toolchain
 </code>
 
-    * Installation des paquets requis pour configurer et compiler les sources du kernel.
+    * Installez les paquets requis pour configurer et compiler les sources du kernel.
         * ncurses-dev
         * perl
 
@@ -42,13 +42,15 @@ Les sources du kernel Linux sont maintenant prêtes à être configurées et com
 <code>
 # cd /usr/src/linux
 </code>
-    * Préparation de la construction :
+
+    * Préparation de la construction à partir de la configuration par défaut :
+
 <code>
 # make oldconfig && make prepare
 </code>
 
-     * Modifier la configuration du kernel à vos besoins et compilez.
-
+     * Modifiez la configuration du kernel à vos besoins et compilez.
+     * Le //menuconfig// vous permet de personnaliser le noyau, qui est construit dans le fichier //bzImage//. Tous les //modules// sont construits, puis //installés// dans le répertoire ///usr/include//. Vous devez ensuite copier le noyau lui-même dans le répertoire  ///boot//.
 <code>
 # make menuconfig
 # make bzImage
@@ -64,11 +66,23 @@ Les sources du kernel Linux sont maintenant prêtes à être configurées et com
 </code>
 
     * Et ajoutez :
-<code>
+<file>
 # Mon kernel:
 title 	SliTaz GNU/Linux (cooking) (Kernel <VERSION>)
 		root (hd0,1)
 		kernel /boot/bzImage root=/dev/sda2
-</code>
+</file>
 
-A adapter à vos besoins, bien évidemment.
+À adapter à vos besoins, bien évidemment.
+---- 
+\\
+^   Section Révision de la page  ^^ 
+|Qualité| Bonne  |
+|Revue|  |
+|Priorité|  |
+|Problèmes| |
+|Comment améliorer|  |
+
+
+\\
+----

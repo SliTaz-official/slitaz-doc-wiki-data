@@ -3,16 +3,16 @@
 ===== Introduction =====
 
 Au démarrage du système SliTaz exécute le fichier ///etc/init.d/network.sh // pour initialiser le réseau.
-Ce script configure le nom d'ôte, l'interface de boclage (loopback) et la connexion Internet.
+Ce script configure le nom d'hôte, l'interface réseau virtuelle (loopback) et la connexion Internet.
 
 Il est également possible de lancer ce script pendant l'éxecution du système pour ouvrir ou fermer les connexions  réseaux.
-Par exemple **netbox** et les scripts get-wifi-firmware (get-ipw2100-firmware, get-b43-firmware...) l'utilise.
+Par exemple **netbox** et les scripts **get-wifi-firmware** (get-ipw2100-firmware, get-b43-firmware...) l'utilisent ainsi.
 
 
 ===== Utilisation =====
 
 Par défaut le script ///etc/init.d/network.sh// utilise ///etc/network.conf// comme fichier de configuration.
-Les informations contenu dans ce fichier, sont utilisées comme valeurs initiales pour la connexion réseau.
+Les informations contenues dans ce fichier sont utilisées comme valeurs initiales lors de la connexion réseau.
 
 Pour démarrer la connexion réseau entrez:
 
@@ -20,7 +20,7 @@ Pour démarrer la connexion réseau entrez:
 # /etc/init.d/network.sh start
 </code>
 
-The start arg should be used only at boot. Pour arrêter la connexion:
+L'argument start doit être utilisé uniquement au démarrage. Pour arrêter la connexion:
 
 <code>
 # /etc/init.d/network.sh stop
@@ -33,15 +33,15 @@ Pour arrêter et redémarrer:
 </code>
 
 Mais le plus intéressant est que  ///etc/init.d/network.sh// peut utiliser plusieurs fichiers de configuration.
-C'est très pratique si vous utilisez un PC portable avec plusieurs connections.
+C'est très pratique si vous utilisez un PC portable, vous pouvez utiliser plusieurs configurations pour des connexions dans différents points d'accès.
 
-For example, we can create a directory /etc/network, containing some config files, named:
+Par exemple, nous pouvons créer un répertoire /etc/network, contenant des fichiers de configuration, appelés :
 
-    * Home, for home, using an ethernet connection and a static ip.
-    * Desktop, for the desktop, with a wep encryption, and a static ip.
-    * Univ, wifi without encryption, and with dhcp.
+    * Maison, pour la maison, en utilisant une connexion ethernet et une adresse IP statique.
+    * Bureau, pour le bureau, avec un cryptage WEP, et une adresse IP statique.
+    * Univ, wifi sans chiffrage, et avec le DHCP.
 
-Now to get connected at Home, later at a Desktop and finally at Univ, before stopping connection, we only have to:
+À partir de là, pour se connecter à la maison, plus tard dans au bureau et enfin à l'Université, avant d'arrêter la connexion, il suffit de faire :
 
 <code>
 # /etc/init.d/network.sh restart /etc/network/Home
@@ -52,48 +52,48 @@ Now to get connected at Home, later at a Desktop and finally at Univ, before sto
 
 ===== Sudo =====
 
-Since /etc/init.d/network.sh/ can only be used by root, if you want a normal user to use it, you should install sudo:
+Vu que /etc/init.d/network.sh/ ne peut être utilisé que par root, si vous voulez qu'un utilisateur normal puisse l'employer, vous devez installer sudo :
 
 <code>
 # tazpkg get-install sudo
 </code>
 
-And then configure it:
+Et le configurer:
 
 <code>
 # visudo
 </code>
 
-For user tux, which must use network.sh from every host; without a password you should add:
+Pour l'utilisateur tux, qui doit utiliser network.sh sur tout hôte, sans mot de passe, vous devez ajouter :
 
-<code bash>
+<file>
 tux  ALL=NOPASSWD: /etc/init.d/network.sh,
-</code>
+</file>
 
-For user tortux, which may only get connected from localhost, and which should use a password each time, you should add:
+Pour l'utilisateur tortux, qui ne peut se connecter seulement que depuis localhost, et qui doit utiliser un mot de passe à chaque fois, vous devez ajouter :
 
-<code bash>
-tortux my_hostname=PASSWD: /etc/init.d/network.sh,
-</code>
+<file>
+tortux mon_hote=PASSWD: /etc/init.d/network.sh,
+</file>
 
-If you forgot your hostname, just run:
+Si vous avez oublié votre nom d'hôte, il suffit d'exécuter :
 
 <code>
 $ cat /etc/hostname
 </code>
 
-Here is some help to use visudo:
+Voici de l'aide pour utiliser visudo :
 
-    * i insertion mode (to write).
-    * Escape exit insertion mode.
-    * :wq record and quit.
-    * :q! quit without recording.
+    * i mode d'insertion (pour écrire).
+    * Escape Sortir du mode d'insertion.
+    * :wq enregistrer et quitter.
+    * :q! quitter sans enregistrer.
 
-===== With Openbox =====
+===== Avec Openbox =====
 
-All this is not that really user friendly...
+Tout cela n'est pas vraiment convivial...
 
-That's why I'll give you a perfect treat: A way to integrate all this in an openbox menu! Create a script /usr/lib/openbox/network-menu.sh, and add this to it:
+C'est pourquoi je vais vous donner un bon remède: Un moyen d'intégrer tout ceci dans un menu openbox! Créez un script **/usr/lib/openbox/network-menu.sh** en insérant ceci :
 
 <code bash>
 #!/bin/sh
@@ -127,23 +127,35 @@ echo ''
 echo ''
 </code>
 
-Make it executable:
+Le rendre executable:
 
 <code sh>
 # chmod +x /usr/lib/openbox/network-menu.sh
 </code>
 
-And now you only have to add these lines in //~/.config/openbox/menu.xml//:
+Et maintenant, vous n'avez qu'à ajouter ces lignes dans //~/.config/openbox/menu.xml//:
 
 <code bash>
  menu id="network-menu" label="Network" 
 	execute="/usr/lib/openbox/network-menu.sh" />
 </code>
 
-Then reconfigure openbox:
+Puis reconfigurer openbox:
  
 <code>
 $ openbox --reconfigure
 </code>
 
-Enjoy!
+et déguster!
+---- 
+\\
+^   Section Révision de la page  ^^ 
+|Qualité| Bonne  |
+|Revue|  |
+|Priorité|  |
+|Problèmes| |
+|Comment améliorer|  |
+
+
+\\
+----

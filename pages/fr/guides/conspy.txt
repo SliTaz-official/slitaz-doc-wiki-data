@@ -1,0 +1,132 @@
+====== Conspy : un screen ou VNC minimaliste ======
+
+SliTaz core fournit conspy (10Kb), qui permet de prendre le contrôle à distance de consoles virtuelles sous Linux. Voir http://ace-host.stuart.id.au/russell/files/conspy/
+
+SliTaz ouvre 6 consoles virtuelles auxquelles vous pouvez accéder par Ctrl-Alt-F1 à Ctrl-Alt-F6. Vous pouvez vous connecter à la console n°1 avec //conspy 1// et la console n avec //conspy n// ou à la console courante avec //conspy// (root seulement).
+
+Pour sortir de conspy (et de la console virtuelle), appuyez sur la touche d'échappement trois fois en successions rapides.
+
+===== Conspy à la place de screen (en mode gestionnaire de session) =====
+
+Linux prend en charge jusqu'à 63 consoles virtuelles. Vous pouvez avoir jusqu'à 62 (63 - X11 sur la console n°7) sessions. Six sessions sont déjà ouvertes par SliTaz. 
+Vous pouvez ouvrir une nouvelle console / une nouvelle session (par exemple la console 28) avec //openvt -c 28 /bin/login// ou //openvt -c 28 /bin/ash//.
+Vous pouvez libérer cette console virtuelle avec //deallocvt 28//.
+
+Exemple :
+<code>
+home$ ssh tux@slitazbox
+box$ su
+box# openvt -c 28 /bin/ash
+box# conspy 28
+# some commands
+...
+# <ESC><ESC><ESC>
+box# exit
+box$ exit
+</code>
+<note tip>
+Avec un busybox récent (voir ci-dessous) vous pouvez ignorer l'étape openvt : 
+<code>
+home$ ssh tux@slitazbox
+box$ su
+box# conspy -cs 28
+# some commands
+...
+# <ESC><ESC><ESC>
+box# exit
+box$ exit
+</code>
+</note>
+Ultérieurement :
+<code>
+home$ ssh tux@slitazbox
+box$ su
+box# conspy 28
+# more commands
+...
+# <ESC><ESC><ESC> 
+box# exit
+box$ exit
+</code>
+Pour terminer la session :
+<code>
+home$ ssh tux@slitazbox
+box$ su
+box# conspy 28
+# exit
+<ESC><ESC><ESC>
+box# deallocvt 28
+box# exit
+box$ exit
+</code>
+<note tip>
+Avec un busybox récent (voir ci-dessous) vous pouvez ignorer l'étape deallocvt :
+<code>
+home$ ssh tux@slitazbox
+box$ su
+box# conspy 28
+# clear; exit
+<ESC><ESC><ESC>
+box# exit
+box$ exit
+</code>
+</note>
+Si vous préférez utiliser screen, voir http://www.gnu.org/software/screen :
+<code>
+# tazpkg get-install screen
+$ screen -S MySession
+</code>
+
+===== Conspy à la place de VNC (en mode console partagée) =====
+
+Vous pouvez partager une console virtuelle entre deux ou plusieurs utilisateurs.
+Disons que GourouLointain veut montrer certaines commandes à SlitazBleu à l'aide de SlitazBox.
+GourouLointain sélectionne la console de SlitazBleu avec //chvt// :
+<code>
+home$ ssh SlitazBox
+SlitazBox$ su
+SlitazBox# chvt 1
+SlitazBox# conspy 1
+</code>
+Maintenant les deux utilisateurs voient le même terminal. Un troisième utilisateur peut faire aussi //conspy 1//.
+
+Si vous préférez partager l'affichage X11, installez x11vnc (serveur VNC) et x11vnc-extra (java client VNC) voir http://www.karlrunge.com/x11vnc/:
+<code>
+SlitazBox# tazpkg get-install x11vnc
+SlitazBox# tazpkg get-install x11vnc-extra
+SlitazBox# /etc/init.d/x11vnc start
+</code>
+<code>
+home$ su
+home# get-java-jre
+home# exit
+home$ firefox http://SlitazBox:5800/ultrasigned.vnc
+</code>
+
+===== Conspy et les connections lentes =====
+
+Après son lancement, la sortie d'une commande très bavarde dans conspy est affichée à pleine vitesse dans la console virtuelle quelque soit la vitesse de connexion à la machine éloignée (même si votre connexion s'interrompt).
+
+===== Conspy et Busybox =====
+
+Conspy est une applet busybox depuis busybox 1.17.0. Il ajoute 2,5 kb à busybox, offre un meilleur support du terminal et supporte de nouvelles options :
+  * -c pour créer des périphériques absents (/dev/vcsaXX and /dev/ttyXX)
+  * -d pour une capture d'écran <code># conspy -nd 28 > screen28.txt</code>
+  * -s pour lancer un shell <code># conspy -cs 28</code> (plus de openvt/deallocvt)
+  * -x COL -y LIGNE : position du coin supérieure gauche
+  * -f pour suivre le curseur avec défilements automatiques
+
+L'applet conspy est activée dans le paquet busybox. Le paquet conspy n'est donc plus plus aussi utile vu le busybox récent et sera enlevé de la base de données de paquets.
+
+\\
+---- 
+\\
+^   Section Révision de la page  ^^ 
+|Qualité| Bonne  |
+|Revue|  |
+|Priorité| |
+|Problèmes| |
+|Comment améliorer| |
+
+\\
+----

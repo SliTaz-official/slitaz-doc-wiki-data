@@ -5,11 +5,12 @@
 Téléchargez > Gravez > Bootez sur SliTaz. Ouvrez un terminal > tapez (changez ///dev/sda// si c'est nécessaire):
 
 <code>
-su
-root
-tazusb format 
-> entrez un nom comme /dev/sda1 ou tapez 'list'.
-tazusb gen-liveusb /dev/sda1
+$ su root
+# tazusb format 
+</code>
+Entrez un nom comme /dev/sda1 ou tapez 'list'.
+<code>
+# tazusb gen-liveusb /dev/sda1
 </code>
 
 Attendez…. et redémarrez!
@@ -25,3 +26,15 @@ Vous pouvez choisir :
 Pour créer un Live USB, sélectionnez “USB Drive” dans le type d'installation.
 
 Vous pouvez aussi choisir de faire une installation Frugal : sélectionnez “Hard Disk” dans le type d'installation.
+
+\\
+^   Section Révision de la page  ^^ 
+|Qualité| Bonne  |
+|Revue|  |
+|Priorité|  |
+|Problèmes| |
+|Comment améliorer|  |
+
+
+\\
+----

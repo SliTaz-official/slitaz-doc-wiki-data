@@ -1,33 +1,34 @@
 ====== Virtual Private Network (Réseau Privé Virtuel) =======
 
-Un VPN relie des réseaux isolés avec des tunnels sur le réseau Internet. Un tunnel crypte et encapsule des trames réseau.
+Un VPN relie des réseaux isolés par des tunnels sur le réseau Internet. Un tunnel crypte et encapsule les trames réseau.
 
-    * Les frames sont cachées (données et en-tête, y compris les informations de routage)
-    * Encapsulation des données à transmettre de façon chiffrée
+    * Les trames sont cachées (données et en-tête, y compris les informations de routage)
+    * Encapsulation et chiffrage des données à transmettre
     * Seul le volume du trafic est visible. Mais vous pouvez envoyer de fausses trames.
 
 ===== Tunnel utilisant SSH et PPP =====
 
-SliTaz peut construire des tunnels sans paquets supplémentaires avec le menu system/NETBOX.
-Vous avez besoin d'un serveur distant.
+SliTaz peut construire des tunnels sans paquets supplémentaires, avec le menu system/NETBOX.
+Vous avez besoin :
 
+    * Un serveur distant.
     * Un compte d'utilisateur
     * Un accès ssh
     * Les droits de lancer pppd (droits de groupe ou setuid bit)
-    * Un serveur distant sachant comment les frames sont acheminées vers le tunnel 
+    * Un site distant sachant comment router les trames vers le tunnel (raccordé au routeur par défaut ou utilise des protocoles de routage comme rip, ospf, …)
 
 ===== Configuration du tunnel =====
 
     * Lancez netbox via le menu system/netbox
     * Sélectionnez l'onglet VPN
-    * Remplissez les Peer et mettez à jour les routes. 
+    * Remplissez les Peer et mettez à jour les champs Routes. Les routes sont les réseaux locaux (LAN) du site que vous voulez atteindre. Vous avez seulement besoin de mettre à jour les adresses IP locale et distante lorsque vous créez plusieurs tunnels. Ce sont les adresses IP des extrémités du tunnel. 
     * Cliquez sur "Send Key" et entrez le mot de passe
     * Cliquez sur "Connect"
 
 ===== Limitations =====
 
-    * Ce tunnel ne devrait pas être utilisé pour le trafic en temps réel comme la VoIP. 
-    * Vous seul pouvez voir le réseau distant. Les autres stations sur le réseau local ne le peuvent pas.
+    * Ce tunnel ne devrait pas être utilisé pour du trafic en temps réel comme la VoIP. Le tunnel essaye d'éviter la perte de données au lieu de respecter la synchronisation. La VoIP devrait utiliser des tunnels basés sur UDP.
+    * Le système SliTaz seul peut voir le réseau distant. Les autres stations sur le réseau local ne le peuvent pas, à moins d'ajouter vos routes LAN aux autres stations (en supposant que Slitaz est le routeur par défaut ou fait fonctionner un protocole de routage) 
 
 ===== OpenSSH =====
 
@@ -35,7 +36,7 @@ Le paquet //openssh// est disponible sur le miroir et fournit des tunnels TCP de
 
 <code> # yes y | tazpkg get-install openssh </code>
 
-[[http://www.openbsd.org/cgi-bin/man.cgi?query=ssh&sektion=1#SSH-BASED+VIR|Documentation]]
+Voir la [[http://www.openbsd.org/cgi-bin/man.cgi?query=ssh&sektion=1#SSH-BASED+VIR|Documentation BSD]].
 
 ===== OpenVPN =====
 
@@ -43,7 +44,7 @@ Le paquet //openvpn// est disponible sur le miroir.
 
 <code> # yes y | tazpkg get-install openvpn </code>
 
-[[http://openvpn.net/|Documentation]]
+Voir la [[http://openvpn.net/|Documentation]].
 
 ===== Cisco EasyVPN =====
 
@@ -51,9 +52,21 @@ Le paquet //vpnc// est disponible sur le miroir.
 
 <code> # yes y | tazpkg get-install vpnc <code>
 
-[[http://www.unix-ag.uni-kl.de/~massar/vpnc/|Documentation]]
+Voir la [[http://www.unix-ag.uni-kl.de/~massar/vpnc/|Documentation]].
 
 ===== Autres VPN =====
 
 L'outil de recherche des paquets montre tous les paquets VPN supportés par SliTaz :
 http://pkgs.slitaz.org/search.cgi?tags=vpn
+---- 
+\\
+^   Section Révision de la page  ^^ 
+|Qualité| Bonne  |
+|Revue|  |
+|Priorité|  |
+|Problèmes| |
+|Comment améliorer|  |
+
+
+\\
+----

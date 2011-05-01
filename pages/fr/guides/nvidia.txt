@@ -2,12 +2,12 @@
 
 ===== Lecture obligatoire =====
 
-    * Handbook - [[http://www.slitaz.org/fr/doc/handbook/x-window.html#xorg|Installation de Xorg]]
-    * Guide rapide - [[fr:guides:kernel|Créer votre propre kernel Linux personnalisé]]
+    * Handbook - [[http://http://doc.slitaz.org/fr:handbook:xwindow#xorg|Installation de Xorg]]
+    * Guide rapide - [[fr:guides:kernel|Créer votre propre noyau Linux personnalisé]]
 
 ===== Préparation =====
 
-    * Téléchargez l'installateur depuis le [[http://www.nvidia.com/object/unix.html|site de Nvidia]]. 
+    * Téléchargez l'installateur depuis le [[http://www.nvidia.com/object/unix.html|site de Nvidia]]. Dernière version 190.53
     * Installez le serveur Xorg
 
 <code>
@@ -22,7 +22,7 @@
 
 
 ===== Installation du driver =====
-Pour cette partie vous allez travailler en mode texte sans serveur X.
+Pour cette partie vous aurez besoin d'un crayon et de papier, vous allez travailler en mode texte sans serveur X.
 
 Lorsque vous êtes prêt appuyez sur alt-ctrl-del, vous devriez maintenant voir une ligne de commande: 
 
@@ -33,7 +33,7 @@ Lorsque vous êtes prêt appuyez sur alt-ctrl-del, vous devriez maintenant voir 
 # cp /root/xorg.conf.new /etc/X11/xorg.conf
 </code>
 
-    * Préparez the Kernel
+    * Préparez le noyau
 <code>
 # cd /usr/src/linux
 
@@ -45,14 +45,14 @@ Lorsque vous êtes prêt appuyez sur alt-ctrl-del, vous devriez maintenant voir 
 # make modules_install
 </code>
 
-    * A présent rendez exécutable et installer le driver Nvidia
+    * À présent rendez exécutable et installez le driver Nvidia
 
 <code>
- # chmod +x NVIDIA-Linux-x86-177.80.pkg1.run
- # ./NVIDIA-Linux-x86-177.80.pkg1.run --kernel-source-path=/usr/src/linux
+ # chmod +x NVIDIA-Linux-x86-190.53.pkg1.run
+ # ./NVIDIA-Linux-x86-190.53.pkg1.run --kernel-source-path=/usr/src/linux
 </code>
 
-    * Copiez l'image du kernel vers /boot
+    * Copiez l'image du noyau vers /boot
 
 <code>
 # cd /usr/src/linux
@@ -68,7 +68,7 @@ Lorsque vous êtes prêt appuyez sur alt-ctrl-del, vous devriez maintenant voir 
 # tazusb writefs gzip && reboot - USB users
 </code>
 
-N'oubliez pas d'utiliser l'option screen=text au démarrage.
+N'oubliez pas d'utiliser l'option screen=text au démarrage. (de toute façon, il peut aussi démarrer en mode texte, si ce n'est pas le cas, simplement appuyer sur ctrl-alt-del à nouveau)
 
     * Charger le module Nvidia
 
@@ -76,7 +76,7 @@ N'oubliez pas d'utiliser l'option screen=text au démarrage.
 # modprobe -v nvidia 
 </code>
 
-    * Editer la configuration du fichier Slim à charger pour le serveur Xorg
+    * Éditer le fichier de configuration de Slim pour charger le serveur Xorg
 
 <code>
 # vi /etc/slim.conf
@@ -94,4 +94,16 @@ default_xserver     /usr/bin/Xorg
 
 Euh… c'est tout !
 
-(Si vous voulez que le module Nvidia sois lancé au démarrage, il suffit de l'ajouter à la variable LOAD_MODULES dans /etc/rcS.conf)
+(Si vous voulez que le module Nvidia soit lancé au démarrage, il suffit de l'ajouter à la variable LOAD_MODULES dans /etc/rcS.conf)
+---- 
+\\
+^   Section Révision de la page  ^^ 
+|Qualité| Bonne  |
+|Revue|  |
+|Priorité|  |
+|Problèmes| Revoir le passage en ligne de commande lors de l'installation du driver |
+|Comment améliorer|  |
+
+
+\\
+----

@@ -1,0 +1,172 @@
+====== Bibliothèques GTK+ ======
+
+Compilation et installation des bibliothèques GTK+ et compagnie.
+
+===== À propos =====
+
+Ce chapitre décrit l'installation et la configuration sur SliTaz des bibliothèques GTK permettant d'installer des milliers de logiciels. À noter que vous pouvez simplement compiler et créer un paquet SliTaz que vous installez ensuite à la demande avec tazpkg.
+
+La compilation de GTK demande pas mal de temps, et il faut satisfaire beaucoup de dépendances. Vous trouverez (en anglais) le guide de compilation de GTK: [[http://developer.gnome.org/gtk/2.22/gtk-building.html|gtk-building sur developer.gnome.org]]. Ce document précise qu'il faut compiler dans l'ordre: GLib, Pango, ATK, puis GTK+. Avant de commencer il faut vérifier que les dépendances soient bien installées sur votre système hôte. Les paquets GLib, Pango, ATK, et GTK+ vont ensemble, et sont distribués par l'équipe des développeurs GTK. Nous ne les décrivons pas, seulement les commandes à lancer.
+
+==== Variable d'environnement ($fs) ====
+
+Pour ne pas spécifier tout le chemin vers le répertoire rootfs, export de la variable d'environnement:
+
+   # export fs=$PWD/rootfs
+
+Pour vérifier:
+
+   # echo $fs
+
+===== cairo-1.2.6 - 2D graphics library =====
+
+Nous commençons par libcairo ([[http://www.cairographics.org/|http://www.cairographics.org/]]) utilisé pour compiler pango:
+
+   # cd src
+   # wget http://cairographics.org/releases/cairo-1.2.6.tar.gz
+   # tar xzf cairo-1.2.6.tar.gz
+   # cd cairo-1.2.6
+   # ./configure --prefix=/usr --mandir=/usr/share/man \\
+     --with-html-dir=/usr/share/doc
+   # make
+   # make DESTDIR=$PWD/_pkg install
+   # strip -v _pkg/usr/lib/*.so*
+
+==== Installation dans rootfs ====
+
+   # cp -av _pkg/usr/lib/*.so* $fs/usr/lib
+
+===== glib-2.12.4 - C routines =====
+
+   # cd ..
+   # wget ftp://ftp.gtk.org/pub/glib/2.12/glib-2.12.4.tar.bz2
+   # tar xjf glib-2.12.4.tar.bz2
+   # cd glib-2.12.4
+   # ./configure --prefix=/usr --sysconfdir=/etc \\
+     --mandir=/usr/share/man --with-html-dir=/usr/share/doc
+   # make
+   # make DESTDIR=$PWD/_pkg install
+   # strip -v _pkg/usr/bin/*
+   # strip -v _pkg/usr/lib/*.so*
+
+==== Installation dans rootfs ====
+
+Option, les utilitaires glib-genmarshal et gobject-query ont besoin de /lib/tls/librt.so.1:
+
+   # cp -a _pkg/usr/lib/*.so* $fs/usr/lib
+   # cp -a _pkg/usr/share/locale/fr $fs/usr/share/locale
+
+Les binaires en option:
+
+   # cp -a _pkg/usr/bin/* $fs/usr/bin
+
+===== pango-1.14.8 - Library for layout and rendering of text =====
+
+   # cd ..
+   # wget ftp://ftp.gtk.org/pub/pango/1.14/pango-1.14.8.tar.bz2
+   # tar xjf pango-1.14.8.tar.bz2
+   # cd pango-1.14.8
+   # ./configure --prefix=/usr --sysconfdir=/etc \\
+     --mandir=/usr/share/man --with-html-dir=/usr/share/doc
+   # make
+   # make DESTDIR=$PWD/_pkg install
+   # strip -v _pkg/usr/bin/*
+   # strip -v _pkg/usr/lib/*.so*
+   # strip -v _pkg/usr/lib/pango/1.5.0/modules/*
+
+==== Installation dans rootfs ====
+
+   # cp -a _pkg/usr/bin/* $fs/usr/bin
+   # cp -a _pkg/usr/lib/*.so* $fs/usr/lib
+   # cp -a _pkg/usr/lib/pango $fs/usr/lib
+   # rm -rf $fs/usr/lib/pango/1.5.0/modules/*.la
+   # cp -a _pkg/etc $fs
+
+Création du fichier /etc/pango/pango.modules via un chroot dans le rootfs (pango-querymodules utilise librt.so.1):
+
+   # chroot $fs /bin/ash
+   /# pango-querymodules > /etc/pango/pango.modules
+   # exit
+
+===== atk-1.12.4 - Accessibility toolkit =====
+
+   # cd ..
+   # wget http://ftp.gnome.org/pub/gnome/sources/atk/1.12/atk-1.12.4.tar.bz2
+   # tar xjf atk-1.12.4.tar.bz2
+   # cd atk-1.12.4
+   # ./configure --prefix=/usr --mandir=/usr/share/man \\
+     --with-html-dir=/usr/share/doc
+   # make
+   # make DESTDIR=$PWD/_pkg install
+   # strip -v _pkg/usr/lib/*.so*
+
+==== Installation dans rootfs ====
+
+   # cp -a _pkg/usr/lib/*.so* $fs/usr/lib
+   # cp -a _pkg/usr/share/locale/fr $fs/usr/share/locale
+
+===== gtk+-2.8.20 - The GIMP Toolkit =====
+
+   # cd ..
+   # wget ftp://ftp.gtk.org/pub/gtk/v2.8/gtk+-2.8.20.tar.bz2
+   # tar xjf gtk+-2.8.20.tar.bz2
+   # cd gtk+-2.8.20
+   # ./configure --prefix=/usr --sysconfdir=/etc \\
+     --mandir=/usr/share/man --with-html-dir=/usr/share/doc
+   # make
+   # make DESTDIR=$PWD/_pkg install
+   # strip -v _pkg/usr/bin/*
+   # strip -v _pkg/usr/lib/*.so*
+   # strip -v --strip-unneeded \\
+     _pkg/usr/lib/gtk-2.0/2.4.0/*/*
+
+==== Installation dans rootfs ====
+
+   # cp -a _pkg/usr/lib/*.so* $fs/usr/lib
+   # mkdir $fs/usr/lib/gtk-2.0
+   # cp -a _pkg/usr/lib/gtk-2.0/2.4.0 $fs/usr/lib/gtk-2.0
+   # rm -rf $fs/usr/lib/gtk-2.0/2.4.0/*/*.la
+
+Locale et thèmes:
+
+   # cp -a _pkg/usr/share/locale/fr $fs/usr/share/locale
+   # cp -a _pkg/usr/share/themes $fs/usr/share
+
+Les applications:
+
+   # cp  _pkg/usr/bin/gtk-query-immodules-2.0 $fs/usr/bin
+   # cp  _pkg/usr/bin/gtk-update-icon-cache $fs/usr/bin
+   # cp  _pkg/usr/bin/gdk-pixbuf-csource $fs/usr/bin
+   # cp  _pkg/usr/bin/gdk-pixbuf-query-loaders $fs/usr/bin
+   ...
+
+Pour l'application gtk-demo:
+
+   # cp -a _pkg/usr/bin/gtk-demo $fs/usr/bin
+   # cp -a _pkg/usr/share/gtk-2.0 $fs/usr/share
+
+Création des fichiers /etc/gtk-2.0/gtk.immodules et gdk-pixbuf.loaders via un chroot dans le rootfs:
+
+   # chroot $fs /bin/ash
+   /# mkdir /etc/gtk-2.0
+   /# gtk-query-immodules-2.0 > /etc/gtk-2.0/gtk.immodules
+   /# gdk-pixbuf-query-loaders > /etc/gtk-2.0/gdk-pixbuf.loaders
+   # exit
+
+À ce stade vous pouvez tester GTK+ avec l'application 'gtk-demo' en créant une ISO, et en utilisant 'qemu'. Vous pouvez aussi compiler une petite application GTK+ tel que LeafPad, et tester! La compilation et l'installation des application GTK+ distribuées par défaut avec SliTaz, est décrite dans le chapitre [[gtk-apps|gtk-apps]].
+
+===== Génération de l'initramfs, et d'une image ISO =====
+
+Pour créer une nouvelle image ISO vous pouvez utiliser 'mktaziso' contenu dans [[http://doc.slitaz.org/fr:cookbook:slitaztools|SliTaz tools]]. Vous pouvez aussi créer un nouvelle image initramfs, et la copier dans /boot de la racine de cdrom (rootcd), et pour finir créer un image ISO avec genisoimage:
+
+   # cd $fs
+   # find . -print | cpio -o -H newc | gzip -9 > ../rootfs.gz
+   # cd ..
+   # cp rootfs.gz rootcd/boot
+   # genisoimage -R -o slitaz-cooking.iso -b boot/isolinux/isolinux.bin \\
+     -c boot/isolinux/boot.cat -no-emul-boot -boot-load-size 4 \\
+     -V "SliTaz" -boot-info-table rootcd 
+
+==== Suite ====
+
+Après les bibliothèques, [[gtk-apps|les applications GTK+]].
