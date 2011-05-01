@@ -47,4 +47,4 @@ At the end of the session, you can dismount the volume with umount:
 
 <code> # umount rootfs </code>
 
-Now we can proceed to the construction of the [[http://www.slitaz.org/en/doc/scratchbook/base-system.html|Base SliTaz system]]. 
+Now we can proceed to the construction of the [[base-system|Base SliTaz system]]. 

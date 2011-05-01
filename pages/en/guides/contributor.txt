@@ -14,17 +14,17 @@ Post a quick message to the forum or mailing list if you're unsure about anythin
 
 If you are comfortable with the Linux compiling process (//configure, make, make install//), you can help by creating SliTaz packages. We have an automated tool to build packages from source called [[http://doc.slitaz.org/en:cookbook:wok|Tazwok]]. All SliTaz packages contain a [[en:cookbook:receipt|receipt]] - a text file where you control the building process using some variables and functions. You can browse the [[http://hg.slitaz.org/wok|wok]] to see some receipts and understand how they work. Please take time to read the [[en:cookbook:devcorner|Developer's]] page beforehand and practice locally with some new or existing packages.
 
-When you feel ready to start cooking, read the [[http://labs.slitaz.org/wiki/13/Pkgscooklist|packages cooklist]], pick one and test. You can submit your receipts to the Mailing List or contact a SliTaz dev, so that we can review the work and give you access to the repos.
+When you feel ready to start cooking, read the [[http://labs.slitaz.org/projects/distro/wiki/Pkgscooklist|packages cooklist]], pick one and test. You can submit your receipts to the Mailing List or contact a SliTaz dev, so that we can review the work and give you access to the repos.
 
 === Package Testing and Debugging ===
 
-You can help SliTaz by testing packages and reporting bugs on the [[http://labs.slitaz.org/issues|Labs Issue Tracker]]. We have some [[http://labs.slitaz.org/wiki/packages|Package Testing Guidelines]]. You can use the testing project on the Labs, the forum or the mailing list to report any missing dependencies, unexpected package behavior, or wrong configurations, etc. 
+You can help SliTaz by testing packages and reporting bugs on the [[http://bugs.slitaz.org/|Bug Tracking System]]. We have some [[http://labs.slitaz.org/wiki/packages|Package Testing Guidelines]]. You can use the testing project on the Labs, the forum or the mailing list to report any missing dependencies, unexpected package behavior, or wrong configurations, etc. 
 
 \\
 
 ===== Writers & Translators =====
 
-Take a look at the [[:guidelines| SliTaz Documentation Guidelines]], pick your page and go! At this stage, we just need solid contributions which will then be reviewed and updated. We're undergoing a [[http://listengine.tuxfamily.org/lists.tuxfamily.org/slitaz/2010/04/msg00063.html|Summer of Documentation]], in which we're concentrating on all the docs. You'll be in good company.
+Take a look at the [[en:guidelines| SliTaz Documentation Guidelines]], pick your page and go! At this stage, we just need solid contributions which will then be reviewed and updated. We're undergoing a [[http://listengine.tuxfamily.org/lists.tuxfamily.org/slitaz/2010/04/msg00063.html|Summer of Documentation]], in which we're concentrating on all the docs. You'll be in good company.
 
 There's many areas in which you can help:
 

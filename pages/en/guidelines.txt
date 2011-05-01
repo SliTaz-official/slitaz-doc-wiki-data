@@ -6,7 +6,7 @@ This document provides guidelines on writing a wiki article and the tasks to be 
 
 ===== Summer of Documentation =====
     - Centralization of all documentation to http://doc.slitaz.org 
-    - Complete migration of Handbook and Cookbook (Scratchbook, if possible) 
+    - <del>Complete migration of Handbook and Cookbook (Scratchbook, if possible)</del> 
     - Translation of Handbook and Cookbook
     - Link or translate the wiki articles on the [[http://labs.slitaz.org|labs website]]
   - Review and update Handbook and Cookbook as of 3.0

@@ -2,7 +2,7 @@
 
 ===== Required Reading =====
 
-    * Handbook - [[http://www.slitaz.org/en/doc/handbook/x-window.html#xorg|Xorg Installation]]
+    * Handbook - [[http://doc.slitaz.org/en:handbook:xwindow#xorg|Xorg Installation]]
     * Quickstart Guide - [[en:guides:kernel|Build your own custom Linux Kernel]]
 
 ===== Prepare =====
@@ -14,7 +14,7 @@
 # tazpkg get-install xorg-server
 </code>
 
-    * Install the linux-source package and development tools. See [[http://community.slitaz.org/wiki/quickstart/customkernel|here]]
+    * Install the linux-source package and development tools. See [[en:guides:kernel|here]]
 
 <code>
 # tazpkg get-install linux-source
