@@ -73,18 +73,18 @@ Scratchbook
 Office
 
 
+Development
+
+System Tools
+
+
+
+System Administration
 
 
 
 
-
-
-
-
-
-
-
-
+Chroot environment
 
 
 
@@ -169,35 +169,35 @@ Handbook
 
 
 Références en ligne de commandes
-
-
-
-
-
-
+Instructions d'installation sur HD
+Les utilitaires
+Bureautique
+Internet
+Graphics
+Développement
 Midori Tips & Tweaks
-
-
-
-
-
-
-
+Multimedia
+Outils système
+Gestion des paquets
+Configuration du réseau
+Générer un LiveCD à saveur
+LiveUSB - SliTaz sur un média USB
+SliTaz et la sécurité du système
 
 
 
 
 Newsletter mensuelle - N°23
+Hacking SliTaz LiveCD
+Environnement chrooté
 
 
+Accessibilité
 
 
+Serveur web LightTPD
 
-
-
-
-
-
+Administration du système
 
 Virtualbox
 
@@ -495,3 +495,4 @@ Alsaequal
 Установка Tor без лишних слов
 Веб-сервер LightTPD
 Documentazione Italiano
+X Window System
