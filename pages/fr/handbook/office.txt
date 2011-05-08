@@ -2,13 +2,13 @@
 
 ===== Abiword - Traitement de texte =====
 
-Abiword est une application de traitement de texte très riche en fonctionnalités. C'est un outil léger, rapide, simple et intuitif, proposant sont propose format (.abw) supportant les formats OpenOffice et Microsoft Word et qui peut exporter en HTML ou PDF. Pour installer Abiword sur SliTaz il suffit de lancer : 
+Abiword est une application de traitement de texte très riche en fonctionnalités. C'est un outil léger, rapide, simple et intuitif, proposant son propre format (.abw), supportant les formats OpenOffice et Microsoft Word et qui peut exporter en HTML ou PDF. Pour installer Abiword sur SliTaz il suffit de lancer : 
 
 <code> # tazpkg get-install abiword </code>
 
 ===== Osmo - Organisateur personnel =====
 
-Osmo est un petit organisateur personnel fournissant un calendrier, une liste des tâches et des contact avec la possibilité d'ouvrir directement un navigateur Web ou un client de messagerie via un clic sur une URL ou une adresse email. Osmo propose aussi un calculateur de date et la possibilité de prendre des notes classées par jours. Osmo est installé par défaut sur la version standard du LiveCD avec une icône dans le calendrier et une entrée dans le la catégorie "Bureautique" du menu d'Openbox. A noter que si vous utilisez un media USB associé au LiveCD, vous retrouverez vos données à chaque utilisation. Si vous avez un système installé, vous pouvez synchroniser les données du média USB avec celles de votre système en utilisant par exemple Grsync. Osmo conserve vos données dans le répertoire caché : //~/.osmo//. 
+Osmo est un petit organisateur personnel fournissant un calendrier, une liste des tâches et des contacts avec la possibilité d'ouvrir directement un navigateur Web ou un client de messagerie via un clic sur une URL ou une adresse email. Osmo propose aussi un calculateur de date et la possibilité de prendre des notes classées par jours. Osmo est installé par défaut sur la version standard du LiveCD avec une icône dans le calendrier et une entrée dans la catégorie "Bureautique" du menu d'Openbox. Si vous utilisez un media USB associé au LiveCD, vous retrouverez vos données à chaque utilisation. Si vous avez un système installé sur disque dur, vous pouvez synchroniser les données du média USB avec celles de votre système en utilisant par exemple Grsync. Osmo conserve vos données dans le répertoire caché : //~/.osmo//. 
 
 ===== SQLite - Petit moteur de base de données SQL =====
 
@@ -16,7 +16,7 @@ SQLite est un petit moteur de base de données relationnelles SQL dont la base d
 
 ===== ePDFView - Visualiseur léger de PDF =====
 
-Pour lire des documents PDF, SliTaz propose le paquet //epdfview//, fournissant un visualiseur PDF léger, rapide et simple à prendre en main. ePDFView utilise les bibliothèque de rendu Poppler, propose une interface GTK+ intuitive vous permettant d'agrandir, de passer d'une page à l'autre, d'afficher l'index ou encore de faire une recherche.  
+Pour lire des documents PDF, SliTaz propose le paquet //epdfview//, fournissant un visualiseur PDF léger, rapide et simple à prendre en main. ePDFView utilise les bibliothèque de rendu Poppler, propose une interface GTK+ intuitive vous permettant d'agrandir la page, de passer d'une page à l'autre, d'afficher l'index ou encore de lancer une recherche.  
 
 ===== Gnumeric - Tableur =====
 
@@ -28,11 +28,24 @@ Gnumeric est un tableur simple, fiable, rapide, léger et complet. Il permet de 
 
 Homebank est un programme de comptabilité et gestion de compte en banque. Léger, rapide et complet, Homebank et un bon complément à Abiword et Gnumeric pour avoir une suite bureautique légère et facile à utiliser. Site web: http://homebank.free.fr. Pour installer Homebank vous pouvez utiliser le gestionnaire paquets graphique ou la commande: 
 
- <code># tazpkg get-install homebank</code>
+<code># tazpkg get-install homebank</code>
 
 ===== Notecase - Gestionnaire de notes =====
 
 Notecase est un logiciel destiné à structurer et gérer vos notes. Il permet de lier des pages entre elles, d'importer ou exporter les notes ou de formater le texte (gras, italique, etc). Pour installer Notecase vous pouvez utiliser le gestionnaire paquets graphique ou la commande: 
 
+<code># tazpkg get-install notecase</code>
 
- <code># tazpkg get-install notecase</code>
+===== Wikipedia - Encyclopédie en ligne =====
+
+Wikipedia est une encyclopédie libre en ligne où vous pouvez trouver quantité d'informations sur divers sujets. Pour ouvrir Wikipedia, choisissez //Bureautique -> Wikipedia Encyclopedia//. Site Web principal : http://wikipedia.org
+
+===== Zoho Viewer - Visionneuse en ligne de document =====
+
+Si vous avez besoin de modifier rapidement un document et que vous n'avez ni tableur, ni traitement de textes sous la main, vous pouvez utiliser Zoho Viewer et  télécharger rapidement votre fichier (jusqu'à 10 Mo). Au bout de quelques secondes, il sera disponible pour lecture et édition. Pour ouvrir Zoho, sélectionnez //Bureautique -> Zoho Document Viewer//.
+
+Il supporte actuellement la plupart des formats populaires :
+
+    * Microsoft Word (doc, docx), Excel (xls, xslx), PowerPoint (ppt, pptx)
+    * OpenOffice.org Writer (odt, sxw), Tableur (ods sxc), Présentation (opd, sxi)
+    * Également pdf (au stade expérimental), rtf, html, txt, et d'autres.

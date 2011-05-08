@@ -4,44 +4,44 @@
 
 Dans le monde GNU/Linux et open source en général, les logiciels sont appelés des paquets (//packages//). Les développeurs de ces paquets distribuent leur travail sous forme de fichiers contenant le code source, ces fichiers sont au format texte et peuvent se lire avec un simple éditeur de texte, le code est donc ouvert (//open source//).
 
-Pour que ce code source fonctionne sur un ordinateur, il faut qu'il soit compilé ou construit, afin de produire un ou des fichiers binaires que la machine sait utiliser. Les binaires sont des séquences de 0 et 1. Pour vous éviter de compiler le code source des applications, les distributions GNU/Linux ou BSD vous proposent un système de paquets pré-compilés et prêts à fonctionner. Ces paquets pré-compilés sont facilement installables via une seule commande ou quelques manipulations à la souris, plusieurs distributions ont créé leur propre format de paquets binaires telles que Debian, RedHat ou Gentoo. SliTaz fournit les outils minimaux pour manipuler des paquets Debian (.deb) et RedHat (.rmp), ces outils sont propulsés par Busybox et ne sont pas aussi puissant que les originaux.
+Pour que ce code source fonctionne sur un ordinateur, il faut qu'il soit compilé ou construit, afin de produire un ou des fichiers binaires que la machine sait utiliser. Les binaires sont des séquences de 0 et 1. Pour vous éviter de compiler le code source des applications, les distributions GNU/Linux ou BSD vous proposent un système de paquets pré-compilés et prêts à fonctionner. Ces paquets pré-compilés sont facilement installables via une seule commande ou quelques manipulations à la souris, plusieurs distributions ont créé leur propre format de paquets binaires telles que Debian, RedHat ou Gentoo. SliTaz fournit les outils minimaux pour manipuler des paquets Debian (.deb) et RedHat (.rmp), ces outils sont exécutés par Busybox et ne sont pas aussi puissants que les originaux.
 
 SliTaz a créé son propre format de paquet (.tazpkg), simple, rapide, utilisant un minimum de dépendances et surtout ultra léger. Le format des paquets est aussi spécifique à SliTaz. Le gestionnaire de paquets permet d'avoir le contrôle sur tous les fichiers installés et leur version, ce qui permet une maintenance plus simple et une mise à jour automatique des paquets. Si vous compilez vos propres paquets depuis les sources de manière traditionnelle, vous serez obligé de recompiler pour avoir une nouvelle version et vous devrez surveiller en amont l'apparition d'une nouvelle version. Cela dit, SliTaz offre la possibilité d'installer des paquets sources de manière semi-automatisée, via l'utilisation de Tazwok, notez que c'est plutôt destiné à un public averti et que les mises à jour ne sont pas fournies pour ce genre de paquets. 
 
 ===== Gestionnaire de paquet Tazpkg =====
 
-Ce chapitre décrit la gestion des paquets (.tazpkg) sur votre système. SliTaz fournit ''tazpkg'', c'est une petite application gérant les paquets SliTaz portant l'extension //.tazpkg//. Le gestionnaire de paquets vous permet de lister les paquets installés, d'afficher une courte description du paquet, d'en installer de nouveaux depuis le Web, d'en désinstaller, ou encore d'extraire un paquet dans un répertoire donné. Tazpkg a été créé pour SliTaz, il est écrit en script SHell depuis rien (//from scratch//). De plus, il propose une gestion des dépendances et un système de mises à jour de tous les paquets installés.
+Ce chapitre décrit la gestion des paquets (.tazpkg) sur votre système. SliTaz fournit //tazpkg//, c'est une petite application gérant les paquets SliTaz portant l'extension //.tazpkg//. Le gestionnaire de paquets vous permet de lister les paquets installés, d'afficher une courte description du paquet, d'en installer de nouveaux depuis le Web, d'en désinstaller, ou encore d'extraire un paquet dans un répertoire donné. Tazpkg a été créé pour SliTaz, il est écrit en script SHell à partir de zéro (//from scratch//). De plus, il propose une gestion des dépendances et un système de mise à jour de tous les paquets installés.
 
-Pour utiliser les commandes de ''tazpkg'' touchant au système , vous devez avoir un accès administrateur (//root//). Vous pouvez utiliser ''su'' suivi du mot de passe ''root''. Lancé sans arguments ''tazpkg'' affichera une petite aide, avec une liste des commandes possibles, vous pouvez aussi utiliser la commande ''tazpkg usage'' pour afficher cette aide.
+Pour utiliser les commandes de //tazpkg// touchant au système , vous devez avoir un accès administrateur (//root//). Vous pouvez utiliser //su// suivi du mot de passe //root//. Lancé sans arguments //tazpkg// affichera une petite aide, avec une liste des commandes possibles, vous pouvez aussi utiliser la commande //tazpkg usage// pour afficher cette aide.
 
-Les fonctionnalités les plus utiles de Tazpkg sont aussi disponibles en version graphique via ''tazpkgbox'' ou dans le menu Outils système --> gestionnaire de paquets.
+Les fonctionnalités les plus utiles de Tazpkg sont aussi disponibles en version graphique via //tazpkgbox// ou dans le menu Outils système --> gestionnaire de paquets.
 
 ==== Fonctionnement de Tazpkg ====
 
-Tazpkg utilise quelques répertoires et fichiers pour puiser des informations et stocker les paquets téléchargés en cache. Pour connaître le miroir depuis lequel les paquets doivent être téléchargés, Tazpkg lit le fichier texte : /var/lib/tazpkg/mirror contenant simplement l'URL sur une ligne. Pour connaître la liste des paquets disponibles, Tazpkg télécharge et lit un fichier nommé packages.list (ce fichier peut aussi être lu en ligne via un navigateur web). Pour connaître les informations au sujet des paquets installés sur le système, Tazpkg scrute le contenu du répertoire : /var/lib/tazpkg/installed. Ce répertoire réunit tous les méta fichiers d'informations sur les paquets. Ces meta fichiers, quand à eux, contiennent toutes les données utiles pour installer/désinstaller un paquet, lister les fichiers installés ou encore afficher une brève description. Le fichier de configuration de Tazpkg est /etc/slitaz/tazpkg.conf.
+Tazpkg utilise quelques répertoires et fichiers pour puiser des informations et stocker les paquets téléchargés en cache. Pour connaître le miroir depuis lequel les paquets doivent être téléchargés, Tazpkg lit le fichier texte : /var/lib/tazpkg/mirror contenant simplement l'URL sur une ligne. Pour connaître la liste des paquets disponibles, Tazpkg télécharge et lit un fichier nommé packages.list (ce fichier peut aussi être lu en ligne via un navigateur web). Pour connaître les informations au sujet des paquets installés sur le système, Tazpkg scrute le contenu du répertoire : /var/lib/tazpkg/installed. Ce répertoire réunit tous les méta fichiers d'informations sur les paquets. Ces meta fichiers, quand à eux, contiennent toutes les données utiles pour installer/désinstaller un paquet, lister les fichiers installés ou encore afficher une brève description. Le fichier de configuration de Tazpkg est /etc/slitaz/tazpkg.conf.
 
 === Lister des paquets ===
 
-Tazpkg permet de lister tous les paquets installés ou disponibles sur le miroir. Vous pouvez les afficher par catégories. Pour afficher une liste de tous les paquets installés sur le système, entrez :
+Tazpkg permet de lister tous les paquets installés ou disponibles sur le miroir. Vous pouvez les afficher par catégories. Pour afficher une liste de tous les paquets installés sur le système, entrez :
 
 <code> $ tazpkg list </code>
 
-Pour afficher toutes les catégories, ou les paquets listés par catégories, vous pouvez ajouter l'option ''cat'' ou ''categorie''. Exemples :
+Pour afficher toutes les catégories, ou les paquets listés par catégories, vous pouvez ajouter l'option //cat// ou //categorie//. Exemples :
 
 <code>
  $ tazpkg list cat
  $ tazpkg list base-system
 </code>
 
-Tazpkg peut aussi générer une liste des paquets installés au format xHTML (nommée par défaut : installed-packages.html) dans le répertoire courant :
+Tazpkg peut aussi générer une liste des paquets installés au format xHTML (nommée par défaut : installed-packages.html) dans le répertoire courant :
 
 <code> $ tazpkg xhtml-list </code>
 
-Pour obtenir une liste de tous les paquets disponibles sur le miroir vous pouvez utiliser la commande ''list-mirror''. Vous pouvez ensuite examiner la liste dans votre éditeur préféré ou en utilisant l'interface web.
+Pour obtenir une liste de tous les paquets disponibles sur le miroir vous pouvez utiliser la commande //list-mirror//. Vous pouvez ensuite examiner la liste dans votre éditeur préféré ou en utilisant l'interface web.
 
 === Installer des paquets ===
 
-Le gestionnaire de paquet vous permet d'installer de nombreux paquets pour ajouter des fonctionnalités au système ou de disposer d'applications supplémentaires. La manière la plus courante d'installer un paquet est d'utiliser la commande ''get-install'' qui va télécharger, installer, vérifier les dépendances sur le paquet et cela de manière automatique. Pour installer un paquet vous devez connaître le nom du paquet. Pour vous aider à trouver le nom d'un paquet, vous pouvez utiliser la commande de recherche ''search'' ou afficher la liste complète des paquets disponibles sur le miroir via la commande ''list-mirror''. Pour installer le client de messagerie Sylpheed, il faudra par exemple lancer : 
+Le gestionnaire de paquet vous permet d'installer de nombreux paquets pour ajouter des fonctionnalités au système ou de disposer d'applications supplémentaires. La manière la plus courante d'installer un paquet est d'utiliser la commande //get-install// qui va télécharger, installer, vérifier les dépendances sur le paquet et cela de manière automatique. Pour installer un paquet vous devez connaître le nom du paquet. Pour vous aider à trouver le nom d'un paquet, vous pouvez utiliser la commande de recherche //search// ou afficher la liste complète des paquets disponibles sur le miroir via la commande //list-mirror//. Pour installer le client de messagerie Sylpheed, il faudra par exemple lancer : 
 
 <code>
  # tazpkg get-install sylpheed
@@ -49,23 +49,26 @@ Le gestionnaire de paquet vous permet d'installer de nombreux paquets pour ajout
 
 == Les paquets 'get' ==
 
-Il existe quelques paquets qui contiennent le préfixe //get-//. Ce ne sont pas les paquets désignés mais seulement un script. Ce script permet d'obtenir le programme en :
+Certains paquets commencent par le préfixe //get-//. Ce ne sont pas des paquets comprenant le programme tel quel mais seulement un script permettant d'obtenir ce programme en :
 
-  * Le téléchargement
+  * Le téléchargeant
   * Créant un paquet Tazpkg avec
   * Installant le tazpkg généré
 
-Ceci signifie que le programme n'est pas contenu dans le paquet //get// mais est généré par lui.
+Le programme n'est donc pas contenu dans le paquet //get// mais est généré par lui.
 
 Pour administrer ce type de programme:
-   * Installer la dernière version en utilisant le script du paquet //get//;
-   * Désinstaller en utilisant tazpkg remove sur le paquet **généré**
+   * Installer le programme en utilisant le script du paquet //get//;
+   * Désinstaller le programme en utilisant tazpkg remove sur le paquet **généré**
  
-
+<note tip>Veuillez noter qu'après le téléchargement de //get-xxx//, vous devez exécuter le script qui porte le même nom :
+<code> # tazpkg get-install get-flash-plugin
+ # get-flash-plugin</code>
+</note>
 
 === Garder un système à jour ===
 
-Il y deux commandes qui devraient être lancées régulièrement par l'administrateur (root). La commande qui recharge la dernière liste des paquets et celle qui met à jour tous les paquets installés. Cela permet de garder un système plus sécurisé et d'avoir les dernières nouveautés. Pour recharger la liste c'est ''recharge'' et pour mettre à jour ''upgrade'', vous pouvez lancer ces deux commandes sur la même ligne et utiliser le copier/coller dans un terminal : 
+Il y deux commandes qui devraient être lancées régulièrement par l'administrateur (root). La commande qui recharge la dernière liste des paquets et celle qui met à jour tous les paquets installés. Cela permet de garder un système plus sécurisé et d'avoir les dernières nouveautés. Pour recharger la liste c'est //recharge// et pour mettre à jour //upgrade//, vous pouvez lancer ces deux commandes sur la même ligne et utiliser le copier/coller dans un terminal : 
 
 <code>
  # tazpkg recharge
@@ -78,16 +81,16 @@ Pour obtenir une liste complète des fonctions et leur explication, vous pouvez 
 
 ===== Tazwok & le wok =====
 
-Chaque paquet de SliTaz est construit avec un outil fait maison appelé Tazwok et une recette (//receipt//). La recette contient toutes les informations nécessaires pour construire le paquet utilisable par Tazpkg : les variables pour nommer le paquet, le format de l'archive de code source, l'URL où elle se trouve, etc. Dans une recette, la fonction //compile-rules// contient les commandes pour configurer (//configure), construire (//make) et installer (//make-install//) le programme dans un répertoire temporaire. Après la compilation, Tazwok exécute la fonction genpkg-rules pour sélectionner les fichiers requis/voulus et générer un paquet .tazpkg au format lzma. SliTaz stocke les recettes des paquets installés dans le répertoire ///var/lib/tazpkg/installed//. Vous pouvez les examiner et les utiliser comme exemple. Notez que pour certain paquet il existe un répertoire stuff qui contient quelques fichiers supplémentaires spécifiques à SliTaz. Ce dossier stuff n'est pas présent dans le répertoire ///var/lib/tazpkg/installed//.
+Chaque paquet de SliTaz est construit avec un outil fait maison appelé Tazwok et une recette (//receipt//). La recette contient toutes les informations nécessaires pour construire le paquet utilisable par Tazpkg : les variables pour nommer le paquet, le format de l'archive de code source, l'URL où elle se trouve, etc. Dans une recette, la fonction //compile-rules// contient les commandes pour configurer (//configure), construire (//make) et installer (//make-install//) le programme dans un répertoire temporaire. Après la compilation, Tazwok exécute la fonction genpkg-rules pour sélectionner les fichiers requis/voulus et générer un paquet .tazpkg au format lzma. SliTaz stocke les recettes des paquets installés dans le répertoire ///var/lib/tazpkg/installed//. Vous pouvez les examiner et les utiliser comme exemple. Notez que pour certains paquets il existe un répertoire stuff qui contient quelques fichiers supplémentaires spécifiques à SliTaz. Ce dossier stuff n'est pas présent dans le répertoire ///var/lib/tazpkg/installed//.
 
-Par défaut, Tazwok cherche le wok à l'adresse ///home/slitaz/wok// et met les paquets cuisinés dans ///home/slitaz/packages//. Ces chemins sont indiqués dans le fichier de configuration de Tazwok. Il en existe un par défaut ici : ///etc/tazwok.conf// et Tazwok utilise celui présent dans le répertoire courant s'il existe ; ceci peut être utile si vous travaillez avec plusieurs wok. Si le paquet //slitaz-toolchain// est installé, vous pouvez commencer par cuisiner un paquet qui ne demande pas trop de dépendances. Voici un exemple, la première étape consiste à créer une nouvelle recette :
+Par défaut, Tazwok cherche le wok à l'adresse ///home/slitaz/wok// et met les paquets cuisinés dans ///home/slitaz/packages//. Ces chemins sont indiqués dans le fichier de configuration de Tazwok. Il en existe un par défaut ici : ///etc/tazwok.conf// et Tazwok utilise celui présent dans le répertoire courant s'il existe ; ceci peut être utile si vous travaillez avec plusieurs wok. Si le paquet //slitaz-toolchain// est installé, vous pouvez commencer par cuisiner un paquet qui ne demande pas trop de dépendances. Voici un exemple, la première étape consiste à créer une nouvelle recette :
 
 <code> # tazwok new-tree pkgname --interactive </code>
 
-Lorsque le nouveau dossier et la recette sont créés dans le wok, vous pouvez modifier la recette avec votre éditeur préféré (leafpad ou beaver par exemple), modifier les règles, fonctions, ajouter des dépendances dans la variable  DEPENDS si nécéssaire et essayer de cuisiner :
+Lorsque le nouveau dossier et la recette sont créés dans le wok, vous pouvez modifier la recette avec votre éditeur préféré (leafpad ou beaver par exemple), modifier les règles, fonctions, ajouter des dépendances dans la variable  DEPENDS si nécéssaire et essayer de cuisiner :
 
 <code> # tazwok cook pkgname </code>
 
-Notez que vous pouvez maintenant naviguer dans les fichiers générés, modifier la recette de nouveau ou reconstruire le paquet (sans recompiler) avec ''tazwok genpkg pkgname''. Lorsque le résultat vous convient, vous pouvez installer le paquet avec ''tazpkg install pkgname'' pour tester l'application ou la librairie.
+Notez que vous pouvez maintenant naviguer dans les fichiers générés, modifier la recette de nouveau ou reconstruire le paquet (sans recompiler) avec //tazwok genpkg pkgname//. Lorsque le résultat vous convient, vous pouvez installer le paquet avec //tazpkg install pkgname// pour tester l'application ou la librairie.
 
-VPour plus d'informations, vous pouvez consulter le [[http://hg.slitaz.org/tazwok/raw-file/tip/doc/tazwok.fr.html|manuel de Tazwok]].
+Pour plus d'informations, vous pouvez consulter le [[http://hg.slitaz.org/tazwok/raw-file/tip/doc/tazwok.fr.html|manuel de Tazwok]].

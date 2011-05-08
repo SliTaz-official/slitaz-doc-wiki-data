@@ -1,29 +1,30 @@
 ====== Internet ======
 
+===== Midori - Navigateur web léger =====
+
+Midori est un navigateur web léger avec un rendu des pages très rapide grâce au moteur Webkit. C'est une alternative sérieuse à Firefox pour des systèmes ayant peu de ressources ou les personnes cherchant un navigateur rapide et épuré. Il supporte la plupart des standards du web, les feuilles de style CSS et les images. Midori est configurable via une simple petite interface et se trouve dans le menu "Internet". Il est installé par défaut.
+
 ===== Mozilla Firefox - Navigateur web =====
 
-SliTaz est fier de fournir Mozilla Firefox, l'un des meilleurs navigateur Web au monde, sécurisé, convivial, rapide, respectant les standards, et largement personnalisable via un système de //plugins//. La prise en main du logiciel se fait rapidement et intuitivement, pour lancer Firefox sur SliTaz il suffit de l'installer puis de le sélectionner depuis le menu du gestionnaire de fenêtres -> Internet -> Mozilla Firefox. Les fichiers de configuration du navigateur Web sont stockés dans le répertoire personnel caché (le nom commence par un point) //~/.mozilla/firefox//.
+SliTaz est fier de fournir Mozilla Firefox, l'un des meilleurs navigateur Web au monde, sécurisé, convivial, rapide, respectant les standards, et largement personnalisable via un système de //plugins//. La prise en main du logiciel se fait rapidement et intuitivement, pour lancer Firefox sur SliTaz il suffit de l'installer puis de le sélectionner depuis le menu du gestionnaire de fenêtres -> Internet -> Mozilla Firefox. 
 
 Vous pouvez installer Mozilla Firefox via le gestionnaire de paquets en mode graphique ou avec la commande :
 
-<code># tazpkg get-install firefox</code>
+<code> # tazpkg get-install firefox</code>
 
-Astuce : En associant le mode LiveCD à un média USB, vous garderez vos marques-pages et //plugins// partout ou vous allez.
+Les fichiers de configuration du navigateur Web sont stockés dans le répertoire personnel caché (le nom commence par un point) //~/.mozilla/firefox//.
 
-===== Midori - Navigateur web léger =====
-
-Midori est un navigateur web léger avec un rendu des pages très rapide grâce au moteur Webkit. C'est une alternative sérieuse à Firefox pour les systèmes ayant peu de ressources ou les personnes cherchant un navigateur rapide et épuré. Il supporte la plupart des standards du web, les feuilles de style CSS ou les images. Midori est configurable via une simple petite interface et se trouve dans le menu "Internet". Il est installé par défaut.
+<note tip>En associant le mode LiveCD à un média USB, vous garderez vos marques-pages et //plugins// partout ou vous allez.</note>
 
 ===== Retawq - Navigateur web en mode texte =====
 
 Toutes les versions de SliTaz supportent le navigateur web Retawq en mode texte. Vous pouvez installer retawq via la ligne de commande en entrant :
 
-<code># tazpkg get-install retawq</code>
+<code> # tazpkg get-install retawq</code>
 
-Vous pouvez ensuite lancer 'retawq' depuis la console, un terminal graphique, ou sous X depuis le menu -> Internet -> Retawq. Pour lancer Retawq depuis un terminal, il suffit de taper ''retawq'' avec ou sans l'url : 
+Vous pouvez ensuite lancer 'retawq' depuis la console, un terminal graphique, ou sous X depuis le menu -> Internet -> Retawq. Pour lancer Retawq depuis un terminal, il suffit de taper //retawq// avec ou sans l'url : 
 
-<code> $ retawq
- $ retawq http://www.slitaz.org/fr </code>
+<code> $ retawq http://www.slitaz.org/fr </code>
 
 Le fichier de configuration personnel est dans ~/.retawq. Vous pouvez le modifier avec un éditeur de texte. En appuyant sur la touche <b> vous afficherez le fichier des marques pages (bookmarks.html), et la touche <h> affichera la page d'accueil. 
 
@@ -33,7 +34,7 @@ Links a été le premier navigateur Web graphique proposé sur le LiveCD de SliT
 
 <code> # tazpkg get-install links </code>
 
-Links propose un mode graphique et un mode texte. Pour utiliser Links en mode graphique il faut utiliser l'option ''-g'', vous pouvez ajouter un icône ou une entrée au menu d'Openbox pour retrouver Links facilement. Exemples d'utilisation en ligne de commandes :
+Links propose un mode graphique et un mode texte. Pour utiliser Links en mode graphique il faut utiliser l'option //-g//, vous pouvez ajouter une icône ou une entrée au menu d'Openbox pour retrouver Links facilement. Exemples d'utilisation en ligne de commandes :
 
 <code>
  $ links -g &
@@ -41,17 +42,17 @@ Links propose un mode graphique et un mode texte. Pour utiliser Links en mode gr
  $ links
 </code>
 
-Les fichiers de configuration personnels sont dans ~/.links et il n'est pas conseillé de les modifier avec un éditeur de texte. Links fournit une interface de configuration via la barre d'outils du haut, c'est là que vous pouvez configurer la langues pour le français, les marques-pages, l'affichage, etc. Quand vous avez modifié des options, il faut les sauvegarder via la barre de menu -> Configuration -> Enregistrer les options. 
+Les fichiers de configuration personnels sont dans ~/.links mais il n'est pas conseillé de les modifier avec un éditeur de texte. Links fournit une interface de configuration via la barre d'outils du haut, c'est là que vous pouvez configurer la langues pour le français, les marques-pages, l'affichage, etc. Quand vous avez modifié des options, il faut les sauvegarder via la //barre de menu -> Configuration -> Enregistrer les options//. 
 
 ===== LostIRC - Client de chat IRC =====
 
-LostIRC est un client IRC simple et utile qui supporte de multiples serveurs et la connexion automatiquement à des serveurs/canaux de discutions. Les fichiers de configuration sont placés dans ~/.lostirc. Vous pouvez le lancer via le menu -> Internet -> LostIRC. La documentation sur le site officiel contient beaucoup d'informations utiles. Exemple d'utilisation en ligne de commandes : 
+LostIRC est un client IRC simple mais utile qui supporte de multiples serveurs et la connexion automatique à des serveurs/canaux de discussions. Les fichiers de configuration sont placés dans ~/.lostirc. Vous pouvez le lancer via le menu -> Internet -> LostIRC. La documentation sur le site officiel contient beaucoup d'informations précieuses. Exemple d'utilisation en ligne de commandes : 
 
 <code>$ SliTaz channel: irc.toile-libre.org / #slitaz </code>
 
 ===== Ghost In The Mail - Client mail =====
 
-Pour envoyer rapidement des mails, sans devoir configurer de compte, vous pouvez utiliser Ghost In The Mail (gitmail). Ce client mail minimum, propose une interface GTK simple, avec le support des pièces jointes. Il vous permet d'envoyer des mails en utilisant le protocole SMTP avec votre compte de messagerie existant. Vous trouverez gitmail via le menu -> Internet -> Ghost In The Mail après l'avoir installer. Pour l'installer :
+Pour envoyer rapidement des mails, sans devoir configurer de compte, vous pouvez utiliser Ghost In The Mail (gitmail). Ce client mail minimum, propose une interface GTK simple, avec support des pièces jointes. Il vous permet d'envoyer des mails en utilisant le protocole SMTP avec votre compte de messagerie existant. Vous trouverez gitmail via le menu -> Internet -> Ghost In The Mail après l'avoir installer. Pour l'installer :
 
 <code># tazpkg get-install gitmail</code>
 
@@ -71,7 +72,7 @@ Transmission est un client BitTorrent, rapide, léger, et proposant une interfac
 
 ===== gFTP - Client FTP simple et rapide =====
 
-L'application gFTP est un client de transfert FTP très simple d'utilisation, rapide et ergonomique. Il dispose de la reprise des transferts interrompus, d'une gestion complète des signets (sites favoris), ou encore de la gestion des proxies FTP et HTTP. De plus gFTP permet le glisser-déposer entre ses deux fenêtres, de faire plusieurs transferts en même temps, de comparer ses deux fenêtres, de mémoriser les mots de passes, de définir une application externe pour la visualisation (ex.: Midori) et l'édition des fichiers (ex.: Leafpad), ce qui permet de travailler directement sur le serveur. Pour l'installer :
+L'application gFTP est un client de transfert FTP très simple d'utilisation, rapide et ergonomique. Il permet la reprise des transferts interrompus, une gestion complète des signets (sites favoris), ou encore la gestion des proxies FTP et HTTP. De plus gFTP permet le glisser-déposer entre ses deux fenêtres, de faire plusieurs transferts en même temps, de comparer ses deux fenêtres, de mémoriser les mots de passes, de définir une application externe pour la visualisation (ex.: Midori) et l'édition des fichiers (ex.: Leafpad), ce qui permet de travailler directement sur le serveur. Pour l'installer :
 
 <code> # tazpkg get-install gftp </code>
 

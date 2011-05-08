@@ -16,12 +16,12 @@ Before starting a new SHell script, you must pay attention to the interpreter us
  $ chmod +x script.sh
 </code>
 
-Now that you have a new executable file, you can edit it. You can continue to stay in the terminal and use the Nano editor (Ctrl + x to save & exit) or IDE Geany to edit:
+Now that you have a new executable file, you can edit it. You can continue to stay in the terminal and use the Nano editor (Ctrl + x to save & exit) or IDE Beaver to edit:
 
 <code>
  $ nano script.sh
  Or :
- $ geany script.sh &
+ $ beaver script.sh &
 </code>
 
 Here's a script that contains a variable NAME and displays the value with the echo command:
@@ -53,17 +53,11 @@ You can find plenty of example scripts in the ///sample// directory inside the s
  $ tar xzf dialog.tar.gz
 </code>
 
-===== Geany IDE =====
+===== Beaver =====
 
-Geany is an IDE or Integrated Development Environment. Geany is simple, quick and light, offering colored syntax, tabs and auto completion. Geany was used to create this page and most of the website documentation (with a little bit of Nano as well).
+Beaver is a simple, lightweight and fast code editor offering syntax. Beaver can be found in the Menu -> Development ->Code Editor. Once launched for the first time you can adjust your preferences through the Edit button. You can run it through a X terminal with the following command:
 
-=== Launch Geany ===
-
-You will find Geany in the //menu --> Development --> Geany//. Once launched for the first time, you can adjust your preferences via Edit --> Preferences. You can also launch Geany via a terminal:
-
-<code> $ geany & </code>
-
-Note when compiling the source code, the ./configure script offers the option: //-enable-the-force//... Which you can use if you ever feel the need to become Luke Skywalker!
+<code> $ beaver & </code>
 
 ===== Perl or Microperl - Code/use Perl scripts =====
 
@@ -82,7 +76,7 @@ The purpose of this script is to display Hello World. You can start by creating 
 <code>
  $ touch hello.pl
  $ chmod +x hello.pl
- $ geany hello.pl &
+ $ beaver hello.pl &
 </code>
 
 The first line of a Perl script begins by defining the path to the Perl interpreter, usually ///usr/bin/perl// and to display text, just use the print command. It should be noted that Perl is case sensitive and a line of code should always end with a semicolon. Example code (you can copy and paste):

@@ -2,17 +2,17 @@
 
 ===== Clex - Gestionnaire de fichiers mode texte =====
 
-Pour naviguer dans vos répertoires vous pouvez utiliser la ligne de commande et ''cd'', ou lancer 'Clex File Manager' un gestionnaire de fichiers ncurses. Clex et facile d'utilisation, rapide, et facilement configurable via un panel de configuration, ou via le fichier ~/.clexrc et ~/.clexbm pour les marque-pages (//bookmarks//). Pour installer clex :
+Pour naviguer dans vos répertoires vous pouvez utiliser la ligne de commande et //cd//, ou lancer 'Clex File Manager' un gestionnaire de fichiers en mode texte. Pour installer clex :
 
 <code> # tazpkg get-install clex </code>
 
-Pour lancer clex depuis un terminal ou une console : 
+Basé sur ncurses, Clex et facile d'utilisation, rapide, et facilement configurable via un panel de configuration, ou via le fichier ~/.clexrc et ~/.clexbm pour les marque-pages (//bookmarks//). Pour lancer clex depuis un terminal ou une console : 
 
 <code> $ clex </code>
 
 ===== PCmanFM - Gestionnaire de fichiers =====
 
-PCmanFM est un gestionnaire de fichiers proposant de nombreuses fonctions utiles pour une utilisation quotidienne telles que gérer les périphériques, ouvrir un terminal dans le dossier courant, utiliser des onglets, le glisser-déposer, créer des répertoires ou gérer les permissions. Il contient un système de marque-pages qui permet de naviguer rapidement, une fonction de recherche et plus encore. PCmanFM peut être lancé avec quelques options en ligne de commande - vous pouvez indiquer le fond d'écran à afficher ou ouvrir des dossiers dans de nouveaux onglets etc. Pour une liste complète des possibilités :
+PCmanFM est un gestionnaire de fichiers proposant de nombreuses fonctions utiles pour une utilisation quotidienne telles que gérer les périphériques, ouvrir un terminal dans le dossier courant, utiliser des onglets, le glisser-déposer, créer des répertoires ou gérer les permissions. Il contient un système de marque-pages qui permet de naviguer rapidement, une fonction de recherche et plus encore. PCmanFM peut être lancé avec quelques options en ligne de commande - vous pouvez indiquer le fond d'écran à afficher ou ouvrir des dossiers dans de nouveaux onglets etc. Pour une liste complète des possibilités :
 
 <code> $ pcmanfm --help-all </code>
 
@@ -20,7 +20,7 @@ PCmanFM supporte les raccourcis claviers et le menu contextuel (clic-droit) perm
 
 ===== Htop - Visionneur de processus système =====
 
-Htop est un visionneur de processus système affichant les processus, l'utilisation du ou des processeurs, l'état de la mémoire vive (RAM) et swap. Il affiche aussi le nombres de tâches, le temps depuis lequel la machine tourne, les PID ou les commandes actives. Htop s'utilise au clavier en mode console, supporte la souris avec un terminal X (Xterm) et fournit diverse options de configuration (F2). Htop peut aussi être utilisé pour tuer un processus et les flèches ou un clique de souris permettent de sélectionner une ligne. A noter qu'Htop fonctionne via SSH est peut servir à surveiller un serveur à distance. Pour l'installer :
+Htop est un visionneur de processus système affichant les processus, l'utilisation du ou des processeurs, l'état de la mémoire vive (RAM) et le swap utilisé. Il affiche aussi le nombres de tâches, le temps depuis lequel la machine tourne, les PID ou les commandes actives. Htop s'utilise au clavier en mode console, supporte la souris avec un terminal X (Xterm) et fournit diverses options de configuration (F2). Htop peut aussi être utilisé pour tuer un processus - les flèches ou un clic de souris permettent de sélectionner une ligne. À noter qu'Htop fonctionne via SSH est peut servir à surveiller un serveur à distance. Pour l'installer :
 
 <code> # tazpkg get-install htop </code>
 
@@ -30,14 +30,14 @@ LXTask est le visionneur de processus par défaut dans SliTaz. Il propose les m�
 
 ===== Mountbox - Monter un périphérique =====
 
-Mountbox est une petite interface GTK à la commande ''mount'' permettant de monter rapidement un media tel qu'une clé USB, disque dur ou cdrom. Mountbox peut se lancer depuis un terminal ou via le menu Outils système (//System tools//). Il suffit de spécifier les périphérique (//Device//) et le point de montage, c'est à dire le répertoire depuis lequel vous voulez accéder aux données du média en question. Généralement un cdrom se monte sur /media/cdrom, une clé USB dans /media/flash et les disque durs de la machine locale dans /mnt. A noter que le Handbook contient aussi des informations au sujet de la commande mount. 
+Mountbox est une petite interface GTK à la commande //mount// permettant de monter rapidement un media tel qu'une clé USB, un disque dur ou un cdrom. Mountbox peut se lancer depuis un terminal ou via le menu Outils système (//System tools//). Il suffit de spécifier les périphérique (//Device//) et le point de montage, c'est à dire le répertoire depuis lequel vous voulez accéder aux données du média en question. Généralement un cdrom se monte sur /media/cdrom, une clé USB dans /media/flash et les disques durs de la machine locale dans /mnt. À noter que le Handbook contient aussi des informations au sujet de la commande mount. 
 
 ===== Gparted - Gestion des partitions d'un disque dur =====
 
-Gparted est une application graphique permettant de gérer les partitions d'un disque dur local ou média USB. Il permet de formater, redimensionner et vérifier une ou des partitions d'un disque dur, c'est l'outil à utiliser si vous devez préparer une partition, graphiquement, pour installer SliTaz. Gparted support les systèmes de fichiers propres à GNU/Linux (ext2 et ext3) via mkfs et Parted automatiquement proposés en dépendances. Pour lancer Gparted depuis le terminal : 
+Gparted est une application graphique permettant de gérer les partitions d'un disque dur local ou média USB. Il permet de formater, redimensionner et vérifier une ou des partitions d'un disque dur, c'est l'outil à utiliser si vous devez préparer une partition, graphiquement, pour installer SliTaz. Gparted supporte les systèmes de fichiers propres à GNU/Linux (ext2 et ext3) via mkfs, et Parted gère automatiquement les dépendances. Pour lancer Gparted depuis le terminal : 
 
 <code> $ gparted & </code>
 
 === Support FAT et NTFS ===
 
-Pour avoir le support du système de fichiers FAT16 ou FAT32 de Windows, vous devez installer le paquet ''dosfstools''. Le support NTFS en lecture/écriture est assuré par défaut par les paquets ''fuse'', ''ntfs-3g'' et ''ntfprogs''. 
+Pour avoir le support du système de fichiers FAT16 ou FAT32 de Windows, vous devez installer le paquet //dosfstools//. Le support NTFS en lecture/écriture est assuré par défaut par les paquets //fuse//, //ntfs-3g// et //ntfprogs//. 

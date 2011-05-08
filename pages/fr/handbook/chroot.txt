@@ -1,10 +1,10 @@
 ====== Environnement chrooté ======
 
-Ce document décrit les étapes à réaliser pour créer un environnement chrooté afin de changer la racine du système pour travailler. Cela permet de compiler, tester et développer SliTaz sans risques pour le système hôte depuis lequel on travaille. Ce système hôte peut être SliTaz installée en dur ou tout autre système GNU/Linux tel que Debian, Fedora, PCLinuxOS, etc. On peut aussi créer un environnement chrooté en mode LiveCD associé à un média USB. Les seuls prérequis sont d'avoir une image ISO de SliTaz à disposition et un peu de temps. A noter que toutes les opérations sont réalisées en tant qu'administrateur (//root//). 
+Ce document décrit les étapes à réaliser pour créer un environnement chrooté afin de changer la racine du système pour travailler. Cela permet de compiler, tester et développer SliTaz sans risques pour le système hôte depuis lequel on travaille. Ce système hôte peut être SliTaz installée en dur ou tout autre système GNU/Linux tel que Debian, Fedora, PCLinuxOS, etc. On peut aussi créer un environnement chrooté en mode LiveCD associé à un média USB. Les seuls prérequis sont d'avoir une image ISO de SliTaz à disposition et un peu de temps. À noter que toutes les opérations sont réalisées en tant qu'administrateur (//root//). 
 
 ===== Préparer l'environnement =====
 
-Pour commencer, il faut extraire le contenu de l'image ISO dans le répertoire qui va servir au chroot. Le répertoire de chroot peut se créer à l'endroit que l'on veut, nous utilisons un répertoire ///home/slitaz/chroot-env//. Pour extraire le contenu d'une image ISO, il faut la monter en //loop// sur un répertoire, pour ensuite copier le système de fichiers racine compressé (//rootfs.gz//) dans le répertoire de chroot. En supposant que l'ISO est dans le répertoire courant : 
+Pour commencer, il faut extraire le contenu de l'image ISO dans le répertoire qui va servir au chroot. Le répertoire de chroot peut se créer à l'endroit que l'on veut, nous utilisons un répertoire ///home/slitaz/chroot-env//. Pour extraire le contenu d'une image ISO, il faut la monter en //loop// sur un répertoire, pour ensuite copier le système de fichiers racine compressé (//rootfs.gz//) dans le répertoire de chroot. En supposant que l'ISO est dans le répertoire courant : 
 
 <code>
  # mkdir /tmp/loop
@@ -15,7 +15,7 @@ Pour commencer, il faut extraire le contenu de l'image ISO dans le répertoire q
  # umount /tmp/loop
 </code>
 
-Maintenant qu'on a une copie du système de fichiers compressé, il faut le décompresser et le dés-archiver (c'est une archive ''cpio'' compressée avec lzma ou gzip). Pour finir cette étape de préparation et continuer, on peut retirer le //rootfs// qui n'est plus utilisé : 
+Maintenant qu'on a une copie du système de fichiers compressé, il faut le décompresser et le dés-archiver (c'est une archive //cpio// compressée avec lzma ou gzip). Pour finir cette étape de préparation et continuer, on peut retirer le //rootfs// qui n'est plus utilisé : 
 
 <code>
  # cd /home/slitaz/chroot-env
@@ -32,7 +32,7 @@ Si le dés-archivage du rootfs compressé avec LZMA échoue en utilisant la prem
 
 ===== Utiliser l'environnement =====
 
-Pour utiliser l'environnement chrooté, il suffit de monter quelques systèmes de fichier virtuels et d'utiliser la commande ''chroot''. Pour se simplifier la vie on peut rapidement créer un petit script automatisant le chroot. Exemple en utilisant le répertoire de chroot ///home/slitaz/chroot-env// et en créant un script nommé //chroot_in_env.sh// dans ///home/slitaz//. A noter que le contenu du script n'a pas besoin d'être tapé mais simplement copié/coller dans le terminal et que sur un autre système que SliTaz vous pouvez dé-commenter les lignes montant/démontant ///dev// et ///tmp// : 
+Pour utiliser l'environnement chrooté, il suffit de monter quelques systèmes de fichier virtuels et d'utiliser la commande //chroot//. Pour se simplifier la vie on peut rapidement créer un petit script automatisant le chroot. Exemple en utilisant le répertoire de chroot ///home/slitaz/chroot-env// et en créant un script nommé //chroot_in_env.sh// dans ///home/slitaz//. À noter que le contenu du script n'a pas besoin d'être tapé mais simplement copié/coller dans le terminal et que sur un autre système que SliTaz vous pouvez dé-commenter les lignes montant/démontant ///dev// et ///tmp// : 
 <code> # cat > /home/slitaz/chroot_in_env.sh << "EOF" 
 
 #!/bin/sh
@@ -67,7 +67,7 @@ EOF
 
 </code>
 
-Pour finir et tester l'environnement, il suffit de rendre le script exécutable et le lancer : 
+Pour finir et tester l'environnement, il suffit de rendre le script exécutable et le lancer : 
 
 <code>
  # chmod +x /home/slitaz/chroot_in_env.sh
@@ -76,13 +76,13 @@ Pour finir et tester l'environnement, il suffit de rendre le script exécutable 
 
 === Activer le réseau ===
 
-Pour avoir le réseau afin de télécharger, naviguer en mode texte et installer des paquets de développement, il suffit de lancer le client DHCP sur la bonne interface, exemple avec //eth1// : 
+Pour avoir le réseau afin de télécharger, naviguer en mode texte et installer des paquets de développement, il suffit de lancer le client DHCP sur la bonne interface, exemple avec //eth1// : 
 
  <code> # udhcpc -i eth1 </code>
 
 === Installer des paquets ===
 
-Si le réseau est fonctionnel, il suffit de recharger la liste des paquets et utiliser ''tazpkg get-install'' pour installer de nouveaux paquets. Si la connexion n'est pas possible, on peut télécharger les paquets du miroir depuis un autre système, les copier dans l'environnement chrooté et les installer via la commande ''tazpkg install''. Pour installer la base des outils de compilation : 
+Si le réseau est fonctionnel, il suffit de recharger la liste des paquets et utiliser //tazpkg get-install// pour installer de nouveaux paquets. Si la connexion n'est pas possible, on peut télécharger les paquets du miroir depuis un autre système, les copier dans l'environnement chrooté et les installer via la commande //tazpkg install//. Pour installer la base des outils de compilation : 
 
  <code> # tazpkg recharge
  # tazpkg get-install slitaz-toolchain </code>
@@ -91,7 +91,7 @@ Une fois l'environnement configuré, on peut compiler des applications depuis le
 
 === Sortir de l'environnement ===
 
-Pour sortir de l'environnement chrooté il suffit de taper ''exit'', le script //chroot_in_env.sh// va finir son rôle en démontant le systèmes de fichiers virtuels propre au noyau Linux : 
+Pour sortir de l'environnement chrooté il suffit de taper //exit//, le script //chroot_in_env.sh// va finir son rôle en démontant le systèmes de fichiers virtuels propre au noyau Linux : 
 
 <code>
  # exit

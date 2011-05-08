@@ -1,75 +1,64 @@
 ====== Administration du système ======
 
-===== Configuration de la langue =====
-
-SliTaz sauvegarde la configuration de la langue par défaut dans le fichier ///etc/locale.conf// qui est lu par ///etc/profile// à chaque connexion. Le fichier ///etc/locale.conf// est généré lors du premier démarrage grâce au script ///etc/init.d/i18n.sh//. Il suffit donc de modifier le fichier ///etc/locale.conf// avec un éditeur de texte, ou de relancer l'utilitaire ''tazlocale'' pour changer la locale par défaut du système.
-
-Pour configurer la langue pour un utilisateur particulier, vous pouvez aussi ajouter 2 lignes au fichier //~/.profile// exportant la configuration : 
-
-<code>
-export LANG=fr_CH
-export LC_ALL=fr_CH
-</code>
-
-===== Configuration du clavier ======
-
-La configuration du clavier et sauvegardée dans ///etc/kmap.conf//. Comme pour la locale, vous pouvez modifier ce fichier à la main ou en lançant ''tazkeymap'', en tant qu'administrateur (//root//).
-
-Le clavier est chargé au démarrage par le script ///etc/init.d/i18n.sh//. Note : i18n pour internationalisation, et kmap c'est l'extension des fichiers de clavier utilisé par Busybox. 
-
 ===== Périphériques et accès aux disques =====
 
-Avec GNU/Linux vos disques durs et médias USB sont perçus comme des périphériques (//dev//). Pour y accéder vous devez d'abord le monter sur un point d'accès (//mount point//). Il s'agit d'un répertoire vide prévu à cet effet. Sur SliTaz vous pouvez monter graphiquement des périphériques avec l'outil //mountbox// (Menu -> Outils système - > Monter un périphérique) ou avec la ligne de commandes. Notez que le gestionnaire de fichiers PCmanFm peut aussi être utilisé pour cela. Pour monter la première partition du premier disque dur sur ///mnt/disk// :
+Avec GNU/Linux vos disques durs et médias USB sont perçus comme des périphériques (//dev//). Pour accéder à un périphérique, vous devez d'abord le monter sur un point d'accès (//mount point//). Il s'agit d'un répertoire vide prévu à cet effet. Sur SliTaz vous pouvez monter graphiquement des périphériques avec l'outil //mountbox// (Menu -> Outils système - > Monter un périphérique) ou avec la ligne de commandes. Notez que le gestionnaire de fichiers PCmanFm peut aussi être utilisé pour cela. Pour monter la première partition du premier disque dur sur ///mnt/disk// :
 
 <code>
  # mkdir -p /mnt/disk
  # mount /dev/hda1 /mnt/disk
 </code>
 
-Pour monter un CD-ROM ou un média USB vous pouvez utiliser les points de montage dans ///media//. Notez que pour un CD-ROM il suffit de préciser le chemin d'accès au périphérique. Pour une clef USB, le point de montage existe déjà :
+Pour monter un CD-ROM ou un média USB vous pouvez utiliser les points de montage dans ///media//. Notez que pour un CD-ROM il suffit de préciser le chemin d'accès au périphérique. Pour une clef USB, le point de montage existe déjà :
 
 <code>
  # mount /dev/cdrom
  # mount /dev/sda1 /media/flash
 </code>
 
-=== Systèmes de fichiers FAT/NTFS ===
+=== Systèmes de fichiers FAT ===
 
-SliTaz contient les applications nécessaires pour utiliser les systèmes de fichiers Windows en lecture et en écriture. Si vous souhaitez créer des partitions au format FAT avec ''parted'' ou ''gparted'', il faut installer le paquet //dosfstools// :
+SliTaz contient les applications nécessaires pour utiliser les systèmes de fichiers Windows FAT en lecture et en écriture. 
+
+Si vous souhaitez créer des partitions au format FAT avec //parted// ou //gparted//, il faut installer le paquet //dosfstools// :
 
 <code> # tazpkg get-install dosfstools </code>
 
+=== Systèmes de fichiers NTFS ===
+
+Si vous avez besoin de l'accès en lecture/écriture au système de fichier NTFS de Windows, vous devez installer quelques paquets supplémentaires. //ntfsprogs// fournit des outils de traitement dépendant de //fuse// et le pilote //ntfs-3g// permet d'accéder aux partitions NTFS. Notez que vous pouvez formatter, déplacer ou redimensionner des partitions ntfs graphiquement avec //Gparted//. L'installation de //ntfsprogs// seul suffit, les 2 autres paquets seront automatiquement installés :
+
+<code> # tazpkg get-install ntfsprogs </code>
+
 ===== Gestion des utilisateurs et groupes =====
 
-La gestion des utilisateurs et groupes du système peut se faire totalement en ligne de commandes. Vous pouvez par exemple facilement ajouter ou supprimer des utilisateurs, créer des groupes, ou encore modifier les mots de passe. Par défaut, SliTaz configure un utilisateur tux sans mot de passe, afin de ne pas se connecter en tant que //root//, même en mode LiveCD. Pour se connecter en tant que super-utilisateur (root) il faut utiliser la commande ''su''. 
+La gestion des utilisateurs et groupes du système peut se faire totalement en ligne de commande. Vous pouvez par exemple facilement ajouter ou supprimer des utilisateurs, créer des groupes, ou encore modifier les mots de passe. Par défaut, SliTaz configure un utilisateur tux sans mot de passe, afin de ne pas se connecter en tant que //root//, même en mode LiveCD. Pour se connecter en tant que super-utilisateur (root) il faut utiliser la commande //su//. 
 
 === Mot de passe ===
 
-Pour modifier un mot de passe il faut utiliser la commande ''passwd'' valable aussi pour //root// : 
-<code>
- $ passwd
- ou:
- # passwd
- ou encore:
- # passwd tux
-</code>
+Pour modifier un mot de passe il faut utiliser la commande //passwd//, valable aussi pour //root// : 
+<code> $ passwd</code>
+ou:
+<code> # passwd</code>
+ou encore:
+<code> # passwd tux</code>
 
 Vous pouvez aussi utiliser la boîte de contrôle ( Menu -> Outils système ) pour modifier le mot de passe d'un utilisateur non-//root//.
 
 === Ajouter un utilisateur ou un groupe ===
 
-Le moyen le plus simple pour ajouter un utilisateur est d'utiliser la boîte de contrôle SliTaz. En ligne de commandes, l'ajout d'utilisateurs se fait avec la commande ''adduser'', et celui d'un utilisateur à un groupe avec ''addgroup''. Vous obtiendrez de l'aide en tapant ces commandes suivies de l'option ''%%--help%%''. La commande ci-dessous ajoute l'utilisateur pomme : 
+Le moyen le plus simple pour ajouter un utilisateur est d'utiliser la boîte de contrôle SliTaz. En ligne de commande, l'ajout d'utilisateurs se fait avec la commande //adduser//, et celui d'un utilisateur à un groupe avec //addgroup//. Vous obtiendrez de l'aide en tapant ces commandes suivies de l'option //%%--help%%//. La commande ci-dessous ajoute l'utilisateur pomme : 
 
 <code> # adduser pomme </code>
 
-Pour que le nouvel utilisateur ait accès au CD-ROM et au son : 
+Pour que le nouvel utilisateur ait accès au CD-ROM et au son : 
 
 <code>
  # addgroup pomme audio
  # addgroup pomme cdrom
 </code>
 
-Pour que le nouvel utilisateur puisse utiliser sa session en mode graphique, vous devez ensuite copier le //skel// (répertoire contenant les fichiers de configuration utilisateurs par défaut) dans le répertoire du nouvel utilisateur, ainsi que quelques autres fichiers, puis les permissions d'accès. Dans notre cas :
+Pour que le nouvel utilisateur puisse utiliser sa session en mode graphique, vous devez ensuite copier le //skel// (répertoire contenant les fichiers de configuration utilisateurs par défaut) dans le répertoire du nouvel utilisateur, ainsi que quelques autres fichiers, puis changer les permissions d'accès. Dans notre cas :
 
 <code>
  # rmdir /home/pomme
@@ -82,23 +71,21 @@ Pour que le nouvel utilisateur puisse utiliser sa session en mode graphique, vou
 
 === Supprimer un utilisateur ou un groupe ===
 
-Vous pouvez facilement supprimer un utilisateur du système ou un groupe avec les commande ''deluser'' et ''delgroup'' : 
+Vous pouvez facilement supprimer un utilisateur du système ou un groupe avec les commande //deluser// et //delgroup// : 
 
-<code>
- # deluser pomme
- Et pour un groupe :
- # delgroup partage
- Pour supprimer un utilisateur d'un groupe : 
- # delgroup tux audio
-</code>
+<code> # deluser pomme</code>
+ Et pour un groupe :
+<code> # delgroup partage</code>
+ Pour supprimer un utilisateur d'un groupe : 
+<code> # delgroup tux audio</code>
 
 ===== Personnaliser son SHell =====
 
-Après un //login// vous êtes dans votre //shell//. Sur SliTaz vous disposez du shell ''ash'' et ''sh'' et un lien sur Ash. Ce shell est fournit par Busybox. Ash est léger, rapide, et conforme au normes. Pour changer le shell par défaut d'un utilisateur, il faut passer par le fichier ///etc/passwd// et modifier la ligne correspondante. Lors d'un login, le fichier ///etc/profile// est lu, puis c'est le fichier personnel //~/.profile//. Vous pouvez modifier l'un et l'autre avec un éditeur de texte, pour y configurer la langue, d'autres alias, etc. 
+Après un //login// vous êtes dans votre //shell//. Sur SliTaz vous disposez du shell //ash// avec //sh// en lien sur Ash. Ce shell est fournit par Busybox. Ash est léger, rapide, et conforme au normes. Pour changer le shell par défaut d'un utilisateur, il faut passer par le fichier ///etc/passwd// et modifier la ligne correspondante. Lors d'un login, le fichier ///etc/profile// est lu, puis c'est le fichier personnel //~/.profile//. Vous pouvez modifier l'un et l'autre avec un éditeur de texte, pour y configurer la langue, d'autres alias, etc. 
 
 === Exemple: ~/.profile ===
 
-<code>
+<file>
 # ~/.profile: executed by Bourne-compatible login shells.
 #
 
@@ -108,104 +95,132 @@ alias df='df -h'
 
 # Env variables.
 export EDITOR=nano
+</file>
+
+
+===== Configuration de la langue =====
+
+SliTaz sauvegarde la configuration de la langue par défaut dans le fichier ///etc/locale.conf// qui est lu par ///etc/profile// à chaque connexion. Le fichier ///etc/locale.conf// est généré lors du premier démarrage grâce au script ///etc/init.d/i18n.sh//. Il suffit donc de modifier le fichier ///etc/locale.conf// avec un éditeur de texte, ou de relancer l'utilitaire //tazlocale// pour changer la locale par défaut du système :
+
+<code> # tazlocale</code>
+
+Pour configurer la langue pour un utilisateur particulier, vous pouvez aussi ajouter 2 lignes au fichier //~/.profile// exportant la configuration : 
+
+<code>
+export LANG=fr_CH
+export LC_ALL=fr_CH
 </code>
 
-=== SHell Bash ===
+Pour vérifier toutes les locales disponibles (C pour l'anglais) ou votre configuration actuelle, vous pouvez utiliser la commande //locale// en tant qu'utilisateur normal, ou en tant que root :
 
-Si vous souhaitez utiliser //Bash// (//Bourne Again SHell//), vous devez d'abord l'installer, copier le fichier //~/.profile// et le renommer //.bashrc// puis éditer ///etc/passwd// et changer le Shell en ///bin/bash// :
+<code>
+ $ locale -a
+ $ locale
+</code>
+
+===== Configuration du clavier ======
+
+La configuration du clavier et sauvegardée dans ///etc/kmap.conf//. Comme pour la locale, vous pouvez modifier ce fichier à la main ou en lançant //tazkeymap//, en tant qu'administrateur (//root//) :
+
+<code> # tazkeymap </code>
+
+Le clavier est chargé au démarrage par le script ///etc/init.d/i18n.sh//. Note : i18n pour internationalisation, et kmap est l'extension des fichiers de clavier utilisé par Busybox. 
+
+===== SHell Bash =====
+
+Sur SliTaz vous disposez du shell Ash et avec sh en lien vers Ash, ce shell est fourni par Busybox. Si vous souhaitez utiliser //Bash// (//Bourne Again SHell//), vous devez d'abord l'installer, copier le fichier //~/.profile// et le renommer //.bashrc// puis éditer ///etc/passwd// et changer le Shell en ///bin/bash// :
 
 <code>
  # tazpkg get-install bash
  # cp /home/tux/.profile home/tux/.bashrc
- Pour l'utilisateur root : cp /home/tux/.profile ~/.bashrc
- # nano /etc/passwd   ~ :/bin/bash
 </code>
+ Pour l'utilisateur root : cp /home/tux/.profile ~/.bashrc
+<code> # nano /etc/passwd   ~ :/bin/bash</code>
 
-Ce changement sera prit en compte à vôtre prochaine connexion. Vous pourrez le vérifier avec la commande ''env''.
+Ce changement sera prit en compte à vôtre prochaine connexion. Vous pourrez le vérifier avec la commande //env//.
 
-===== Editeurs =====
+===== Éditeurs =====
 
-Busibox embarque un clone de ''vi'' comme éditeur de texte par défaut, mais il a ses limitations. Vous pouvez installer l'éditeur ''vim'' complet avec la commande :
+Busibox embarque un clone de //vi// comme éditeur de texte par défaut, mais il a ses limitations. Vous pouvez installer l'éditeur //vim// complet avec la commande :
 
 <code> # tazpkg get-install vim </code>
 
-Ou si vous préférez ''emacs'', SliTaz propose une version légère :
+Ou si vous préférez //emacs//, SliTaz propose une version légère :
 
 <code> # tazpkg get-install emacs </code>
 
 ===== Sudo =====
 
-La commande ''sudo'' peut être utilisée dans SliTaz :
+La commande //sudo// peut être utilisée dans SliTaz :
 
 <code> # tazpkg get-install sudo </code>
 
-Notez que le fichier de configuration //etc/sudoers// doit toujours être édité avec la commande ''visudo'' qui bloque le fichier et vérifie l'absence d'erreurs.
+Notez que le fichier de configuration //etc/sudoers// doit toujours être édité avec la commande //visudo// qui bloque le fichier et vérifie l'absence d'erreurs.
 
 ===== Régler l'horloge =====
 
-Pour connaître l'heure système actuelle vous pouvez utiliser la commande ''date''. Sur SliTaz la configuration du fuseau horaire est sauvegardée dans le fichier /etc/TZ. Vous pouvez modifier ce fichier via un des éditeurs disponibles ou simplement en utilisant la commande ''echo'', exemple pour la zone Europe/Zurich : 
+Pour connaître l'heure système actuelle vous pouvez utiliser la commande //date//. Sur SliTaz la configuration du fuseau horaire est sauvegardée dans le fichier /etc/TZ. Vous pouvez modifier ce fichier via un des éditeurs disponibles ou simplement en utilisant la commande //echo//, exemple pour la zone Europe/Zurich : 
 
-<code> # echo "Europe/London" > /etc/TZ </code>
+<code> # echo "Europe/Zurich" > /etc/TZ </code>
 
 === Rdate ===
 
-Vous pouvez connaître et synchroniser l'horloge système avec un serveur de temps sur le réseau avec la commande 'rdate', l'option ''-p'' affiche l'heure du serveur : 
+Vous pouvez connaître et synchroniser l'horloge système avec un serveur de temps sur le réseau avec la commande 'rdate', l'option //-p// affiche l'heure du serveur : 
 
 <code> $ rdate -p tick.greyware.com </code>
 
-Pour se synchroniser avec un serveur de temps, il faut être root : 
+Pour se synchroniser avec un serveur de temps avec l'option //-s//, il faut être root : 
 
 <code> # rdate -s tick.greyware.com </code>
 
 === Hwclock ===
 
-Pour faire un réglage fin de l'horloge vous pouvez utiliser 'hwclock', cet utilitaire permet de synchroniser l'horloge système avec l'horloge matériel, ou l'inverse.
+Pour faire un réglage fin de l'horloge vous pouvez utiliser 'hwclock', cet utilitaire permet de synchroniser l'horloge système avec l'horloge matérielle, ou l'inverse.
 
-Synchroniser l'horloge système avec l'horloge matériel (%%--utc = universal time, --localtime = local time%%) : 
+Synchroniser l'horloge système avec l'horloge matérielle (%%--utc = universal time, --localtime = local time%%) : 
 
 <code> # hwclock -w --utc </code>
 
-Synchroniser l'horloge matériel avec l'horloge système : 
+Synchroniser l'horloge matérielle avec l'horloge système : 
 
 <code> # hwclock -s --utc </code>
 
 ===== Exécuter des commandes à horaire fixe =====
 
-Le démon Crond permet d'exécuter automatiquement des commandes à une date et une heure précise, ou selon un cycle. C'est très utile pour des tâches routinières d'administration système. Le répertoire utilisé par Cron est : ///var/spool/cron/crontabs//.
+Le démon 'crond' permet d'exécuter automatiquement des commandes à une date et une heure précise, ou selon un cycle. C'est très utile pour des tâches routinières d'administration système. Le répertoire utilisé par Cron est : ///var/spool/cron/crontabs//.
 
-Chaque utilisateur du système peut avoir ses propres tâches. Elles sont définies dans le fichier ///var/spool/cron/crontabs/user//. L'utilitaire crontab permet entre autre de lister les tâches propre à un utilisateur. La syntaxe de ces fichiers est la suivante : 
+Chaque utilisateur du système peut avoir ses propres tâches. Elles sont définies dans le fichier ///var/spool/cron/crontabs/user//. L'utilitaire crontab permet entre autre de lister les tâches propre à un utilisateur. La syntaxe de ces fichiers est la suivante : 
 
-<code> mm hh dd MMM DDD command > log </code>
+<file> mm hh dd MMM DDD command > log </file>
 
-Nous allons créer le fichier pour //root//, et tester le démon 'crond' avec une tâche exécutée toutes les minutes qui écrit la date dans le fichier ///tmp/crond.test//. A noter que l'utilitaire ''crontab'' a une option d'édition des fichiers cron, utilisant 'vi', non fourni avec SliTaz. A la place vous pouvez utiliser GNU nano (<Ctrl+X> pour enregistrer et quitter) 
+Nous allons créer le fichier pour //root//, et tester le démon 'crond' avec une tâche exécutée toutes les minutes qui écrit la date dans le fichier ///tmp/crond.test//. À noter que l'utilitaire //crontab// a une option d'édition des fichiers cron, utilisant 'vi', non fourni avec SliTaz.  Àla place vous pouvez utiliser GNU nano (<Ctrl+X> pour enregistrer et quitter) 
 
-<code> # nano /var/spool/cron/crontabs/root
-</code><code>
+<code> # nano /var/spool/cron/crontabs/root</code>
+Ajouter la ligne :
+<file>
 * * * * * date >> /tmp/crond.test
-</code>
+</file>
 
-Lancez ''crond'' en fond avec l'option ''-b'' (backgroud), configurée via le fichier ///etc/daemons.conf// et en utilisant le script de démarrage : 
+Lancez //crond// en fond avec l'option //-b// (backgroud), configurée via le fichier ///etc/daemons.conf// et en utilisant le script de démarrage : 
 
 <code> # /etc/init.d/crond start </code>
 
-Vous pouvez attendre quelques minutes, et afficher le contenu du fichier: ///tmp/crond.test//... OK : 
+Vous pouvez attendre quelques minutes, et afficher le contenu du fichier: ///tmp/crond.test//... OK : 
 
 <code> # cat /tmp/crond.test </code>
 
-Pour arrêter ou redémarrer le démon crond :
+Pour arrêter ou redémarrer le démon crond :
 
-<code>
- # /etc/init.d/crond stop
- Ou :
- # /etc/init.d/crond restart
-</code>
+<code> # /etc/init.d/crond stop</code>
+ Ou :
+<code> # /etc/init.d/crond restart</code>
 
 === Lancer le démon crond à chaque démarrage ===
 
-Pour lancer le démon 'crond' à chaque démarrage du système, vous pouvez l'ajouter à la variable ''START_DAEMONS'' du fichier de configuration ///etc/rcS.conf// à la suite ou avant le serveur Web ou le serveur SSH. 
+Pour lancer le démon 'crond' à chaque démarrage du système, vous pouvez l'ajouter à la variable //START_DAEMONS// du fichier de configuration ///etc/rcS.conf// à la suite ou avant le serveur Web ou le serveur SSH. 
 
 ===== Ajouter des commandes exécutées au boot =====
 
-Lors du démarrage divers scripts sont exécutés afin de configurer des services ou autres, tel que le choix de la langue/du clavier, la détection des périphériques, la mise en réseau, etc. Sur SliTaz il y a un script: ///etc/init.d/local.sh// qui vous permet de rajouter facilement des commandes qui seront lancées au démarrage du système. Vous pouvez aussi créer de nouveaux scripts dans ///etc/init.d//, leurs liens dans ///etc/rc.scripts// pour les scripts shell et utiliser ///etc/rc.d// pour les liens sur les scripts de démarrage des démons système : 
+Lors du démarrage divers scripts sont exécutés afin de configurer des services ou autres, tel que le choix de la langue/du clavier, la détection des périphériques, la mise en réseau, etc. Sur SliTaz il y a un script: ///etc/init.d/local.sh// qui vous permet de rajouter facilement des commandes qui seront lancées au démarrage du système. Vous pouvez aussi créer de nouveaux scripts dans ///etc/init.d//, leurs liens dans ///etc/rc.scripts// pour les scripts shell et utiliser ///etc/rc.d// pour les liens sur les scripts de démarrage des démons système : 
 
 <code> # nano /etc/init.d/local.sh </code>

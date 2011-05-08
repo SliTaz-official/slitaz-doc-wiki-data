@@ -55,6 +55,24 @@ To check all available locales or your current configuration, you can use the co
  $ locale
 </code>
 
+===== Custom SHell =====
+
+SliTaz uses the ash shell linked to sh provided by busybox. Ash is light, fast and standards compliant. To change the default shell for a user you can edit the /etc/passwd file using the corresponding line. After you login, /etc/profile is read first and then the user file ~/profile. You can edit these files with a text editor to configure the language, any aliases, etc. 
+
+=== Example: ~/.profile ===
+
+<file>
+# ~/.profile: executed by Bourne-compatible login shells.
+#
+
+# Aliases.
+alias ls='ls -F'
+alias df='df -h'
+
+# Env variables.
+export EDITOR=nano
+</file>
+
 ===== Bash Shell =====
 
 On SliTaz you have the ash and sh shell with a link to Ash, this shell is provided by Busybox. If you wish to use the Bash (Bourne Again SHell), first as root install bash, copy the //.profile// found in your home directory and rename it //.bashrc//, then edit the ///etc/passwd// file with your favorite text editor and change your shell to :///bin/bash//

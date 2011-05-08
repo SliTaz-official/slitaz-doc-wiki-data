@@ -1,12 +1,12 @@
 ====== Accessibilité ======
 
-===== A Propos =====
+===== À Propos =====
 
 SliTaz propose quelques outils //Assistive Technology (AT)//.
 
 ===== Loupe =====
 
-SliTaz comporte une loupe dont les bords peuvent être redimensionnés et qui peut grossir jusqu'à 16 fois. Elle propose aussi un outil graphique qui active un pointeur en forme de croix, affiche la position en pixels et les valeurs //RGB// (Red Green Blue : Rouge Vert Bleu, c'est une façon de coder les couleurs). Vous pouvez la trouver dans Menu -> Utilitaires après l'avoir installée :
+SliTaz comporte une loupe dont les bords peuvent être redimensionnés et qui peut grossir jusqu'à 16 fois. La loupe propose aussi un outil graphique qui active un pointeur en forme de croix, affiche la position en pixels et les valeurs //RGB// (Red Green Blue : Rouge Vert Bleu, c'est une façon de coder les couleurs). Vous pouvez la trouver dans Menu -> Utilitaires après l'avoir installée :
 
 <code> # tazpkg get-install magnifier
 </code>
@@ -30,7 +30,7 @@ Exemple : pour lire un fichier :
 
 ===== Clavier virtuel =====
 
-Le clavier virtuel (''xvkdb'') peut être utilisé pour entrer des caractères dans le logiciel de votre choix. Le menu peut être utilisé pour changer le mappage du clavier, les touches fonction, etc. Il supporte la complétition des mots, le retrait de touches non désirés et peut se connecter à un affichage à distance. La fichier de configuration est dans le fichier //~/.Xdefaults//. Pour l'installer :
+Le clavier virtuel (//xvkdb//) peut être utilisé pour entrer des caractères dans le logiciel de votre choix. Le menu peut être utilisé pour changer le mappage du clavier, les touches fonction, etc. Il supporte la complétition des mots, le retrait de touches non désirés et peut se connecter à un affichage à distance. La fichier de configuration est dans le fichier //~/.Xdefaults//. Pour l'installer :
 
 <code> # tazpkg get-install xvkbd
 </code>
@@ -59,4 +59,26 @@ Pour configurer //speech-dispatcher// :
  $ exit
 </code>
 
-Les fichiers de configuration peut être trouvé dans le répertoire ///etc/speech-dispatcher// ou //~/.speech-dispatcher/ et pour yasr : ///usr/share/yasr//.
+Les fichiers de configuration se trouvent dans le répertoire ///etc/speech-dispatcher// ou //~/.speech-dispatcher// et pour yasr : ///usr/share/yasr//.
+
+===== Touches souris lentes/collantes sous X =====
+
+Pour activer les options d'ergonomie, il suffit d'éditer le fichier ///etc/slim.conf// et de vous déconnecter de votre session X :
+
+<file>
+default_xserver     /usr/bin/Xorg 
+xserver_arguments   +accessx 
+</file>
+
+Après vous être connecté à nouveau, pour activer/désactiver les options :
+    * **Touches collantes** : Appuyez sur la touche Maj 5 fois
+    * **Touches lentes** : Appuyez sur la touche Maj pendant 8 secondes
+    * **Touches de la souris** : Appuyez sur les touches Maj gauche, Alt gauche et Verr Num
+
+Il existe aussi un paquet dans les dépôts de Cooking qui peut faire tout cela dans une interface graphique ou en mode ligne de commande : **accessx**.
+Pour l'installer et s'en servir :
+<code>
+ # tazpkg get-install accessx
+ $ ax help
+ $ accessx
+</code>

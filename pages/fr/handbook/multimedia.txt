@@ -2,31 +2,33 @@
 
 ===== Slitaz le son et la vidéo =====
 
-En mode LiveCD SliTaz fournit le support du son mais pas de lecteur vidéo. Vous pouvez visionner des videos en flash sur Youtube en installant et exécutant le paquet get-flash-plugin. Pour regarder des vidéos vous pouvez utiliser Xine ou Mplayer qui supportent la plus part des formats tels que OGG ou AVI. A noter que Xine/Mplayer peuvent aussi faire office de lecteur de musique. Au niveau du son, vous avez un mixer avec Alsamixer et un lecteur avec Alsaplayer, ils sont tous deux installée par défaut sur la version standard du LiveCD et permettent d'écouter des fichiers OGG, MP3 ou WAV. Pour configurer ou reconfigurer votre carte son, vous avez le choix entre deux petit programmes permettant de configurer le son simplement via des boîtes de dialogue. 
+En mode LiveCD, SliTaz fournit le support du son mais aucun lecteur vidéo. Vous pouvez visionner des videos en flash sur Youtube en installant et exécutant le paquet get-flash-plugin. Pour regarder des vidéos vous pouvez utiliser Xine ou Mplayer qui supportent la plupart des formats tels que avi, mov, mpeg, etc. À noter que Xine/Mplayer peuvent aussi faire office de lecteur de musique. 
+
+Au niveau du son, vous disposez d'un mixer avec Alsamixer et d'un lecteur audio avec Alsaplayer, ils sont tous deux installés par défaut dans la version standard du LiveCD et permettent d'écouter des fichiers OGG, MP3 ou WAV. Pour configurer ou reconfigurer votre carte son, vous avez le choix entre deux petit programmes permettant de configurer le son simplement via des boîtes de dialogue. 
 
 ===== Configurer une carte son =====
 
-En mode LiveCD SliTaz configure automatiquement le son au démarrage. Dans la majeur partie des cas, la carte son est reconnue et le son est fonctionnel. Cela dit, il se peut que votre carte son ne soit pas reconnue au démarrage ou simplement pas supportée. Avant de jeter l'éponge, vous pouvez tenter de configurer manuellement votre carte et demander le l'aide sur la liste de discussion ou le forum de support matériel. 
+En mode LiveCD SliTaz configure automatiquement le son au démarrage. Dans la majeur partie des cas, la carte son est reconnue et le son est fonctionnel. Cela dit, il se peut que votre carte son ne soit pas reconnue au démarrage ou tout simplement pas supportée. Avant de jeter l'éponge, vous pouvez tenter de configurer manuellement votre carte et demander de l'aide sur la liste de discussion ou le forum de support matériel. 
 
 === Soundconf ===
 
-Pour configurer ou reconfigurer une carte son, SliTaz fournit le script ''soundconf''. Cet utilitaire est utilisé au démarrage, ne pose qu'une question, charge les bons modules automatiquement et configure ///etc/rcS.conf// pour que le pilote soit chargé à chaque démarrage. Soundconf va aussi régler les volumes automatiquement, vous pourrez modifier les réglages par la suite via le mixer et alsactl. Pour lancer l'interface de configuration du son, il faut avoir les droits d'administrateur et taper : 
+Pour configurer ou reconfigurer une carte son, SliTaz fournit le script //soundconf//. Cet utilitaire est utilisé au démarrage, ne pose pas de questions, charge les bons modules automatiquement et configure ///etc/rcS.conf// pour que le pilote soit chargé à chaque démarrage. Soundconf va aussi régler les volumes automatiquement, vous pourrez modifier les réglages par la suite via le mixer et alsactl. Pour lancer l'interface de configuration du son, il faut avoir les droits d'administrateur et taper : 
 
 <code> # soundconf </code>
 
 === Alsactl ===
 
-Alsactl pour //Alsa control// permet de stocker ou restaurer les réglages du son, utile par exemple pour restaurer ses préférences à chaque démarrage. Lors de la configuration du son avec Soundconf les volumes sont réglés automatiquement, vous pouvez utiliser ''alsamixer'' avec //root// pour modifier les valeurs et ensuite lancer ''alsactl'' pour stocker la configuration 
+Alsactl pour //Alsa control// permet de stocker ou restaurer les réglages du son, par exemple pour restaurer ses préférences à chaque démarrage. Lors de la configuration du son avec Soundconf les volumes sont réglés automatiquement, vous pouvez utiliser //alsamixer// avec //root// pour modifier les valeurs et ensuite lancer //alsactl// pour stocker la configuration 
 
 <code> # alsactl store </code>
 
-Pour restaurer ensuite la configuration vous pouvez utiliser la commande ''alsactl restore'' et pour restaurer vos préférences à chaque démarrage vous pouvez ajouter la commande au script /etc/init.d/local.sh en l'éditant avec un éditeur de texte ou avec : 
+Pour restaurer ensuite la configuration vous pouvez utiliser la commande //alsactl restore// et pour restaurer vos préférences à chaque démarrage vous pouvez ajouter la commande au script /etc/init.d/local.sh en l'éditant avec un éditeur de texte ou avec : 
 
 <code> # echo 'alsactl restore' > /etc/init.d/local.sh </code>
 
 ===== Alsamixer =====
 
-Alsamixer est le mixer officiel du projet Alsa, il est simple et efficace. Vous pouvez le lancer via le menu du gestionnaire de fenêtres ou directement depuis un terminal. Les volumes se règlent avec les flèches et le mode muet se met ou s'enlève via la touche <M>. Pour lancer le mixer depuis un terminal Linux ou graphique : 
+Alsamixer est le mixer officiel du projet Alsa, il est simple et efficace. Vous pouvez le lancer via le menu du gestionnaire de fenêtres ou directement depuis un terminal. Les volumes se règlent avec les flèches et le mode muet se met ou s'enlève via la touche <M>. Pour lancer le mixer depuis un terminal Linux ou graphique : 
 
 <code> $ alsamixer </code>
 
@@ -36,47 +38,62 @@ Le lecteur de musique Alsaplayer se veut simple, épuré et intuitif. Il est ré
 
 ===== Asunder - Audio CD Ripper =====
 
-Asunder est un logiciel d'extraction et d'encodage de pistes audio depuis un CD. L'outil est très simple d'utilisation, permet d'encoder les morceaux au format wav, ogg ou mp3 via le paquet //lame//. Il peut aussi faire une recherche CDDB, créer une liste de lecture et modifier les noms des fichiers. Vous trouverez Asunder dans la catégorie Multimedia, il est très rapidement à prendre en main et efficace. 
+Asunder est un logiciel d'extraction et d'encodage de pistes audio depuis un CD. L'outil est très simple d'utilisation, permet d'encoder les morceaux au format wav, ogg ou mp3 via le paquet //lame//. Il peut aussi faire une recherche CDDB, créer une liste de lecture et modifier les noms des fichiers. Vous trouverez Asunder dans la catégorie Multimedia, il est très rapide à prendre en main et efficace. 
+
+===== mhWaveEdit - Éditeur et enregistreur audio =====
+
+mhWaveEdit est une application graphique pour lire, enregistrer et éditer des fichiers audio. Les formats supportés sont : wav (par défaut), et quelques autres. De multiples autres formats peuvent également être importés par Mplayer. Pour démarrer du menu, sélectionnez //Multimedia -> mhWaveEdit//.
 
 ===== MPD - Music Player Daemon =====
 
-MPD est un petit lecteur de musique qui utilise une architecture serveur/client. Cela signifie qu'il peut fonctionner à distance sans serveur X. Pour installer MPD sur SliTaz : ''tazpkg get-install mpd''. Sur SliTaz, MPD ne nécessite pas les droits //root//, donc vous pouvez le lancer simplement en entrant :
+MPD est un remarquable petit lecteur de musique basé sur une architecture client/serveur. Cela signifie qu'il peut fonctionner à distance sans serveur X. Pour installer MPD sur SliTaz : <code># tazpkg get-install mpd</code>. Sur SliTaz, MPD ne nécessite pas les droits //root//, donc vous pouvez le lancer simplement en entrant :
 
 <code> $ mpd </code>
 
-Et pour l'arrêter :
+Et pour l'arrêter :
 
 <code> $ mpd --kill </code>
 
-Déposez simplement vos fichiers audio dans le répertoire ~/music (ou créez un lien) et exécutez ''%%mpd --create-db%%'' en tant qu'administrateur pour mettre à jour la base de données, puis vous pouvez utiliser l'un des nombreux clients. La commande ''%%mpd --version%%'' permet d'obtenir une liste complète des formats et types de sorties.
+Déposez simplement vos fichiers audio dans le répertoire ~/music (ou créez un lien) et exécutez //%%mpd --create-db%%// en tant qu'administrateur pour mettre à jour la base de données, puis vous pouvez utiliser l'un des nombreux clients. La commande //%%mpd --version%%// permet d'obtenir une liste complète des formats et types de sorties.
 
 === MPC - Music Player Client ===
 
-MPC est un client très utilisé pour MPD. Pour charger les fichiers dans MPC depuis la base de données MPD et commencer à les lires, installez mpc (''tazpkg get-install mpc'') et lancez :
+MPC est un client très utilisé pour MPD. Pour charger les fichiers dans MPC depuis la base de données MPD et commencer à les lire, installez mpc (//tazpkg get-install mpc//) et lancez :
 
-<code> $ mpc add /
+<code># tazpkg get-install mpc
+ $ mpc add /
  $ mpc play </code>
 
-La commande ''%%mpc --help%%'' vous donne toute les options disponibles pour éditer la liste de lecture, activer le fondu, régler le volume, activer la lecture aléatoire, etc.
+La commande <nowiki> mpc --help </nowiki> vous donne toute les options disponibles pour éditer la liste de lecture, activer le fondu, régler le volume, activer la lecture aléatoire, etc.
 
 ===== mpg123 =====
 
-Mpg123 est un lecteur audio en ligne de commandes et un convertisseur de fichiers. Cela signifie qu'il fonctionne dans le terminal. Pour obtenir de l'aide, utilisez l'option ''--help''. Pour lire un fichiers mp3, vous pouvez entrer :
+Mpg123 est un lecteur audio en ligne de commandes et un convertisseur de fichiers. Cela signifie qu'il permet d'écouter de la musique ou de convertir des fichiers dans la fenêtre d'un terminal. Pour obtenir de l'aide, utilisez l'option //--help//. Pour lire un fichiers mp3, vous pouvez entrer :
 
 <code> $ mpg123 sound.mp3 </code>
 
-Mpg123 peut aussi encoder un fichier dans un autre format, par exemple vous pouvez convertir un fichier wav en mp3 en faisant :
+Mpg123 peut aussi encoder un fichier dans un autre format, par exemple vous pouvez convertir un fichier wav en mp3 en faisant :
 
 <code> $ mpg123 -w sound.mp3 sound.wav </code>
 
 ===== Mplayer =====
 
-Mplayer est un lecteur de vidéos populaire pour Linux qui lit de nombreux formats comme les DVD, VCD, mpeg, wmv, realvideo, etc. Il support aussi plusieurs codecs audio comme aac, wma, realaudio et encore ogg, flac, etc. Mplayer peut être configuré via le menu affiché par clic-droit et peut être personnalisé avec des //skins//. vous pouvez facilement activer vos propres pilotes vidéos et périphériques de sortie.
+Mplayer est un lecteur de vidéos populaire pour Linux qui lit de nombreux formats comme les DVD, VCD, mpeg, wmv, realvideo, etc. Il supporte aussi plusieurs codecs audio comme aac, wma, realaudio et encore ogg, flac, etc. Mplayer peut être configuré via le menu contextuel appelé par un clic-droit et peut être personnalisé avec des //skins// et des interfaces utilisateur qui vous permettent de facilement activer vos propres pilotes vidéos et périphériques de sortie. Pour installer mplayer :
+
+<code># tazpkg get-install mplayer-svn</code>
 
 ===== Xine =====
 
-Xine est un projet fournissant des bibliothèques et divers visionneurs de vidéos, SliTaz fournit les bibliothèques et un //media player// contenu dans le paquet ''xine-ui'' (ui pour //User Interface//). Le lecteur Xine propose un interface Xlib, un panneau de contrôle, une interface de configuration via un clique de droite sur la fenêtre principale et des //plugins//. Il lit la musique OGG, MP3, etc, et les vidéos au format OGG, AVI ou MPG. Pour installer Xine et ses dépendances : 
+Xine est un projet multimedia fournissant des bibliothèques, divers visionneurs audio et vidéo. SliTaz fournit les bibliothèques et un //media player// contenu dans le paquet //xine-ui// (ui pour //User Interface//). Le lecteur Xine propose une interface Xlib, un panneau de contrôle, une interface de configuration via un clic droit sur la fenêtre principale et des //plugins//. Il lit la musique OGG, MP3, etc, et les vidéos au format OGG, AVI ou MPG. Pour installer Xine et ses dépendances : 
 
 <code> # tazpkg get-install xine-ui </code>
 
-Site officiel : [[http://xinehq.de/index.php/home|xinehq.de]] 
+Site officiel : [[http://xinehq.de/index.php/home|xinehq.de]]
+
+===== VLC =====
+
+VLC media player est un lecteur multimédia très portable et un système multimedia capable de lire la plupart des formats audio et vidéo (MPEG-2, MPEG-4, H.264, DivX, MPEG-1, mp3, ogg, aac ...) ainsi que DVD, CD Audio, VCDs, et divers protocoles de streaming. Pour installer vlc:
+
+<code> # tazpkg get-install vlc </code>
+
+Official VLC [[http://www.videolan.org/vlc/|website]]

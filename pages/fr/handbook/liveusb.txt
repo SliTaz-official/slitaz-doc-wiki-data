@@ -1,47 +1,46 @@
 ====== LiveUSB - SliTaz sur un média USB ======
+
 ===== Methodes, type de média et notes =====
 
-Ce document décrit les étapes à réaliser pour installer les fichiers nécessaires afin de démarrer SliTaz depuis un périphérique de type USB (clé, carte SD, disque dur externe). Ce n'est pas une installation du système à proprement parler, le mode de fonctionnement de SliTaz reste le même qu'en mode LiveCD, c'est à dire que le système sera entièrement chargé en mémoire vive (RAM) lors du démarrage. Avoir SliTaz sur un média USB vous permet de vous passer du cdrom sur les machines capables de démarrer depuis un périphérique USB et l'utiliser le même média pour stocker vos données personnelles de manière persistante. Il faut aussi savoir que tous les PC ne sont pas capables de démarrer directement sur USB et que le démarrage du système est plus long que depuis un cdrom. 
+Ce document décrit les étapes à réaliser pour installer les fichiers nécessaires afin de démarrer SliTaz à partir d'un périphérique de type USB (clé, carte SD, disque dur externe). Ce n'est pas une installation du système à proprement parler, le mode de fonctionnement de SliTaz reste le même qu'en mode LiveCD, c'est à dire que le système sera entièrement chargé en mémoire vive (RAM) lors du démarrage. Avoir SliTaz sur un média USB vous permet de vous passer du cdrom sur les machines capables de démarrer depuis un périphérique USB et l'utiliser le même média pour stocker vos données personnelles de manière persistante. Il faut aussi savoir que les PC ne sont pas tous capables de démarrer directement sur USB et que le démarrage du système est plus long qu'à partir d'un cdrom. 
 
 ==== Disque dur externe, carte SD ou clé USB ====
 
-Un média de stockage USB peut être un disque dur externe de grande ou petite capacité, une carte de type SD/flash ou une clé USB. Vous pouvez par exemple utiliser l'ancienne carte d'un appareil de photos numérique ayant au minimum une capacité de 32 Mb. Cela dit, l'utilisation de GRUB avec les clés USB ne réussi pas toujours et dépend du type de clé. Si l'utilisation de GRUB échoue, il est conseillé d'utiliser le gestionnaire de démarrage EXTLINUX et d'installer un MBR fonctionnel sur la clé USB.
+Un média de stockage USB peut être un disque dur externe de grande ou petite capacité, une carte de type SD/flash ou une clé USB. Vous pouvez par exemple utiliser l'ancienne carte d'un appareil de photos numérique ayant au minimum une capacité de 32 Mb. Cela dit, l'utilisation de GRUB avec les clés USB ne réussit pas toujours et dépend du type de clé. Si l'utilisation de GRUB échoue, il est conseillé d'utiliser le gestionnaire de démarrage EXTLINUX et d'installer un MBR fonctionnel sur la clé USB.
 
-Pour commencer nous vous conseillons d'utiliser une partition formatée en ext3 et non au format natif FAT32. Le système de fichiers ext3 est un système de fichiers propre à GNU/Linux, robuste, fiable et illisible nativement depuis Windows, ce qui peut être un point positif ou négatif. A noter que vous pourrez aussi utiliser cette même partition pour stocker vos données de manière persistante via l'option ''home=usb'' proposée par SliTaz. Cela dit, vous pouvez aussi installer SliTaz sur une clé USB au format FAT32 comme suggéré sur le forum de SliTaz : SliTaz sur clé USB FAT32. Enfin, vous pouvez partitionner votre clef avec une première partition FAT/NTFS lisible sous Windows et une deuxième en ext3 pour Slitaz.
+Pour commencer nous vous conseillons d'utiliser une partition formatée en ext3 et non au format natif FAT32. Le système de fichiers ext3 est un système de fichiers propre à GNU/Linux, robuste, fiable et illisible nativement depuis Windows, ce qui peut être un point positif ou négatif. À noter que vous pourrez aussi utiliser cette même partition pour stocker vos données de manière persistante via l'option //home=usb// proposée par SliTaz. Cela dit, vous pouvez aussi installer SliTaz sur une clé USB au format FAT32 comme suggéré sur le forum de SliTaz : SliTaz sur clé USB FAT32. Enfin, vous pouvez partitionner votre clef avec une première partition FAT/NTFS lisible sous Windows et une deuxième en ext3 pour Slitaz.
 
 ==== Étapes à réaliser ====
 
-En gros, il faut récupérer les fichiers contenus sur le LiveCD, les copier sur le média USB et installer un gestionnaire de démarrage. A noter qu'il existe plusieurs gestionnaires de démarrage, Syslinux, GRUB ou encore Lilo. SliTaz fournit GRUB sur la version standard du LiveCD et dans les paquets du miroir. Il a l'avantage de pouvoir aussi être utilisé pour démarrer d'autres systèmes d'exploitations et de proposer un SHell permettant par exemple de réinstaller GRUB dans le MBR (Master Boot Record) d'un disque dur. 
+En gros, il faut récupérer les fichiers contenus sur le LiveCD, les copier sur le média USB et installer un gestionnaire de démarrage. À noter qu'il existe plusieurs gestionnaires de démarrage, Syslinux, GRUB ou encore Lilo. SliTaz fournit GRUB sur la version standard du LiveCD et dans les paquets du miroir. Il a l'avantage de pouvoir aussi être utilisé pour démarrer d'autres systèmes d'exploitations et de proposer un SHell permettant par exemple de réinstaller GRUB dans le MBR (Master Boot Record) d'un disque dur. 
 
 ===== LiveUSB en 2 commandes =====
 
-Pour créer facilement un système Live sur un média USB, vous pouvez utiliser TazUSB ou installer les fichiers manuellement. TazUSB est un utilitaire simple, efficace et bien testé. Vous pouvez créer un média en une ou deux commandes. Pour cela il vous faut un LiveCD de SliTaz et bien sûr un média USB dont vous devez connaître le nom (''fdisk -l'' ou ''blkid''). Formatage optionnel et génération d'un média bootable reconnu comme /dev/sdb1: 
+Pour créer facilement un système Live sur un média USB, vous pouvez utiliser TazUSB ou installer les fichiers manuellement. TazUSB est un utilitaire simple, efficace et bien testé. Vous pouvez créer un média en une ou deux commandes. Pour cela il vous faut un LiveCD de SliTaz et bien sûr un média USB dont vous devez connaître le nom (par //fdisk -l// ou //blkid//). Formatage optionnel et génération d'un média bootable reconnu comme /dev/sdb1: 
 
 <code>
  # tazusb format /dev/sdb1
  # tazusb gen-liveusb /dev/sdb1
 </code>
 
-Une fois le média généré, vous pouvez redémarrer sur votre média USB. Si vous désirez installer des applications, mettre à jour ou configurer le système et retrouver vos modifications lors de la prochaine utilisation, il vous faut recréer le système compressé en utilisant la commande ''writefs'' de TazUSB. A noter que le menu d'Openbox propose par défaut des entrées pour écrire le système sur le média en utilisant gzip, lzma ou aucune compression (prend plus de place mais démarre beaucoup plus rapidement). 
+Une fois le média généré, vous pouvez redémarrer sur votre média USB. Si vous désirez installer des applications, mettre à jour ou configurer le système et retrouver vos modifications lors de la prochaine utilisation, il vous faut recréer le système compressé en utilisant la commande //writefs// de TazUSB. À noter que le menu d'Openbox propose par défaut des entrées pour écrire le système sur le média en utilisant gzip, lzma ou aucune compression (prend plus de place mais démarre beaucoup plus rapidement). 
 
 ===== Préparer le média USB =====
 
-Si vous avez déjà une partition au format ext3, vous n'avez pas besoin de reformater, sinon il faut créer un système de fichier avec l'utilitaire ''mkfs.ext3'' ou Gparted. Attention : le formatage d'une partition détruit toutes les données qui s'y trouvent. Généralement, la première ou unique partition d'un média USB est reconnu par le noyau Linux comme ///dev/sda//. Pour lister les périphériques et partitions disponibles vous pouvez utiliser la commande ''fdisk -l'' avant de créer le système de fichiers ext3 : 
+Si vous avez déjà une partition au format ext3, vous n'avez pas besoin de reformater, sinon il faut créer un système de fichier avec l'utilitaire //mkfs.ext3// ou Gparted. Attention : le formatage d'une partition détruit toutes les données qui s'y trouvent. Généralement, la première ou unique partition d'un média USB est reconnu par le noyau Linux comme ///dev/sda//. Pour lister les périphériques et partitions disponibles vous pouvez utiliser la commande //fdisk -l// avant de créer le système de fichiers ext3 : 
 
 <code>
  # mkfs.ext3 /dev/sda1
  # mount -t ext3 /dev/sda1 /media/flash
 </code>
 
-Le formatage de la partition va créer un répertoire système nommé //lost+found// (perdu et trouvé). Ce répertoire est utilisé par le système de fichier en cas de problèmes. Maintenant que le média est formaté et monté, vous pouvez copier le contenu du cdrom sur le périphérique, soit depuis un cdrom gravé, soit depuis une image ISO locale :
+Le formatage de la partition va créer un répertoire système nommé //lost+found// (perdu et trouvé). Ce répertoire est utilisé par le système de fichier en cas de problèmes. Maintenant que le média est formaté et monté, vous pouvez copier le contenu du cdrom sur le périphérique, soit depuis un cdrom gravé :
 
-<code>
- # mount -t iso9660 /dev/cdrom /media/cdrom
- Ou :
- # mount -o loop slitaz-3.0.iso /media/cdrom
-</code>
+<code> # mount -t iso9660 /dev/cdrom /media/cdrom</code>
+ Ou, soit depuis une image ISO locale :
+<code> # mount -o loop slitaz-3.0.iso /media/cdrom</code>
 
-Copie de tous les fichiers contenu dans le répertoire //boot/// du LiveCD :
+Copie de tous les fichiers contenu dans le répertoire //boot/// du LiveCD :
 
 <code>
  # cp -a /media/cdrom/boot /media/flash
@@ -49,7 +48,7 @@ Copie de tous les fichiers contenu dans le répertoire //boot/// du LiveCD :
 
 ===== Installer et utiliser GRUB =====
 
-Pour installer GRUB (GRand Unified Bootloader) il faut commencer par copier les fichiers //stage1// et //stage2// depuis ///usr/lib/grub/i386-pc// dans le répertoire //boot/grub// du média USB. Une fois les fichiers copiés et le média trouvé par GRUB, vous allez pouvoir installer le gestionnaire de démarrage dans le MBR du périphérique. Copie des fichiers, lancement du SHell GRUB et recherche de //stage1// fraîchement copié : 
+Pour installer GRUB (GRand Unified Bootloader) il faut commencer par copier les fichiers //stage1// et //stage2// depuis ///usr/lib/grub/i386-pc// dans le répertoire //boot/grub// du média USB. Une fois les fichiers copiés et le média trouvé par GRUB, vous allez pouvoir installer le gestionnaire de démarrage dans le MBR du périphérique. Copie des fichiers, lancement du SHell GRUB et recherche de //stage1// fraîchement copié : 
 
 <code>
  # cp /usr/lib/grub/i386-pc/stage[1-2] /media/flash/boot/grub
@@ -57,7 +56,7 @@ Pour installer GRUB (GRand Unified Bootloader) il faut commencer par copier les 
  grub> find /boot/grub/stage1
 </code>
 
-Ce qui peut donner (hd0,0), (hd1,0) ou encore (hd2,0), GRUB voit le premier disque //hda// comme //hd0//, il faut donc modifier les valeurs en fonction de votre configuration. Il se peut aussi que votre média ne soit pas trouvé, dans ce cas vous pouvez utiliser le //bootloader// EXTLINUX. Pour installer GRUB vous pouvez utiliser les commandes ''root'' et ''setup''. Pour quitter le SHell GRUB c'est la commande ''quit'' : 
+Ce qui peut donner (hd0,0), (hd1,0) ou encore (hd2,0), GRUB voit le premier disque //hda// comme //hd0//, il faut donc modifier les valeurs en fonction de votre configuration. Il se peut aussi que votre média ne soit pas trouvé, dans ce cas vous pouvez utiliser le //bootloader// EXTLINUX. Pour installer GRUB vous pouvez utiliser les commandes //root// et //setup//. Pour quitter le SHell GRUB c'est la commande //quit// : 
 
 <code>
  grub> root (hd2,0)
@@ -65,10 +64,10 @@ Ce qui peut donner (hd0,0), (hd1,0) ou encore (hd2,0), GRUB voit le premier disq
  grub> quit
 </code>
 
-La dernière chose qu'il reste à faire avant de redémarrer, est de créer un fichier de configuration de GRUB permettant de lancer SliTaz avec l'option ''home=usb'', ce qui permet d'utiliser aussi le média comme partition ///home// pour stocker ses données, installer des applications en espace utilisateur et conserver vos configurations logiciels. Le fichier de configuration utilisé par GRUB peut être créé avec votre éditeur de texte préféré, exemple avec LeafPad : 
+La dernière chose qu'il reste à faire avant de redémarrer, est de créer un fichier de configuration de GRUB permettant de lancer SliTaz avec l'option //home=usb//, ce qui permet d'utiliser aussi le média comme partition ///home// pour stocker ses données, installer des applications en espace utilisateur et conserver vos configurations logicielles. Le fichier de configuration utilisé par GRUB peut être créé avec votre éditeur de texte préféré, exemple avec LeafPad : 
 
 <code> # leafpad /media/flash/boot/grub/menu.lst</code>
-<code>
+<file>
 # /boot/grub/menu.lst: GRUB boot loader configuration.
 #
 
@@ -80,19 +79,19 @@ color yellow/brown light-green/black
 title 	SliTaz GNU/Linux (Cooking) (Kernel 2.6.22.9)
 kernel 	/boot/bzImage root=/dev/null vga=771 home=usb
 initrd 	/boot/rootfs.gz
-</code>
+</file>
 
-Vous pouvez encore ajouter ces quelques lignes, pour avoir une entrée permettant de réinstaller GRUB dans un MBR (utile en cas problèmes) : 
+Vous pouvez encore ajouter ces quelques lignes, pour avoir une entrée permettant de réinstaller GRUB dans un MBR (utile en cas problèmes) : 
 
-<code>
+<file>
 # For installing GRUB into the hard disk
 #
 title Install GRUB into the hard disk
 root 	(hd0,0)
 setup 	(hd0)
-</code>
+</file>
 
-Voilà, vous pouvez démonter le cdrom et le média ET redémarrer sur votre clé USB en prenant soins de configurer correctement le BIOS de votre machine pour qu'elle démarre depuis le média USB et non depuis le disque dur : 
+Voilà, vous pouvez démonter le cdrom et le média ET redémarrer sur votre clé USB en prenant soins de configurer correctement le BIOS de votre machine pour qu'elle démarre depuis le média USB et non depuis le disque dur : 
 
 <code>
  # umount /media/cdrom
@@ -102,7 +101,7 @@ Voilà, vous pouvez démonter le cdrom et le média ET redémarrer sur votre cl�
 
 ===== GRUB sur cdrom =====
 
-Il est possible de créer rapidement une image ISO contenant GRUB, servant à démarrer SliTaz depuis un média USB et cela sur des machines ne pouvant pas démarrer directement sur USB. Pour ce faire GRUB fourni une image nommée ''stage2_eltorito'' permettant de rendre un cdrom bootable. Pour créer une image ISO gravable il faut créer la racine du cdrom, copier le fichier ''stage2_eltorito'' et générer une ISO avec ''genisoimage''. Les commandes peuvent être copiées/collées ligne par ligne. Pour créer la racine du cdrom (''rootcd'' et copier l'image eltorito de GRUB) : 
+Il est possible de créer rapidement une image ISO contenant GRUB, servant à démarrer SliTaz depuis un média USB et cela sur des machines ne pouvant pas démarrer directement sur USB. Pour ce faire GRUB fourni une image nommée //stage2_eltorito// permettant de rendre un cdrom bootable. Pour créer une image ISO gravable il faut créer la racine du cdrom, copier le fichier //stage2_eltorito// et générer une ISO avec //genisoimage//. Les commandes peuvent être copiées/collées ligne par ligne. Pour créer la racine du cdrom (//rootcd// et copier l'image eltorito de GRUB) : 
 
 <code>
  $ mkdir -p rootcd/boot/grub
@@ -110,9 +109,9 @@ Il est possible de créer rapidement une image ISO contenant GRUB, servant à d�
    rootcd/boot/grub
 </code>
 
-Le fichier de configuration de GRUB se nomme toujours //menu.lst//, c'est un fichier texte éditable avec votre éditeur de texte préféré. Vous pouvez mettre le nombre d'entrées que vous désirez, pour démarrer SliTaz il faut spécifier la bonne racine ''root (hd2,0)'' pour que GRUB trouve le noyau (//bzImage//) et le système compressé (//rootfs.gz//). Un petit fichier de configuration minimaliste : 
+Le fichier de configuration de GRUB se nomme toujours //menu.lst//, c'est un fichier texte éditable avec votre éditeur de texte préféré. Vous pouvez mettre le nombre d'entrées que vous désirez, pour démarrer SliTaz il faut spécifier la bonne racine //root (hd2,0)// pour que GRUB trouve le noyau (//bzImage//) et le système compressé (//rootfs.gz//). Un petit fichier de configuration minimaliste : 
 
-<code>
+<file>
 # /boot/grub/menu.lst: GRUB boot loader configuration.
 #
 
@@ -120,11 +119,11 @@ title 	SliTaz GNU/Linux (Cooking)
 root 	(hd2,0)
 kernel 	/boot/bzImage root=/dev/null home=usb
 initrd 	/boot/rootfs.gz
-</code>
+</file>
 
 ==== Générer une ISO bootable ====
 
-Pour générer une image ISO vous pouvez utiliser ''genisoimage'' fourni en standard sur le LiveCD de SliTaz. Cette commande est relativement longue, les //backslash// en fin de ligne permettent de continuer la commande sur la ligne suivante. Dans l'exemple, l'image se nomme ''grub.iso'', le volume Grub et la racine du cdrom ''rootcd'' : 
+Pour générer une image ISO vous pouvez utiliser //genisoimage// fourni en standard sur le LiveCD de SliTaz. Cette commande est relativement longue, les //backslash// en fin de ligne permettent de continuer la commande sur la ligne suivante. Dans l'exemple, l'image se nomme //grub.iso//, le volume Grub et la racine du cdrom //rootcd// : 
 
 <code>
  $ genisoimage -R -o grub.iso \
@@ -136,7 +135,7 @@ Pour générer une image ISO vous pouvez utiliser ''genisoimage'' fourni en stan
 
 ===== Installer et utiliser EXTLINUX =====
 
-Extlinux est un gestionnaire de démarrage provenant du paquet Syslinux, il permet de démarrer un système GNU/Linux depuis un système de fichiers ext2 ou ext3. C'est un gestionnaire de démarrage simple et fiable, il fonctionne bien pour les clés USB. Pour commencer, il faut récupérer la dernière version du paquet Syslinux depuis le site du noyau Linux et installer le binaire ''extlinux'' dans votre répertoire personnel //~/Bin// ou dans un répertoire système tel que ///usr/bin//. Pour télécharger, désarchiver et installer EXTLINUX en espace utilisateur : 
+Extlinux est un gestionnaire de démarrage provenant du paquet Syslinux, il permet de démarrer un système GNU/Linux depuis un système de fichiers ext2 ou ext3. C'est un gestionnaire de démarrage simple et fiable, il fonctionne bien pour les clés USB. Pour commencer, il faut récupérer la dernière version du paquet Syslinux depuis le site du noyau Linux et installer le binaire //extlinux// dans votre répertoire personnel //~/Bin// ou dans un répertoire système tel que ///usr/bin//. Pour télécharger, désarchiver et installer EXTLINUX en espace utilisateur : 
 
 <code>
  $ wget http://www.kernel.org/pub/linux/utils/boot/syslinux/syslinux-3.61.tar.gz
@@ -144,35 +143,35 @@ Extlinux est un gestionnaire de démarrage provenant du paquet Syslinux, il perm
  $ cp syslinux-3.61/extlinux/extlinux ~/.local/bin
 </code>
 
-Maintenant que le binaire ''extlinux'' est disponible, vous pouvez l'installer sur un média monté et cela via un SHell administrateur //root// obtenu via la commande ''su''. Nous vous conseillons d'installer EXTLINUX dans un répertoire dédié, c'est à dire ///boot/extlinux//, du média USB : 
+Maintenant que le binaire //extlinux// est disponible, vous pouvez l'installer sur un média monté et cela via un SHell administrateur //root// obtenu via la commande //su//. Nous vous conseillons d'installer EXTLINUX dans un répertoire dédié, c'est à dire ///boot/extlinux//, du média USB : 
 
 <code>
  # mkdir -p /media/flash/boot/extlinux
  # extlinux --install /media/flash/boot/extlinux
 </code>
 
-Sur les clé USB il faut encore installer un MBR pour s'assurer de rendre le média bootable. Attention à spécifier le bon périphérique, dans la plus part des cas une clé USB est reconnue comme sda : 
+Sur les clés USB il faut encore installer un MBR pour s'assurer de rendre le média bootable. Attention à spécifier le bon périphérique, dans la plupart des cas une clé USB est reconnue comme sda : 
 
 <code> # cat syslinux-3.61/mbr/mbr.bin > /dev/sda</code>
 
-Le fichier de configuration se nomme //extlinux.conf// et doit se trouver dans le même répertoire que le binaire ''extlinux''. Les chemins vers les fichiers peuvent être absolus ou relatifs au répertoire d'installation d'extlinux. Ce fichier à la même syntaxe que le fichier //isolinux.cfg// utilisé pour démarrer le LiveCD de SliTaz. Vous utilisant votre éditeur de texte préféré ou la commande ''cat'' (''EOT'' signifie //End Of Text//, c'est là que le fichier se termine). A noter que vous pouvez copier/coller le contenu du fichier en une seule fois : 
+Le fichier de configuration se nomme //extlinux.conf// et doit se trouver dans le même répertoire que le binaire //extlinux//. Les chemins vers les fichiers peuvent être absolus ou relatifs au répertoire d'installation d'extlinux. Ce fichier à la même syntaxe que le fichier //isolinux.cfg// utilisé pour démarrer le LiveCD de SliTaz. Vous pouvez utiliser votre éditeur de texte préféré ou la commande //cat// (//EOT// signifie //End Of Text//, c'est là que le fichier se termine). À noter que vous pouvez copier/coller le contenu du fichier en une seule fois : 
 
-<code> # cat > /media/flash/boot/extlinux/extlinux.conf << "EOT"</code>
-<code>
+<code> # cat > /media/flash/boot/extlinux/extlinux.conf << "EOT"
+
 display display.txt
 default slitaz
 label slitaz
     kernel /boot/bzImage
     append initrd=/boot/rootfs.gz rw root=/dev/null home=usb
-</code>
-<code>EOT</code>
 
-==== Afficher un message démarrage ====
+EOT</code>
 
-La première ligne //display display.txt// permet d'afficher un fichier texte au démarrage de EXTLINUX, vous pouvez utiliser/modifier celui utilisé sur le LiveCD ou en créer un nouveau. Si vous ne voulez pas afficher un //display//, il suffit de supprimer la ligne. Pour créer un nouveau fichier //display.txt// avec ''cat '': 
+==== Afficher un message au démarrage ====
 
-<code> # cat > /media/flash/boot/extlinux/display.txt << "EOT"</code>
-<code>
+La première ligne //display display.txt// permet d'afficher un fichier texte au démarrage de EXTLINUX, vous pouvez utiliser/modifier celui utilisé sur le LiveCD ou en créer un nouveau. Si vous ne voulez pas afficher un //display//, il suffit de supprimer la ligne. Pour créer un nouveau fichier //display.txt// avec //cat //: 
+
+<code> # cat > /media/flash/boot/extlinux/display.txt << "EOT"
+
 /*       _\|/_
          (o o)
  +----oOO-{_}-OOo---------------------------------------------------+
@@ -187,10 +186,10 @@ La première ligne //display display.txt// permet d'afficher un fichier texte au
  Simple Light Incredible Temporary Autonomus Zone
 
                                                                    */
-</code>
-<code>EOT</code>
 
-il ne reste plus qu'a redémarrer sur votre clé USB en prenant soin de configurer correctement le BIOS de votre machine pour qu'elle démarre depuis le média USB et non depuis le disque dur : 
+EOT</code>
+
+il ne reste plus qu'a redémarrer sur votre clé USB en prenant soin de configurer correctement le BIOS de votre machine pour qu'elle démarre depuis le média USB et non depuis le disque dur : 
 
 <code>
  # umount /media/flash
@@ -199,16 +198,16 @@ il ne reste plus qu'a redémarrer sur votre clé USB en prenant soin de configur
 
 ===== Installer SliTaz sur USB depuis Windows =====
 
-Il est possible d'installer SliTaz sur un media USB depuis un système Windows, cette procédure a été testé sur Windows XP et Vista. Avant de commercer, téléchargez la dernière version de SliTaz sur le site : [[http://www.slitaz.org/get/|Obtenir SliTaz]]. Il vous faut aussi récupérer l'utilitaire syslinux : [[http://www.eu.kernel.org/pub/linux/boot/syslinux/3.xx/syslinux-3.82.zip|syslinux-3.82.zip]].
+Il est possible d'installer SliTaz sur un media USB depuis un système Windows, cette procédure a été testée sur Windows XP et Vista. Avant de commercer, téléchargez la dernière version de SliTaz sur le site : [[http://www.slitaz.org/get/|Obtenir SliTaz]]. Il vous faut aussi récupérer l'utilitaire syslinux : [[http://www.eu.kernel.org/pub/linux/boot/syslinux/3.xx/syslinux-3.82.zip|syslinux-3.82.zip]].
 
-**1.** Extraire l'image sur la clé USB. L'image ISO peut être extraite avec des outils comme [[http://www.7-zip.org/|7-Zip]] ou Winimage (shareware) par exemple. Normallement vous devriez obtenir l'arborescence suivante : 
+**1.** Extraire l'image sur la clé USB. L'image ISO peut être extraite avec des outils comme [[http://www.7-zip.org/|7-Zip]] ou Winimage (shareware) par exemple. Normallement vous devriez obtenir l'arborescence suivante : 
 <code>
 \boot
 \boot\isolinux
 \boot\grub
 \boot\syslinux
 </code>
-**2.** Sur la clé USB, copier les fichiers du gestionnaire de démarrage dans le répertoire //\boot\syslinux// : 
+**2.** Sur la clé USB, copier les fichiers du gestionnaire de démarrage dans le répertoire //\boot\syslinux// : 
 <code>
 \boot\isolinux\*.txt 
 \boot\isolinux\*.msg
@@ -220,7 +219,7 @@ Il est possible d'installer SliTaz sur un media USB depuis un système Windows, 
 **4.** Extraire le fichier //syslinux.exe// de l'archive téléchargée sur kernel.org et le copier dans //\boot\syslinux// sur la clé.
 
 **5.** Modifiez le fichier //syslinux.cfg// pour qu'il corresponde à vos besoin. Exemple: 
-<code>
+<file>
 display syslinux.msg
 default slitaz
 label slitaz
@@ -233,10 +232,10 @@ F1 help.txt
 F2 options.txt
 F3 isolinux.msg
 F4 display.txt
-</code>
-**Note : ** Par rapport au fichier d'origine la ligne ''display isolinux.msg'' a été remplacée par ''display syslinux.cfg''. Et les paramètres ''lang=fr kmap=fr'' on été rajouté sur la ligne ''append''. 
+</file>
+**Note : ** Par rapport au fichier d'origine la ligne //display isolinux.msg// a été remplacée par //display syslinux.cfg//. Et les paramètres //lang=fr kmap=fr// ont été rajoutés sur la ligne //append//. 
 
-**6.** Il ne reste plus qu'à exécuter ''syslinux.exe'' pour installer le //bootloader//. Exemple dans le cas où la clé est désignée par la lettre K : 
+**6.** Il ne reste plus qu'à exécuter //syslinux.exe// pour installer le //bootloader//. Exemple dans le cas où la clé est désignée par la lettre K : 
 <code>
 K:
 cd \boot\syslinux
@@ -246,4 +245,4 @@ syslinux -ma -d \boot\syslinux K:
 ==== Version rapide ====
   - Télécharchez l'achive [[http://files.openomy.com/public/Erjo/syslinux.zip|syslinux.zip]].
   - Extrayez le répertoire syslinux et copiez le dans le répertoire boot de la clé USB.
-  - Exécutez le script ''\boot\syslinux\bootusb.bat''.
+  - Exécutez le script //\boot\syslinux\bootusb.bat//.

@@ -1,1 +1,5 @@
 ====== Documentazione Italiano ======
+Benvenuti utenti di SliTaz!
+Attualmente il sito è carente di documentazione in italiano;
+per questa potete riferirvi alla [[http://doc.slitaz.org/en:start|Documentazione in Inglese]].
+Se qualcuno volesse, è ben accetta la traduzione di guide inglesi per questa documentazione.

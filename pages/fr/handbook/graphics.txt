@@ -2,7 +2,7 @@
 
 ===== Gcolor2 - Sélecteur et gestionnaire de couleurs =====
 
-Gcolor2 est un petit outil permettant de sélectionner et de conserver des palettes de couleurs. C'est très utile lors de la créations de thèmes pour SliTaz par exemple. Vous trouverez l'application dans la catégorie "Graphismes" ou vous pouvez la lancer via la commande : 
+Gcolor2 est un petit outil permettant de sélectionner et de conserver des palettes de couleurs. Il est très utile lors de la créations de thèmes pour SliTaz par exemple. Vous trouverez l'application dans la catégorie "Graphismes" ou vous pouvez la lancer via la commande : 
 
 <code> $ gcolor2 & </code>
 
@@ -22,7 +22,7 @@ GQview est rapide et léger, il permet une navigation très rapide entre les ima
 
 ===== jpeg - Outils JPEG en ligne de commande =====
 
-Pour que les applications utilisant les images JPEG fonctionnent, elles doivent êtres liées aux bibliothèques fournies par le paquet jpeg-6b, ce paquet propose aussi quelques petits utilitaires à utiliser en ligne de commande. Pour modifier des images JPEG en ligne de commande, vous pouvez utiliser ''jpegtran'', installé par défaut sur SliTaz. L'utilitaire ''jpegtran'' permet par exemple de faire une rotation de l'image via l'option ''-rotate''. Le paquet jpeg-6b fournit aussi les outils ''cjpeg'' et ''djpeg''. Pour connaître les options disponibles avec tous ces outils, vous pouvez utiliser l'option ''%%--help%%'' propre à chaque application. Exemple avec ''cjpeg'' : 
+Pour que les applications utilisant les images JPEG fonctionnent, elles doivent êtres liées aux bibliothèques fournies par le paquet jpeg-6b, ce paquet propose aussi quelques petits utilitaires à utiliser en ligne de commande. Pour modifier des images JPEG en ligne de commande, vous pouvez utiliser //jpegtran//, installé par défaut sur SliTaz. L'utilitaire //jpegtran// permet par exemple de faire une rotation de l'image via l'option //-rotate//. Le paquet jpeg-6b fournit aussi les outils //cjpeg// et //djpeg//. Pour connaître les options disponibles avec tous ces outils, vous pouvez utiliser l'option //%%--help%%// propre à chaque application. Exemple avec //cjpeg// : 
 
 <code> $ cjpeg --help </code>
 
@@ -31,3 +31,7 @@ Pour que les applications utilisant les images JPEG fonctionnent, elles doivent 
 mtPaint est une application de création et de retouche d'images, PNG, TIFF, XPM, BMP. Il est presque entièrement traduit en français, offre beaucoup de fonctions, simple, léger, et rapide. L'outil mtPaint fournit une fonction de capture d'écran (//screenshot//), que vous pouvez utiliser via le menu -> Graphisme -> Capture d'écran, ou en tapant la commande ci-dessous dans un terminal: 
 
 <code> $ mtpaint -s </code>
+
+===== Viewnoir - Visionneuse d'images élégante =====
+
+Viewnoir est une visionneuse d'images rapide et simple avec une interface minimaliste. Il peut tourner, inverser, recadrer, enregistrer, supprimer des images et supporte le plein écran, les diaporamas, etc. Vous pouvez démarrer Viewnoir à partir du menu //Graphisme -> Viewnoir//.

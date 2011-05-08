@@ -1,0 +1,128 @@
+====== X Window System ======
+
+===== X11 - X Window System =====
+
+Le système X Window ou X11 fonctionne suivant le modèle client/serveur. Le logiciel serveur X tourne sur une machine qui est dotée d'un écran, d'un clavier et d'une souris. Un logiciel client X se connecte au serveur X et lui envoie ses requêtes d'affichage.
+
+SliTaz 2.0 utilise par défaut le serveur X léger appelé Xvesa du projet Xorg (www.x.org).
+
+SliTaz 3.0 utilise par défaut le serveur Xorg, il existe cependant une saveur Xvesa.
+
+Le serveur X peut être démarré avec le gestionnaire de connexion Slim ou directement à partir d'une console Linux avec la commande startx, mais pour cela, vous devez d'abord désactiver le gestionnaire de connexion. Pour reconfigurer votre session X, vous pouvez utiliser tazx en tant que root ou avec l'utilisateur actuel si vous démarrez X à partir de la ligne de commande.
+
+===== Tazx - L'outil de configuration de X de SliTaz =====
+
+Tazx est l'outil de configuration pour gérer les sessions X Window sur une machine SliTaz. Il suffit de sélectionner une résolution et de sélectionner OK. Vous pouvez également sélectionner une session (Xorg) en sélectionnant un pilote vidéo mieux adapté à votre matériel. Une fois que vous avez démarré 'startx' la première fois, la configuration est enregistrée dans les fichiers exécutables //~/.xsession// et //~/.xinitrc//. Ces fichiers sont ensuite utilisés pour démarrer une session X soit avec 'startx' ou soit via le gestionnaire de connexion Slim, et peuvent être facilement modifiés avec un éditeur de texte. Tazx peut également être utilisé pour changer votre gestionnaire de fenêtre par défaut. Exemple :
+
+<code> $ tazx jwm</code>
+
+===== Slim - Simple Login Manager =====
+
+Slim est un gestionnaire de session léger, très facile à configurer et personnalisable en utilisant des thèmes du système. Le fichier de configuration se trouve dans ///etc/slim.conf//. Il définit les gestionnaires de fenêtres disponibles via la touche F1, l'utilisateur par défaut ou un thème, et les paramètres système X Window. Slim offre des commandes spéciales comme la console pour aider à gérer la session.
+
+En mode LiveCD vous pouvez désactiver Slim avec l'option de démarrage //screen=text//. Sur un système installé sur disque dur, vous pouvez supprimer le paquet slim ou supprimer la variable slim de la liste //RUN_DAEMONS// dans ///etc/rcS.conf//.
+
+Plus de détails et de thèmes peuvent être trouvés sur le site Web : http://slim.berlios.de/
+
+=== Utilisateur par défaut ===
+
+Slim offre un moyen de pré-charger le nom de connexion d'un utilisateur, par commodité l'utilisateur tux est configuré par défaut. Vous pouvez le changer en éditant le fichier de configuration de Slim ///etc/slim.conf// et en modifiant la ligne default_user ou en laissant juste la ligne en blanc pour éviter de précharger un nom d'utilisateur. Exemple :
+
+<file> default_user        tux </file>
+
+===== Xorg =====
+
+Par défaut, SliTaz 2.0 fournit le mini-serveur graphique Xvesa. Le serveur Xorg est disponible dans les paquets sur le miroir. Xorg est un serveur très complet, mais qui utilise beaucoup plus de ressources que Xvesa. Si dans SliTaz 2.0 votre résolution est suportée par le mini-serveur Xvesa et que vous êtes satisfait du taux de rafraîchissement, il n'y a aucune raison d'utiliser Xorg.
+
+Il n'y a pas d'outil de configuration graphique de Xorg, ce qui oblige à utiliser la ligne de commande en mode console. L'installation et la configuration du serveur sont relativement simples et vous pouvez toujours revenir en arrière et réutiliser Xvesa à tout moment. Xorg est distribué sous forme modulaire, ce qui signifie que vous aurez besoin d'installer le serveur, quelques fichiers de configuration et le bon pilote pour votre carte graphique. Cependant, le paquet xorg-server a toutes les dépendances satisfaites pour travailler directement avec le pilote //vesa//. Pour une installation minimale :
+
+<code> # tazpkg get-install xorg-server </code>
+
+Une fois installé, vous pouvez directement configurer le serveur, ou vous pouvez installer le pilote correct correspondant à votre carte graphique (à condition que vous le connaissez). Exemple avec le pilote Nvidia et la liste de tous les pilotes disponibles:
+
+<code> # tazpkg get-install xorg-xf86-video-nv</code>
+ Liste :
+<code> # tazpkg search xorg-xf86-video</code>
+
+=== Configuration automatique du serveur ===
+
+Pour configurer le serveur Xorg, vous avez deux options: //Xorg -configure// ou le script xorgconfig. Il est recommandé de commencer en utilisant Xorg avec l'option //-configure//. La configuration automatique de Xorg doit être faite en mode console sans le serveur X lancé, ceci est obtenu en fermant toutes les applications et les fenêtres et en appuyant sur les touches //alt-ctrl-del//. Vous devriez maintenant être en mode console. Vous devez maintenant exécuter Xorg avec l'option //-configure// et copier le nouveau dossier produit dans ///etc/X11// :
+
+<code> # Xorg -configure
+ # cp /root/xorg.conf.new /etc/X11/xorg.conf
+</code>
+
+Puis, il reste à modifier la configuration de Slim pour utiliser Xorg au lieu de Xvesa, et redémarrer le gestionnaire de fenêtres.
+
+=== Utiliser Xorg avec Slim ===
+
+Dans le fichier de configuration Slim (///etc/slim.conf//), il est nécessaire de mettre en commentaire (#) la ligne concernant Xvesa et de mettre Xorg comme default_xserver :
+
+<file>
+default_xserver     /usr/bin/Xorg
+#default_xserver     /usr/bin/Xvesa
+#xserver_arguments   -ac -shadow dpms +extension Composite -screen 1024x768x24
+</file>
+
+Slim peut maintenant nous ouvrir une session du serveur X. Slim fonctionne comme un démon, il peut être arrêté ou démarré à partir de la console :
+ 
+<code> # /etc/init.d/slim start </code>
+
+=== xorg.conf - Fichier de configuration ===
+
+Xorg utilise le fichier de configuration ///etc/X11/xorg.conf//. Ce fichier peut être automatiquement généré et édité avec votre éditeur de texte favori. Il est divisé en plusieurs sections, comprenant la spécification des chemins, des modules à charger, l'écran par défaut, la souris, le clavier, etc. Ce document ne fournit que quelques exemples, il est conseillé de lancer xorgconfig une fois pour générer un fichier complet à utiliser comme exemple.
+
+Clavier (fr) :
+
+<file>
+Section "InputDevice"
+	Identifier  "Keyboard0"
+	Driver      "kbd"
+	Option      "XkbRules"	  "xorg"
+	Option      "XkbModel"	  "pc105"
+	Option      "XkbLayout"	  "fr"
+	Option      "XkbVariant"  "fr"
+EndSection
+</file>
+
+Souris avec le protocole de détection automatique :
+
+<file>
+Section "InputDevice"
+	Identifier  "Mouse0"
+	Driver      "mouse"
+	Option	    "Protocol" "auto"
+	Option	    "Device"   "/dev/input/mice"
+	Option	    "ZAxisMapping" "4 5 6 7"
+EndSection
+</file>
+
+Extensions composite :
+
+<file>
+Section "Extensions"
+	Option      "Composite" "1"
+EndSection
+</file>
+
+===== Utiliser Xvesa comme terminal X =====
+
+Il est possible d'utiliser Xvesa comme terminal X, si vous avez une machine sur le réseau qui accepte les connexions XDMCP. Pour ce faire, vous pouvez démarrer le serveur avec l'option -query suivie du nom de la machine ou l'adresse IP. Exemple de la machine 192.168.0.2 sur un réseau local :
+
+<code> $ Xvesa -ac -shadow -screen 1024x768x24 -query 192.168.0.2 </code>
+
+L'utilisation à distance d'un serveur graphique peut être très pratique, bien que les temps de réponse des applications dépendent fortement de la vitesse d'Internet et de la puissance de la machine distante. Cette technique fonctionne très bien au sein d'un réseau local (LAN) et vous permet de contrôler les applications installées sur l'ordinateur distant directement depuis l'écran de l'ordinateur local à partir duquel vous travaillez. Notez que la machine distante peut avoir plusieurs comptes en utilisation simultanée à distance et/ou en accès direct.
+
+===== Polices =====
+
+La gestion des polices (polices) est supportée par le paquet //fontconfig//. Ce paquet fournit des outils pour ajouter, lister et manipuler les polices. Les polices peuvent être installées dans l'espace utilisateur ou au niveau du système, cela veut dire que chaque utilisateur peut utiliser ses propres polices ou l'administrateur système (root) peut installer des polices disponibles pour tous les utilisateurs du système. Si vous utilisez un support USB associé au LiveCD SliTaz, vous pouvez facilement installer des polices et les conserver pour la prochaine fois que vous utilisez le cdrom.
+
+=== Installer des polices ===
+
+Au niveau du système, les polices sont installés dans le répertoire : ///usr/share/fonts//, SliTaz fournit de base les polices TTF Vera, elles prennent peu de place et offrent un rendu correct. À la racine de l'espace utilisateur ~ /, les polices sont situées dans le répertoire caché : .fonts. Pour créer ce répertoire utilisateur pour accueillir de nouvelles polices, vous pouvez utiliser le gestionnaire de fenêtres graphiques PCmanFM, Clex ou la ligne de commande :
+
+<code> $ mkdir ~/.fonts </code>
+
+Une fois que vous avez installé les polices, il est nécessaire d'exécuter l'outil utilitaire //fc-cache// pour générer les fichiers de configuration, ce qui rendra vos polices disponibles dans les applications :
+
+<code> $ fc-cache </code>

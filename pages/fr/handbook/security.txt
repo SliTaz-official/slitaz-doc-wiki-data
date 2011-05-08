@@ -6,7 +6,7 @@ SliTaz porte une grande attention à la sécurité du système. Les applications
 
 <code> $ cat /etc/rcS.conf | grep RUN_DAEMONS </code>
 
-Pour connaître les processus actifs, leur PID et leures resources mémoire, vous pouvez utiliser la commande 'ps' pour lister les processus en cours ou lancer l'utilitaire LXTask : 
+Pour connaître les processus actifs, leur PID et leures resources mémoire, vous pouvez utiliser la commande 'ps' pour lister les processus en cours ou lancer l'utilitaire LXTask : 
 
 <code>
  $ ps
@@ -15,13 +15,13 @@ Pour connaître les processus actifs, leur PID et leures resources mémoire, vou
 
 ===== Root - L'administrateur système =====
 
-Root vient de l'anglais racine, sur un système GNU/Linux l'utilisateur //root// est l'administrateur système, il a tous les droits sur les fichiers du système et ceux de tous les utilisateurs. Il est conseillé de ne jamais se loguer en tant que //root// et d'utiliser la commande ''su'' suivie du mot de passe de l'utilisateur //root// pour obtenir les droits absolus. Ne pas se loguer en root et surfer sur internet par exemple, permet d'avoir une double barrière en cas d'attaque ou d'intrusion suite à un téléchargement. C'est à dire qu'un //cracker// tentant de prendre le contrôle de votre machine, devra d'abord craquer votre mot de passe pour ensuite tenter de craquer celui de l'administrateur //root//.
+Root vient de l'anglais racine, sur un système GNU/Linux l'utilisateur //root// est l'administrateur système, il a tous les droits sur les fichiers du système et ceux de tous les utilisateurs. Il est conseillé de ne jamais se loguer en tant que //root// et d'utiliser la commande //su// suivie du mot de passe de l'utilisateur //root// pour obtenir les droits absolus. Ne pas se loguer en root et surfer sur internet par exemple, permet d'avoir une double barrière en cas d'attaque ou d'intrusion suite à un téléchargement. C'est à dire qu'un //cracker// tentant de prendre le contrôle de votre machine, devra d'abord craquer votre mot de passe pour ensuite tenter de craquer celui de l'administrateur //root//.
 
-Un système GNU/Linux sécurisé a donc au minimum 2 utilisateurs, un pour travailler et //root// pour administrer, configurer ou mettre à jour le système. Il est aussi conseillé de confier l'administration du système à une personne. 
+Un système GNU/Linux sécurisé a donc au minimum 2 utilisateurs, un pour travailler et //root// pour administrer, configurer ou mettre à jour le système. Il est aussi conseillé de confier l'administration du système à une personne en particulier. 
 
-===== Mots de passes =====
+===== Mots de passe =====
 
-Par défaut l'utilisateur tux n'a pas de mot de passe et l'administrateur système (//root//) a pour mot de passe : ''root''. Vous pouvez facilement changer cela avec la commande ''passwd'' :
+Par défaut l'utilisateur tux n'a pas de mot de passe et l'administrateur système (//root//) a pour mot de passe : //root//. Vous pouvez facilement changer cela avec la commande //passwd// :
 
 <code>
  $ passwd
@@ -30,25 +30,25 @@ Par défaut l'utilisateur tux n'a pas de mot de passe et l'administrateur systè
 
 ===== Busybox =====
 
-Le fichier //busybox.conf// configure les //applets// et leurs droits respectifs. Sur le LiveCD de SliTaz les commandes: ''su'', ''passwd'', ''loadkmap'', ''mount'', ''reboot'' et ''halt'', peuvent être lancées par tous les utilisateurs. Le propriétaire et le groupe des commandes est root (''* = ssx root.root''). Le fichier ///etc/busybox.conf// n'est lisible que par //root// : il a les droits 600. A noter que la commande ''passwd'' ne fonctionne pas bien si elle n'est pas ssx, les utilisateurs du système ne peuvent pas changer leur propre mot de passe. 
+Le fichier //busybox.conf// configure les //applets// et leurs droits respectifs. Sur le LiveCD de SliTaz les commandes: //su//, //passwd//, //loadkmap//, //mount//, //reboot// et //halt//, peuvent être lancées par tous les utilisateurs. Le propriétaire et le groupe des commandes est root (//* = ssx root.root//). Le fichier ///etc/busybox.conf// n'est lisible que par //root// : il a les droits 600. À noter que la commande //passwd// ne fonctionne pas bien si elle n'est pas ssx, les utilisateurs du système ne pouvant pas changer leur propre mot de passe. 
 
 ===== Serveur SSH =====
 
-Ce petit texte au sujet de la sécurité est un complément à la page titrée [[fr:handbook:ssh|SHell sécurisé (SSH)]]. Sur SliTaz, le serveur SSH Dropbear n'est pas lancé par défaut, il faut l'ajouter à la variable ''RUN_DAEMON'' du fichier de configuration ///etc/rcS.conf// pour qu'il se lance à chaque démarrage du système. Ou lancer le serveur manuellement : 
+Ce petit texte au sujet de la sécurité est un complément à la page titrée [[fr:handbook:ssh|SHell sécurisé (SSH)]]. Sur SliTaz, le serveur SSH Dropbear n'est pas lancé par défaut, il faut l'ajouter à la variable //RUN_DAEMON// du fichier de configuration ///etc/rcS.conf// pour qu'il se lance à chaque démarrage du système. Ou lancer le serveur manuellement : 
 
 <code> # /etc/init.d/dropbear start </code>
 
-Par défaut dropbear est lancé avec les options : 
+Par défaut dropbear est lancé avec les options : 
 
-<code>
+<file>
  -w   Disallow root logins.
  -g   Disallow logins for root password.
-</code>
+</file>
 
-Vous pouvez ajouter de nouvelles options en éditant le fichier de configuration des démons : ///etc/daemons.conf//. Pour connaître toutes les options possibles, vous pouvez taper : ''dropbear -h''. 
+Vous pouvez ajouter de nouvelles options en éditant le fichier de configuration des démons : ///etc/daemons.conf//. Pour connaître toutes les options possibles, vous pouvez taper : //dropbear -h//. 
 
 ===== Pscan - Scanneur de ports =====
 
-Pscan est un petit utilitaire du projet Busybox qui scanne les ports de votre machine. Vous pouvez utiliser ''pscan'' pour scanner l'hôte local ou un hôte à distance en utilisant le nom ou l'adresse IP de la machine. Pscan teste tous les ports entre 1 et 1024 par défaut et liste ceux qui sont ouvert, leur protocole et périphérique associé (ex.: ssh, www, etc):
+Pscan est un petit utilitaire du projet Busybox qui scanne les ports de votre machine. Vous pouvez utiliser //pscan// pour scanner l'hôte local ou un hôte à distance en utilisant le nom ou l'adresse IP de la machine. Pscan teste tous les ports entre 1 et 1024 par défaut et liste ceux qui sont ouvert, leur protocole et périphérique associé (ex.: ssh, www, etc):
 
 <code> $ pscan localhost </code>

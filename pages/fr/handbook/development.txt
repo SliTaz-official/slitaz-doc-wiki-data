@@ -8,11 +8,11 @@ Si vous cherchez des informations sur le développement de SliTaz, le [[fr:cookb
 
 ===== Scripts SHell =====
 
-L'écriture de scripts SHell est la manière la plus simple pour commencer à coder, ils permettent d'avoir rapidement un résultat et les seuls prérequis sont de savoir ouvrir un terminal et utiliser un éditeur de texte tels que Nano, LeafPad ou Beaver. Les scripts SHell permettent de faire énormément de choses sur un système GNU/Linux : initialiser le système, faire des sauvegardes, exécuter des tâches répétitives, afficher des informations sur l'état du système, créer ou modifier des fichier, etc. Dans un script SHell, vous pouvez aussi utiliser des variables, des fonctions ou encore des appels pour inclure un fichier. A noter que vous pouvez nommer vos scripts comme bon vous semble et que l'utilisation de l'extension //.sh// est largement répandue. 
+L'écriture de scripts SHell est la manière la plus simple pour commencer à coder, ils permettent d'avoir rapidement un résultat et les seuls prérequis sont de savoir ouvrir un terminal et utiliser un éditeur de texte tels que Nano, LeafPad ou Beaver. Les scripts SHell permettent de faire énormément de choses sur un système GNU/Linux : initialiser le système, faire des sauvegardes, exécuter des tâches répétitives, afficher des informations sur l'état du système, créer ou modifier des fichier, etc. Dans un script SHell, vous pouvez aussi utiliser des variables, des fonctions ou encore des appels pour inclure un fichier. À noter que vous pouvez nommer vos scripts comme bon vous semble et que l'utilisation de l'extension //.sh// est largement répandue. 
 
 === Créer un script SHell ===
 
-Avant de commencer un nouveau script SHell, vous devez faire attention à l'interprétateur utilisé. La plus part du temps les scripts SHell utilisent ''/bin/sh'', cela permet d'être plus portable. Il y a aussi des scripts qui appellent ''/bin/bash'', mais cela implique que Bash soit installé sur le système. Pour qu'un script SHell fonctionne il doit être exécutable par l'utilisateur courant, le changement des permissions sur un fichier peut se faire en ligne de commande via l'outil ''chmod''. Pour créer un //script.sh// et le rendre exécutable : 
+Avant de commencer un nouveau script SHell, vous devez faire attention à l'interprétateur utilisé. La plus part du temps les scripts SHell utilisent ///bin/sh//, cela permet d'être plus portable. Il y a aussi des scripts qui appellent ///bin/bash//, mais cela implique que Bash soit installé sur le système. Pour qu'un script SHell fonctionne il doit être exécutable par l'utilisateur courant, le changement des permissions sur un fichier peut se faire en ligne de commande via l'outil //chmod//. Pour créer un //script.sh// et le rendre exécutable : 
 
 <code> $ touch script.sh
  $ chmod +x script.sh
@@ -26,17 +26,17 @@ Maintenant que vous avez un nouveau fichier exécutable, vous allez pouvoir l'é
  $ beaver script.sh &
 </code>
 
-Voici un script qui contient une variable ''NAME'' et qui en affiche la valeur avec la commande ''echo'' : 
+Voici un script qui contient une variable //NAME// et qui en affiche la valeur avec la commande //echo// : 
 
-<code>
+<file>
 #!/bin/sh
 
 NAME="kayam"
 
 echo "$NAME est sympa."
-</code>
+</file>
 
-Une fois que vous avez créé/modifié votre ''script.sh'', il suffit d'enregistrer et d'exécuter le script pour voir le résultat : 
+Une fois que vous avez créé/modifié votre //script.sh//, il suffit d'enregistrer et d'exécuter le script pour voir le résultat : 
 
  <code> $ ./script.sh </code>
 
@@ -44,12 +44,12 @@ Voilà pour cette brève introduction au scripts SHell. Pour aller plus loin, le
 
 ===== Dialog =====
 
-Dialog permet de créer des interfaces graphique basées sur la console, telles que ''tazpkgbox''. Le fichier de configuration de dialog est ///etc/dialogrc//, et/ou //~/.dialogrc// pour chaque utilisateur. Voici un simple exemple d'utilisation de dialog via une console ou un terminal : 
+Dialog permet de créer des interfaces graphique basées sur la console, telles que //tazpkgbox//. Le fichier de configuration de dialog est ///etc/dialogrc//, et/ou //~/.dialogrc// pour chaque utilisateur. Voici un simple exemple d'utilisation de dialog via une console ou un terminal : 
 
 <code> $ dialog --title "Bonjour $USER" \
    --msgbox "Message propulsé par Dialog." 5 54 </code>
 
-Vous trouverez pleins d'exemples de scripts dans le répertoire ///sample// des sources de dialog, que vous pouvez télécharger depuis: http://invisible-island.net/dialog/dialog.html. Téléchargement des sources avec ''wget'' et décompression : 
+Vous trouverez pleins d'exemples de scripts dans le répertoire ///sample// des sources de dialog, que vous pouvez télécharger depuis: http://invisible-island.net/dialog/dialog.html. Téléchargement des sources avec //wget// et décompression : 
 
 <code> $ wget ftp://invisible-island.net/dialog/dialog.tar.gz
  $ tar xzf dialog.tar.gz
@@ -63,7 +63,7 @@ Beaver éditeur de code simple, léger, et rapide proposant la coloration syntax
 
 ===== Perl ou Microperl - Coder/utiliser des scripts Perl =====
 
-Sur SliTaz vous pouvez coder et utiliser le puissant langage de scripts Perl via le binaire ''perl'' ou ''microperl''. Microperl est une version très allégée de Perl compilée à partir des sources officielles de Perl, les scripts fonctionnant avec microperl sont complètement compatible avec la version complète de Perl. C'est justement une des forces de Perl, il est portable et fonctionne sur tous les systèmes d'exploitations. Perl est un langage interprété cela veut dire que le code n'a pas besoin d'être compilé et qu'il peut être utilisé directement. A noter que sur SliTaz, ''perl'' et/ou ''microperl'' se sont pas installé par défaut sur le LiveCD, vous pouvez soit reconstruire votre propore ISO en incluant Perl ou installer via le gestionnaire de paquets. A noter que le paquet Microperl fait mois d'1 Mb et ne fournit aucun modules, juste le minimum : 
+Sur SliTaz vous pouvez coder et utiliser le puissant langage de scripts Perl via le binaire //perl// ou //microperl//. Microperl est une version très allégée de Perl compilée à partir des sources officielles de Perl, les scripts fonctionnant avec microperl sont complètement compatible avec la version complète de Perl. C'est justement une des forces de Perl, il est portable et fonctionne sur tous les systèmes d'exploitations. Perl est un langage interprété cela veut dire que le code n'a pas besoin d'être compilé et qu'il peut être utilisé directement. A noter que sur SliTaz, //perl// et/ou //microperl// se sont pas installé par défaut sur le LiveCD, vous pouvez soit reconstruire votre propore ISO en incluant Perl ou installer via le gestionnaire de paquets. À noter que le paquet Microperl fait mois d'1 Mb et ne fournit aucun modules, juste le minimum : 
 
 <code>
  # tazpkg install perl
@@ -81,36 +81,36 @@ Le but de ce script est d'afficher //Hello World//. Vous pouvez commencer par cr
  $ beaver hello.pl &
 </code>
 
-La première ligne d'un scripts Perl commence par définir le chemin vers l'interprétateur Perl, généralement ''/usr/bin/perl'' et pour afficher du texte il suffit d'utiliser la commande ''print''. Code à copier/coller. A noter que le langage Perl est sensible à la casse et qu'une instruction devrait toujours se terminer par un point-virgule : 
+La première ligne d'un scripts Perl commence par définir le chemin vers l'interprétateur Perl, généralement ///usr/bin/perl// et pour afficher du texte il suffit d'utiliser la commande //print//. Code à copier/coller. A noter que le langage Perl est sensible à la casse et qu'une instruction devrait toujours se terminer par un point-virgule : 
 
-<code>
+<file>
 #!/usr/bin/perl
 #
 
 print "Hello World!\n";
 
-</code>
+</file>
 Pour exécuter et tester le script : 
 
 <code> $ ./hello.pl </code>
 
 === Scripts CGI et Perl ===
 
-Les scripts CGI ont pour but d'afficher des pages web générées dynamiquement. Le langage Perl associé au serveur web LightTPD vous permet d'utiliser des scripts CGI via votre espace public ou via des hôtes virtuels. Perl est tout à fait adapté au web 2.0 et permet de générer rapidement des pages xHTML. Sur Slitaz, vous devez avoir installé Perl ou Microperl et configuré le serveur Web LightTPD avant de pouvoir utiliser des scripts CGI codés en Perl. A noter que par défaut vous pouvez utiliser des scripts SHell (.sh) et les placer dans /cgi-bin/. 
+Les scripts CGI ont pour but d'afficher des pages web générées dynamiquement. Le langage Perl associé au serveur web LightTPD vous permet d'utiliser des scripts CGI via votre espace public ou via des hôtes virtuels. Perl est tout à fait adapté au web 2.0 et permet de générer rapidement des pages xHTML. Sur Slitaz, vous devrez avoir installé Perl ou Microperl et configuré le serveur Web LightTPD avant de pouvoir utiliser des scripts CGI codés en Perl. À noter que par défaut vous pouvez utiliser des scripts SHell (.sh) et les placer dans /cgi-bin/. 
 
-Une fois le serveur bien configuré, vous pouvez directement placer des scripts CGI dans votre répertoire ''$HOME/Public/cgi-bin'' en utilisant l'extension //.pl// ou //.cgi// et les visualiser en local ou à distance. Exemple de script CGI utilisant Perl : 
+Une fois le serveur bien configuré, vous pouvez directement placer des scripts CGI dans votre répertoire //$HOME/Public/cgi-bin// en utilisant l'extension //.pl// ou //.cgi// et les visualiser en local ou à distance. Exemple de script CGI utilisant Perl : 
 
-<code>
+<file>
 #!/usr/bin/perl
 #
 print "content-type : text/html\n\n";
 
 print "Hello World!\n";
-</code>
+</file>
 
 ===== Python =====
 
-Le langage de programmation Python est disponible sous forme de paquet facilement installable. Une fois Python installé vous pouvez créer vos propre scripts/programmes et utiliser des applications CGI via le serveur Web LightTPD en prenant soin de configurer le serveur correctement. A noter que le dépôt Mercurial officiel de SliTaz fournit une interface Web CGI/Python. C'est une solution adaptée à la production, robuste et fiable. Pour installer le paquet python avec Tazpkg : 
+Le langage de programmation Python est disponible sous forme de paquet facilement installable. Une fois Python installé vous pouvez créer vos propre scripts/programmes et utiliser des applications CGI via le serveur Web LightTPD en prenant soin de configurer le serveur correctement. À noter que le dépôt Mercurial officiel de SliTaz fournit une interface Web CGI/Python. C'est une solution adaptée à la production, robuste et fiable. Pour installer le paquet python avec Tazpkg : 
 
 <code> # tazpkg get-install python </code>
 
@@ -122,15 +122,15 @@ Ruby est un langage de programmation interprété et orienté objet. Ruby est fo
 
 ===== Toolchain - Bibliothèques, compilateur C et outils associés =====
 
-Pour compiler des logiciels depuis les sources ou son propre code, vous avez au minimum, besoin de la chaîne d'outils de base (//toolchain//), composée des outils Binutils, de la bibliothèque Glibc , du compilateur GCC, des //headers// du noyau et de l'utilitaire Make. Cette chaîne d'outils peut être installée via le gestionnaire de paquets Tazpkg et une seule commande. A noter que cette //toolchain// est utilisée par les développeurs de SliTaz pour compiler le système entier depuis les sources. Pour installer les paquets via l'installation d'un meta paquet créant les dépendances qu'il faut : 
+Pour compiler des logiciels depuis les sources ou son propre code, vous avez au minimum, besoin de la chaîne d'outils de base (//toolchain//), composée des outils Binutils, de la bibliothèque Glibc , du compilateur GCC, des //headers// du noyau et de l'utilitaire Make. Cette chaîne d'outils peut être installée via le gestionnaire de paquets Tazpkg et une seule commande. À noter que cette //toolchain// est utilisée par les développeurs de SliTaz pour compiler le système entier depuis les sources. Pour installer les paquets via l'installation d'un meta paquet créant les dépendances qu'il faut : 
 
 <code> # tazpkg get-install slitaz-toolchain </code>
 
-L'installation de la toolchain permet de compiler beaucoup d'applications de base et en mode texte. A noter que beaucoup de paquets compileront sans problème en utilisant le SHell Ash de Busybox, mais d'autres paquets ne compileront pas sans Bash. GNU bash est disponible sous forme de paquet ainsi que divers outils de développement de base tels que Flex, M4, Bison, ou encore Pkg-config. Si vous cherchez pkg-config par exemple : 
+L'installation de la toolchain permet de compiler beaucoup d'applications de base et en mode texte. À noter que beaucoup de paquets compileront sans problème en utilisant le SHell Ash de Busybox, mais d'autres paquets ne compileront pas sans Bash. GNU bash est disponible sous forme de paquet ainsi que divers outils de développement de base tels que Flex, M4, Bison, ou encore Pkg-config. Si vous cherchez pkg-config par exemple : 
 
 <code> # tazpkg search pkg-config </code>
 
-Si vous désirez compiler des applications utilsant les bibliothèques Ncurses, vous devez installer le paquet //ncurses-dev// complet (par défaut il n'y a que le paquet minimum installé). A noter que le paquet ncurses fournit aussi divers petits programmes tels que ''tic'' ou ''tack'' : 
+Si vous désirez compiler des applications utilsant les bibliothèques Ncurses, vous devez installer le paquet //ncurses-dev// complet (par défaut il n'y a que le paquet minimum installé). À noter que le paquet ncurses fournit aussi divers petits programmes tels que //tic// ou //tack// : 
 
 <code> $ tazpkg search ncurses </code>
 

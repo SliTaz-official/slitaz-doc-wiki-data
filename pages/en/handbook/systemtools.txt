@@ -22,6 +22,10 @@ Htop is a system process viewer that displays cpu load, memory state (RAM) and s
 
 <code> # tazpkg get-install htop </code>
 
+===== LXTask - Graphical system process viewer =====
+
+LXTask is the default process viewer in SliTaz. It offers the same functionality as Htop, except for the ability to control it remotely. You can start it from the System Tools Menu -> Task Manager.
+
 ===== Mountbox - Mount devices =====
 
 Mountbox is a small GTK+ application to quickly mount media such as a USB drive, hard drive or cdrom. Mountbox can be launched from a terminal or via the Tools menu (System Tools). Simply specify the peripheral (Device) and the mount point, ie. the directory where you want to access the media in question. Typically a CD is mounted on /media/cdrom, a USB key on /media/flash and disk drives on the local machine on /mnt. Note the Handbook also contains more information.

@@ -2,7 +2,7 @@
 
 ===== Calculatrice =====
 
-Les opérations de mathématiques peuvent se faire avec la calculatrice en mode texte Bc. Ouvrez un terminal ou tapez directement dans la console ''bc'', pour quitter il faut taper ''quit'' : 
+Les opérations de mathématiques peuvent se faire avec la calculatrice en mode texte bc. Ouvrez un terminal ou tapez directement dans la console //bc//, pour quitter il faut taper //quit// : 
 
 <code>
 $ bc
@@ -12,9 +12,14 @@ $ bc
  quit
 </code>
 
+===== Galculator =====
+
+Galculator est une calculatrice simple, basée sur GTK 2, qui comprend les modes de base, papier (ligne de commande) et scientifique. Vous pouvez facilement changer de base de numération entre décimal, hexadécimal, binaire, etc. et soutient la notation ordinaire ou la notation polonaise inversée. Dans le menu, sélectionnez
+//Utilitaires -> calculatrice scientifique//.
+
 ===== Cdrkit - Gravure et manipulation de CD/DVD-R ou RW =====
 
-Pour graver et manipuler des CD/DVD-R ou RW, SliTaz fournit les outils CdrKit et une interface graphique nommée ''burnbox'' que vous trouverez dans le menu d'un des gestionnaires de fenêtres, soit Openbox, JWM ou Enlightenment. L'outil ''wodim'' permet de graver un CD/DVD et d'effacer des CD/DVD-RW, quand a ''genisoimage'', il permet de créer des images gravables au format ISO 9660. La gravure en ligne de commande nous impose de connaître le nom du périphérique/graveur (dev). Wodim offre plusieurs possibilités pour connaître le graveur à utiliser et plusieurs façon de spécifier le périphérique lors de la gravure. Si vous lancez Wodim avec l'option ''-devices'', il tentera de deviner automatiquement le nom du bon graveur et l'affichera, l'option ''-checkdrive'' permet de vérifier les graveurs reconnus. Quand au bus, il peut être connu via l'option ''-scanbus''. Exemple (en étant //root//) : 
+Pour graver et manipuler des CD/DVD-R ou RW, SliTaz fournit les outils CdrKit et une interface graphique nommée //burnbox// que vous trouverez dans le menu d'un des gestionnaires de fenêtres, soit Openbox, JWM ou Enlightenment. L'outil //wodim// permet de graver un CD/DVD et d'effacer des CD/DVD-RW, quant à //genisoimage//, il permet de créer des images gravables au format ISO 9660. La gravure en ligne de commande nous impose de connaître le nom du périphérique/graveur (dev). Wodim offre plusieurs possibilités pour connaître le graveur à utiliser et plusieurs façon de spécifier le périphérique lors de la gravure. Si vous lancez Wodim avec l'option //-devices//, il tentera de deviner automatiquement le nom du bon graveur et l'affichera, l'option //-checkdrive// permet de vérifier les graveurs reconnus. Quand au bus, il peut être connu via l'option //-scanbus//. Exemple (en étant //root//) : 
 
 <code>
  # wodim -devices
@@ -26,24 +31,24 @@ Pour graver et manipuler des CD/DVD-R ou RW, SliTaz fournit les outils CdrKit et
 
 === Créer une image ISO 9660 ===
 
-Pour graver des données sur un CD/DVD, vous devez disposer d'une image ISO. Pour commencer il faut créer un répertoire contenant tous les fichiers destinés à être graver, vous pouvez copier vos fichiers en ligne de commande avec ''cp'', en mode texte avec le gestionnaire de fichiers Clex ou graphiquement avec emelFM2. Exemple en commandes (vous pouvez être simple utilisateur), création d'un répertoire //iso/// à la racine de l'espace utilisateur et copie de tous les fichiers contenu dans //Documents/// : 
+Pour graver des données sur un CD/DVD, vous devez disposer d'une image ISO. Pour commencer il faut créer un répertoire contenant tous les fichiers destinés à être gravés, vous pouvez copier vos fichiers en ligne de commande avec //cp//, en mode texte avec le gestionnaire de fichiers Clex ou graphiquement avec PCManFM2. Exemple en commandes (vous pouvez être simple utilisateur), création d'un répertoire //iso// à la racine de l'espace utilisateur et copie de tous les fichiers contenu dans //Documents/// : 
 
 <code>
  $ mkdir ~/iso
  $ cp -a Documents/* ~/iso
 </code>
 
-Création d'une image ISO nommée //image.iso//, en utilisant l'outil ''genisoimage'' et en spécifiant la racine du répertoire contenant les fichiers à insérer dans l'ISO : 
+Création d'une image ISO nommée //image.iso//, en utilisant l'outil //genisoimage// et en spécifiant la racine du répertoire contenant les fichiers à insérer dans l'ISO : 
 
 <code> $ genisoimage -o image.iso ~/iso </code>
 
-A noter qu'il existe de multiples options pour créer des images ISO, une des plus utilisée est l'extension ''-R'', signifiant //Rock ridge// et permettant d'utiliser des noms de 255 caractères sans trop de restrictions, supportant les liens symboliques et les droits sur les fichiers. Pour connaître toutes les options disponibles, vous pouvez utiliser l'option ''-help''. Exemple de création en utilisant l'option ''-R'' : 
+À noter qu'il existe de multiples options pour créer des images ISO, une des plus utilisée est l'extension //-R//, signifiant //Rock ridge// et permettant d'utiliser des noms de 255 caractères sans trop de restrictions, elle supporte aussi les liens symboliques et les permissions sur les fichiers. Pour connaître toutes les options disponibles, vous pouvez utiliser l'option //-help//. Exemple de création en utilisant l'option //-R// : 
 
 <code> $ genisoimage -o image.iso -R ~/iso </code>
 
 === Graver une image ISO ===
 
-Pour graver une image au format ISO 9660 créée vous même ou téléchargée depuis le web, il faut utiliser ''wodim'' en spécifiant le bon périphérique (//dev//) du graveur de CD/DVD. Exemple de gravure en mode volubile (''-v'') avec un //device// reconnu comme //hdc// et des données contenues dans une image ISO nommée //image.iso// : 
+Pour graver une image au format ISO 9660 créée par vous même ou téléchargée depuis le web, il faut utiliser //wodim// en spécifiant le bon périphérique (//dev//) du graveur de CD/DVD. Exemple de gravure en mode volubile (//-v//) avec un //device// reconnu comme //hdc// et des données contenues dans une image ISO nommée //image.iso// : 
 
 <code> # wodim -v dev=/dev/hdc image.iso </code>
 
@@ -53,7 +58,7 @@ Autre exemple en spécifiant une vitesse (//speed//) de gravage de 8 :
 
 === Effacer un CD-RW/DVD-RW ===
 
-Vous pouvez effacer rapidement un CD-RW/DVD-RW en utilisant ''wodim'' avec l'option ''blank=fast''. Exemple utilisant le périphérique hdc en mode volubile :
+Vous pouvez effacer rapidement un CD-RW/DVD-RW en utilisant //wodim// avec l'option //blank=fast//. Exemple utilisant le périphérique hdc en mode volubile :
 
 <code> # wodim -v blank=fast dev=/dev/hdc </code>
 
@@ -63,9 +68,9 @@ L'option //blank=all// permet d'effacer entièrement le CD/DVD (cela est un peu 
 
 ===== Nano =====
 
-L'éditeur de texte par défaut sur SliTaz est GNU Nano. Une fois lancé vous pouvez utiliser <Ctrl + g> pour afficher l'aide. Pour lancer Nano vous pouvez taper la commande ''nano'' depuis une console, le terminal graphique xterm, ou sous X depuis le menu -> Editors -> Nano.
+L'éditeur de texte par défaut sur SliTaz est GNU Nano. Une fois lancé vous pouvez utiliser <Ctrl + g> pour afficher l'aide. Pour lancer Nano vous pouvez taper la commande //nano// depuis une console, le terminal graphique xterm, ou sous X depuis le menu -> Editeurs -> Nano.
 
-Le fichier d'initialisation du système est /etc/nanorc, il inclu les fichiers de colorisation syntaxique contenus dans /usr/share/nano. Le fichier de configuration utilisateur est ~/.nanorc. Pour éditer directement un fichier, vous pouvez lancer Nano suivi du fichier à éditer. Exemple (<Ctrl+X> pour quitter et enregistrer) : 
+Le fichier d'initialisation du système est ///etc/nanorc//, il inclut les fichiers de colorisation syntaxique contenus dans /usr/share/nano. Le fichier de configuration utilisateur est ~/.nanorc. Pour éditer directement un fichier, vous pouvez lancer Nano suivi du fichier à éditer. Exemple (<Ctrl+X> pour quitter et enregistrer) : 
 
 <code> $ nano Templates/script-shell.sh </code>
 
@@ -77,10 +82,12 @@ En mode graphique SliTaz fournit LeafPad, un éditeur ultra léger et rapide, tr
 
 ===== ISO Master - Éditeur graphique d'images ISO =====
 
-ISO master est un outils graphique permettant d'éditer, manipuler et créer des images ISO gravables. L'outil est simple et intuitif, il vous permet de créer rapidement des images ISO de la taille que vous désirez, pour ensuite les graver ou les stocker. 
+ISO master est un outil graphique permettant d'éditer, manipuler et créer des images ISO gravables. L'outil est simple et intuitif, il vous permet de créer rapidement des images ISO de la taille que vous désirez, pour ensuite les graver ou les stocker. 
 
 Site Web (en anglais) : http://littlesvr.ca/isomaster/
 
 ===== Xpad - Mini application de prise de notes =====
 
-Xpad est une petite application permettant la prise de notes rapide via des billets affichable sur le bureau. Chaque note consiste en un //pad// que vous pouvez cacher et personnaliser via un clic de droite sur la fenêtre en question. Une fois lancé vous pouvez fermer Xpad via le dock situé sur la barre des tâches du gestionnaire de fenêtres. Les notes sont sauvegardée dans votre répertoire personnel et disponibles à chaque session (si vous utiliser un média USB avec le LiveCD ou sur un système installé). 
+Xpad est une petite application permettant la prise de notes rapide via des billets affichable sur le bureau. Chaque note consiste en un //pad// que vous pouvez cacher et personnaliser via un clic de droite sur la fenêtre en question. Une fois lancé vous pouvez fermer Xpad via le dock situé sur la barre des tâches du gestionnaire de fenêtres. Les notes sont sauvegardées dans votre répertoire personnel et disponibles à chaque session (si vous utiliser un média USB avec le LiveCD ou sur un système installé). Pour installer Xpad :
+
+<code> # tazpkg get-install xpad</code>

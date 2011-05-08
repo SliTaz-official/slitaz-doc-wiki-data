@@ -25,13 +25,13 @@ Vous pouvez utiliser la saveur "base" pour cela (plus petite saveur de SliTaz) :
  
 http://mirror.slitaz.org/iso/3.0/flavors/slitaz-3.0-base.iso
 
-Entrez simplement ''web'' en ligne de commandes au démarrage.
+Entrez simplement //web// en ligne de commandes au démarrage.
 
 ==== Démarrer depuis le web ====
 
 Le démarrage depuis le web ne diffère pas d'un démarrage classique depuis le CD.
 
-Entrez simplement ''web'' comme option en ligne de commandes. Le programme de démarrage ne suivra plus le CD mais cherchera une version plus à jour sur le web.
+Entrez simplement //web// comme option en ligne de commandes. Le programme de démarrage ne suivra plus le CD mais cherchera une version plus à jour sur le web.
 
 ==== Installer SliTaz sur un disque dur après un démarrage via le web ====
 
