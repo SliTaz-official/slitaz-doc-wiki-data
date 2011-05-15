@@ -28,7 +28,7 @@ Create a src directory for downloading and compiling:
 
   * Syslinux 3.35 (http://syslinux.zytor.com/).
 
-   # wget ftp://ftp.kernel.org/pub/linux/boot/syslinux/syslinux-3.35.tar.gz
+   # wget ftp://ftp.kernel.org/pub/linux/boot/syslinux/3.xx/syslinux-3.35.tar.gz
 
   * SliTaz tools 1.1. Download SliTaz tools, unpack, save the file in src/ and that's it:
 

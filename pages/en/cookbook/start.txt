@@ -6,7 +6,6 @@ At the base of the Cookbook is the [[en:scratchbook:start|Scratchbook]], this co
 
 ==== Table of contents ====
 
-    * [[en:cookbook:devcorner|Developer's Corner]]  - ReadMe page for Developers.
     * [[en:cookbook:receipt|Receipts]]  - Receipts (recipes) for creating (cooking) SliTaz packages.
     * [[en:cookbook:wok|Wok]]  - Creating SliTaz packages from source using Tazwok. (Uses a receipt.)
     * [[en:cookbook:buildbot|Build Bot]] - Automated cooking, testing and reporting of Wok packages.
@@ -16,7 +15,7 @@ At the base of the Cookbook is the [[en:scratchbook:start|Scratchbook]], this co
     * [[en:cookbook:releasetasks|Release Tasks]]  - List of things to do before publishing a new version.
     * [[en:cookbook:bootscripts|Boot Scripts]]  - The start-up and shut-down scripts.
     * [[en:cookbook:rootcd|Root cdrom (rootcd)]]  - Descriptions of files contained on the cdrom.
-
+    * [[en:cookbook:toolchain|Toolchain]] - The SliTaz toolchain used to build the entire system.
 ---- 
 \\
 ^  Page Review Section  ^^ 

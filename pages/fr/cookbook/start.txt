@@ -16,5 +16,18 @@ Le cookbook réunit diverses informations à propos de la gestion du projet, du 
     * [[fr:cookbook:releasetasks|Tâches de publication]] - Liste des tâches à effectuer avant de publier une nouvelle version (Cooking ou Stable).
     * [[fr:cookbook:bootscripts|Scripts de démarrage et d'arrêt]] - Description des fichiers de configuration rc.
     * [[fr:cookbook:rootcd|Racine du cdrom (rootcd)]] - Descriptions des fichiers contenus dans le cdrom, utilisation de GRUB pour booter le CD, installation de Memtest86.
+    * [[fr:cookbook:toolchain|Toolchain]] - La Toolchain Slitaz utilisée pour construire tout le système.
+
+\\
+---- 
+\\
+^   Section Révision de la page  ^^ 
+|Qualité| Bonne  |
+|Revue|  |
+|Priorité|  |
+|Problèmes| |
+|Comment améliorer|  |
 
 
+\\
+----

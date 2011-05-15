@@ -145,7 +145,9 @@ post_remove()
 }
 </file>
 
-=== clean_wok() ===
+=== clean_wok() (deprecated) ===
+
+This is useless with latest cookutils, source are all uncompreesed in wok/pkg/source to keep build wok clean and structured.
 
 This function helps to define additional commands to be run when cleaning the wok, it is useful to delete files or directories that are not supported by Tazwok:
 

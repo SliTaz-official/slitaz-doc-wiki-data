@@ -1,0 +1,15 @@
+====== Toolchain ======
+
+La Toolchain est l'ensemble des paquets utilisés pour construire le système entier. Il se compose de Binutils, GCC, Linux API headers et de la GNU libc c.a.d. Glibc. SliTaz a un cycle de développement annuel, donc l'ensemble des outils subit une mise à jour énorme une fois par an, juste après la sortie d'une version stable. Lorsque la toolchain change, il est nécessaire de reconstruire tous les paquets pour assurer qualité et cohérence.
+
+Sur SliTaz il y a 2 façons de reconstruire une toolchain à partir de zéro : Cookutils et Tazwok. Tazwok est historiquement le premier constructeur de paquets pour SliTaz et a au fil du temps évolué en un outil complexe qui peut reconstruire le système complet à partir de zéro. Plus d'infos: http://doc.slitaz.org/fr:devnotes:new-tazwok-illustrated
+
+Cookutils est un ensemble de nouveaux outils, écrits à partir de zéro comme avant et pour SliTaz 4.0. Les outils de construction ont eu besoin d'une amélioration énorme puisqu'ils ont été écrits quand SliTaz avait 400-500 paquets. Quand l'écriture de Cookutils a commencé SliTaz avait déjà 2960 paquets, de sorte que la façon de gérer tous ces paquets est encore plus complexe qu'au début du projet. Les cookutils ont aussi été écrits dans un esprit de simplicité, un but de rapidité et sont utilisés sur le site officiel SliTaz de construction c.a.d. tank.
+
+Pour reconstruire la chaîne de compilation officielle avec Cookutils vous devez utiliser le paquet slitaz-toolchain. Ce package est utilisé pour installer la toolchain dans un environnement de développement et construire l'ensemble des outils dans le bon ordre avec 2 passes pour binutils et GCC. Vous trouverez quelques informations dans la recette de slitaz-toolchain elle-même, et après la construction, des notes sont sauvegardées dans /usr/share/doc/slitaz/toolchain.txt 
+
+Reconstruire la toolchain en entier peut être long :
+
+<code>
+# cook slitaz-toolchain
+</code>

@@ -28,6 +28,7 @@ The SliTaz GNU/Linux quick start and complete guides by the community. You will 
   * [[virtualbox | Virtualbox]]- SliTaz GNU/Linux with virtualbox
   * [[netstart|Net start usage and immediate installation on hard disk]]
   * [[http://blog.bodhizazen.net/linux/how-to-install-slitaz-with-ext4-and-grub2/|Grub2]] - Install SliTaz with grub2 (and ext4)
+  * [[bootguide|Boot tree]] - What happens when you power on your slitaz box
 
 
 ===== Networking / LAN =====

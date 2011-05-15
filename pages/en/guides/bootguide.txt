@@ -1,0 +1,45 @@
+<code>
+              CPU
+               |
+               V
+   ----------BIOS--------
+  /             |         \
+  V             |         |
+Hard Disk       V         V
+CD-ROM  <--- Floppy ---> PXE
+USB             |         |
+ V        (set) V        /
+  \             /       /
+    Boot Sector        /
+          \           /
+           V         V
+          - Boot loader -
+         /               \
+Frugal or Uncommon:  Installed: load
+     Kernel+rootfs   Kernel only
+        |                |
+        V                |
+    Run /init            V 
+        |            Mount root
+        V            filesystem  
+    Create tmpfs         |
+      /    |    \        |
+     V     |     V       |
+  Loram:   | Uncommon:   V
+Mount aufs | run script  |
+& squashfs | or driver + |
+    |      | mount root  |
+     \     |     /       |
+      V    V    V        |
+ Switch to new root     /
+         \             /
+          \           /
+           \         /
+            V        V    
+          Run /sbin/init
+                 |
+                 V
+          Run /etc/init.d/rcS
+
+(*) Uncommon is LVM, RAID, crypto, loop or subdir mount with preinit rootfs
+</code>
