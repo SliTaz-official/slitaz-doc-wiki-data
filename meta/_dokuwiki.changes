@@ -1,22 +1,29 @@
-1304541752	86.197.60.195	e	fr:handbook:webserver	domcox	update	
-1304542575	86.197.60.195	e	fr:handbook:hacklivecd	domcox	update	
-1304625487	86.197.60.208	C	fr:handbook:xwindow	domcox	created	
-1304713022	86.194.206.195	E	fr:handbook:genlivecd	domcox	update	
-1304713117	86.194.206.195	E	fr:handbook:genlivecd	domcox	update	
-1304714937	86.194.206.195	e	fr:guides:netstart	domcox	tiny edit	
-1304795819	2.25.45.244	E	en:handbook:development	linea	update	
-1304796137	2.25.45.244	E	en:handbook:systemtools	linea	update	
-1304796726	2.25.45.244	E	en:handbook:systemutils	linea	update	
-1304931327	213.3.10.214	E	en:cookbook:devcorner	pankso		
-1304931422	213.3.10.214	E	en:cookbook:start	pankso		
-1304932290	213.3.10.214	C	en:cookbook:toolchain	pankso	created	
-1304963490	2.28.138.255	E	en:cookbook:toolchain	linea	tiny edit	
-1304968831	86.194.223.213	C	fr:cookbook:toolchain	domcox	translated from English	
-1304968871	2.25.62.231	D	en:cookbook:devcorner	linea	rm	
-1304969012	86.194.223.213	e	fr:cookbook:start	domcox	update (Toolchain link added)	
-1304969133	2.25.62.231	E	en:cookbook:start	linea		
-1304969208	2.25.62.231	E	en:cookbook:start	linea		
-1305324787	213.3.10.214	E	en:cookbook:receipt	pankso		
-1305327886	62.212.122.173	e	en:scratchbook:base-system	lebardix		
-1305461443	2.28.138.202	E	en:guides:start	linea		
-1305461561	2.28.138.202	C	en:guides:bootguide	linea	created	
+1305620726	212.198.101.207	E	en:guides:bootguide	bellard	Add URLs	
+1305621535	212.198.101.207	e	en:guides:uncommoninst	bellard	Add /init URL	
+1305663411	2.25.45.115	E	en:cookbook:toolchain	linea	typo	
+1305663707	2.25.45.115	E	en:guides:bootguide	linea		
+1305663901	2.25.45.115	E	en:guides:bootguide	linea		
+1305706623	212.198.101.207	e	en:guides:bootguide	bellard		
+1305716348	212.198.101.207	e	en:guides:pxe	bellard	[Web Booting] 	
+1305791240	212.198.101.207	E	en:guides:bootguide	bellard	Enlarge	
+1305791607	212.198.101.207	e	en:guides:bootguide	bellard		
+1305791718	212.198.101.207	e	en:guides:bootguide	bellard		
+1305792061	212.198.101.207	e	en:guides:bootguide	bellard		
+1305793066	212.198.101.207	e	en:guides:bootguide	bellard	Add tiny slitaz	
+1305793647	212.198.101.207	e	en:guides:bootguide	bellard		
+1305794072	212.198.101.207	e	en:guides:lowramcd	bellard	[And what to do with only 8MB RAM?] 	
+1305794164	212.198.101.207	e	en:guides:bootguide	bellard		
+1306017844	213.3.10.214	E	en:cookbook:start	pankso		
+1306017867	213.3.10.214	E	en:cookbook:toolchain	pankso		
+1306018645	213.3.10.214	C	en:cookbook:cross	pankso	created	
+1306018657	213.3.10.214	E	en:cookbook:cross	pankso		
+1306018678	213.3.10.214	E	en:cookbook:cross	pankso		
+1306019337	213.3.10.214	E	en:cookbook:cross	pankso		
+1306020057	213.3.10.214	E	en:cookbook:cross	pankso		
+1306020422	213.3.10.214	E	en:cookbook:cross	pankso		
+1306020504	213.3.10.214	E	en:cookbook:cross	pankso		
+1306055436	2.28.143.201	E	en:guides:bootguide	linea		
+1306055539	2.28.143.201	E	en:cookbook:start	linea		
+1306056799	2.28.143.201	E	en:cookbook:cross	linea	tiny edits	
+1306057362	2.28.143.201	E	en:cookbook:cross	linea		
+1306061036	2.28.143.201	E	en:cookbook:cross	linea		

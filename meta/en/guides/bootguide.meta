@@ -1,20 +1,15 @@
-a:2:{s:7:"current";a:6:{s:4:"date";a:2:{s:7:"created";i:1305461561;s:8:"modified";i:1305461561;}s:7:"creator";s:11:"Paul Issott";s:11:"last_change";a:7:{s:4:"date";i:1305461561;s:2:"ip";s:12:"2.28.138.202";s:4:"type";s:1:"C";s:2:"id";s:19:"en:guides:bootguide";s:4:"user";s:5:"linea";s:3:"sum";s:7:"created";s:5:"extra";s:0:"";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:11:"description";a:1:{s:8:"abstract";s:503:"CPU
-               |
-               V
-   ----------BIOS--------
-  /             |         \
-  V             |         |
-Hard Disk       V         V
-CD-ROM  <--- Floppy ---> PXE
-USB             |         |
- V        (set) V        /
-  \             /       /
-    Boot Sector        /
-          \           /
-           V         V
-          - Boot loader -
-         /               \
-Frugal or Uncommon:  Installed: load
-     Kernel+rootfs   Kernel only
-        |                |
-        V           …";}s:8:"relation";a:1:{s:10:"firstimage";s:0:"";}}s:10:"persistent";a:3:{s:4:"date";a:1:{s:7:"created";i:1305461561;}s:7:"creator";s:11:"Paul Issott";s:11:"last_change";a:7:{s:4:"date";i:1305461561;s:2:"ip";s:12:"2.28.138.202";s:4:"type";s:1:"C";s:2:"id";s:19:"en:guides:bootguide";s:4:"user";s:5:"linea";s:3:"sum";s:7:"created";s:5:"extra";s:0:"";}}}
+a:2:{s:7:"current";a:8:{s:4:"date";a:2:{s:7:"created";i:1305461561;s:8:"modified";i:1306055436;}s:7:"creator";s:11:"Paul Issott";s:11:"last_change";a:7:{s:4:"date";i:1306055436;s:2:"ip";s:12:"2.28.143.201";s:4:"type";s:1:"E";s:2:"id";s:19:"en:guides:bootguide";s:4:"user";s:5:"linea";s:3:"sum";s:0:"";s:5:"extra";s:0:"";}s:11:"contributor";a:2:{s:7:"bellard";s:14:"Pascal Bellard";s:5:"linea";s:11:"Paul Issott";}s:5:"title";s:28:"From BIOS to /etc/init.d/rcS";s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:11:"description";a:1:{s:8:"abstract";s:503:"From BIOS to /etc/init.d/rcS
+
+
+                      CPU
+                       |
+                       V
+   +------------------BIOS----------------+
+   |             |            |           |
+   V             V            V           V
+ Floppy      Hard Disk    Versatile      PXE (4)
+ set (3)    DVD/CD-ROM <- Floppy (2) -->  or
+   |          USB key                  WEB boot
+   V             V                        |
+   +-------------+         +--------------+
+          |                V   …";}s:8:"relation";a:1:{s:10:"firstimage";s:0:"";}}s:10:"persistent";a:4:{s:4:"date";a:2:{s:7:"created";i:1305461561;s:8:"modified";i:1306055436;}s:7:"creator";s:11:"Paul Issott";s:11:"last_change";a:7:{s:4:"date";i:1306055436;s:2:"ip";s:12:"2.28.143.201";s:4:"type";s:1:"E";s:2:"id";s:19:"en:guides:bootguide";s:4:"user";s:5:"linea";s:3:"sum";s:0:"";s:5:"extra";s:0:"";}s:11:"contributor";a:2:{s:7:"bellard";s:14:"Pascal Bellard";s:5:"linea";s:11:"Paul Issott";}}}
