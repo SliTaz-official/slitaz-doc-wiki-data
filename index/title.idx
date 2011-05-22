@@ -95,7 +95,7 @@ Chroot environment
 
 Install the latest non-free Nvidia driver
 Conspy : tiny screen or VNC
-
+Live CD for Low-RAM Systems
 
 
 
@@ -498,4 +498,5 @@ Documentazione Italiano
 X Window System
 Toolchain
 Toolchain
-
+From BIOS to /etc/init.d/rcS
+Cross compilation
