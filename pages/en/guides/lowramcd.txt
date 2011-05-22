@@ -127,7 +127,7 @@ or:
 Meta flavors are supported; you can loramize a slitaz-3in1.iso !
 
 ===== And what to do with only 8MB RAM? =====
-Try Tiny Slitaz : http://pizza.slitaz.org/tiny/ !
+Try Tiny Slitaz : http://tiny.slitaz.org/ !
 ---- 
 \\
 ^  Page Review Section  ^^ 

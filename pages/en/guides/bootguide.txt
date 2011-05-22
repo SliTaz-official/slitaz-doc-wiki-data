@@ -1,45 +1,62 @@
+==== From BIOS to /etc/init.d/rcS ====
 <code>
-              CPU
-               |
-               V
-   ----------BIOS--------
-  /             |         \
-  V             |         |
-Hard Disk       V         V
-CD-ROM  <--- Floppy ---> PXE
-USB             |         |
- V        (set) V        /
-  \             /       /
-    Boot Sector        /
-          \           /
-           V         V
-          - Boot loader -
-         /               \
-Frugal or Uncommon:  Installed: load
-     Kernel+rootfs   Kernel only
-        |                |
-        V                |
-    Run /init            V 
-        |            Mount root
-        V            filesystem  
-    Create tmpfs         |
-      /    |    \        |
-     V     |     V       |
-  Loram:   | Uncommon:   V
-Mount aufs | run script  |
-& squashfs | or driver + |
-    |      | mount root  |
-     \     |     /       |
-      V    V    V        |
- Switch to new root     /
-         \             /
-          \           /
-           \         /
-            V        V    
-          Run /sbin/init
-                 |
-                 V
-          Run /etc/init.d/rcS
-
-(*) Uncommon is LVM, RAID, crypto, loop or subdir mount with preinit rootfs
+                      CPU
+                       |
+                       V
+   +------------------BIOS----------------+
+   |             |            |           |
+   V             V            V           V
+ Floppy      Hard Disk    Versatile      PXE (4)
+ set (3)    DVD/CD-ROM <- Floppy (2) -->  or
+   |          USB key                  WEB boot
+   V             V                        |
+   +-------------+         +--------------+
+          |                V              |
+          V         PXE forwarder (5)     V
+     Boot Sector           |              |
+          |                V              |
+          +-------------------------------+
+                           |
+                           V
+             +------- Boot loader --------+
+             |                            |
+             V                            V
+     Frugal/Uncommon(1):              Installed:
+    load Kernel+initramfs          load Kernel only
+             |                            |
+             V                            V
++--------Run /init -------------+         |
+|            |                  |     Mount root
+|            V                  |     filesystem  
+|      Create tmpfs             |         |
+|     |            |            |         |
+|     V            V            V         V
+|  Loram(7):     Frugal:    Uncommon(1):  | 
+| Mount aufs    populate    run script    |
+| & squashfs     tmpfs    load modules(s) |
+|     |            |        mount root    |
+|     |            |            |         |
+V     +------------+------------+         |
+|                        |                |
++------+                 V                V
+       |         Switch to new root       |
+       |                 |                |
+       |                 +----------------+
+ Tiny SliTaz(6):              |
+       |                      V
+       |               Run /sbin/init
+       |                      |
+       +----------------------+
+                   |
+                   V
+          Run /etc/init.d/rcS       
+           from /etc/inittab
 </code>
+
+  - Uncommon is LVM, RAID, crypto, loop or subdir mount with preinit rootfs, see http://doc.slitaz.org/en:guides:uncommoninst
+  - Versatile boot floppy - http://mirror.slitaz.org/boot/floppy-grub4dos
+  - Boot floppy set - http://mirror.slitaz.org/floppies/
+  - LAN PXE or WEB boot, see http://doc.slitaz.org/en:guides:pxe
+  - gpxe.pxe, see http://doc.slitaz.org/en:guides:pxe#advanced-web-booting-configuration
+  - Tiny slitaz, see http://tiny.slitaz.org/
+  - Lowram CD, see http://doc.slitaz.org/en:guides:lowramcd

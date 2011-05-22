@@ -4,6 +4,7 @@ The //slitaz-installer// installs SliTaz in a partition or a hard drive as most 
 
 The following configurations are using the SliTaz 4.0 boot loader **grub4dos-linux**.
 
+Most kernel command line arguments are processed by [[http://hg.slitaz.org/wok/file/tip/busybox/stuff/init|/init]].
 ===== Frugal install =====
 
 You don't need a special partition, the system runs in RAM like a Live CD...
