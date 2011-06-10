@@ -10,7 +10,7 @@ To start using SliTaz from a CD-ROM, just burn the ISO image onto a blank disc a
 
 == If SliTaz LiveCD Does Not Start ==
 
-In most cases, your computer is already configured to boot from the CD-ROM. If the SliTaz splash screen does not appear, you can change the boot order via the BIOS set-up interface. This is different with each computer but can often be done by pressing a key such as the F11, F12, Esc button directly after turning on, before your operating system starts. You can then change the boot sequence and settings so that the CD-ROM comes first. Finally, save your changes before leaving the BIOS configuration interface.
+In most cases, your computer is already configured to boot from the CD-ROM. If the SliTaz splash screen does not appear, you can change the boot order via the BIOS set-up interface. This is different with each computer but can often be done by pressing a key such as the F11, F12 or Esc button directly after turning on, before your operating system starts. With some BIOS's you can use the 'Boot Selection Popup' by pressing a F key (eg. F8). You can then change the boot sequence and settings so that the CD-ROM comes first. Finally, save your changes before leaving the BIOS configuration interface.
 
 When the SliTaz Live media starts, the splash image will be presented. This is the //isolinux// boot-loader, which affects options to start SliTaz. You can just press ENTER to use the default settings, or enter options.
 

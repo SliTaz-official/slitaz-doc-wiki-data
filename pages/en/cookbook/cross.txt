@@ -23,7 +23,7 @@ While all main packages cross compile well, we still have some receipts to impro
 
 ===Cross compiler and toolchain===
 
-If we want to be able to cook packages from a X86 machine for another architecture like ARM we need a cross compilation toolchain. A basic cross toolchain is: binutils and gcc. We need to make packages for cross compilers and use the --target option in configure. They are a first try which gives 2 example/test packages: cross-arm-binutils and cross-arm-gcc which provide a basic C compiler. After installation you can check the machine name with:
+If we want to be able to cook packages from a X86 machine for another architecture like ARM we need a cross compilation toolchain. A basic cross toolchain is: binutils and gcc. We need to make packages for cross compilers and use the --target option in configure. Accordingly the two example/test packages: cross-arm-binutils and cross-arm-gcc are a first attempt to provide a basic C compiler. After installation you can check the machine name with:
 
 <code>
 $ arm-slitaz-linux-gcc -dumpmachine

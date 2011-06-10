@@ -42,19 +42,6 @@ The SliTaz GNU/Linux quick start and complete guides by the community. You will 
   * [[samba | Window Networking with Samba]]
   * [[remotedesktop | Remote Desktop ]] - NX software from NoMachine 
 
-===== SliTaz tinyutil Boxes =====
-  * [[tazpkgbox | Tazpkgbox]] - Package Manager GUI
-  * [[tazctrlbox | Tazctrlbox]] - SliTaz system administration GUI
-  * [[tazlitobox | Tazlitobox]] - GUI to generate LiveCD/flavors
-  * [[tazusbbox | Tazusbbox]] - GUI to generate LiveUSB
-  * [[tazhwbox | Tazhw box]] - Hardware detection and driver installation
-  * [[mountbox | Mountbox ]] - Graphically access and mount filesystems 
-  * [[burnbox | Burnbox]] - Burn CDs/VCDs/DVDs
-  * [[wifibox | Wifibox]] - Wireless Configuration
-  * [[netbox | Netbox]] - Ethernet/PPP/VPN/DHCP/Static IP configuration
-  * [[serverbox | Serverbox]] - Manage servers and/or firewall 
-  * [[scpbox | Scpbox]] - Copy securely using scp
-
 ===== Software =====
   * [[recommended | Recommended Software Packages]] - Applications to do almost anything on Slitaz
   * [[flash|FlashInstall]] - How to install Adobe Flash Player 
