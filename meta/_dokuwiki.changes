@@ -1,21 +1,20 @@
-1306019337	213.3.10.214	E	en:cookbook:cross	pankso		
-1306020057	213.3.10.214	E	en:cookbook:cross	pankso		
-1306020422	213.3.10.214	E	en:cookbook:cross	pankso		
-1306020504	213.3.10.214	E	en:cookbook:cross	pankso		
-1306055436	2.28.143.201	E	en:guides:bootguide	linea		
-1306055539	2.28.143.201	E	en:cookbook:start	linea		
-1306056799	2.28.143.201	E	en:cookbook:cross	linea	tiny edits	
-1306057362	2.28.143.201	E	en:cookbook:cross	linea		
-1306061036	2.28.143.201	E	en:cookbook:cross	linea		
-1306428811	2.25.62.240	E	en:cookbook:cross	linea		
-1306430622	2.25.62.240	E	en:cookbook:cross	linea		
-1306886978	213.3.10.214	e	start	pankso		
-1306925728	86.9.116.24	E	en:handbook:livecd	natty537		
-1307443316	213.3.10.214	E	en:guides:start	pankso		
-1307528984	94.248.69.4	C	ru:handbook:xwindow	lexeii	created	
-1307529511	94.248.69.4	E	ru:start	lexeii	[Русская документация] 	
-1307642533	2.25.45.170	E	en:newsletter:oldissues	linea		
-1307642637	2.25.45.170	C	en:newsletter:oldissues:23	linea	created	
-1307643129	2.25.45.170	E	en:newsletter:start	linea		
 1307644197	2.25.45.170	E	en:newsletter:start	linea	running out of cartoons! 	
 1307709221	193.164.119.42	E	en:newsletter:start	linea	No more cartoons :-(	
+1307810955	178.199.94.111	e	fr:guides:wifi-easy	fantomas		
+1307811238	178.199.94.111	e	fr:guides:contributor	fantomas		
+1307812026	178.199.94.111	e	fr:handbook:genlivecd	fantomas		
+1307812827	178.199.94.111	e	fr:handbook:liveusb	fantomas		
+1307813004	178.199.94.111	E	fr:handbook:hacklivecd	fantomas	[Introduction] 	
+1307813306	178.199.94.111	e	fr:handbook:hacklivecd	fantomas	[Organisation et préparation] 	
+1307813384	178.199.94.111	e	fr:handbook:hacklivecd	fantomas	[Ajouter des fichiers dans l'ISO] 	
+1307813713	178.199.94.111	e	fr:handbook:hacklivecd	fantomas	[Générer une image ISO bootable avec isolinux] 	
+1307885887	178.199.93.4	e	fr:scratchbook:start	fantomas		
+1307886024	178.199.93.4	e	fr:cookbook:start	fantomas		
+1307886762	178.199.93.4	e	fr:cookbook:devcorner	fantomas		
+1308080941	178.195.85.70	e	fr:handbook:security	fantomas		
+1308081311	178.195.85.70	e	fr:handbook:xwindow	fantomas	[Xorg] 	
+1308081473	178.195.85.70	e	fr:handbook:xwindow	fantomas	[Polices] 	
+1308084773	178.195.85.70	e	fr:handbook:utilities	fantomas		
+1308085273	178.195.85.70	e	fr:handbook:systemutils	fantomas		
+1308166759	178.195.90.159	e	fr:guides:uncommoninst	fantomas		
+1308167319	178.195.90.159	e	fr:guides:wifi-easy	fantomas		
