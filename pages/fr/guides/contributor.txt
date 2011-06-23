@@ -2,7 +2,7 @@
 
 Vous pouvez contribuer à SliTaz de plusieurs manières, même avec peu de temps libre. Voici quelques exemples.
 
-En cas de doute, demandez nous par un message sur le forum ou la liste de distribution mail.
+En cas de doute, demandez-nous par un message sur le forum ou la liste de distribution mail.
 
 <note tip>Visitez notre [[http://scn.slitaz.org/|site communautaire]] où vous pouvez notamment contribuer à un blog, partager des fonds d'écran et autre logos.</note>
 
@@ -25,7 +25,7 @@ Quand vous vous sentez prêt, sélectionnez [[http://labs.slitaz.org/projects/di
 
 === Test des paquets ===
 
-Vous pouvez tester les paquets existants et signaler les éventuels bugs  [[http://bugs.slitaz.org/|ici]]. Suivez les [[http://labs.slitaz.org/wiki/packages|recommandations de test]]. Vous pouvez discuter les difficultés sur le forum ou la liste de distribution email.
+Vous pouvez tester les paquets existants et signaler les éventuels bogues  [[http://bugs.slitaz.org/|ici]]. Suivez les [[http://labs.slitaz.org/wiki/packages|recommandations de test]]. Vous pouvez discuter des difficultés sur le forum ou la liste de distribution email.
 
 \\
 -----------------------------------------
@@ -36,10 +36,10 @@ Vous pouvez créer un document manquant, ou traduire un document existant.
   * **Obtenir un compte pour modifier la documentation**
 L'onglet "Login" dans le menu grisé à droite permet l'obtention d'un login/mot de passe permettant la modification de la documentation.
 
-Une fois identifié par le système:
+Une fois identifié par le système :
 
 L'onglet "Edit this page" dans le menu grisé à droite permet l'accès au texte que vous souhaitez modifier.
-Sous la fenêtre de modification se trouvent les boutons "Save" "Preview" "Cancel".
+Sous la fenêtre de modification se trouvent les boutons "Save", "Preview" et "Cancel".
 
 Partir d'un document existant pour démarrer évite l'apprentissage de la syntaxe de formatage du wiki.
 
@@ -53,7 +53,7 @@ Jetez un œil du coté du [[fr:handbook:start|Handbook]]. Il présente SliTaz et
 Que vous soyez féru de technique ou préfériez les présentations généralistes, nous avons besoin de vous pour décrire chaque périmètre et fournir les instructions de mise en œuvre.
 
   * **Vous parlez une autre langue que l'anglais**
-Les traductions sont importantes car SliTaz attire une audience internationale. Nous avons besoin de traducteurs pour assurer des documents de qualité 
+Les traductions sont importantes car SliTaz attire une audience internationale. Nous avons besoin de traducteurs pour assurer des documents de qualité.
 
 Nous projetons également d'augmenter le nombre de langues supportées, merci de nous aider si vous le pouvez.
 
@@ -63,7 +63,7 @@ Les [[http://scn.slitaz.org/groups/artwork/|fonds d'écran]] peuvent avoir un im
 
 ===== Communication & Journalisme =====
 
-(Pourrions-nous monter quelques textes de présentation ou de courts articles à destination de la presse et des collectivités? Peut-être des contacts pour eux?)
+(Pourrions-nous monter quelques textes de présentation ou de courts articles à destination de la presse et des collectivités ? Peut-être des contacts pour eux ?)
 
 \\
 ---- 

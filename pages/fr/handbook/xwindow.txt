@@ -46,7 +46,7 @@ Une fois installé, vous pouvez directement configurer le serveur, ou vous pouve
 
 === Configuration automatique du serveur ===
 
-Pour configurer le serveur Xorg, vous avez deux options: //Xorg -configure// ou le script xorgconfig. Il est recommandé de commencer en utilisant Xorg avec l'option //-configure//. La configuration automatique de Xorg doit être faite en mode console sans le serveur X lancé, ceci est obtenu en fermant toutes les applications et les fenêtres et en appuyant sur les touches //alt-ctrl-del//. Vous devriez maintenant être en mode console. Vous devez maintenant exécuter Xorg avec l'option //-configure// et copier le nouveau dossier produit dans ///etc/X11// :
+Pour configurer le serveur Xorg, vous avez deux options : //Xorg -configure// ou le script xorgconfig. Il est recommandé de commencer en utilisant Xorg avec l'option //-configure//. La configuration automatique de Xorg doit être faite en mode console sans le serveur X lancé, ceci est obtenu en fermant toutes les applications et les fenêtres et en appuyant sur les touches //alt-ctrl-del//. Vous devriez maintenant être en mode console. Vous devez maintenant exécuter Xorg avec l'option //-configure// et copier le nouveau dossier produit dans ///etc/X11// :
 
 <code> # Xorg -configure
  # cp /root/xorg.conf.new /etc/X11/xorg.conf
@@ -115,7 +115,7 @@ L'utilisation à distance d'un serveur graphique peut être très pratique, bien
 
 ===== Polices =====
 
-La gestion des polices (polices) est supportée par le paquet //fontconfig//. Ce paquet fournit des outils pour ajouter, lister et manipuler les polices. Les polices peuvent être installées dans l'espace utilisateur ou au niveau du système, cela veut dire que chaque utilisateur peut utiliser ses propres polices ou l'administrateur système (root) peut installer des polices disponibles pour tous les utilisateurs du système. Si vous utilisez un support USB associé au LiveCD SliTaz, vous pouvez facilement installer des polices et les conserver pour la prochaine fois que vous utilisez le cdrom.
+La gestion des polices (polices) est supportée par le paquet //fontconfig//. Ce paquet fournit des outils pour ajouter, lister et manipuler les polices. Les polices peuvent être installées dans l'espace utilisateur ou au niveau du système, cela veut dire que chaque utilisateur peut utiliser ses propres polices ou l'administrateur système (root) peut installer des polices disponibles pour tous les utilisateurs du système. Si vous utilisez un support USB associé au LiveCD SliTaz, vous pouvez facilement installer des polices et les conserver pour la prochaine fois que vous utilisez le CD-ROM.
 
 === Installer des polices ===
 

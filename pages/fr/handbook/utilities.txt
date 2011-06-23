@@ -42,13 +42,13 @@ Création d'une image ISO nommée //image.iso//, en utilisant l'outil //genisoim
 
 <code> $ genisoimage -o image.iso ~/iso </code>
 
-À noter qu'il existe de multiples options pour créer des images ISO, une des plus utilisée est l'extension //-R//, signifiant //Rock ridge// et permettant d'utiliser des noms de 255 caractères sans trop de restrictions, elle supporte aussi les liens symboliques et les permissions sur les fichiers. Pour connaître toutes les options disponibles, vous pouvez utiliser l'option //-help//. Exemple de création en utilisant l'option //-R// : 
+À noter qu'il existe de multiples options pour créer des images ISO, une des plus utilisées est l'extension //-R//, signifiant //Rock ridge//. Permettant d'utiliser des noms de 255 caractères sans trop de restrictions, elle supporte aussi les liens symboliques et les permissions sur les fichiers. Pour connaître toutes les options disponibles, vous pouvez utiliser l'option //-help//. Exemple de création en utilisant l'option //-R// : 
 
 <code> $ genisoimage -o image.iso -R ~/iso </code>
 
 === Graver une image ISO ===
 
-Pour graver une image au format ISO 9660 créée par vous même ou téléchargée depuis le web, il faut utiliser //wodim// en spécifiant le bon périphérique (//dev//) du graveur de CD/DVD. Exemple de gravure en mode volubile (//-v//) avec un //device// reconnu comme //hdc// et des données contenues dans une image ISO nommée //image.iso// : 
+Pour graver une image au format ISO 9660 créée par vous-même ou téléchargée depuis le Web, il faut utiliser //wodim// en spécifiant le bon périphérique (//dev//) du graveur de CD/DVD. Exemple de gravure en mode volubile (//-v//) avec un //device// reconnu comme //hdc// et des données contenues dans une image ISO nommée //image.iso// : 
 
 <code> # wodim -v dev=/dev/hdc image.iso </code>
 
@@ -88,6 +88,6 @@ Site Web (en anglais) : http://littlesvr.ca/isomaster/
 
 ===== Xpad - Mini application de prise de notes =====
 
-Xpad est une petite application permettant la prise de notes rapide via des billets affichable sur le bureau. Chaque note consiste en un //pad// que vous pouvez cacher et personnaliser via un clic de droite sur la fenêtre en question. Une fois lancé vous pouvez fermer Xpad via le dock situé sur la barre des tâches du gestionnaire de fenêtres. Les notes sont sauvegardées dans votre répertoire personnel et disponibles à chaque session (si vous utiliser un média USB avec le LiveCD ou sur un système installé). Pour installer Xpad :
+Xpad est une petite application permettant la prise de notes rapide via des billets affichables sur le bureau. Chaque note consiste en un //pad// que vous pouvez cacher et personnaliser via un clic de droite sur la fenêtre en question. Une fois lancé vous pouvez fermer Xpad via le dock situé sur la barre des tâches du gestionnaire de fenêtres. Les notes sont sauvegardées dans votre répertoire personnel et disponibles à chaque session (si vous utiliser un média USB avec le LiveCD ou sur un système installé). Pour installer Xpad :
 
 <code> # tazpkg get-install xpad</code>

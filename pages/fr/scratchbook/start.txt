@@ -4,19 +4,19 @@ Index des documents, construction étape-par-étape d'un mini LiveCD GNU/Linux e
 
 ===== Introduction =====
 
-Le scratchbook permet de retracer la création de la première version publique de SliTaz et de faire un voyage au coeur de GNU/LINUX. Vous pourrez personnaliser votre nouveau système ou créer votre propre distribution autonome fonctionnant dans la mémoire système (RAM) entièrement installable sur un disque dur ou une clé USB. Une fois démarré, vous serez en mesure de retirer le CD-ROM et de toujours travailler avec SliTaz. SliTaz peut également être employé comme environnement dans lequel nous pouvons chrooter ou utiliser le cdrom pour le traitement multitâche. Le seul prérequis est une distribution d'accueil dans laquelle vous pouvez stocker des bibliothèques, utiliser un compilateur et des outils de développement, etc. Le système hôte peut être un environnement de développement chrooté, une distribution minimale, SliTaz installé sur un disque dur ou une distribution "généraliste" comme Debian, Slackware, Fedora, Gentoo, Mandriva, Arch, etc. Notez que rien n'est installé sur l'hôte système par nos commandes.
+Le scratchbook permet de retracer la création de la première version publique de SliTaz et de faire un voyage au coeur de GNU/Linux. Vous pourrez personnaliser votre nouveau système ou créer votre propre distribution autonome fonctionnant dans la mémoire système (RAM) entièrement installable sur un disque dur ou une clé USB. Une fois démarré, vous serez en mesure de retirer le CD-ROM et de toujours travailler avec SliTaz. SliTaz peut également être employé comme environnement dans lequel nous pouvons chrooter ou utiliser le CD-ROM pour le traitement multitâche. Le seul prérequis est une distribution d'accueil dans laquelle vous pouvez stocker des bibliothèques, utiliser un compilateur et des outils de développement, etc. Le système hôte peut être un environnement de développement chrooté, une distribution minimale, SliTaz installé sur un disque dur ou une distribution "généraliste" comme Debian, Slackware, Fedora, Gentoo, Mandriva, Arch, etc. Notez que rien n'est installé sur l'hôte système par nos commandes.
 
 SliTaz utilise le noyau Linux et le « couteau de l'Armée Suisse » BusyBox comme base du système, il fonctionne en mode embarqué en utilisant une faible empreinte mémoire et fournit de nombreux fichiers. BusyBox est notre principale source d'information et il est un utilitaire du projet Debian que nous utilisons et chérissons.
 
-SliTaz emploie le chargeur-amorce syslinux et une archive initramfs compressée avec cpio. Cette archive est alors décompressée en mémoire au démarrage par le noyau dans un système sans taille fixe, en conservant le contrôle sur init. Au moment de la compilation ou la copie d'applications, nous utilisons strip pour nettoyer les répertoires. Le système de commandes genisoimage ou mkisofs sont utilisés pour créer des images iso. Pour finir, vous pouvez tester l'image iso avec Qemu ou graver l'iso générée sur un cdrom réinscriptible.
+SliTaz emploie le chargeur-amorce syslinux et une archive initramfs compressée avec cpio. Cette archive est alors décompressée en mémoire au démarrage par le noyau dans un système sans taille fixe, en conservant le contrôle sur init. Au moment de la compilation ou la copie d'applications, nous utilisons strip pour nettoyer les répertoires. Le système de commandes genisoimage ou mkisofs sont utilisés pour créer des images ISO. Pour finir, vous pouvez tester l'image ISO avec Qemu ou graver l'ISO générée sur un CD-ROM réinscriptible.
 
 ===== Organiser un répertoire de travail =====
 
-Pour créer SliTaz, nous avons besoin d'un répertoire de travail et de plusieurs sous-répertoires que vous ayez un environnement chrooté pour le développement ou un système hôte, nous vous conseillons d'utiliser un répertoire nommé //distribution/// dans lequel travailler. Le répertoire distro/ peut être un simple dossier ou une partition, mais vous êtes évidemment libres de mettre tout cela ailleurs.
+Pour créer SliTaz, nous avons besoin d'un répertoire de travail et de plusieurs sous-répertoires que vous ayez un environnement chrooté pour le développement ou un système hôte. Nous vous conseillons d'utiliser un répertoire nommé //distribution/// dans lequel travailler. Le répertoire distro/ peut être un simple dossier ou une partition, mais vous êtes évidemment libres de mettre tout cela ailleurs.
 
 === distro/ ===
 
-Contenu d'un répertoire de travail:
+Contenu d'un répertoire de travail :
 
     * rootfs/ --> Le système de fichiers racine - ceci est le système racine, conçu pour fonctionner en mémoire RAM, il est utilisé pour générer l'image initramfs.
     * rootfs.gz --> L'image initramfs de notre système - une archive cpio compressée avec gzip.
@@ -25,13 +25,13 @@ Contenu d'un répertoire de travail:
 
 Par la suite, l'initramfs et l'image d'ISO amorçable (slitaz-cooking.iso) seront créés dans le répertoire racine de notre ouvrage appelé SliTaz/.
 
-=== Option: rootfs.ext2 - utilisation d'un disque dur virtuel ===
+=== Option : rootfs.ext2 - utilisation d'un disque dur virtuel ===
 
-Option: rootfs.ext2 (système de fichiers racine en ext2) est un disque dur virtuel formaté en ext2 et monté en boucle (rootfs). Un pseudo-device (device loop) permet à un fichier d'être utilisé comme un dispositif standard (disque dur, disquette, etc) et de construire un système de fichiers à l'intérieur. Ce fichier peut être d'une taille de n'importe quel nombre de méga-octets, nous proposons 20.480, ce qui correspond à 20 Mo:
+Option : rootfs.ext2 (système de fichiers racine en ext2) est un disque dur virtuel formaté en ext2 et monté en boucle (rootfs). Un pseudo-device (device loop) permet à un fichier d'être utilisé comme un dispositif standard (disque dur, disquette, etc) et de construire un système de fichiers à l'intérieur. Ce fichier peut être d'une taille quelconque ; nous proposons 20.480, ce qui correspond à 20 Mo :
 
 <code> # dd if=/dev/zero of=rootfs.ext2 bs=1k count=20480 </code>
 
-Créer un système de fichiers //ext2// nommé //rootfs.ext2//, l'option //-F// formate le fichier. Noter que l'option //-m 0// n'alloue pas d'espace pour l'utilisateur root - par défaut, il occupe environ 5% et l'option //-t// définit le type de système de fichiers à employer, comme ext2 ou ext3:
+Créer un système de fichiers //ext2// nommé //rootfs.ext2//, l'option //-F// formate le fichier. Noter que l'option //-m 0// n'alloue pas d'espace pour l'utilisateur root - par défaut, il occupe environ 5% et l'option //-t// définit le type de système de fichiers à employer, comme ext2 ou ext3 :
 
 <code> # mkfs -t ext2 -F -m 0 rootfs.ext2 </code>
 
@@ -43,7 +43,7 @@ Nous pouvons maintenant monter //rootfs.ext2// en boucle, grâce à l'option //-
  # df -h
 </code>
 
-À la fin de la session, vous pouvez démonter le volume avec umount:
+À la fin de la session, vous pouvez démonter le volume avec umount :
 
 <code> # umount rootfs </code>
 

@@ -2,7 +2,7 @@
 
 ===== Pour commencer =====
 
-Créer sa propre version du LiveCD de SliTaz avec Tazlito (//SliTaz Live Tool//) prend peu de temps et permet de choisir précisément les paquets logiciels que l'on veut retrouver dans le système. Le support des saveurs vous pemet de générer un LiveCD personnalisé en modifiant une liste de paquets ou en utilisant des saveurs créées et envoyées sur slitaz.org par des utilisateurs ou contributeurs. Tazlito est un outil en ligne de commande, il ne faut pas que cela vous repousse, vous aurez votre propre image ISO en 2 commandes et la graverez en 1 commande. Vous pouvez aussi utiliser l'interface graphique de Tazlito (//tazlitobox//) qui permet d'utiliser les principales fonctions facilement.
+Créer sa propre version du LiveCD de SliTaz avec Tazlito (//SliTaz Live Tool//) prend peu de temps et permet de choisir précisément les paquets logiciels que l'on veut retrouver dans le système. Le support des saveurs vous pemet de générer un LiveCD personnalisé en modifiant une liste de paquets ou en utilisant des saveurs créées et envoyées sur slitaz.org par des utilisateurs ou contributeurs. Tazlito est un outil en ligne de commande. Il ne faut pas que cela vous effraie, vous aurez votre propre image ISO en deux commandes et la graverez en une commande. Vous pouvez aussi utiliser l'interface graphique de Tazlito (//tazlitobox//) qui permet d'utiliser les principales fonctions facilement.
 
 \\
 
@@ -10,21 +10,21 @@ Créer sa propre version du LiveCD de SliTaz avec Tazlito (//SliTaz Live Tool//)
 
 Tazlito automatise le processus de construction d'un LiveCD, bien que la méthode soit assez simple :
 
-  - télécharger un modèle (saveur) pour travailler dessus
+  - télécharger un modèle (saveur) pour travailler dessus ;
   - personnaliser ses paquets
-    *  //optionnel : inclure des fichiers supplémentaires, ajoutés après les paquets//
-  - compresser le pseudo-dossier-système produit
-  - créer une image ISO
+    *  //optionnel : inclure des fichiers supplémentaires, ajoutés après les paquets// ;
+  - compresser le pseudo-dossier-système produit ;
+  - créer une image ISO.
 
 \\
 
 === Notes ===
 
-  *  La génération du LiveCD demande un minimum de 256 Mb de RAM
+  *  La génération du LiveCD demande un minimum de 256 Mo de RAM.
   *  La compression du système avec LZMA peut prendre un certain temps. GZip peut également être utilisé, bien que son taux de compression ne soit pas aussi efficace.
   *  Il est possible de créer une distribution depuis le mode LiveCD ou depuis un système installé. En mode LiveCD, il est conseillé d'utiliser un media USB ou un disque dur pour stocker les fichiers générés, conserver le travail et gagner de la place en RAM.
 
-  *  Tazlito est aussi utilisé par les développeurs SliTaz pour générer le LiveCD officiel. Les seuls prérequis sont d'avoir Tazlito d'installé, c'est le cas par défaut sur SliTaz, mais vous pouvez générer le LiveCD depuis une autre distribution à condition d'avoir les paquets voulus sous la main ou de les télécharger. Voir les [[#Installer Tazlito sur une autre distribution|instructions]] en bas de la page pour plus de détails.
+  *  Tazlito est aussi utilisé par les développeurs SliTaz pour générer le LiveCD officiel. Le seul prérequis est d'avoir Tazlito d'installé, c'est le cas par défaut sur SliTaz, mais vous pouvez générer le LiveCD depuis une autre distribution à condition d'avoir les paquets voulus sous la main ou de les télécharger. Voir les [[#Installer Tazlito sur une autre distribution|instructions]] en bas de la page pour plus de détails.
 
 \\
 
@@ -38,7 +38,7 @@ Une bonne façon de se familiariser avec Tazlito est de re-construire le LiveCD.
 
   # tazlito get-flavor core
 
-    * En option : Modifier la liste des paquets ou ajouter des Fichiers additionnels.
+    * En option : Modifier la liste des paquets ou ajouter des fichiers additionnels.
     * Générer le LiveCD : 
 
   # tazlito gen-distro
@@ -113,7 +113,7 @@ Pour continuer et aller plus loin, vous pouvez simplement ajouter un ou deux paq
 
 ===== Fichiers additionnels =====
 
-Les fichiers de saveurs contiennent généralement des fichiers additionnels copiés directement dans le système de fichier racine ou dans la racine du cdrom. Le chemin vers les fichiers à utiliser est spécifié dans le fichier de configuration //tazlito.conf//. Logiquement et par défaut, les fichiers sont situés dans ///home/slitaz/distro/addfiles//. Les fichiers additionnels de la saveur //core// fournissent par exemple un lien pour ouvrir la documentation du système et les fichiers présents à la racine du CD. Il suffit de modifier, ajouter ou supprimer des fichiers dans le pseudo système racine (//rootfs//) ou la racine du CD (//rootcd//) et de regénérer la distribution pour retouver les fichiers dans l'ISO. Pour nettoyer et regénérer la distribution : 
+Les fichiers de saveurs contiennent généralement des fichiers additionnels copiés directement dans le système de fichier racine ou dans la racine du CDROM. Le chemin vers les fichiers à utiliser est spécifié dans le fichier de configuration //tazlito.conf//. Logiquement et par défaut, les fichiers sont situés dans ///home/slitaz/distro/addfiles//. Les fichiers additionnels de la saveur //core// fournissent par exemple un lien pour ouvrir la documentation du système et les fichiers présents à la racine du CD. Il suffit de modifier, ajouter ou supprimer des fichiers dans le pseudo système racine (//rootfs//) ou la racine du CD (//rootcd//) et de regénérer la distribution pour retrouver les fichiers dans l'ISO. Pour nettoyer et regénérer la distribution : 
 
   # tazlito clean-distro
   # tazlito gen-distro
@@ -126,18 +126,18 @@ Pour créer votre distro il vous faut des paquets SliTaz. Tazlito et Tazpkg perm
 
 Si vous voulez récupérer des paquets à la main, vous pouvez utiliser un logiciel FTP tel que gFTP (//tazpkg get-install gftp//) ou la ligne de commande et //wget// pour télécharger des paquets officiels. L'URL directe vers les versions des paquets : ftp://download.tuxfamily.org/slitaz/packages/
 
-Vous pouvez aussi utiliser vos propre paquets en les mettant dans le répertoire des paquets. Si vous cherchez de la documentation au sujet de la création de paquets SliTaz, vous pouvez vous référer au livre de cuisine ou [[fr:cookbook:start|Cookbook]]. 
+Vous pouvez aussi utiliser vos propres paquets en les mettant dans le répertoire des paquets. Si vous cherchez de la documentation au sujet de la création de paquets SliTaz, vous pouvez vous référer au livre de cuisine ou [[fr:cookbook:start|Cookbook]]. 
 
 \\
 
 ===== Fichier de configuration =====
 
-Par défaut Tazlito utilise le fichier de configuration système ///etc/tazlito/tazlito.conf// ou un fichier //tazlito.conf// situé dans le répertoire courant. C'est à dire que vous pouvez utiliser le fichier par défaut ou avoir un fichier de configuration spécifique à chaque distro que vous créez. 
+Par défaut Tazlito utilise le fichier de configuration système ///etc/tazlito/tazlito.conf// ou un fichier //tazlito.conf// situé dans le répertoire courant. C'est-à-dire que vous pouvez utiliser le fichier par défaut ou avoir un fichier de configuration spécifique à chaque distro que vous créez. 
 
 Ce fichier de configuration permet de spécifier un certain nombre de propriétés :
-  * le nom de l'image ISO (//ISO_IMAGE//)
-  * l'étiquette utilisée lors du montage (//VOLUME_NAME//)
-  * le nom du mainteneur (//PREPARED//)
+  * le nom de l'image ISO (//ISO_IMAGE//) ;
+  * l'étiquette utilisée lors du montage (//VOLUME_NAME//);
+  * le nom du mainteneur (//PREPARED//) ;
 
   * les chemins vers les répertoires de travail :
     *  là où l'arbre de distro est localisé (//DISTRO//)

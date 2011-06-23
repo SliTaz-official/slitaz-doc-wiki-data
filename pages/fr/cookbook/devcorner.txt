@@ -1,10 +1,10 @@
 ====== Coin du développeur ======
 
-SliTaz est une distribution //open source// dirigée par sa communauté. Tout le monde est bienvenu pour nous rejoindre et contribuer. Que l'on soit utilisateur, hacker ou développeur, il y a toujours quelque chose à faire - relecture ou écriture de documentation, signaler des bugs ou envoyer des patchs sur la [[http://www.slitaz.org/fr/mailing-list.html|liste mail]], obtenir un accès au wok et y pousser quelques nouveaux paquets ou simplement aider les autres sur la [[http://www.slitaz.org/fr/mailing-list.html|liste mail]] ou sur le [[http://forum.slitaz.org/|forum]]. SliTaz utilise des [[http://hg.slitaz.org/|dépôts Mercurial]] hébergés sur un système SliTaz. Les développeurs peuvent demander un nouveau dépôt si nécéssaire et les contributeurs ont un accès en écriture pour corriger les textes, scripts, etc.
+SliTaz est une distribution //open source// dirigée par sa communauté. Tout le monde est bienvenu pour nous rejoindre et contribuer. Que l'on soit utilisateur, hacker ou développeur, il y a toujours quelque chose à faire - relecture ou écriture de documentation, signaler des bugs ou envoyer des patchs sur la [[http://www.slitaz.org/fr/mailing-list.html|liste mail]], obtenir un accès au wok et y pousser quelques nouveaux paquets ou simplement aider les autres sur la [[http://www.slitaz.org/fr/mailing-list.html|liste mail]] ou sur le [[http://forum.slitaz.org/|forum]]. SliTaz utilise des [[http://hg.slitaz.org/|dépôts Mercurial]] hébergés sur un système SliTaz. Les développeurs peuvent demander un nouveau dépôt si nécessaire et les contributeurs ont un accès en écriture pour corriger les textes, scripts, etc.
 
-SliTaz est une petite communauté et écoute ses utilisateurs. Il y a plusieurs développeurs actifs sur le [[http://forum.slitaz.org/|forum]] et la [[http://www.slitaz.org/fr/mailing-list.html|liste mail]]
+SliTaz est une petite communauté qui écoute ses utilisateurs. Il y a plusieurs développeurs actifs sur le [[http://forum.slitaz.org/|forum]] et la [[http://www.slitaz.org/fr/mailing-list.html|liste mail]]
 
-Les artistes trouverons un [[http://community.slitaz.org/image|site web]] dédié -- créez simplement un compte et partagez vos créations. Ce site appartient à la communauté. Si vous voulez aider à administrer ce site, merci de contacter un contributeur ou d'envoyer un e-mail sur la liste de discutions.
+Les artistes trouveront un [[http://community.slitaz.org/image|site web]] dédié -- créez simplement un compte et partagez vos créations. Ce site appartient à la communauté. Si vous voulez aider à administrer ce site, merci de contacter un contributeur ou d'envoyer un e-mail sur la liste de discussions.
 
 \\
 
@@ -15,14 +15,14 @@ Les artistes trouverons un [[http://community.slitaz.org/image|site web]] dédi�
   * Réaliser un travail soigné
   * Écrire de la documentation de haute qualité incluant des résumés pour les sections et processus complexes et des tutoriels détaillés.
   * Proposer un système stable et robuste.
-  * Conserver le //rootfs// du liveCD suffisamment léger pour fonctionner sur des machines avec 128 MB de mémoire vive.
+  * Conserver le //rootfs// du liveCD suffisamment léger pour fonctionner sur des machines avec 128 Mo de mémoire vive.
   * Possibilité d'utiliser GTK+2, Dialog, Gtkdialog, des scripts SHell ou encore PHP pour coder des outils propres à la distribution.
   * L'idée est aussi de ne pas faire de doublons et de penser mini... 
 \\
 
 ===== Tank - Build Host & Home =====
 
-Chaque contributeur peut avoir un compte sur le serveur principal du projet, avec un accès sécurisé, de l'espace disque, un répertoire public et tous les outils de développement. Les développeurs peuvent y compiler leurs paquets et les mainteneurs du miroir s'occupent de la synchronisation. Tank héberge aussi le site internet, le web boot et les dépôts Mercurial: [[http://tank.slitaz.org|tank.slitaz.org]].
+Chaque contributeur peut avoir un compte sur le serveur principal du projet, avec un accès sécurisé, de l'espace disque, un répertoire public et tous les outils de développement. Les développeurs peuvent y compiler leurs paquets et les mainteneurs du miroir s'occupent de la synchronisation. Tank héberge aussi le site internet, le web boot et les dépôts Mercurial : [[http://tank.slitaz.org|tank.slitaz.org]].
 
 L'utilisation du build host est décrite dans le Cookbook : [[fr:cookbook:buildhost|SliTaz Build Host (tank)]]
 
@@ -33,14 +33,14 @@ L'utilisation du build host est décrite dans le Cookbook : [[fr:cookbook:buildh
 
 Les paquets tazpkg de SliTaz sont créés automatiquement via Tazwok et les recettes contenues dans le wok. Le [[fr:cookbook:start|Cookbook]] décrit l'utilisation des outils SliTaz et le format des [[fr:cookbook:receipts|recettes]]. C'est sans doute par un petit peu de lecture qu'il faut commencer. 
 
-Concernant le choix des paquets, l'idée est de proposer un paquet par tâche ou fonctionnalité, c'est à dire pas (trop) de doublons et de trouver l'application la plus légère dans son domaine. A noter que les paquets actuels ne sont pas figés, si vous trouvez une alternative à un paquet existant, étant plus légère, ayant plus de fonctionnalités ou étant plus sexy pour quelques Ko supplémentaires, vous pouvez la proposer sur la [[http://www.slitaz.org/en/mailing-list.html|liste mail]]. Une attention particulière est portée aux paquets destinés au LiveCD : strip, suppression de tout ce qui est inutile, dépendances et options de compilation. En général, les paquets candidats pour le corps du LiveCD sont discutés sur la [[http://www.slitaz.org/en/mailing-list.html|Liste mail]]. 
+Concernant le choix des paquets, l'idée est de proposer un paquet par tâche ou fonctionnalité, c'est-à-dire pas (trop) de doublons et de trouver l'application la plus légère dans son domaine. A noter que les paquets actuels ne sont pas figés, si vous trouvez une alternative à un paquet existant, étant plus légère, ayant plus de fonctionnalités ou étant plus sexy pour quelques Ko supplémentaires, vous pouvez la proposer sur la [[http://www.slitaz.org/en/mailing-list.html|liste mail]]. Une attention particulière est portée aux paquets destinés au LiveCD : strip, suppression de tout ce qui est inutile, dépendances et options de compilation. En général, les paquets candidats pour le corps du LiveCD sont discutés sur la [[http://www.slitaz.org/en/mailing-list.html|Liste mail]]. 
 Avant de commencer à compiler et créer des paquets pour SliTaz, assurez-vous qu'une recette n'existe pas dans le wok [[http://hg.slitaz.org/wok-undigest/|undigest]], disponible sur le miroir principal de SliTaz. N'oubliez pas non plus que les membres de la liste sont là pour vous aider et que pour bien commencer, la documentation du [[en:cookbook:wok|wok et des outils]] existe. 
 
 \\
 
 ===== Nommage des paquets =====
 
-Dans la majorité des cas le nom du paquet est celui des sources exception faite des modules Python, Perl, PHP, Ruby, Lua. Par example le paquet //Kid// fournissant un système de fichiers-types XML et écrit en Python se nomme: //python-kid//. 
+Dans la majorité des cas le nom du paquet est celui des sources, exception faite des modules Python, Perl, PHP, Ruby, Lua. Par exemple le paquet //Kid// fournissant un système de fichiers-types XML et écrit en Python se nomme //python-kid//. 
 
 \\
 
@@ -76,7 +76,7 @@ Pour vérifier les logs, ou juste le dernier log :
    $ hg log
    $ hg head
 
-Copier, créer, modifier des recettes ou des fichiers dans //stuff//. Avant de pouvoir pousser vos modifications, il faut les additionner à votre dépôt local et les commiter. A noter que la commande status permet de savoir quels fichiers ont été modifiés :
+Copier, créer, modifier des recettes ou des fichiers dans //stuff//. Avant de pouvoir pousser vos modifications, il faut les ajouter à votre dépôt local et les commiter. A noter que la commande status permet de savoir quels fichiers ont été modifiés :
 
    $ hg add
    $ hg status
@@ -119,7 +119,7 @@ Des commandes hg qui peuvent servir.
 
 ===== Implémentation d'iconv() =====
 
-SliTaz utilise iconv() fourni par la GNU glibc, même si certain paquets proposent d'utiliser //libiconv// il faut utiliser la version de la glibc (paquet //glibc-locale//). Il n'y a donc pas de paquet libiconv (1,2 Mb) dans SliTaz. 
+SliTaz utilise iconv() fourni par la GNU glibc, même si certains paquets proposent d'utiliser //libiconv// il faut utiliser la version de la glibc (paquet //glibc-locale//). Il n'y a donc pas de paquet libiconv (1,2 Mb) dans SliTaz. 
 
 \\
 
@@ -137,20 +137,20 @@ Si vous avez les droits :
 
 ===== xHTML Coding Style =====
 
-Le site web doit avec un style cohérent, il est également utilisé pour la documentation locale et les pages du wiki (néanmoins la syntaxe y est différente).
+Le site web doit avoir un style cohérent. Il est également utilisé pour la documentation locale et les pages du wiki (néanmoins la syntaxe y est différente).
 
   * Les pages du site sont écrites en xHTML 1.0 Transitional.
 
-  * Les couleurs pour <body> et les titres sont directement mis dans la page, cela permet d'avoir une présentation plus soignée pour Links
-    *  Le titre de niveau 1 est utilisé une seule fois en haut de page;
-    *  Le titre 2 correspond au titre du document;
+  * Les couleurs pour <body> et les titres sont directement mis dans la page, cela permet d'avoir une présentation plus soignée pour Links ;
+    *  Le titre de niveau 1 est utilisé une seule fois en haut de page ;
+    *  Le titre 2 correspond au titre du document ;
     *  Les titres de niveau 3 et 4 sont ensuite utilisés pour les sous-titres.
 
-  * Si il y a lieu d'avoir une liste à puces avec des ancres, elle se met en haut juste après le titre de niveau 2.
+  * S'il y a lieu d'avoir une liste à puces avec des ancres, elle se met en haut, juste après le titre de niveau 2.
 
   * Les paragraphes sont contenus dans les balises <p></p>.
 
-  * Pour indenter, nous utilisons des tabulations, elles ont une raison d'être sémantique et prennent moins de place en terme d'octets.
+  * Pour indenter, nous utilisons des tabulations. Elles ont une raison d'être sémantique et prennent moins de place en terme d'octets.
 
   * Pour mettre du code tel que le nom d'une commande dans un paragraphe, la balise <code> est recommandée.
 
