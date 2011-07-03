@@ -28,6 +28,17 @@ Before running SliTaz GNU/Linux virtual machine you need to configure a new virt
   -     The Virtual Disk Manager start. Click the [//Add//] toolbar button, locate and select the VDI file (i.e: slitaz-1.9-x86.vdi ).
   -     Click on [//Next//] and [//Finish//].
 
+If you wish to set up a network using the Host-only adapter, follow these instructions:
+
+  - Click on the [//Settings//] toolbar button
+  - Click on [//Network//] in the side menu
+  - Select the Network Adapter (usually Adapter 1) and set it for Host-only networking
+  - Click on the Advanced arrow
+  - Change the Adapter Type to PCnet-FAST III
+  - Click on OK
+
+The default Intel adapter seems to work fine for NAT, but not for Host-only networking.
+
 You can now play with your new SliTaz GNU/Linux virtual machine.
 
 <note>

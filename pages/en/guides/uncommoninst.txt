@@ -69,6 +69,14 @@ Now you can use any install method from an ISO image. Example:
 <code># mount -o loop,ro slitaz.iso /media/cdrom
 # slitaz-installer</code>
 
+<note tip>With [[http://pizza.slitaz.org/tiny/|tiny slitaz]], you don't have the slitaz-installer.
+You can start a frugal install:
+<code># mkdir boot && cp /media/cdrom/boot/bzImage /media/cdrom/boot/rootfs.gz boot && rm slitaz.iso</code>and optionally a standard install:
+<code># unlzma -c boot/rootfs.gz | cpio -id </code>
+The problem: you have no boot loader!
+
+Boot the [[http://mirror.slitaz.org/boot/floppy-grub4dos|SliTaz generic boot floppy]] with the **SliTaz frugal** menu entry. Now you can install the Grub bootloader on the hard disk.
+</note>
 ===== Loop install =====
 
 If you want to install SliTaz on a disk (not a frugal install), and you don't want to create a partition for SliTaz, but you have enough room in a feature-poor filesystem (FAT32 or NTFS)...
