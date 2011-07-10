@@ -1,6 +1,6 @@
 ====== Unusual install methods ======
 
-The //slitaz-installer// installs SliTaz in a partition or a hard drive as most Linux distributions do. However, there are many other ways to install SliTaz...
+The //[[http://doc.slitaz.org/en:handbook:installation|slitaz-installer]]// installs SliTaz in a partition or a hard drive as most Linux distributions do. However, there are many other ways to install SliTaz...
 
 The following configurations are using the SliTaz 4.0 boot loader **grub4dos-linux**.
 

@@ -1,9 +1,10 @@
 ====== Méthodes d'installation moins communes  ======
 
-Le //slitaz-installer// installe SliTaz dans une partition ou un disque dur comme la plupart des distributions Linux le font. Cependant, il y a bien d'autres façons d'installer SliTaz ...
+Le //[[http://doc.slitaz.org/fr:handbook:installation|slitaz-installer]]// installe SliTaz dans une partition ou un disque dur comme la plupart des distributions Linux le font. Cependant, il y a bien d'autres façons d'installer SliTaz ...
 
 Les configurations suivantes utilisent le chargeur d'amorçage (ou bootloader) de SliTaz 4.0 **grub4dos-linux**.
 
+La plupart des paramètres sont interprétés par [[http://hg.slitaz.org/wok/file/tip/busybox/stuff/init|/init]].
 ===== Installation frugale =====
 
 Vous n'avez pas besoin d'une partition spéciale, le système fonctionne en mémoire vive comme un Live CD ...
@@ -68,6 +69,14 @@ Maintenant, vous pouvez utiliser n'importe quelle méthode d'installation à par
 <code># mount -o loop,ro slitaz.iso /media/cdrom
 # slitaz-installer</code>
 
+<note tip>Avec [[http://pizza.slitaz.org/tiny/|tiny slitaz]], vous n'avez pas de slitaz-installer.
+Vous pouvez commercer par une installation frugale :
+<code># mkdir boot && cp /media/cdrom/boot/bzImage /media/cdrom/boot/rootfs.gz boot && rm slitaz.iso</code>puis éventuellement une installation standard :
+<code># unlzma -c boot/rootfs.gz | cpio -id </code>
+Mais vous n'avez toujours pas de logiciel de démarrage !
+
+Booter la [[http://mirror.slitaz.org/boot/floppy-grub4dos|disquette de boot SliTaz]] avec l'entrée **SliTaz frugal**. Maintenant vous pouvez installer Grub sur le disque dur.
+</note>
 ===== Installation sur un disque virtuel (loop file) =====
 
 Si vous souhaitez installer SliTaz sur un disque (pas une installation frugale), et vous ne voulez pas créer une partition pour SliTaz, mais vous avez assez de place dans un système de fichiers aux caractéristiques plutôt pauvres (FAT32 ou NTFS) ...

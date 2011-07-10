@@ -3,7 +3,7 @@
 ===== Introduction =====
 
 This document gives information and necessary instructions on how to install SliTaz on a hard disk. This should take about 10 minutes, SliTaz core LiveCD expands to 80 Mb, so we suggest a minimum of 120 Mb of free space. This way you will be able to install a few more packages. If you can use the LiveCD, you should be able to install SliTaz.
-
+You may also do a [[http://doc.slitaz.org/en:guides:frugal|frugal]] or [[http://doc.slitaz.org/en:guides:uncommoninst|unusual]] install.
 ===== SliTaz Installer =====
 
 SliTaz provides a simple to use Installer which can be launched from the "System Tools" menu. SliTaz 3.0 Installer messages are in English and can be used with these complimentary instructions.

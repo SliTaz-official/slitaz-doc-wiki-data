@@ -4,6 +4,7 @@
 
 Ce document fournit les instructions pour une installation de SliTaz GNU/Linux sur un disque dur (HD). Il vous faudra passer quelques commandes et éditer quelques fichiers au format texte. Le temps à consacrer pour une installation de base est d'environ 10 min. À noter que vous pouvez toujours utiliser une clé USB ou un disque dur externe en tant que partition ///home//, comme avec [[livecd|le mode LiveCD]]. Vous avez le choix entre une installation automatisée ou une installation à la main, commande par commande. 
 
+D'autres types d'installation sont possibles ([[http://doc.slitaz.org/fr:guides:frugal|frugale]] ou [[http://doc.slitaz.org/fr:guides:uncommoninst|avancée]]).
 ===== Prérequis =====
 
 Il vous faut un cdrom ou une image ISO de SliTaz et environ 80 Mb de libre sur un disque dur de votre ordinateur. Si le mode liveCD fonctionne c'est que vous pouvez installer SliTaz facilement et sans aucun problème.
