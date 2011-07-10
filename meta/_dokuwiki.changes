@@ -1,11 +1,3 @@
-1307812026	178.199.94.111	e	fr:handbook:genlivecd	fantomas		
-1307812827	178.199.94.111	e	fr:handbook:liveusb	fantomas		
-1307813004	178.199.94.111	E	fr:handbook:hacklivecd	fantomas	[Introduction] 	
-1307813306	178.199.94.111	e	fr:handbook:hacklivecd	fantomas	[Organisation et préparation] 	
-1307813384	178.199.94.111	e	fr:handbook:hacklivecd	fantomas	[Ajouter des fichiers dans l'ISO] 	
-1307813713	178.199.94.111	e	fr:handbook:hacklivecd	fantomas	[Générer une image ISO bootable avec isolinux] 	
-1307885887	178.199.93.4	e	fr:scratchbook:start	fantomas		
-1307886024	178.199.93.4	e	fr:cookbook:start	fantomas		
 1307886762	178.199.93.4	e	fr:cookbook:devcorner	fantomas		
 1308080941	178.195.85.70	e	fr:handbook:security	fantomas		
 1308081311	178.195.85.70	e	fr:handbook:xwindow	fantomas	[Xorg] 	
@@ -18,3 +10,12 @@
 1309098585	2.25.40.179	E	en:guides:uncommoninst	linea		
 1309104290	212.198.101.207	E	en:guides:uncommoninst	bellard	[Transfer the ISO image onto hard disk] 	
 1309547549	86.144.29.106	E	en:guides:virtualbox	shreknz	[Step 2 - Play the virtual machine.] 	
+1310198226	212.198.101.207	E	en:handbook:installation	bellard	[Introduction] 	
+1310198387	212.198.101.207	E	en:guides:uncommoninst	bellard	[Unusual install methods] 	
+1310217929	212.198.101.207	e	fr:guides:uncommoninst	bellard	[Méthodes d'installation moins communes] 	
+1310218132	212.198.101.207	e	fr:guides:uncommoninst	bellard	[Méthodes d'installation moins communes] 	
+1310218154	212.198.101.207	e	fr:guides:uncommoninst	bellard	[Méthodes d'installation moins communes] 	
+1310218624	212.198.101.207	E	fr:guides:uncommoninst	bellard	[Transfert de l'image ISO sur le disque dur] 	
+1310219019	212.198.101.207	E	fr:handbook:installation	bellard	[À propos de ce document] 	
+1310219054	212.198.101.207	e	fr:guides:uncommoninst	bellard	[Méthodes d'installation moins communes] 	
+1310299236	50.16.43.147	e	cn:start	aenon		
