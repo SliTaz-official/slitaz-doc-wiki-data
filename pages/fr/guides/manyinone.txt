@@ -1,30 +1,30 @@
 ======= Créer une saveur plusieurs-en-1 =======
 
-Les LiveCDs Slitaz tournent entièrement en RAM. La liste des fonctions disponibles dépend de la quantité de RAM disponible.
+Les LiveCD Slitaz tournent entièrement en RAM. La liste des fonctions disponibles dépend de la quantité de RAM disponible.
 Vous pouvez fabriquer un LiveCD qui s'adapte automatiquement à la quantité de RAM détectée en ne chargeant que les fonctions appropriées. Pour cela vous devez :
 
-    * définir une liste des saveurs (//flavor//) ou des ISOs où chaque saveur est inclue dans la précédente (comme des poupées russes),
+    * définir une liste des saveurs (//flavor//) ou des ISO où chaque saveur est incluse dans la précédente (comme des poupées russes),
     * définir la quantité minimum de RAM nécessaire à chaque saveur.
 
 Une image ISO plusieurs-en-1 peut être légèrement plus grande que la plus grande saveur. Parfois les tailles sont identiques.
 
 Nous allons fabriquer la saveur officielle slitaz-3in1 qui lance :
 
-    * la saveur core avec 160Mo de RAM ou plus,
-    * la saveur justx avec de 96Mo à 160Mo de RAM,
-    * la saveur base avec de 32Mo à 96Mo de RAM,
-    * et affiche un message d'erreur avec moins de 32Mo de RAM...
+    * la saveur core avec 160 Mo de RAM ou plus,
+    * la saveur justx avec de 96 Mo à 160 Mo de RAM,
+    * la saveur base avec de 32 Mo à 96 Mo de RAM,
+    * et affiche un message d'erreur avec moins de 32 Mo de RAM...
 
 Les images ISO slitaz-3.0-3in1.iso et la plus grande saveur slitaz-3.0.iso ont la même taille : 31457280 octets. (grâce à l'alignement sur 1Mo, sinon slitaz-3.0-3in1.iso serait plus grande de 123351 octets).
 
-===== La meilleure façon : créer une saveur =====
+===== La meilleure méthode : créer une saveur =====
 
-La saveur contient toutes les informations nécessaires pour fabriquer un LiveCD. Le //[[http://bb.slitaz.org/|build bot]]// va mettre à jour automagiquement le fichier //.flavor// et ce minuscule fichier sera utilisé par tazlito pour (re)générer une image ISO.
+La saveur contient toutes les informations nécessaires pour fabriquer un LiveCD. Le //[[http://bb.slitaz.org/|build bot]]// va mettre à jour automatiquement le fichier //.flavor// et ce minuscule fichier sera utilisé par tazlito pour (re)générer une image ISO.
 
-Les [[http://hg.slitaz.org/flavors|saveurs]] sont comme les sources d'un fichier //.flavor// : le //[[http://bb.slitaz.org/|build bot]]// serait l'outil //make// et **tazlito pack-flavor** le compilateur. Fournir des saveurs revient à fournir les fichiers sources et fournir des images ISOs revient à ne fournir que les binaires.
+Les [[http://hg.slitaz.org/flavors|saveurs]] sont comme les sources d'un fichier //.flavor// : le //[[http://bb.slitaz.org/|build bot]]// serait l'outil //make// et **tazlito pack-flavor** le compilateur. Fournir des saveurs revient à fournir les fichiers sources et fournir des images ISO revient à ne fournir que les binaires.
 
 Une méta saveur n'a ni //rootfs//, ni //rootcd//, ni //packages.list//.
-La variable **ROOTFS_SELECTION** du //receipt// (voir http://hg.slitaz.org/flavors/file/324757d594ef/core-3in1) donnes les saveurs imbriquées et les quantités de RAM correspondantes de la plus grande à la plus petite.
+La variable **ROOTFS_SELECTION** du //receipt// (voir http://hg.slitaz.org/flavors/file/324757d594ef/core-3in1) donne les saveurs imbriquées et les quantités de RAM correspondantes de la plus grande à la plus petite.
 
 <code>
 ROOTFS_SELECTION="160M core 96M justx 32M base"

@@ -1,15 +1,15 @@
 ====== Démarrage depuis Windows ======
 
-===== Installation frugale sur une partition windows =====
+===== Installation frugale sur une partition Windows =====
 
 Installer [[http://grub4dos.sourceforge.net/wiki/index.php/Grub4dos_tutorial#Installation|Grub4dos]].
 
 Cet article supposera que votre lecteur C:\ est //(hd0,0)//.
-Vous avez besoin d'au moins 160 Mo pour exécuter Slitaz cooking (128MB pour Slitaz 1.0).
+Vous avez besoin d'au moins 160 Mo pour exécuter Slitaz cooking (128 MB pour Slitaz 1.0).
 
 Testé avec Windows XP sur FAT32 et NTFS.
 
-Pour Windows XP, 2000 ou NT, copiez http://mirror.slitaz.org/boot/grldr dans C:\ et ajoutez à C:\boot.ini:
+Pour Windows XP, 2000 ou NT, copiez http://mirror.slitaz.org/boot/grldr dans C:\ et ajoutez à C:\boot.ini :
 
 <file>C:\grldr="Grub4DOS"</file>
 
@@ -73,7 +73,7 @@ Ceci chargera la dernière version disponible de SliTaz. Voir http://boot.slitaz
 
 ===== Affiner le processus de démarrage =====
 
-Des paramètres additionnels de démarrage  peuvent être ajoutés. Par exemple :
+Des paramètres de démarrage supplémentaires peuvent être ajoutés. Par exemple :
 
 <file>
 title SliTaz cooking
@@ -97,4 +97,4 @@ Une installation frugale de SliTaz ou une installation Live USB peuvent être ef
 
 Soit la version standard ([[http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe|Windows]] | [[http://unetbootin.sourceforge.net/unetbootin-linux-latest|Linux]]) peut être employée (choisir SliTaz dans la liste des distributions), soit une version personnalisée de SliTaz ([[http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe|Windows]] | [[http://unetbootin.sourceforge.net/unetbootin-linux-latest|Linux]]) peut également être utilisée.
 
-Pour effectuer une installation Frugal, sélectionnez "Hard Disk” dans le type d'installation; pour créer un Live USB, sélectionnez "USB Drive" dans le type d'installation.
+Pour effectuer une installation Frugale, sélectionnez "Hard Disk” dans le type d'installation ; pour créer un LiveUSB, sélectionnez "USB Drive" dans le type d'installation.

@@ -112,6 +112,10 @@ launch the tftp server for your lan (say 192.168.0.1/24)
 
   # /jffs/usr/sbin/tftpd 192.168.0.1 /jffs/boot
 
+<note tip>You can avoid the tftp server installation and use the SliTaz tftp server directly :
+  # echo "dhcp-boot=gpxe.pxe,mirror.slitaz.org" >> /tmp/dnsmasq.conf
+</note>
+
 \\
 
 === Modifying the Default GPXE Web Boot URL ===

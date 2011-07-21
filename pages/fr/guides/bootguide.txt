@@ -1,0 +1,62 @@
+==== From BIOS to /etc/init.d/rcS ====
+<code>
+                      CPU
+                       |
+                       V
+   +------------------BIOS----------------+
+   |             |            |           |
+   V             V            V           V
+Jeu de (3)  Disque dur    Disquette      PXE (4)
+disquettes  DVD/CD-ROM <- de boot (2) ->  ou
+   |          Clé USB                  Boot WEB
+   V             V                        |
+   +-------------+         +--------------+
+          |                V              |
+          V          Relais PXE (5)       V
+   Secteur de boot         |              |
+          |                V              |
+          +-------------------------------+
+                           |
+                           V
+             +-------- Chargeur ----------+
+             |                            |
+             V                            V
+     Frugale/Peu fréquente(1):        Installé:
+    Charge noyau+initramfs     Charge uniquement le noyau
+             |                            |
+             V                            V
++----- Exécute /init -----------+         |
+|            |                  |     Monte le
+|            V                  |    système de  
+|      Crée un tmpfs            |   fichier root
+|     |            |            |         |
+|     V            V            V         V
+|  Loram(7):    Frugale: Peu fréquente(1):| 
+| Monte aufs    remplit   lance script    |
+| & squashfs     tmpfs   charge module(s) |
+|     |            |        monte root    |
+|     |            |            |         |
+V     +------------+------------+         |
+|                        |                |
++------+                 V                V
+       |        Passe au nouveau root     |
+       |                 |                |
+       |                 +----------------+
+ Tiny SliTaz(6):              |
+       |                      V
+       |             Exécute /sbin/init
+       |                      |
+       +----------------------+
+                   |
+                   V
+         Exécute /etc/init.d/rcS       
+           depuis /etc/inittab
+</code>
+
+  - Les [[uncommoninst|installations peu fréquentes]] sont les montages LVM, RAID, crypté, disque virtuel où dans un sous-répertoire avec l'initramfs preinit.
+  - Disquette de démarrage généraliste - http://mirror.slitaz.org/boot/floppy-grub4dos
+  - Jeu de disquettes - http://mirror.slitaz.org/floppies/
+  - [[pxe|PXE]] sur LAN or sur Internet
+  - [[pxe#configuration-avancee-du-demarrage-web|gpxe.pxe]].
+  - Tiny SliTaz, voir http://tiny.slitaz.org/
+  - Live CD pour [[lowramcd|systèmes avec peu de mémoire vive]].

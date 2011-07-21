@@ -53,10 +53,10 @@ V     +------------+------------+         |
            from /etc/inittab
 </code>
 
-  - Uncommon is LVM, RAID, crypto, loop or subdir mount with preinit rootfs, see http://doc.slitaz.org/en:guides:uncommoninst
+  - [[uncommoninst|Uncommon]] is LVM, RAID, crypto, loop or subdir mount with preinit rootfs.
   - Versatile boot floppy - http://mirror.slitaz.org/boot/floppy-grub4dos
   - Boot floppy set - http://mirror.slitaz.org/floppies/
-  - LAN PXE or WEB boot, see http://doc.slitaz.org/en:guides:pxe
-  - gpxe.pxe, see http://doc.slitaz.org/en:guides:pxe#advanced-web-booting-configuration
+  - LAN [[pxe|PXE]] or WEB boot.
+  - [[pxe#advanced-web-booting-configuration|gpxe.pxe]].
   - Tiny slitaz, see http://tiny.slitaz.org/
-  - Lowram CD, see http://doc.slitaz.org/en:guides:lowramcd
+  - [[lowramcd|Lowram CD]].

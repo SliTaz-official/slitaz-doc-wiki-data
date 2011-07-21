@@ -1,4 +1,4 @@
-====== Virtualbox ======
+====== VirtualBox ======
 
 ===== SliTaz GNU/Linux avec VirtualBox =====
 
@@ -9,7 +9,7 @@ Sont requis :
     * [[http://www.virtualbox.org/wiki/Downloads|Oracle VirtualBox]], logiciel, binaires pour Windows.
     * [[http://www.7-zip.org/fr/download.html|7-Zip]], nécessaire pour décompresser le fichier.
 
-===== Première étape : Téléchargement et installation. =====
+===== Première étape : téléchargement et installation. =====
 
     * Téléchargez et installez 7-Zip - nécessaire pour décompresser les fichiers.
     * Téléchargez et installez Oracle VirtualBox.
@@ -42,7 +42,7 @@ C'est une version limitée sans le support USB.
 
 ===== Slitaz get-virtualbox=====
 
-Vous pouvez installer VirtualBox (Version complète, mais non-libre) dans Slitaz avec le paquet « get-virtualbox » :
+Vous pouvez installer VirtualBox (version complète, mais non-libre) dans Slitaz avec le paquet « get-virtualbox » :
 <code># tazpkg get-install get-virtualbox ; get-virtualbox</code>
 
 D'autres logiciels de virtualisation sont disponibles, tels que lguest ou qemu.

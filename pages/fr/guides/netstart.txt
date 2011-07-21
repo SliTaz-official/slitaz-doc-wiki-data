@@ -1,17 +1,17 @@
-====== Démarrage depuis le web et installation immédiate sur le disque dur ======
+====== Démarrage depuis le Web et installation immédiate sur le disque dur ======
 
 ===== Une fonctionnalité spéciale de SliTaz ! =====
 
-SliTaz est l'un des très rares OS disponibles totalement préparé pour un démarrage depuis le web en mode live en utilisant un très petit programme de démarrage. Le programme de démarrage peut être sauvegardé sur un disquette ou dans une petite image ISO gravée sur un CD-ROM. 
+SliTaz est l'un des très rares OS disponibles totalement préparés pour un démarrage depuis le Web en mode live en utilisant un très petit programme de démarrage. Le programme de démarrage peut être sauvegardé sur un disquette ou dans une petite image ISO gravée sur un CD-ROM. 
 
 Chaque ISO de SliTaz avec la version Live “base”, “justX”, “stable” ou “cooking” contient aussi ce programme de démarrage qui peut être utilisé depuis la ligne de commandes au démarrage de l'ISO. 
 
-L'avantage spécifique de ce type de démarrage est qu'il permet d'utiliser la dernière version cooking et non celle contenu sur le CD. 
+L'avantage spécifique de ce type de démarrage est qu'il permet d'utiliser la dernière version cooking et non celle contenue sur le CD. 
 
-La même technique peut bien sûr être utilisé par une communauté plus restreinte. 
+La même technique peut bien sûr être utilisée par une communauté plus restreinte. 
 
 
-==== Ou puis-je trouver le programme de démarrage pour disquette ? ====
+==== Où puis-je trouver le programme de démarrage pour disquette ? ====
 
 http://mirror.slitaz.org/boot/floppy-grub4dos
 
@@ -19,7 +19,7 @@ Vous pouvez en apprendre plus ici :
 
 http://boot.slitaz.org/
 
-==== Ou puis-je trouver la petite image ISO pour démarrer avec un CD-ROM ? ====
+==== Où puis-je trouver la petite image ISO pour démarrer avec un CD-ROM ? ====
 
 Vous pouvez utiliser la saveur "base" pour cela (plus petite saveur de SliTaz) :
  
@@ -29,13 +29,13 @@ Entrez simplement //web// en ligne de commandes au démarrage.
 
 ==== Démarrer depuis le web ====
 
-Le démarrage depuis le web ne diffère pas d'un démarrage classique depuis le CD.
+Le démarrage depuis le Web ne diffère pas d'un démarrage classique depuis le CD.
 
-Entrez simplement //web// comme option en ligne de commandes. Le programme de démarrage ne suivra plus le CD mais cherchera une version plus à jour sur le web.
+Entrez simplement //web// comme option en ligne de commandes. Le programme de démarrage ne suivra plus le CD mais cherchera une version plus à jour sur le Web.
 
-==== Installer SliTaz sur un disque dur après un démarrage via le web ====
+==== Installer SliTaz sur un disque dur après un démarrage via le Web ====
 
-Bien sûr il y a une différence importante comparé au démarrage classique : il n'y a pas de CD dans le lecteur où le programme d'installation peut trouver les fichier à installer.
+Bien sûr il y a une différence importante comparée au démarrage classique : il n'y a pas de CD dans le lecteur où le programme d'installation peut trouver les fichier à installer.
 
 .... 
 
@@ -45,11 +45,11 @@ Bien sûr il y a une différence importante comparé au démarrage classique : i
 
 ....
 
-=== Limiter l'accès si nécéssaire ===
+=== Limiter l'accès si nécessaire ===
 
 ....
 
-=== Préparer une ISO pour son propre démarrage via le net ===
+=== Préparer une ISO pour son propre démarrage via le Net ===
 
 ....
 

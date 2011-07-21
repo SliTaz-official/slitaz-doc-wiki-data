@@ -4,7 +4,7 @@ Vous pouvez contribuer à SliTaz de plusieurs manières, même avec peu de temps
 
 En cas de doute, demandez-nous par un message sur le forum ou la liste de distribution mail.
 
-<note tip>Visitez notre [[http://scn.slitaz.org/|site communautaire]] où vous pouvez notamment contribuer à un blog, partager des fonds d'écran et autre logos.</note>
+<note tip>Visitez notre [[http://scn.slitaz.org/|site communautaire]] où vous pouvez notamment contribuer à un blog, partager des fonds d'écran et autres logos.</note>
 
 \\
 
@@ -23,7 +23,7 @@ Avant de vous lancer, familiarisez-vous avec [[fr:cookbook:devcorner|la page des
 Quand vous vous sentez prêt, sélectionnez [[http://labs.slitaz.org/projects/distro/wiki/Pkgscooklistt|l'un des paquets ]] et faites quelques essais. Vous pouvez soumettre vos "recettes" à la liste de distribution ou contacter l'un des développeurs SliTaz, pour que nous puissions revoir votre travail et vous donner accès aux dépôts. 
 
 
-=== Test des paquets ===
+=== Tester des paquets ===
 
 Vous pouvez tester les paquets existants et signaler les éventuels bogues  [[http://bugs.slitaz.org/|ici]]. Suivez les [[http://labs.slitaz.org/wiki/packages|recommandations de test]]. Vous pouvez discuter des difficultés sur le forum ou la liste de distribution email.
 
@@ -41,7 +41,7 @@ Une fois identifié par le système :
 L'onglet "Edit this page" dans le menu grisé à droite permet l'accès au texte que vous souhaitez modifier.
 Sous la fenêtre de modification se trouvent les boutons "Save", "Preview" et "Cancel".
 
-Partir d'un document existant pour démarrer évite l'apprentissage de la syntaxe de formatage du wiki.
+Travailler à partir d'un document existant pour commencer évite l'apprentissage de la syntaxe de formatage du wiki.
 
 Parcourez le [[fr:guidelines| guide de documentation SliTaz]], choisissez une page et lancez-vous. Vos contributions seront ensuite revues et corrigées. 
 
@@ -49,7 +49,7 @@ Parcourez le [[fr:guidelines| guide de documentation SliTaz]], choisissez une pa
 Écrivez l'un des guides. Destinés aux utilisateurs, ils couvrent personnalisation et configuration du système. Vous pouvez partager votre propre expérience, ou améliorer l'un des guides existants.
 
   * **Vous êtes un utilisateur Linux**
-Jetez un œil du coté du [[fr:handbook:start|Handbook]]. Il présente SliTaz et les paquets disponibles. 
+Jetez un œil du côté du [[fr:handbook:start|Handbook]]. Il présente SliTaz et les paquets disponibles. 
 Que vous soyez féru de technique ou préfériez les présentations généralistes, nous avons besoin de vous pour décrire chaque périmètre et fournir les instructions de mise en œuvre.
 
   * **Vous parlez une autre langue que l'anglais**

@@ -1,6 +1,6 @@
 ====== Xorg & XVesa ======
 
-Par défaut, SliTaz v3 utilise Xorg v.7.4 avec le pilote //xorg-xf86-video-vesa// v2.0.0. Quelques problèmes peuvent arriver avec ce pilote basique dans le cas de certaines combinaisons matérielles, ce qui peut même quelquefois entrainer une trop basse résolution. Parfois, X ne démarre pas du tout, et on se retrouve avec l'écran de connexion ou une invite en mode texte. Il y a toutefois quelques solutions simples qui peuvent apporter des améliorations importantes : 
+Par défaut, SliTaz v3 utilise Xorg v.7.4 avec le pilote //xorg-xf86-video-vesa// v2.0.0. Quelques problèmes peuvent arriver avec ce pilote basique dans le cas de certaines combinaisons matérielles, ce qui peut même quelquefois entraîner une trop basse résolution. Parfois, X ne démarre pas du tout, et on se retrouve avec l'écran de connexion ou une invite en mode texte. Il y a toutefois quelques solutions simples qui peuvent apporter des améliorations importantes : 
 
   * vérifier qu'il y a assez de RAM pour exécuter l'ISO par défaut. Sinon, utiliser la saveur [[http://mirror.slitaz.org/iso/3.0/flavors/|Low RAM ISO]].
   * essayer la saveur [[http://mirror.slitaz.org/iso/3.0/flavors/slitaz-3.0-xvesa.iso|XVesa ISO]] (ou TinyX)
@@ -9,7 +9,7 @@ Par défaut, SliTaz v3 utilise Xorg v.7.4 avec le pilote //xorg-xf86-video-vesa/
 
 De bonnes introductions à la configuration de Xorg peuvent être trouvées sur le [[http://www.freebsd.org/doc/fr/books/handbook/x-config.html|Manuel FreeBSD]] et [[http://doc.ubuntu-fr.org/carte_graphique|Les cartes graphiques sous Ubuntu]].
 
-<note tip>Jusqu'à la v7.3, la combinaison de touches Ctrl + Alt + Backspace permettait de stopper le serveur X. Pour l'activer à nouveau dans les versions 7.4 et ultérieures, tapez la commande suivante dans n'importe quel émulateur de terminal X:
+<note tip>Jusqu'à la v7.3, la combinaison de touches Ctrl + Alt + Backspace permettait de stopper le serveur X. Pour l'activer à nouveau dans les versions 7.4 et ultérieures, tapez la commande suivante dans n'importe quel émulateur de terminal X :
 
 <code>setxkbmap -option terminate:ctrl_alt_bksp</code>
 
@@ -67,9 +67,9 @@ Le module //drm// n'est pas chargé par //tazhw// donc vous devez le faire manue
 
 Le pilote xorg-xf86-video-vesa 2.0.0 a beaucoup de problèmes avec les puces Intel. Par exemple, avec un chipset 82945GM, il n'affiche pas en 1280x1024 ou en 1024x768, mais par contre le 1600x1200 n'est pas un problème.
 
-Utiliser "tazx" pour sélectionner le pilote intel, puis « tazhw detect-pci », ensuite corriger le problème de dri et charger drm (voir ci-dessus), redémarrer X - normalement c'est ok (vous devrez peut-être aussi modifier le fichier xorg.conf).
+Utiliser "tazx" pour sélectionner le pilote intel, puis « tazhw detect-pci », ensuite corriger le problème de DRI et charger DRM (voir ci-dessus), redémarrer X - normalement c'est ok (vous devrez peut-être aussi modifier le fichier xorg.conf).
 
-Certains utilisateurs devront peut-être ajouter le module "intel_agp" dans le fichier xorg.conf :
+Certains utilisateurs devront éventuellement ajouter le module "intel_agp" dans le fichier xorg.conf :
 
 <file>
 Section "Module"
@@ -81,13 +81,13 @@ EndSection
 
 pour faire fonctionner le pilote.
 
-Selon le matériel, la fonction //mode-setting// doit être activée ou désactivée. Pour la désactiver, ajoutez une des options suivantes à la ligne du //kernel//  dans la configuration de GRUB boot-loader :
+Selon le matériel, la fonction //mode-setting// doit être activée ou désactivée. Pour la désactiver, ajoutez une des options suivantes à la ligne du //kernel// dans la configuration de GRUB boot-loader :
 
   *  //nomodeset//
   *  //i810.modeset=0//
   *  //i915.modeset=0//
 
-Si le //mode-setting// est désactivé par défaut et devrait plutôt être activé, , ajoutez une des options suivantes :
+Si le //mode-setting// est désactivé par défaut et devrait plutôt être activé, ajoutez une des options suivantes :
 
   *  //modeset//
   *  //i810.modeset=1//
@@ -126,10 +126,10 @@ Alternativement, vous pouvez réaliser cette opération manuellement :
 
 == Pilote nVidia non-libre (nvidia) ==
 
-Pour mettre en place le pilote nVidia non-libre, utilisez l'outil de configuration matériel de SliTaz avec le commutateur //--non-free// :
+Pour mettre en place le pilote nVidia non-libre, utilisez l'outil de configuration matérielle de SliTaz avec le commutateur //--non-free// :
 <code># tazhw setup nvidia --non-free </code>
 
-Alternativement, vous pouvez faire cette opération manuellement :
+Autrement, vous pouvez faire cette opération manuellement :
   * Télécharger les paquets suivants :
     *  mesa mesa-demos linux-agp nvidia
 <code># tazpkg get-install nvidia
@@ -144,7 +144,7 @@ Alternativement, vous pouvez faire cette opération manuellement :
 <code># nvidia-xconfig</code>
   * Pour tester si le rendu fonctionne :
 <code># glxinfo | grep render</code>
-  * Pour changer les paramètres du pilote nVidia, utiliser l'outil de paramètrage de nVidia :
+  * Pour changer les paramètres du pilote nVidia, utiliser l'outil de paramétrage de nVidia :
  <code># nvidia-settings</code>
 
 == Cacher le logo ==
@@ -165,8 +165,8 @@ Pour installer le pilote libre ATI, installez les modules AGP et DRM, puis utili
 # tazpkg get-install linux-drm
 # tazhw setup ati</code>
 
-Mais cela ne suffira peut-être pas - vérifiez /var/log/Xorg.0.log pour voir si d'autres modules nécessitent d'être chargés : Voir [[#dri-drm-problem |problème  DRI / DRM]]
-Alternativement, vous pouvez faire cette opération manuellement :
+Mais cela ne suffira peut-être pas - vérifiez /var/log/Xorg.0.log pour voir si d'autres modules nécessitent d'être chargés : voir [[#dri-drm-problem |problème  DRI / DRM]]
+Autrement, vous pouvez faire cette opération manuellement :
   * Télécharger les paquets suivants :
     *  xorg-xf86-video-ati mesa-dri-ati mesa-demos linux-agp
 <code># tazpkg get-install xorg-xf86-video-ati
@@ -184,7 +184,7 @@ Pour installer le pilote radeon libre ATI, remplacer //vesa// with //radeon// da
 
 == Pilote non-libre (catalyst) ==
 
-Pour installer le pilote non-libre d'ATI, utilisez l'outil de configuration matériel de SliTaz avec le commutateur //--non-free// :
+Pour installer le pilote non-libre d'ATI, utilisez l'outil de configuration matérielle de SliTaz avec le commutateur //--non-free// :
 <code># tazhw setup ati --non-free </code>
 
 
@@ -265,7 +265,7 @@ Voir le [[http://wiki.debian.org/XStrikeForce/HowToRandR12|Debian RandR 1.2 Wiki
 
 === Redémarrer Xorg ===
 
-Pour que les changements entrent en vigueur, vous devez redémarrer Xorg. Cela peut être fait en vous déconnectant simplement de votre session et en vous reconnectant. Choisir //Déconnexion// à partir du menu et sélectionner le bouton //Déconnexion session X//. Si vous voyez le log-in de Slim manager, Xorg a redémarré avec succès!
+Pour que les changements soient pris en compte, vous devez redémarrer Xorg. Cela peut être fait en vous déconnectant simplement de votre session et en vous reconnectant. Choisir //Déconnexion// à partir du menu et sélectionner le bouton //Déconnexion session X//. Si vous voyez le log-in de Slim manager, Xorg a redémarré avec succès !
 
 ===== Utiliser XVesa et les pilotes génériques (TinyX) =====
 

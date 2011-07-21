@@ -27,7 +27,7 @@ Vous trouvez ici les guides de démarrage rapide et les guides complets de SliTa
   * [[virtualbox | Virtualbox]]- SliTaz GNU/Linux avec Virtualbox
   * [[netstart|Démarrage depuis le web et installation immédiate sur le disque dur ]]
   * [[http://blog.bodhizazen.net/linux/how-to-install-slitaz-with-ext4-and-grub2/|Grub2]] - Installer SliTaz avec grub2 (et ext4)
-
+  * [[bootguide|Amorcage]] - Ce qui ce passe au démarrage de votre SliTaz
 ===== Réseaux / LAN =====
     * [[wifi-easy|Configurer le Wifi facilement]] 
     * [[wifi-hard|Configuration du Wifi pas à pas]]

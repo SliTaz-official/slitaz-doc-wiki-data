@@ -1,6 +1,6 @@
-====== Midori Conseils et astuces ======
+====== Midori : conseils et astuces ======
 
-J'écris ce guide puisque Midori est le navigateur par défaut de Slitaz 3. Votre première pensée est peut être d'installer Firefox ou de ne pas faire un essai de Midori parce qu'il manque de fonctionnalités. J'ai aussi pensé qu'il était un peu cours au niveau caractéristiques ou Addons jusqu'à ce que je creuse en fait un peu plus. Si vous voulez connaître l'histoire de Midori visitez sa page Wiki: [[http://fr.wikipedia.org/wiki/Midori_%28navigateur%29|Midori Wiki]]
+J'écris ce guide puisque Midori est le navigateur par défaut de Slitaz 3.0. Votre première pensée est peut être d'installer Firefox ou de ne pas faire un essai de Midori parce qu'il manque de fonctionnalités. J'ai aussi pensé qu'il était un peu court au niveau caractéristiques ou Addons jusqu'à ce que je creuse en fait un peu plus. Si vous voulez connaître l'histoire de Midori visitez sa page Wiki: [[http://fr.wikipedia.org/wiki/Midori_%28navigateur%29|Midori Wiki]]
 
 Les choses que je vais couvrir :
 <code>
@@ -16,13 +16,13 @@ Raccourcis
 À l'ouverture de Midori, cliquez sur le "Menu Outils", descendez à "Extensions" et cliquez dessus. Cela devrait ouvrir un "panel" qui affiche des boîtes que vous pouvez cocher pour activer les différentes extensions ou options. Cochez que les cases que vous souhaitez activer. J'autoriserai ici "Statusbar Features" et "Toolbar Editor". Tout ce qui concerne ces deux options devrait être auto explicatif. Donc pas besoin d'un "HowTo". Je voudrais aussi vous dire quelles autres choses permettre ici, mais si quelqu'un d'autre enrichit ce wiki alors ce paragraphe devrait être modifié. Donc, si quelque chose doit être activé, ce sera mentionné au moment voulu.
 
 ===== Blocage des publicités =====
-Dans les extensions permettre : Advertisement blocker
+Dans les extensions valider : Advertisement blocker
 
 La plupart des personnes aiment le blocage des publicités proposé dans FireFox par une extension appelée Adblock Plus(ABP). Eh bien Midori a un bloqueur de pub qui utilise  le bien connu "EasyList" de ABP. Maintenant que vous l'avez activé nous devons l'éditer. Cliquez sur le menu Outils, cliquez maintenant sur "Configure Advertisement filters". Ceci devrait maintenant ouvrir une boîte qui ressemble à ceci :
 
 {{:en:guides:image:beforeadded.png}}
 
-Dans cette recopie écran vous pouvez voir que l'ajout d'un jeu de règles est assez explicite. Par exemple, cliquez sur Ajouter, puis insérez cette url :  <code>http://easylist-downloads.adblockplus.org/easyprivacy.txt</code> 
+Dans cette recopie écran vous pouvez voir que l'ajout d'un jeu de règles est assez explicite. Par exemple, cliquez sur Ajouter, puis insérez cette URL :  <code>http://easylist-downloads.adblockplus.org/easyprivacy.txt</code> 
 
 {{:en:guides:image:added.png}}
 
@@ -33,22 +33,22 @@ Aucune extension ne doit être activée pour cette fonctionnalité .C'est une de
 
 {{:en:guides:image:manage.png}}
 
-Comme je n'utilise pas vraiment autre chose que google je vais juste ajouter Yahoo! comme exemple sur comment ajouter et utiliser un nouveau moteur de recherches. Cliquez sur Add et remplissez les champs de façon à ressembler à ceci :
+Comme je n'utilise pas vraiment autre chose que Google je vais juste ajouter Yahoo! comme exemple sur comment ajouter et utiliser un nouveau moteur de recherche. Cliquez sur Add et remplissez les champs de façon à ressembler à ceci :
 
 {{:en:guides:image:yahoo.png}}
 
-Une fois que cela est fait, remonter à la barre d'URL dans midori et taper "y slitaz linux" sans les guillemets. [[http://img30.yfrog.com/img30/6048/yslitazlinux.png|Exemple:y slitax linux]]. Après avoir appuyé sur Entrée, vous devriez maintenant voir les résultats de recherche Yahoo pour slitaz. [Résultats http://img402.yfrog.com/img402/2932/yslitazresults.png|Yahoo []] En tapant "g slitaz" à nouveau sans les guillemets vous donnera les résultats de Google pour SliTaz.
+Une fois que cela est fait, remonter à la barre d'URL dans Midori et taper "y slitaz linux" sans les guillemets. [[http://img30.yfrog.com/img30/6048/yslitazlinux.png|Exemple:y slitax linux]]. Après avoir appuyé sur Entrée, vous devriez maintenant voir les résultats de recherche Yahoo pour slitaz. [Résultats http://img402.yfrog.com/img402/2932/yslitazresults.png|Yahoo []] En tapant "g slitaz" à nouveau sans les guillemets vous donnera les résultats de Google pour SliTaz.
 
-Voici comment je l'utilise pour autre chose que les moteurs de recherche. Dans Opera lorsque vous créez un signet, vous pouvez donner un surnom au site. J'ai enregistré les lettres: fs pour http://forum.slitaz.org. Je tape donc "fs" sans les guillemets dans la barre d'url pour aller au forum de SliTaz. Cette fonctionnalité n'apparaît pas dans Midori alors j'ai juste créé un moteur de recherche personnalisé comme je l'ai fait pour Yahoo. Je n'ajoute pas vraiment un moteur de recherche, je l'utilise juste comme un raccourci. Je pense que les images que j'ai ajoutées sont suffisamment explicites sur comment ajouter un site auquel vous voulez donner un raccourci.
+Voici comment je l'utilise pour autre chose que les moteurs de recherche. Dans Opera lorsque vous créez un signet, vous pouvez donner un surnom au site. J'ai enregistré les lettres : fs pour http://forum.slitaz.org. Je tape donc "fs" sans les guillemets dans la barre d'URL pour aller au forum de SliTaz. Cette fonctionnalité n'apparaît pas dans Midori alors j'ai juste créé un moteur de recherche personnalisé comme je l'ai fait pour Yahoo. Je n'ajoute pas vraiment un moteur de recherche, je l'utilise juste comme un raccourci. Je pense que les images que j'ai ajoutées sont suffisamment explicites sur la manière d'ajouter un site auquel vous voulez donner un raccourci.
 
 Pour tous les utilisateurs de Twitter ou les gens qui aiment les URL raccourcies. Ajouter ceci aux recherches personnalisées : 
 <code>http://is.gd/create.php?longurl=</code>
 {{:en:guides:image:isgd.png}}
 
-Je donne à ma recherche personnalisée la lettre "u". Quand j'ai une longue url que je veux abréger, je vais à la barre d'URL, à la gauche de "http" dans l'url, puis je tape "u". J'appuie ensuite sur l'espace, puis entre le raccourci d'url qui m'amène au site. Exemple : [[http://img260.yfrog.com/img260/6982/shorten.png|Raccourcir une URL]]
+Je donne à ma recherche personnalisée la lettre "u". Quand j'ai une longue URLl que je veux abréger, je vais à la barre d'URL, à la gauche de "http" dans l'URL, puis je tape "u". J'appuie ensuite sur l'espace, puis entre le raccourci d'URL qui m'amène au site. Exemple : [[http://img260.yfrog.com/img260/6982/shorten.png|Raccourcir une URL]]
 Resultat:[[http://img30.yfrog.com/img30/6563/shortened.png|URL raccourcie]]
 
-Pour ceux qui détestent la souris comme moi et que vous souhaitez raccourcir une url, vous pouvez faire la même chose qu'au-dessus de cette façon : <code>Ctrl-L, Flèche gauche, tapez u, la barre d'espace, puis entrée</code>  Si vous avez javascript activé, l'URL raccourcie devrait déjà être mise en évidence. Ainsi, un rapide Ctrl-c devrait la copier pour vous.
+Pour ceux qui détestent la souris comme moi et que vous souhaitez raccourcir une URL, vous pouvez faire la même chose qu'au-dessus de cette façon : <code>Ctrl-L, Flèche gauche, tapez u, la barre d'espace, puis entrée</code>  Si vous avez javascript activé, l'URL raccourcie devrait déjà être mise en évidence. Ainsi, un rapide Ctrl-c devrait la copier pour vous.
 
 ===== Blocage de Flash =====
 
@@ -57,10 +57,10 @@ Pour bloquer Flash vous avez besoin d'utiliser un script utilisateur. Les script
 Premièrement nous avons besoin de créer un dossier à moins que vous ne l'ayez déjà : <code>/home/tux/.local/share/midori/scripts</code>
 « Tux » est juste utilisé comme  exemple. Si vous avez un nom d'utilisateur différent alors changez en conséquence. 
 
-Ces images sont un peu grandes ainsi je fais juste un lien à elles. Exemple avant FlashBlock :
+Ces images sont un peu grandes aussi je fais juste un lien vers elles. Exemple avant FlashBlock :
 [[http://img180.yfrog.com/img180/7269/blocked.png|Flash Bloqué]]
 
-Maintenant allez à : [[http://rightfootin.blogspot.com/2009/04/flashblock-wannabe.html|Flashblock Wannabe]]. Télécharger FlashBlock.user.js.txt (enlever l'extension .txt) dans le dossier que nous venons de créer. Allez dans le menu Outils, cliquez sur UserScripts. Vous devriez maintenant voir "FlashBlock Wannabe" Assurez-vous qu'il y a une case à cocher à côté de lui. Parfois, le script utilisateur s'affiche tout de suite et d'autres fois ils ne vient pas, il faut juste redémarrer Midori. Maintenant vous devriez avoir l'animation flash bloquée à moins que vous ne cliquiez sur elle comme vous le faites avec l'addon flashblocker pour FireFox. Cela devrait ressembler à ça : 
+Maintenant allez à : [[http://rightfootin.blogspot.com/2009/04/flashblock-wannabe.html|Flashblock Wannabe]]. Télécharger FlashBlock.user.js.txt (enlever l'extension .txt) dans le dossier que nous venons de créer. Allez dans le menu Outils, cliquez sur UserScripts. Vous devriez maintenant voir "FlashBlock Wannabe" Assurez-vous qu'il y a une case à cocher à côté de lui. Parfois, le script utilisateur s'affiche tout de suite et d'autres fois ils ne vient pas, il faut juste redémarrer Midori. Maintenant vous devriez avoir l'animation Flash bloquée à moins que vous ne cliquiez sur elle comme vous le faites avec l'addon flashblocker pour FireFox. Cela devrait ressembler à ceci : 
 
 [[http://img541.yfrog.com/img541/2801/notblocked.png|Flash non bloqué]]
 
@@ -68,9 +68,9 @@ Maintenant allez à : [[http://rightfootin.blogspot.com/2009/04/flashblock-wann
 
 Si vous avez déjà fait la partie blocage de Flash alors ce devrait être aussi facile, il suffit juste de les télécharger et de les mettre dans le bon dossier. Pas besoin de grand HowTo ici, je vais juste vous montrer quelques exemples de ceux que j'utilise et ce qu'ils font.
 
-[[http://userscripts.org/scripts/show/1352|Linkify]]: Si vous jamais avez été sur un site ou un forum ou quelqu'un a posté un lien qui est juste en texte et pas cliquable alors ceci est pour vous. Il rend tous les liens « http » en texte cliquables. Il vous épargne de surligner et copier / coller les liens dans une barre d'url. 
+[[http://userscripts.org/scripts/show/1352|Linkify]]: Si jamais vous avez été sur un site ou un forum ou quelqu'un a posté un lien qui est juste en texte et pas cliquable alors ceci est pour vous. Il rend tous les liens « http » en texte cliquables. Il vous épargne de surligner et copier / coller les liens dans une barre d'URL. 
 
-[[http://userscripts.org/scripts/show/5059|Google Image Redirector]]: Si vous faites toujours des recherches d'images sur google et que vous cliquez sur une image, vous remarquerez qu'elle vous amène à la page voulue, mais que l'image est en minuscules dans un cadre. Ce script utilisateur vous permet d'accéder directement à l'image réelle. Vous permet d'économiser quelques clics de la souris.
+[[http://userscripts.org/scripts/show/5059|Google Image Redirector]]: si vous faites toujours des recherches d'images sur Google et que vous cliquez sur une image, vous remarquerez qu'elle vous amène à la page voulue, mais que l'image est en minuscules dans un cadre. Ce script utilisateur vous permet d'accéder directement à l'image réelle. Vous permet d'économiser quelques clics de la souris.
 
 [[http://userscripts.org/scripts/show/72270|Google Show Options]]: L'année dernière, Google a ajouté des options de recherche avancée dans les résultats. Vous pouvez cliquer sur "Afficher les options" et il les listera. Ce script évite de cliquer dessus et il les montre tout de suite sans avoir à cliquer dessus.
 
@@ -87,7 +87,7 @@ J'essaie d'utiliser la souris le moins possible. Les raccourcis sont ainsi prati
 
 Sur cette recopie écran vous voyez des actions, accompagnées d'un "raccourci". Certaines sont désactivées. Je vais vous montrer comment changer un «raccourci» ou activer un qui est désactivé. Pour attribuer un «raccourci», cliquez sur la ligne de l'action que vous voulez changer pour la mettre en évidence.  Maintenant, allez sur la droite et cliquez avec la souris sur le «raccourci» ou le mot «disabled»  et cliquez sur OK. Le texte devrait changer en "New accelerator..." Maintenant tout ce que vous avez à faire est d'appuyer sur la combinaison de touches que vous souhaitez pour créer votre raccourci. Les choix les plus courants pour débuter votre raccourci sont un de ceux-ci : 
 <code> Control, Alt, ou une des touches Win</code>
-Une touche Win est  « L Super » ou « R Super » en fonction de celle vous avez appuyée. Pas tous les claviers n'ont de touche  « Win » ou seulement juste une. Je préfère utiliser les touches F1 à F12. Voici un exemple de certains de mes raccourcis :
+Une touche Win est  « L Super » ou « R Super » en fonction de celle que vous avez appuyée. Pas tous les claviers n'ont de touche  « Win » ou seulement juste une. Je préfère utiliser les touches F1 à F12. Voici un exemple de certains de mes raccourcis :
 <code>
 Show/Hide Sidepanel   F2
 Show/Hide Bookmarkbar F3

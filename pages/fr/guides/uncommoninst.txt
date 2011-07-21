@@ -9,11 +9,12 @@ La plupart des paramètres sont interprétés par [[http://hg.slitaz.org/wok/fil
 
 Vous n'avez pas besoin d'une partition spéciale, le système fonctionne en mémoire vive comme un Live CD ...
 
-Voir [[http://doc.slitaz.org/fr:guides:frugal#traditional-frugal-install|installation frugale]] et [[http://doc.slitaz.org/fr:guides:frugal#iso-image-install|installation d'image ISO]]
+Voir [[http://doc.slitaz.org/fr:guides:frugal#installation-frugale-traditionnelle|installation frugale]] et [[http://doc.slitaz.org/fr:guides:frugal#installation-d-une-image-iso|installation d'image ISO]]
 
 ...Elle peut être sensiblement adaptée à vos besoins.
 
-Voir [[http://doc.slitaz.org/fr:guides:frugal#tuning-the-boot-process|affiner le processus de démarrage]]
+Voir 
+[[http://doc.slitaz.org/fr:guides:frugal#affiner-le-processus-de-demarrage|affiner le processus de démarrage]]
 
 Vous pouvez également utiliser une saveur Loram créée avec //tazlitobox// et //le système de fichiers est toujours dans la mémoire RAM //...
 
@@ -21,7 +22,7 @@ Vous pouvez également utiliser une saveur Loram créée avec //tazlitobox// et 
   # blkid
 Et ajoutons le paramètre //Loram=// à la ligne de commande :
 <file>
-kernel (hd1)/boot/bzImage rw root=/dev/null vga=normal loram=LABEL=mapartition,mon/dossier
+kernel (hd1)/boot/bzImage rw root=/dev/null vga=normal loram=LABEL=mapartition,mondossier
 </file>
 <note tip>
 Vous pouvez également utiliser un nom de périphérique (loram=/dev/hda2,mon/dossier). Le nom du disque peut varier selon la version du noyau (hda ou sda) et les clés USB.</note>
@@ -54,7 +55,7 @@ Construire un ensemble de disquettes à partir de l'image ISO :
 # dd if=isoab of=/dev/fd0
 # ...</code>
 
-<note tip>Certains [[http://mirror.slitaz.org/floppies/#fdiso|jeux de disquettes]] peuvent être déjà existants sur les miroirs SliTaz</note>
+<note tip>Certains [[http://mirror.slitaz.org/floppies/#fdiso|jeux de disquettes]] peuvent déjà être présents sur les miroirs SliTaz</note>
 
 ==== Transfert de l'image ISO sur le disque dur ====
 
@@ -93,7 +94,7 @@ Vous pouvez créer le fichier du disque virtuel avec **mountbox** (cliquez sur L
 Vous devez maintenant créer un système de fichiers dans ce disque virtuel :
   # yes | mke2fs -j slitaz.fs
 
-Plus tard, si le disque virtuel devient trop petit, vous pourrez l'étendre (en supposant que vous n'avez pas démarré à partir du disque virtuel, mais d'un SliTaz Live CD par exemple) :
+Plus tard, si le disque virtuel devient trop petit, vous pourrez l'étendre (en supposant que vous n'avez pas démarré à partir du disque virtuel, mais d'un SliTaz LiveCD par exemple) :
   # dd if=/dev/zero bs=1M count=100 >> slitaz.fs
   # resize2fs slitaz.fs
 
@@ -172,7 +173,7 @@ title SliTaz cooking
 </file>
 
 Les deux notes de la section Installation sur un disque virtuel (loop file) au sujet de l'extraction de bzImage et les UUID/LABEL s'appliquent également ici.
-<note tip>L'installation en sous-répertoire n'installe pas les paquets exotiques du preinit. Vous pouvez employer n'importe quelle saveur de SliTaz (excepté des lorams). Cependant ceci n'est pas recommandé parce que la RAM du système de fichiers n'est pas désallouée entièrement.</note>
+<note tip>L'installation en sous-répertoire n'installe pas les paquets exotiques du preinit. Vous pouvez utiliser n'importe quelle saveur de SliTaz (excepté des lorams). Cependant ceci n'est pas recommandé parce que la RAM du système de fichiers n'est pas désallouée entièrement.</note>
 
 ===== Installation LVM =====
 
@@ -243,7 +244,7 @@ title SliTaz cooking
 
 La chaîne de disques n'a pas besoin du BIOS et peut être entièrement administrée à distance !
 <note tip>
-Vous devriez adapter la saveur **preinit** à vos besoins. C'est-à-dire rendre capable le démarrage de dropbear dans /etc/rcS.conf et installer peut-être un VPN. Si le logiciel RAID ne s'initialise pas au démarrage, vous serez en mesure de le réparer à distance ...
+Vous pouvez adapter la saveur **preinit** à vos besoins en rendant possible le démarrage de dropbear dans /etc/rcS.conf et en installant éventuellement un VPN. Si le logiciel RAID ne s'initialise pas au démarrage, vous serez en mesure de le réparer à distance ...
 </note>
 
 === Création & installation ===
@@ -280,7 +281,7 @@ Cette méthode chiffre le [[wp>Disk_encryption|système de fichiers]] complet, e
 
 === Création & installation ===
 
-Créer le périphérique chiffré avec **mountbox** (bouton crypto). Vous pourriez avoir à accepter l'installation des paquets manquants. Sélectionnez le périphérique (par exemple /dev/sda3) et cliquez sur le bouton  **create**. Maintenant vous pouvez commencer à le formater :
+Créer le périphérique chiffré avec **mountbox** (bouton crypto). Il est possible que vous ayez à accepter l'installation des paquets manquants. Sélectionnez le périphérique (par exemple /dev/sda3) et cliquez sur le bouton  **create**. Maintenant vous pouvez commencer à le formater :
   # mke2fs -j /dev/mapper/crypto-sda3
   # tune2fs -c 0 -i 0 /dev/mapper/crypto-sda3
   # mount /dev/mapper/crypto-sda3 /media
@@ -301,7 +302,7 @@ title SliTaz cooking
 
 ==== Compatibilité Loop-AES ====
  
-Ce format obsolète a besoin de la même __configuration de démarrage__ que LUKS.
+Ce format obsolète nécessite la même __configuration de démarrage__ que LUKS.
 
 ====== TODO ======
 
@@ -325,6 +326,6 @@ Ajouter le support réseau : nbd/iscsi + RAID 1 net&local + crypto
 
 ====== TODO ======
 
-===== PXE: Pas d'installation ! =====
+===== PXE: pas d'installation ! =====
 
 Vous pouvez [[http://doc.slitaz.org/en:guides:pxe#pxe-server-set-up|configurer un serveur PXE]] (cad… vous devez configurer votre serveur) ou un [[http://doc.slitaz.org/en:guides:pxe#advanced-web-booting-configuration|PXE forwarder]], voir //démarrage à partir d'un serveur Web avec boot PXE PROM// (Le team SliTaz a [[http://boot.slitaz.org|configuré le serveur pour vous]] 8-))

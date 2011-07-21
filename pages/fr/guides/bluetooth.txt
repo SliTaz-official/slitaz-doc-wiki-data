@@ -4,7 +4,7 @@
 
 Ce guide vous aidera à configurer Bluetooth, par exemple pour utiliser votre téléphone comme modem.
 Effectuez les étapes suivantes en tant que root.
-Tout d'abord vous devez installer les packets de Slitaz liés à Bluetooth : 
+Tout d'abord vous devez installer les paquets de Slitaz liés à Bluetooth : 
   # tazpkg get-install bluez
   # tazpkg get-install linux-bluetooth
 Le premier paquet contient la pile du protocole Bluetooth www.bluez.org officielle de Linux et le deuxième contient les modules du noyau liés à bluetooth.
@@ -12,7 +12,7 @@ Maintenant vous pouvez lancer le démon Bluetooth :
   # bluetoothd
 Et charger le module requis par le périphérique Bluetooth local, qui est très probablement btusb :
   # modprobe btusb
-Si le module est btusb, vous avez besoin de la commande "hcitool dev" pour trouver l'adresse du périphérique local:
+Si le module est btusb, vous avez besoin de la commande "hcitool dev" pour trouver l'adresse du périphérique local :
   root@slitaz:/home/tux# hcitool dev
   Devices:
           hci0    00:02:72:xx:xx:xx
@@ -55,7 +55,7 @@ Il est nécessaire d'être rapide, parce que je ne sais pas comment configurer l
 ===== Utiliser un téléphone comme modem =====
 
 Maintenant que vous avez vos deux appareils liés, je vais continuer avec le téléphone comme modem en exemple, je n'ai pas d'autre expérience avec des appareils Bluetooth.
-Pour utiliser votre téléphone comme modem, vous avez besoin du module rfcomm. Au moment où j'écris ce guide, le module rfcomm de SliTaz est compilé sans support tty. Vous pouvez vérifier si c'est le cas avec les commandes suivantes:
+Pour utiliser votre téléphone comme modem, vous avez besoin du module rfcomm. Au moment où j'écris ce guide, le module rfcomm de SliTaz est compilé sans support tty. Vous pouvez vérifier si c'est le cas avec les commandes suivantes :
   root@slitaz:/home/tux# zcat /proc/config.gz | grep RFCOMM                    
   CONFIG_BT_RFCOMM=m
   # CONFIG_BT_RFCOMM_TTY is not set
@@ -69,7 +69,7 @@ Maintenant vous pouvez supprimer l'ancien module rfcomm et le remplacer par votr
   # rm /lib/modules/`uname -r`/kernel/net/bluetooth/rfcomm/rfcomm.ko.gz
   # cp /usr/src/linux-`uname -r`/net/bluetooth/rfcomm/rfcomm.ko /lib/modules/`uname -r`/kernel/net/bluetooth/rfcomm/ 
   # depmod -a
-Maintenant que nous avons un module rfcomm qui fonctionne, nous devons détecter le canal par lequel le service du modem du téléphone est à l'écoute:
+Maintenant que nous avons un module rfcomm qui fonctionne, nous devons détecter le canal par lequel le service du modem du téléphone est à l'écoute :
   # sdptool browse 00:18:C5:xx:xx:xx
 Où 00:18: C5: xx: xx: xx est l'adresse de votre téléphone, il vous donnera une liste des services disponibles sur votre téléphone. Celui que vous cherchez est accès réseau à distance ou DUN (Dial-up networking) :
   Service Name: Dial-up networking

@@ -9,7 +9,7 @@ Cette méthode de boot par le réseau a besoin de :
 
 ===== Configuration du serveur PXE =====
 
-Un serveur PXEcomprend :
+Un serveur PXE comprend :
 
   * un serveur DHCP pour accepter des clients ;
   * les fichiers de boot DHCP pour les configurer ;
@@ -23,19 +23,19 @@ Le LiveCD SliTaz peut être utilisé comme un serveur PXE. Pour démarrer le pro
 <note tip>Depuis SliTaz 3.0, l'application Netbox est maintenant divisée en Netbox et Serverbox. Si vous utilisez une version récente SliTaz, veuillez svp lire application **Serverbox** au lieu de onglet **Server** ci-dessous</note>
 
     * dans l'onglet //Server//, sélectionnez le sous-onglet //INETD// et vérifiez que la ligne tftpd n'est pas commentée dans /etc/initd.conf. C'est le comportement par défaut. Cliquez sur //Start//.
-      *   ce qui lancera le serveur TFTP, lequel diffusera le LiveCD SliTaz à travers tout le réseau..
+      *   ce qui lancera le serveur TFTP, lequel diffusera le LiveCD SliTaz à travers tout le réseau.
     * dans l'onglet //Server//, sélectionnez le sous-onglet //PXE//
     * éditez la configuration et ajoutez vos options de boot.
       *  Cette action mettra à jour automatiquement la configuration du serveur DHCP.
-    * dans l'onglet //Server//, sélectionnez le sous-onglet //DHCP//. Vérifiez que la configuration correspond à vore réseau. Les actions antérieures ont ajouté les lignes //boot_file// et //siaddr//. Cliquez alors sur //Start//. 
+    * dans l'onglet //Server//, sélectionnez le sous-onglet //DHCP//. Vérifiez que la configuration correspond à votre réseau. Les actions antérieures ont ajouté les lignes //boot_file// et //siaddr//. Cliquez alors sur //Start//. 
       *  ce qui lancera le serveur DHCP. Si les clients ne reçoivent pas une adresse IP, vérifiez cette configuration.
     * vérifiez que les fichiers //bzImage// et //rootfs.gz// sont présents dans le répertoire // /boot// du LiveCD.
 
 ===== PXE client bootloader =====
 
-La plupart des machines récentes avec Ethernet embarqués ont un BIOS compatible avec PXE. Recherchez cette fonctionnalité dans les menus du BIOS et le menu de démarrage du BIOS et assurez-vous qu'elle est activée. Elle peut exiger que vous appuyez sur une touche, comme F12, pendant le processus de démarrage.
+La plupart des machines récentes avec Ethernet embarqué ont un BIOS compatible avec PXE. Recherchez cette fonctionnalité dans les menus du BIOS et le menu de démarrage du BIOS et assurez-vous qu'elle est activée. Elle peut exiger que vous appuyez sur une touche, comme F12, pendant le processus de démarrage.
 
-Si votre ordinateur ne prend pas en charge le démarrage PXE, vous pouvez utiliser SliTaz comme client à la place. Créez un cdrom ou une disquette de démarrage avec le // Boot Floppy/CDROM // un outil qui se trouve dans le menu //Outils système//. 
+Si votre ordinateur ne prend pas en charge le démarrage PXE, vous pouvez utiliser SliTaz comme client à la place. Créez un CDROM ou une disquette de démarrage avec le // Boot Floppy/CDROM // un outil qui se trouve dans le menu //Outils système//. 
 
 Dans l'onglet PXE Network cliquez sur Write Floppy. Ensuite, redémarrez avec.
 
@@ -71,7 +71,7 @@ title Slitaz Web
   kernel /boot/gpxe ip=192.168.0.12/24 gw=192.168.0.1 dns=192.168.0.1 url=http://mirror.slitaz.org/pxe/pxelinux.0
 </file>
 
-Vous pouvez personnaliser l'url :
+Vous pouvez personnaliser l'URL :
 <file>
 title Slitaz Web
   kernel /boot/gpxe ip=192.168.0.12/24 gw=192.168.0.1 dns=192.168.0.1 url=ip=192.168.0.12/24 gw=192.168.0.1
@@ -90,14 +90,14 @@ Noter que les seuls mots-clés reconnus sont :
 
 ===== Configuration avancée du démarrage Web =====
 
-Le processus de démarrage Web peut être intégré dans des routeurs et autres matériels, de même qu'être adapté aux besoins du client. 
+Le processus de démarrage Web peut être intégré dans des routeurs et autres matériels, et adapté aux besoins du client. 
 
 \\
 
 ===== Démarrage WEB avec un boot PROM intégré (transitaire PXE) =====
 
 Configurer un serveur PXE avec http://download.tuxfamily.org/slitaz/boot/gpxe.pxe, chargeur de deuxième étape de 42Ko, comme fichier de boot.
-Testé avec succès avec un routeur [[http://openwrt.org/|http://openwrt.org/|OpenWRT]] :
+Testé avec succès avec un routeur [[http://openwrt.org/|OpenWRT]] :
 
     * Installez http://mirror.slitaz.org/boot/mips/tftpd (version MIPS) dans /jffs/usr/sbin
     * Installez gpxe.exe dans /jffs/boot
@@ -108,6 +108,10 @@ Testé avec succès avec un routeur [[http://openwrt.org/|http://openwrt.org/|Op
 lancez le serveur TFTP pour votre réseau local (par exemple 192.168.0.1/24)
 
 <code> # /jffs/usr/sbin/tftpd 192.168.0.1 /jffs/boot </code>
+
+<note tip>Vous pouvez éviter l'installation du serveur tftp en utilisant directement le serveur tftp de SliTaz :
+<code> # echo "dhcp-boot=gpxe.pxe,mirror.slitaz.org" >> /tmp/dnsmasq.conf </code>
+</note>
 
 \\
 
@@ -157,13 +161,13 @@ Supprimer l'URL (il se comportera alors comme un gpxe.pxe classique).
 
 \\
 
-===== Démarrage sur des serveurs web en redondance =====
+===== Démarrage sur des serveurs Web en redondance =====
 
 Les listes d'URL, séparées par des virgules, sont supportées.
 
 Le client PXE essaiera de charger la première URL. Si le chargement échoue, il va essayer l'URL suivante, et ainsi de suite.
 
-Exemple avec les serveurs actuels de SliTaz boot Web:
+Exemple avec les serveurs actuels de SliTaz boot Web :
 
 <code>$ echo -n "http://mirror.slitaz.org/pxe/pxelinux.0,http://mirror.switch.ch/ftp/mirror/pxe/pxelinux.0,http://download.tuxfamily.org/slitaz/pxe/pxelinux.0" | cat - /dev/zero | dd conv=notrunc bs=1 seek=519 count=255 of=gpxe
 </code>

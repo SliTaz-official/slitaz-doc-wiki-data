@@ -1,16 +1,16 @@
-====== Live CD pour systèmes avec peu de mémoire vive  ======
+====== LiveCD pour systèmes avec peu de mémoire vive  ======
 
-La taille de RAM minimum pour le noyau SliTaz Live CD est de 160MO (128 Mo pour SliTaz 1.0). De nombreuses applications graphiques ne fonctionnent pas avec cette faible quantité de mémoire, il est donc recommandé d'utiliser l'option de démarrage en mode texte : //screen = text//.
+La taille de RAM minimum pour le noyau SliTaz LiveCD est de 160 MO (128 Mo pour SliTaz 1.0). De nombreuses applications graphiques ne fonctionnent pas avec cette faible quantité de mémoire, il est donc recommandé d'utiliser l'option de démarrage en mode texte : //screen = text//.
 
-Les paquets //slitaz-loram//, //slitaz-loram-http// ou //slitaz-loram-cdrom// peuvent être utilisé pour construire un LiveCD pour respectivement des systèmes avec plus de 64Mo de RAM, 32 Mo ou 24 Mo. Ces paquets peuvent être installés directement sur le système hôte, plutôt que spécifiés dans la liste des packages du LiveCD que vous construisez.
+Les paquets //slitaz-loram//, //slitaz-loram-http// ou //slitaz-loram-cdrom// peuvent être utilisés pour construire un LiveCD pour respectivement des systèmes avec plus de 64Mo de RAM, 32 Mo ou 24 Mo. Ces paquets peuvent être installés directement sur le système hôte, plutôt que spécifiés dans la liste des packets du LiveCD que vous construisez.
 
-    * //slitaz-loram// compresse l'arboresence ///usr// et le système continue à fonctionner en RAM. Il n'utilise pas de cdrom, disque dur ou une clé USB.
-    * //slitaz-loram-http// récupère l'arborescence ///usr// à partir d'une image iso stockée sur http://mirror.slitaz.org/ construite en utilisant //slitaz-loram-cdrom//, et ajoute le mot-clé « tiny » lors du démarrage à partir du Web.
-    * //slitaz-loram-cdrom// déplace l'arborescence ///usr// sur le cdrom.
+    * //slitaz-loram// compresse l'arboresence ///usr// et le système continue à fonctionner en RAM. Il n'utilise pas de CD-ROM, disque dur ou clé USB.
+    * //slitaz-loram-http// récupère l'arborescence ///usr// à partir d'une image ISO stockée sur http://mirror.slitaz.org/ construite en utilisant //slitaz-loram-cdrom//, et ajoute le mot-clé « tiny » lors du démarrage à partir du Web.
+    * //slitaz-loram-cdrom// déplace l'arborescence ///usr// sur le CD-ROM.
 
 ///usr// sera en lecture seule. Si le paquet //funionfs// ou //aufs// est installé, vous aurez accès lecture-écriture à ///usr//.
 
-Ces paquets patchent //etc/init.d/rcS// pour monter ///usr// et installer deux scripts dans //etc/tazlito//:
+Ces paquets patchent //etc/init.d/rcS// pour monter ///usr// et installer deux scripts dans //etc/tazlito// :
     * //loram.rootfs// est appelé par //tazlito gen-distro// pour compresser ou déplacer ///usr//.
     * //loram.extract// est appelé par //slitaz-installer// pour décompresser ou déplacer ///usr// et installer la même distribution que le noyau SliTaz LiveCD.
 
@@ -18,7 +18,7 @@ Construisons une //slitaz-loram-cdrom.iso// !
 
 ===== slitaz-loram-cdrom =====
 
-Démarrage du LiveCD et installation du paquet slitaz-loram-cdrom:
+Démarrage du LiveCD et installation du paquet slitaz-loram-cdrom :
 
 <code> # tazpkg get-install slitaz-loram-cdrom </code>
 
@@ -26,7 +26,7 @@ Démarrage du LiveCD et installation du paquet slitaz-loram-cdrom:
 
 <code> # rm -f /etc/tazlito/distro-packages.list ./distro-packages.list </code>
 
-Maintenant nous pouvons construire l'image iso ...
+Maintenant nous pouvons construire l'image ISO ...
 
 <code> # tazlito gen-distro </code>
 
@@ -36,28 +36,28 @@ et la graver..
 
 ===== Variations de slitaz-loram & slitaz-loram-cdrom =====
 
-//slitaz-Loram// compresse ///usr// avec //cromfs// par défaut, ce qui donne un ratio de compression plus élevé, mais est très lent. Vous pouvez utiliser //squashfs// à la place:
+//slitaz-Loram// compresse ///usr// avec //cromfs// par défaut, ce qui donne un ratio de compression plus élevé, mais est très lent. Vous pouvez utiliser //squashfs// à la place :
 
-    * refuser d'installer cromfs pendant l'installation de slitaz-loram:
+    * refuser d'installer cromfs pendant l'installation de slitaz-loram :
 
 <code> # yes n | tazpkg get-install slitaz-loram </code>
 
-    * installer squashfs avec ses dépendances
+    * installer squashfs avec ses dépendances :
 
 <code> # yes y | tazpkg get-install squashfs </code>
 
-//slitaz-Loram-cdrom// déplace ///usr// non compressé sur le cdrom et produit une image iso de 90Mo. Si vous installez cromfs ou squashfs, ///usr// sera compressé sur le LiveCD et la taille ISO sera d'environ 30 méga-octets.
+//slitaz-Loram-cdrom// déplace ///usr// non compressé sur le CD-ROM et produit une image ISO de 90 Mo. Si vous installez cromfs ou squashfs, ///usr// sera compressé sur le LiveCD et la taille ISO sera d'environ 30 méga-octets.
 
 ===== slitaz-loram-cdrom-sqfs.iso =====
 
-Installer le paquet //slitaz-loram-cdrom// et //squashfs// (sqfs) sur le système hôte:
+Installer le paquet //slitaz-loram-cdrom// et //squashfs// (sqfs) sur le système hôte :
 
 <code>
  # tazpkg get-install slitaz-loram-cdrom
  # yes y | tazpkg get-install squashfs
 </code>
 
-Maintenant, répétons les derniers points du processus ci-dessus:
+Maintenant, répétons les derniers points du processus ci-dessus :
 <code>
  # rm -f /etc/tazlito/distro-packages.list ./distro-packages.list
  # tazlito gen-distro
@@ -66,26 +66,26 @@ Maintenant, répétons les derniers points du processus ci-dessus:
 
 ===== slitaz-loram-cdrom et les systèmes avec une taille mémoire suffisante  =====
 
-Quand le LiveCD  //slitaz-loram-cdrom// détecte suffisamment de mémoire au démarrage, ///usr// est copié du CD-ROM en RAM. Le CD-ROM peut être ejecté et/ou il est possible d'utilser le lecteur CD. Le système fonctionne comme un LiveCD standard dans ce cas:
+Quand le LiveCD  //slitaz-loram-cdrom// détecte suffisamment de mémoire au démarrage, ///usr// est copié du CD-ROM en RAM. Le CD-ROM peut être éjecté et/ou il est possible d'utiliser le lecteur CD. Le système fonctionne comme un LiveCD standard dans ce cas :
 
-    * Un LiveCD slitaz  (/usr n'était pas compressé sur le cdrom)
-    * Un LiveCD slitaz-loram (/usr était compressé sur le cdrom par squashfs ou cromfs)
+    * Un LiveCD slitaz  (/usr n'était pas compressé sur le CDROM)
+    * Un LiveCD slitaz-loram (/usr était compressé sur le CDROM par squashfs ou cromfs)
 
 ===== slitaz-loram-cdrom et les systèmes avec peu de mémoire =====
 
-Au démarrage, la ligne de commande est habituellement:
+Au démarrage, la ligne de commande est habituellement :
 
 <code> boot: slitaz args... </code>
 
-Slitaz démarre sur un système avec 9Mo RAM avec la commande de démarrage suivante:
+Slitaz démarre sur un système avec 9 Mo RAM avec la commande de démarrage suivante :
 
 <code> boot: loram single root=/dev/hdc </code>
 
 Où ///dev/hdc// est le lecteur de CD-ROM, le paramètre de démarrage loram inhibe la création de disque RAM et la détection de CD-ROM.
 
-<note tip>Sur un système avec une telle faible quantité de mémoire, la première chose à faire est d'ajouter du swap!</note>
+<note tip>Sur un système avec une si faible quantité de mémoire, la première chose à faire est d'ajouter du swap!</note>
 
-Il est nécessaire d'avoir 10Mo pour utiliser la ligne de commande avec:
+Il est nécessaire d'avoir 10 Mo pour utiliser la ligne de commande avec :
 
 <code> boot: loram root=/dev/hdc </code>
 
@@ -95,20 +95,20 @@ Dans ce cas, il est possible d'ajouter des arguments comme kmap=, config=, etc.
 
 Chaque saveur slitaz-loram* peut être extraite en RAM au démarrage (si suffisamment de mémoire est disponible) en utilisant le paramètre de démarrage extract-loram. Vous obtiendrez une saveur de base fonctionnant sans restrictions de lecture seule sur /usr.
 
-Par example, en supposant que vous démarrez slitaz-loram-cdrom-sqfs:
+Par exemple, en supposant que vous démarrez slitaz-loram-cdrom-sqfs :
 
 <code> boot: slitaz extract-loram </code>
 
-Vous obtiendrez:
+Vous obtiendrez :
 
     * /usr en lecture seule, compression squashfs sur le CD-ROM avec une petite taille RAM 
-    * /usr en lecture seule, compression  squashfs en RAM avec une taille RAM medium moyenne (comme slitaz-loram)
+    * /usr en lecture seule, compression  squashfs en RAM avec une taille RAM moyenne (comme slitaz-loram)
     * /usr en lecture seule, tmpfs en RAM avec une plus grande taille RAM (comme slitaz-core)
 
 
 ===== Construire une slitaz-loram avec tazlitobox =====
 
-Depuis SliTaz 3.0, il est maintenant plus facile de construire un LiveCD slitaz-loram:
+Depuis SliTaz 3.0, il est maintenant plus facile de construire un LiveCD slitaz-loram :
     * lancer tazlitobox
     * cliquer sur l'onglet Low RAM
     * selectionner //The filesystem is always in RAM// (pour slitaz-loram) ou //The filesystem may be on a CDROM// (pour slitaz-loram-cdrom)
@@ -119,15 +119,15 @@ Depuis SliTaz 3.0, il est maintenant plus facile de construire un LiveCD slitaz-
 Le système de fichiers root (/) est compressé (et non /usr seulement) et monté en lecture-écriture grâce au paquet aufs.
 Les commandes //mount// et //df// affichent un résultat étrange, ce qui très pratique pour détecter que ce genre de loram est en fonction.
 
-Vous pouvez aussi utiliser les commandes suivantes en mode texte:
+Vous pouvez aussi utiliser les commandes suivantes en mode texte :
 
 <code> # tazlito build-loram original.iso loram.iso</code>
 ou:
 <code> # tazlito build-loram original.iso loram-cdrom.iso cdrom</code>
 
-Les meta-saveurs sont supportées; vous pouvez mettre en loram une slitaz-3in1.iso !
+Les meta-saveurs sont supportées ; vous pouvez mettre en loram une slitaz-3in1.iso !
 
-===== Et que faire avec seulement 8MO RAM? =====
+===== Et que faire avec seulement 8 MO RAM? =====
 
 Essayer Tiny Slitaz : http://pizza.slitaz.org/tiny/ !
 ---- 

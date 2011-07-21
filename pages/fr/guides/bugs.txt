@@ -5,24 +5,24 @@ Les problèmes recensés dans cette page ont été observés avec Slitaz 3.0
 
 ===== Graver un CD avec  Burnbox =====
 
-Pour graver un CD il faut être root. Le gravage ne fonctionne pas à partir d'un autre utilisateur que root, même si l'utilisateur appartient au groupe cdrom.
+Pour graver un CD il faut être root. Le gravage ne fonctionne pas à partir d'un autre utilisateur que root, même si l'utilisateur appartient au groupe CDROM.
 
-Solution de contournement: quitter l'environnement utilisateur et se relogguer en tant que "root" pour graver un CDROM.
+Solution de contournement : quitter l'environnement utilisateur et se relogguer en tant que "root" pour graver un CDROM.
  
 
-Dans Burnbox: le nom du chemin d'accès et du fichier à graver doit être entouré de double apostrophes lorsque l'un ou l'autre contient un espace (exemple "Mes Documents"), sinon Burnbox ne trouvera pas le document. 
+Dans Burnbox : le nom du chemin d'accès et du fichier à graver doit être entouré de double apostrophes lorsque l'un ou l'autre contient un espace (exemple "Mes Documents"), sinon Burnbox ne trouvera pas le document. 
 
-Solution de contournement: entourer le chemin d'accès et le nom du fichier à graver avec des gillemets.
+Solution de contournement : entourer le chemin d'accès et le nom du fichier à graver avec des guillemets.
 
 ===== Abiword =====
 
-Avec AbiWord il faut installer glibc-locale, qui est une dépendance ne figurant pas dans la liste des dépendances, mais nécéssaire pour un fonctionnement normal de AbiWord.
+Avec AbiWord il faut installer glibc-locale, qui est une dépendance ne figurant pas dans la liste des dépendances, mais nécessaire pour un fonctionnement normal de AbiWord.
 
-Solution de contournement: installer glibc-locale manuellement avec le gestionnaire de paquet.
+Solution de contournement : installer glibc-locale manuellement avec le gestionnaire de paquets.
 
 ===== Entrée "Chatter" du menu Internet  =====
 
 Ceci doit en principe installer Pidgin et Skype. Dans la pratique, l'installation ne fonctionne pas comme prévu. 
 
-Solution de contournement: installer Skype et Pidgin à partir du gestionnaire de paquets.
+Solution de contournement : installer Skype et Pidgin à partir du gestionnaire de paquets.
  

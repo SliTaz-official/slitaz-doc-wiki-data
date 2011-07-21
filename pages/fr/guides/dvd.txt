@@ -35,7 +35,7 @@ Les fichiers contenus sur l'ISO sont ordonnés en 5 groupes :
     - le wok
     - les paquets
 
-Les quatre premiers groupes réunis pèsent 100-200Mo. Si vous n'avez pas besoin des paquets, vous pouvez graver le reste sur un mini-cdrom (8cm/210Mo)
+Les quatre premiers groupes réunis pèsent 100-200Mo. Si vous n'avez pas besoin des paquets, vous pouvez graver le reste sur un mini CD-ROM (8cm/210Mo)
 <code>
 # wodim -v dev=/dev/cdrom packages-cooking.iso
 </code>
@@ -52,7 +52,7 @@ Avec le boot classique vous pouvez :
     * démonter le DVD (umount /cdrom)
     * tester des paquets (en les installant dans la RAM)
 
-Vous ne pouvez pas faire ça avec le boot loram puisque seul /usr est monté (en lecture seule) depuis le DVD. Vous pouvez installer SliTaz avec les deux types de boot.
+Vous ne pouvez pas faire cela avec le boot loram puisque seul /usr est monté (en lecture seule) depuis le DVD. Vous pouvez installer SliTaz avec les deux types de boot.
 
 ===== Installation automatique =====
 

@@ -2,7 +2,7 @@
 
 ===== Depuis SliTaz =====
 
-Téléchargez > Gravez > Bootez sur SliTaz. Ouvrez un terminal > tapez (changez ///dev/sda// si c'est nécessaire):
+Téléchargez > Gravez > Bootez sur SliTaz. Ouvrez un terminal > tapez (changez ///dev/sda// si c'est nécessaire) :
 
 <code>
 $ su root
@@ -13,19 +13,19 @@ Entrez un nom comme /dev/sda1 ou tapez 'list'.
 # tazusb gen-liveusb /dev/sda1
 </code>
 
-Attendez…. et redémarrez!
+Attendez… Et redémarrez !
 
 ===== Depuis Windows =====
 
-Une installation de SliTaz en Live USB ou en installation dite 'Frugal' peut être faite en utilisant [[http://unetbootin.sourceforge.net/|UNetbootin]].
+Une installation de SliTaz en LiveUSB ou en installation dite 'frugale' peut être faite en utilisant [[http://unetbootin.sourceforge.net/|UNetbootin]].
 
 Vous pouvez choisir : 
   * La version standard ([[http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe|Windows]] | [[http://unetbootin.sourceforge.net/unetbootin-linux-latest|Linux]]) : Sélectionnez SliTaz depuis la liste des distributions dans unetbootin, ou 
   * Une version customisée de SliTaz ([[http://unetbootin.sourceforge.net/unetbootin-windows-latest.exe|Windows]] | [[http://unetbootin.sourceforge.net/unetbootin-linux-latest|Linux]]).
 
-Pour créer un Live USB, sélectionnez “USB Drive” dans le type d'installation.
+Pour créer un LiveUSB, sélectionnez “USB Drive” dans le type d'installation.
 
-Vous pouvez aussi choisir de faire une installation Frugal : sélectionnez “Hard Disk” dans le type d'installation.
+Vous pouvez aussi choisir de faire une installation frugale : sélectionnez “Hard Disk” dans le type d'installation.
 
 \\
 ^   Section Révision de la page  ^^ 
