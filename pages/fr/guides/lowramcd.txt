@@ -83,7 +83,7 @@ Slitaz démarre sur un système avec 9 Mo RAM avec la commande de démarrage sui
 
 Où ///dev/hdc// est le lecteur de CD-ROM, le paramètre de démarrage loram inhibe la création de disque RAM et la détection de CD-ROM.
 
-<note tip>Sur un système avec une si faible quantité de mémoire, la première chose à faire est d'ajouter du swap!</note>
+<note tip>Sur un système avec une si faible quantité de mémoire, la première chose à faire est d'ajouter du swap !</note>
 
 Il est nécessaire d'avoir 10 Mo pour utiliser la ligne de commande avec :
 

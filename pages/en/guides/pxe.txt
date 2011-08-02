@@ -17,10 +17,12 @@ A PXE server comprises:
   * a DHCP boot-file to configure them;
   * a TFTP server to deliver an OS.
 
+==== Quick start with the Live CD ====
+
 The SliTaz LiveCD can be used as a PXE server. To begin the process, launch the Netbox application (from the System Tools menu).
 
     * From the //Static IP// tab, click //Start//.
-      *  This box will be the DHCP server. It can't use DHCP to get IP configuration.
+      *  This box will be the DHCP server. It can't use DHCP to get an IP configuration.
 
 <note tip>Since SliTaz 3.0 the Netbox application is now split into Netbox and Serverbox. If you are running a recent SliTaz version, please read **Serverbox application** instead of **Server tab** below</note>
 
@@ -32,20 +34,29 @@ The SliTaz LiveCD can be used as a PXE server. To begin the process, launch the 
     * Edit the configuration to add your boot options.
       *  This will update the DHCP server configuration automatically.
 
-    * From the //Server// tab, select the //DHCP// sub-tab. Check the configuration aligns with your network. The previous step has added the lines //boot_file// and //siaddr//. Click //Start//.
+    * From the //Server// tab, select the //DHCP// sub-tab. Check that the configuration aligns with your network. The previous step has added the lines //boot_file// and //siaddr//. Click //Start//.
       *  This will launch the the DHCP server. If clients to do not receive an IP address, check this configuration.
 
     * Ensure the files //bzImage// and //rootfs.gz// are stored in the // /boot // directory of the LiveCD.
 
-\\ 
+==== Customize your PXE server ====
 
+    * You can have multiple PXE configurations for the different client groups, see [[http://syslinux.zytor.com/wiki/index.php/PXELINUX#How_do_I_Configure_PXELINUX.3F|PXElinux wiki]].
+    * You can store __/home__ on a client local drive only (like tazusb does), example append __/etc/fstab__ with : <file>/dev/hda1    /home   ext3    defaults   0  0</file>
+    * Since SliTaz 3.0, you can have a hydrid installation on (some) clients. These clients have SliTaz installed with some huge packages like libreoffice. They boot with PXE and most of the system runs in RAM except the huge software linked to the hard disk (could be a network disk too). Example, append to __/etc/init.d/local.sh__ :<file>mount -t nfs -o ro bootserver:/slitaz  /media/slitaz
+tazpkg link libre-office /media/slitaz</file>
+    * Since SliTaz 3.0, you can stack multiple initramfs in the pxelinux configuration file - An easy way to upgrade SliTaz and keep your customizations, example :<file>label slitaz
+  kernel /boot/bzImage
+  append initrd=/boot/rootfs.gz,/boot/configs/extra-packages.gz,/boot/configs/special-configuration.gz rw root=/dev/null vga=normal autologin</file>
+    * Example of a PXE server configuration: The [[http://boot.slitaz.org/|SliTaz web boot]] server http://mirror.slitaz.org/pxe/ (start with [[http://mirror.slitaz.org/pxe/pxelinux.cfg/default|pxelinux.cfg/default]])
+\\
 ===== PXE Client Set-Up =====
 
-Most recent machines with on-board Ethernet have a PXE-capable BIOS. Look for this feature in BIOS menus and BIOS boot menu and ensure it is activated. It may require you press a key, such as F12, during the boot process.
+Most recent machines with on-board Ethernet have a PXE-capable BIOS. Look for this feature in BIOS menus and the BIOS boot menu and ensure it is activated. It may require you press a key, such as F12, during the boot process.
 
 If your computer does not support PXE booting, you can use SliTaz as a client instead. Create a bootable CD-ROM or floppy disk with the // Boot Floppy/CDROM // tool found in the //System Tools// menu.
 
-In PXE Network tab click Write floppy. Use this to boot the client computer.
+In the PXE Network tab click Write floppy. Use this to boot the client computer.
 
 <note tip>Is your Ethernet card not recognised? See [[http://rom-o-matic.net/|ROM-O-Matic]]</note>
 
@@ -69,7 +80,7 @@ You will need a DHCP server to get an IP address, netmask, gateway address, as p
 
 === PXE boot without DHCP server: Web Boot & Command Line ===
 
-If you have no device that can function as a DHCP server, you need an IP address with a netmask, a gateway address and, optionally, a DNS address. 
+If you have no device that can function as a DHCP server, you need an IP address with a netmask, gateway address and, optionally, a DNS address. 
 <file>
 title Slitaz Web
   kernel /boot/gpxe ip=192.168.0.12/24 gw=192.168.0.1 dns=192.168.0.1 url=http://mirror.slitaz.org/pxe/pxelinux.0
@@ -108,7 +119,7 @@ Configure a PXE server with http://download.tuxfamily.org/slitaz/boot/gpxe.pxe a
 
   # echo "dhcp-boot=gpxe.pxe" >> /tmp/dnsmasq.conf
 
-launch the tftp server for your lan (say 192.168.0.1/24)
+Launch the tftp server for your lan (say 192.168.0.1/24)
 
   # /jffs/usr/sbin/tftpd 192.168.0.1 /jffs/boot
 

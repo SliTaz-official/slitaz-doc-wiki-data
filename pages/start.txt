@@ -3,7 +3,7 @@
 \\
 Please select your language:
 
-**[[cn:start|Chinese]] - [[da:start|Dansk]] - [[de:start|Deutsch]] - [[en:start|English]] - [[es:start|Español]] - [[fr:start|Français]] - [[id:start|Indonesian]] - [[it:start|Italian]] - [[pt:start|Português]] - [[ru:start|Русский]]**
+**[[cn:start|Chinese]] - [[da:start|Dansk]] - [[de:start|Deutsch]] - [[en:start|English]] - [[es:start|Español]] - [[fr:start|Français]] - [[id:start|Indonesian]] - [[it:start|Italian]] - [[pt:start|Português]] - [[ru:start|Русский]] - [[ro:start|Română]]**
 \\
 \\
 ===== About this Site =====

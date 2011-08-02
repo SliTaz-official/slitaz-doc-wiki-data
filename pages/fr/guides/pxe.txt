@@ -15,6 +15,8 @@ Un serveur PXE comprend :
   * les fichiers de boot DHCP pour les configurer ;
   * un serveur TFTP pour fournir un OS.
 
+==== Essai rapide avec le Live CD ====
+
 Le LiveCD SliTaz peut être utilisé comme un serveur PXE. Pour démarrer le processus, lancez netbox (menu System/netbox)
 
     * dans l'onglet //Static IP// cliquez sur //Start//. 
@@ -31,6 +33,16 @@ Le LiveCD SliTaz peut être utilisé comme un serveur PXE. Pour démarrer le pro
       *  ce qui lancera le serveur DHCP. Si les clients ne reçoivent pas une adresse IP, vérifiez cette configuration.
     * vérifiez que les fichiers //bzImage// et //rootfs.gz// sont présents dans le répertoire // /boot// du LiveCD.
 
+==== Affiner votre serveur PXE ====
+
+    * Vous pouvez avoir des configurations PXE multiples pour differents groupes de clients, voir [[http://syslinux.zytor.com/wiki/index.php/PXELINUX#How_do_I_Configure_PXELINUX.3F|PXElinux wiki]].
+    * Vous pouvez mettre __/home__ sur le disque local des clients (comme le fait tazusb), exemple ajoutez dans __/etc/fstab__ <file>/dev/hda1    /home   ext3    defaults   0  0</file>
+    * Depuis SliTaz 3.0, vous pouvez avoir une installation hydride sur (certains) clients. Ceux-ci ont installé SliTaz avec quelques paquets énormes comme libreoffice. Ils démarrent en PXE, le système tourne en RAM à part ces logiciels, lancés depuis leur disque dur (qui peut être un disque réseau). Exemple, en ajoutant dans __/etc/init.d/local.sh__ :<file>mount -t nfs -o ro bootserver:/slitaz  /media/slitaz
+tazpkg link libre-office /media/slitaz</file>
+    * Depuis SliTaz 3.0, vous pouvez empiler les initramfs dans le fichier de configuration de pxelinux. Cela permet de mettre à jour facilement SliTaz en gardant vos modifications, exemple :<file>label slitaz
+  kernel /boot/bzImage
+  append initrd=/boot/rootfs.gz,/boot/configs/extra-packages.gz,/boot/configs/special-configuration.gz rw root=/dev/null vga=normal autologin</file>
+    * Exemple de configuration d'un serveur PXE : le serveur [[http://boot.slitaz.org/|SliTaz web boot]] http://mirror.slitaz.org/pxe/ (débute avec [[http://mirror.slitaz.org/pxe/pxelinux.cfg/default|pxelinux.cfg/default]])
 ===== PXE client bootloader =====
 
 La plupart des machines récentes avec Ethernet embarqué ont un BIOS compatible avec PXE. Recherchez cette fonctionnalité dans les menus du BIOS et le menu de démarrage du BIOS et assurez-vous qu'elle est activée. Elle peut exiger que vous appuyez sur une touche, comme F12, pendant le processus de démarrage.

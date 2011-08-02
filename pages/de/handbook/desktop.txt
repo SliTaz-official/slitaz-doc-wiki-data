@@ -1,0 +1,21 @@
+====== Desktop ======
+\\
+====== Einführung ======
+
+Der Standard SliTaz Desktop enthält verschiedene Komponenten des LXDE Projekts. 
+Openbox, pcmanfm und LXPanel wurden kombiniert, um einen einfachen und funktionalen Desktop zu implementieren.
+
+====== Openbox ======
+
+Openbox ist ein sehr schneller und einfach anpassbarer Fenster-Manager, der nur sehr wenig System-Ressourcen verbraucht. Er ist der Standard Fenster-Manager unter SliTaz. Ein Fenster-Manager ist eine Anwendung, die oberhalb des X-Servers läuft. Damit kann das Aussehen von Fenstern verändert werden, wie zum Beispiel beim Öffnen eines X-Terminals oder dem Anzeigen einer Anwendung. Die Fenster können dann neu platziert, ausgeschnitten und in der Größe verändert werden.
+
+Openbox bietet ein Kontext-Menü, das durch Klicken der rechten Maustaste auf dem Desktop erscheint. Dieses Menü kann man über eine Konfigurationsdatei ändern. Durch die Tastenkombinationen "Alt + TAB" können Sie zwischen den geöffneten Fenstern navigieren.Obconf verwendet eine grafische Konfiguration des Fenster-Managers und diversen Kleinwerkzeugen (spezifisch für SliTaz). Diese ermöglichen es Ihnen, einen einfachen, stilvollen und einheitlichen Desktop zu haben. Standardmäßig verwendet SliTaz 4 virtuelle Desktops.
+
+Der Desktop von SliTaz erfüllt die "Free-Desktop-Standards" Arbeitsumgebung.
+Der Dateimanager pcmanfm ermöglicht das Verwalten der Desktop-Icons, Drag & Drop und das Einhängen von Geräten mit einem Klick. Für die Anzeige des Panel Menüs, Taskbar, Symbole, etc. ist  lxpanel zuständig.
+
+====== Openbox Konfigurieren ======
+
+Die meisten Optionen können grafisch konfiguriert werden mit dem obconf Dienstprogramm, das sich im Menü "Einstellungen" befindet.
+Die Konfigurationsdatei kann auch mit Ihrem bevorzugten Texteditor geändert werden, diese befindet sich in ihrem Home-Verzeichnis unter ~ / .config / openbox / rc.xml  und ist eine XML-Datei. Die Tastenkombinationen sind im Abschnitt <keyboard>der Konfigurationsdatei definiert.
+

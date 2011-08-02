@@ -7,7 +7,7 @@ Hinweis: Dieses Handbuch gibt es auf Deutsch nicht mehr, da das alte Wiki verlor
 
   * [[livecd|Verwendung der liveCD und Optionen]]
 
-  * [[openbox|Openbox desktop]]
+  * [[desktop|Desktop]] - Desktop und Fenster Managers konfigurieren.
 
   * [[commands|Übersicht über nützliche Kommandos]]
 
