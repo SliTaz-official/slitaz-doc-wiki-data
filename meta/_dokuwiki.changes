@@ -1,20 +1,20 @@
-1310497833	178.199.95.16	e	fr:guides:pxe	fantomas		
-1310498433	178.199.95.16	e	fr:guides:lowramcd	fantomas		
-1310498739	178.199.95.16	e	fr:guides:frugal	fantomas		
-1310499787	178.199.95.16	e	fr:guides:uncommoninst	fantomas		
-1310499901	178.199.95.16	E	fr:guides:liveusb	fantomas		
-1310500052	178.199.95.16	e	fr:guides:dvd	fantomas		
-1310500461	178.199.95.16	E	fr:guides:sdcard	fantomas		
-1310500670	178.199.95.16	e	fr:guides:manyinone	fantomas		
-1310500949	178.199.95.16	e	fr:guides:qemu	fantomas		
-1310501048	178.199.95.16	E	fr:guides:virtualbox	fantomas	[Slitaz get-virtualbox] 	
-1310501090	178.199.95.16	e	fr:guides:virtualbox	fantomas		
-1310501333	178.199.95.16	e	fr:guides:netstart	fantomas		
-1310501393	178.199.95.16	E	fr:guides:bootguide	fantomas		
-1310501884	178.199.95.16	e	fr:guides:bluetooth	fantomas		
-1310502617	178.199.95.16	e	fr:guides:midori	fantomas		
-1310503305	178.199.95.16	e	fr:guides:xorg-xvesa	fantomas		
-1311009814	212.198.101.207	E	en:guides:pxe	bellard	[Advanced Web Booting Configuration] 	
-1311010006	212.198.101.207	E	en:guides:pxe	bellard	[Advanced Web Booting Configuration] 	
-1311010243	212.198.101.207	E	fr:guides:pxe	bellard	[Démarrage WEB avec un boot PROM intégré (transitaire PXE)] 	
-1311010320	212.198.101.207	e	fr:guides:pxe	bellard	[Démarrage WEB avec un boot PROM intégré (transitaire PXE)] 	
+1311325175	212.198.101.207	e	en:guides:pxe	bellard	[Customize your PXE server] 	
+1311325546	212.198.101.207	e	en:guides:pxe	bellard	[Customize your PXE server] 	
+1311327534	212.198.101.207	E	fr:guides:pxe	bellard	[Configuration du serveur PXE] 	
+1311327690	212.198.101.207	e	fr:guides:pxe	bellard	[Affiner votre serveur PXE] 	
+1311328710	212.198.101.207	e	en:guides:pxe	bellard	[Customize your PXE server] 	
+1311328780	212.198.101.207	e	en:guides:pxe	bellard	[Customize your PXE server] 	
+1311338438	212.198.101.207	e	fr:guides:pxe	bellard	[Affiner votre serveur PXE] 	
+1311366994	2.28.144.139	E	en:guides:pxe	linea		
+1311370017	212.198.101.207	e	en:guides:pxe	bellard	[Customize your PXE server] 	
+1311499281	188.62.140.222	e	fr:guides:lowramcd	fantomas		
+1311885867	2.28.152.206	E	en:newsletter:oldissues	linea		
+1311886028	2.28.152.206	C	en:newsletter:oldissues:24	linea	created	
+1311886811	2.28.152.206	E	en:newsletter:start	linea		
+1312030626	188.26.54.123	E	start	continuum	added romanian to languages	
+1312030836	188.26.54.123	E	ro:start	continuum		
+1312030868	188.26.54.123	E	ro:start	continuum		
+1312063793	91.22.202.1	E	playground:playground	mops		
+1312064334	91.22.202.1	C	de:handbook:desktop	mops	created	
+1312224225	91.22.211.12	E	de:handbook:desktop	mops		
+1312230269	91.22.211.12	E	de:handbook:start	mops		
