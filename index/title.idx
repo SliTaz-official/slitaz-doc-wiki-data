@@ -96,7 +96,7 @@ Chroot environment
 Install the latest non-free Nvidia driver
 Conspy : tiny screen or VNC
 Live CD for Low-RAM Systems
-
+Winboot
 
 
 Virtualbox
@@ -166,8 +166,8 @@ Monthly Newsletter - Old Issues
 
 Chroot
 Handbook
-
-
+Utiliser le LiveCD et ses options
+Bureau
 Références en ligne de commandes
 Instructions d'installation sur HD
 Les utilitaires
@@ -509,3 +509,6 @@ From BIOS to /etc/init.d/rcS
 Documentația în limba română
 Monthly Newsletter - Issue 24
 Desktop
+Cómo instalar Flash Player en Slitaz
+Rezepte
+Kochbuch
