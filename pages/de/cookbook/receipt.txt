@@ -1,0 +1,41 @@
+======= Rezepte ======
+
+
+Dieses Dokument beschreibt wie die Rezepte den Tazwok befähigen zu kompilieren und dadurch für SliTaz und im speziellen für Tazpkg Pakete zu erzeugen.Für dir Erstellung wird der Wok und andere Werkzeuge breitgestellt. Das Rezept für ein Paket wird auch von Tazpkg zu installieren / deinstallieren verwendet und gibt darüber hinaus Auskünfte über die Pakete . Jedes Rezept beginnt mit einem Kommentar in Englisch:
+
+<file># SliTaz Paket Rezepte </file>
+
+===== Variables =====
+
+
+Die ersten 5 Variablen sollten immer vorhanden sein und sind wie folgt definiert. Der Paketname wird über die Variable ($PACKAGE) repräsentieren danach folgt, dessen Version, seiner Kategorie, eine kurze Beschreibung und der Namen des Betreuer. Beispiel für das Paket, Datei-Manager Clex:
+<file>
+PACKAGE="clex"
+VERSION="3.16"
+CATEGORY="base-apps"
+SHORT_DESC="Text mode file manager."
+MAINTAINER="pankso@slitaz.org"
+</file>
+
+===== Variables (optional) =====
+Tazwok weiß auch, wie man verschiedene optionale Variablen verwenden. Es kann zum Beispiel den Namen eines anderen quellcode Pakets benutzen. Es gibt auch Variablen, die von Tazpkg,benötigt werden um Abhängigkeiten aufzulösen oder Informationen über das Paket bereitzustellen.
+
+
+  * **$DEPENDS:** Setzt Abhängigkeiten, es können mehrere Abhängigkeiten durch ein Leerzeichen oder auf mehrere Zeilen getrennt werden. Diese Variable wird vor allem durch Tazpkg bei der Installation des Pakets und Tazwok beim bauen von große Pakete wie Xorg verwendet. Beispiel für Clex die auf ncurses abhängt: 
+<file>DEPENDS="ncurses"</file>
+
+  * **$BUILD_DEPENDS:** Setzt Abhängigkeiten beim Kompilieren, es können mehrere Pakete gefolgt von einem Leerzeichen oder mehrere Linien getrennt werden. Diese Variable wird von Tazwok beim Kochen "erstellen" eines Pakets verwendet. Beispiel: 
+<file>BUILD_DEPENDS="ncurses-dev"</file>
+
+   * **$TARBALL :** Das Archiv ist eine Quelle mit der Erweiterung (tar.gz, tgz oder tar.bz2). In der Regel werden die Variablen $PACKAGE und $VERSION  nur zum ändern der Erweiterung  verwendet , es hilft somit das Paket ohne die $VERSION Variable aktualisieren zu können. Genaueres Beispiel (siehe auch $SOURCE Beispiel): 
+<file>TARBALL="$PACKAGE-$VERSION.tar.gz"</file>
+
+  * **$WEB_SITE :** Die offizielle Website des Pakets. Es kann sein, dass einige Bibliotheken keine Website haben, in diesem Fall gibt es keine Notwendigkeit, eine URL anzugeben. Hinweis Tazwok und Tazpkg erwarten beide , eine URL mit der kompletten HTTP Adresse: 
+<file>WEB_SITE="http://www.clex.sk/"</file>
+
+  * **$WGET_URL :** URL, um die Quelle-Datei herunterladen. Im Allgemeinen sollte die Variable $Tarball   verwendet werden, um die Aktualisierung des Pakets ohne die Variable $VERSION zu erleichtern. Die Verwendung einer Konfigurationsdatei, Tazwok konfiguriert auch standardmäßig 3 MIRROR (Spiegelserver): $GNU_MIRROR für die GNU , $SF_MIRROR für SourceForge und XORG_MIRROR für die Spiegelung der grafischen Server Xorg. Beispiel für Clex:  
+  <file>WGET_URL="http://www.clex.sk/download/$TARBALL"</file>
+    * **$CONFIG_FILES :** Einige Pakete bieten maßgeschneiderte Konfigurationsdateien. Die $CONFIG_FILES Variable enthält eine Liste dieser Dateien, die vom Befehl  "tazpkg repack-config" gespeichert werden können. Diese Dateien werden nicht überschrieben, wenn diese bereits vorhanden sind .Das Paket kann erfolgreich mit "tazpkg repack" neu erstellt werden, (auch wenn es modifiziert wurden). Netatalk zum Beispiel: 
+ <file>CONFIG_FILES="/etc/netatalk/AppleVolumes.* /etc/netatalk/*.conf"</file>
+  * **$SUGGESTED :** Listet nützliche Pakete sind aber nicht notwendig Auch zum aktivieren von optionalen Funktionen.
+  * **$WANTED :**SliTaz Pakete sind normalerweise abhängig von der Übersetzung der Quellpakete . Manchmal enthält das Rezept keine Vorschrift für das Erzeugen eine Paket , dann wird $WANTED verwendet, um Quelldateien  von einem anderen Paket zu kopieren, indem Sie die Variable $src benutzen   

@@ -2,7 +2,7 @@
 
 ===== Périphériques et accès aux disques =====
 
-Avec GNU/Linux vos disques durs et médias USB sont perçus comme des périphériques (//dev//). Pour accéder à un périphérique, vous devez d'abord le monter sur un point d'accès (//mount point//). Il s'agit d'un répertoire vide prévu à cet effet. Sur SliTaz vous pouvez monter graphiquement des périphériques avec l'outil //mountbox// (Menu -> Outils système - > Monter un périphérique) ou avec la ligne de commandes. Notez que le gestionnaire de fichiers PCmanFM peut aussi être utilisé pour cela. Pour monter la première partition du premier disque dur sur ///mnt/disk// :
+Avec GNU/Linux vos disques durs et média USB sont gérés comme des périphériques (//dev//). Pour accéder à un périphérique, vous devez d'abord le monter sur un point d'accès (//mount point//). Il s'agit d'un répertoire vide prévu à cet effet. Sur SliTaz vous pouvez monter graphiquement des périphériques avec l'outil //mountbox// (Menu -> Outils système - > Monter un périphérique) ou avec la ligne de commandes. Notez que le gestionnaire de fichiers PCmanFM peut aussi être utilisé pour cela. Pour monter la première partition du premier disque dur sur ///mnt/disk// :
 
 <code>
  # mkdir -p /mnt/disk
@@ -81,7 +81,7 @@ Vous pouvez facilement supprimer un utilisateur du système ou un groupe avec le
 
 ===== Personnaliser son SHell =====
 
-Après un //login// vous êtes dans votre //shell//. Sur SliTaz vous disposez du shell //ash// avec //sh// en lien sur Ash. Ce shell est fournit par Busybox. Ash est léger, rapide, et conforme au normes. Pour changer le shell par défaut d'un utilisateur, il faut passer par le fichier ///etc/passwd// et modifier la ligne correspondante. Lors d'un login, le fichier ///etc/profile// est lu, puis c'est le fichier personnel //~/.profile//. Vous pouvez modifier l'un et l'autre avec un éditeur de texte, pour y configurer la langue, d'autres alias, etc. 
+Après un //login// vous êtes dans votre //shell//. Sur SliTaz vous disposez du shell //ash// avec //sh// en lien sur Ash. Ce shell est fourni par Busybox. Ash est léger, rapide, et conforme au normes. Pour changer le shell par défaut d'un utilisateur, il faut passer par le fichier ///etc/passwd// et modifier la ligne correspondante. Lors d'un login, le fichier ///etc/profile// est lu, puis c'est le fichier personnel //~/.profile//. Vous pouvez modifier l'un et l'autre avec un éditeur de texte, pour y configurer la langue, d'autres alias, etc. 
 
 === Exemple: ~/.profile ===
 
@@ -128,7 +128,7 @@ Le clavier est chargé au démarrage par le script ///etc/init.d/i18n.sh//. Note
 
 ===== SHell Bash =====
 
-Sur SliTaz vous disposez du shell Ash et avec sh en lien vers Ash, ce shell est fourni par Busybox. Si vous souhaitez utiliser //Bash// (//Bourne Again SHell//), vous devez d'abord l'installer, copier le fichier //~/.profile// et le renommer //.bashrc// puis éditer ///etc/passwd// et changer le Shell en ///bin/bash// :
+Sur SliTaz vous disposez du shell Ash et avec sh en lien vers Ash. Ce shell est fourni par Busybox. Si vous souhaitez utiliser //Bash// (//Bourne Again SHell//), vous devez d'abord l'installer, copier le fichier //~/.profile// et le renommer //.bashrc// puis éditer ///etc/passwd// et changer le Shell en ///bin/bash// :
 
 <code>
  # tazpkg get-install bash
@@ -189,7 +189,7 @@ Synchroniser l'horloge matérielle avec l'horloge système :
 
 Le démon 'crond' permet d'exécuter automatiquement des commandes à une date et une heure précise, ou selon un cycle. C'est très utile pour des tâches routinières d'administration système. Le répertoire utilisé par Cron est : ///var/spool/cron/crontabs//.
 
-Chaque utilisateur du système peut avoir ses propres tâches. Elles sont définies dans le fichier ///var/spool/cron/crontabs/user//. L'utilitaire crontab permet entre autre de lister les tâches propre à un utilisateur. La syntaxe de ces fichiers est la suivante : 
+Chaque utilisateur du système peut avoir ses propres tâches. Elles sont définies dans le fichier ///var/spool/cron/crontabs/user//. L'utilitaire crontab permet entre autres de lister les tâches propre à un utilisateur. La syntaxe de ces fichiers est la suivante : 
 
 <file> mm hh dd MMM DDD command > log </file>
 

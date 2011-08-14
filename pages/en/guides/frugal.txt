@@ -96,7 +96,8 @@ The file // /boot/slitaz.sh // in // /dev/hda1 // will be executed at the end of
   initrd (hd1)/boot/rootfs.gz (hd0,0)/boot/extra-softwares.gz (hd0,0)/boot/my-config-files.gz
 </file>
 
-The compressed cpio archives // /boot/extra-softwares.gz // and // /boot/my-config-files.gz // will be loaded after the official initramfs //rootfs.gz//. This is faster than using the previous // /boot/slitaz.sh // script.
+The compressed cpio archives // /boot/extra-softwares.gz // and // /boot/my-config-files.gz // will be loaded after the official initramfs //rootfs.gz//. This is faster than using the previous // /boot/slitaz.sh // script. Example :
+<code># find /etc/rcS.conf /etc/daemons.conf /etc/dropbear /home/tux/.ssh | cpio -o -H newc | gzip -9 > /boot/my-config-files.gz</code>
 
 ===== Automated Graphical Approach using UNetbootin =====
 

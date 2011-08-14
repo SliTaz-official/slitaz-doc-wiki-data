@@ -2,7 +2,7 @@
 
 ===== À propos du réseau sur SliTaz =====
 
-Par défaut SliTaz lance le client DHCP (udhcpc) sur eth0 lors du boot. Si votre carte réseau a bien été reconnue comme une interface eth0, et que vous utilisez un routeur, votre connexion devrait déjà fonctionner. C'est une configuration dynamique, à chaque démarrage du système le client DHCP obtient une nouvelle adresse IP depuis le serveur DHCP, qui est intégré au routeur, ou situé sur une autre machine. Pour changer la configuration par défaut vous devez passer par le fichier /etc/network.conf décrit ci-dessous. Pour les personnes utilisant PPPOE, vous pouvez utiliser les outils fournis par rp-pppoe et installés par défaut sur SliTaz. Si vous possédez une carte WiFi, SliTaz tente de charge tous les modules nécéssaire à sont utilisation lors du démarrage. L'installation de paquets supplémentaires et le choix d'un réseau auquel se connecter peuvent néanmoins être requis.
+Par défaut SliTaz lance le client DHCP (udhcpc) sur eth0 lors du boot. Si votre carte réseau a bien été reconnue comme une interface eth0, et que vous utilisez un routeur, votre connexion devrait déjà fonctionner. C'est une configuration dynamique, à chaque démarrage du système le client DHCP obtient une nouvelle adresse IP depuis le serveur DHCP, qui est intégré au routeur, ou situé sur une autre machine. Pour changer la configuration par défaut vous devez passer par le fichier /etc/network.conf décrit ci-dessous. Pour les personnes utilisant PPPOE, vous pouvez utiliser les outils fournis par rp-pppoe et installés par défaut sur SliTaz. Si vous possédez une carte WiFi, SliTaz tente de charge tous les modules nécessaires à son utilisation lors du démarrage. L'installation de paquets supplémentaires et le choix d'un réseau auquel se connecter peuvent néanmoins être requis.
 
 Vous pouvez lister les interfaces disponibles avec la commande :
 
@@ -16,7 +16,7 @@ Le fichier système de configuration du réseau est ///etc/network.conf//. SliTa
 
 ===== Netbox - Configuration graphique du réseau =====
 
-Netbox est un petite interface graphique permettant de facilement configurer une interface réseau Ethernet en utilisant le protocole DHCP ou en demandant une adresse IP fixe. Les onglets //DHCP// et //Static IP// permettent de démarrer ou stopper la connexion et changent automatiquement les valeurs dans les fichiers système. Les connexions Ethernet sont des connections câblées (RJ45) et ne nécessite pas d'authentification. Netbox fournit aussi un onglet //System wide// depuis lequel vous pouvez directement éditer les fichiers de configuration système. Les connections PPPoE ou PPP demandant un nom d'utilisateur et un mot de passe ont leur propre onglet. Il est aussi possible de créer un réseau privé virtuel ou VPN avec les outils inclus de base dans la distribution. 
+Netbox est une petite interface graphique permettant de facilement configurer une interface réseau Ethernet en utilisant le protocole DHCP ou en demandant une adresse IP fixe. Les onglets //DHCP// et //Static IP// permettent de démarrer ou stopper la connexion et changent automatiquement les valeurs dans les fichiers système. Les connexions Ethernet sont des connections câblées (RJ45) et ne nécessitent pas d'authentification. Netbox fournit aussi un onglet //System wide// depuis lequel vous pouvez directement éditer les fichiers de configuration système. Les connections PPPoE ou PPP demandant un nom d'utilisateur et un mot de passe ont leur propre onglet. Il est aussi possible de créer un réseau privé virtuel ou VPN avec les outils inclus de base dans la distribution. 
 
 {{:en:handbook:image:netbox.png}}
 
@@ -30,7 +30,7 @@ Wifibox est une petite interface permettant de configurer une connexion à un r�
 
 {{:en:handbook:image:wifibox.png}}
 
-L'onglet 'Favorites' permet de préconfigurer ses réseaux préférés, une fois un réseau ajouté il suffit de double cliquer sur le nom du réseau pour établir la connexion. L'onglet 'Configuration' permet de configurer une connexion manuellement avec les paramètres avancés tels que le mode ou le canal. L'onglet 'Drivers' permet de configurer une carte réseau, il y a 3 cas de figure:
+L'onglet 'Favorites' permet de préconfigurer ses réseaux préférés, une fois un réseau ajouté il suffit de double cliquer sur le nom du réseau pour établir la connexion. L'onglet 'Configuration' permet de configurer une connexion manuellement avec les paramètres avancés tels que le mode ou le canal. L'onglet 'Drivers' permet de configurer une carte réseau, il y a 3 cas de figure :
 
   - La carte est directement supportée par le noyau via un module.
   - La carte a besoin d'un module et d'un //firmware// (bout de code non-libre) pouvant être installé automatiquement via l'outil de détection du matériel.
@@ -43,7 +43,7 @@ Le fichier ///etc/hostname// configure le nom de la machine. Le nom de machine e
 
 <code> $ hostame </code>
 
-Pour changer le nom de machine vous pouvez utiliser la commande //echo// ou utiliser un des éditeurs de texte disponible sur SliTaz (il faut être //root//). Exemple avec //echo// et le nom de machine //kayam// : 
+Pour changer le nom de machine vous pouvez utiliser la commande //echo// ou utiliser un des éditeurs de texte disponibles sur SliTaz (il faut être //root//). Exemple avec //echo// et le nom de machine //kayam// : 
 
 <code> # echo "kayam" > /etc/hostname </code>
 
@@ -95,7 +95,7 @@ DNS_SERVER="192.168.0.1"
 
 ===== Connexion internet ADSL en pppoe kernel-mode =====
 
-Pré-requis: le support ppp et pppoe doit être activé dans le noyau (en dur ou modules) et l'interface ethernet configurée. Vous devez indiquer à ppp d'utiliser le //plugin// rp-pppoe du noyau dans ///etc/ppp/options// : 
+Pré-requis : le support PPP et PPPOE doit être activé dans le noyau (en dur ou modules) et l'interface ethernet configurée. Vous devez indiquer à PPP d'utiliser le //plugin// rp-pppoe du noyau dans ///etc/ppp/options// : 
 
 <file>
 plugin rp-pppoe.so
@@ -107,7 +107,7 @@ mru 1492
 lock
 </file>
 
-Si vous avez compilé le support de votre carte réseau en module dans le noyau, vous devrez activer ce dernier dans /etc/rcS.conf: 
+Si vous avez compilé le support de votre carte réseau en module dans le noyau, vous devrez activer ce dernier dans /etc/rcS.conf : 
 
 <file>LOAD_MODULES="<votre module>"</file>
 
@@ -119,7 +119,7 @@ Modifiez maintenant le fichier ///etc/ppp/pap-secrets// ou ///etc/ppp/chap-secre
 "your_login"       *               "your_password"
 </file>
 
-Les fichiers ///etc/host.conf// et ///etc/resolv.conf// devraient être automatiquement renseignés. C'est tout ! Pour vous connecter à internet, il suffit simplement de taper : 
+Les fichiers ///etc/host.conf// et ///etc/resolv.conf// devraient être automatiquement renseignés. C'est tout ! Pour vous connecter à Internet, il suffit simplement de taper : 
 
 <code>pppd eth0 
 </code>
@@ -177,9 +177,9 @@ Sur un système installé vous avez juste besoin d'ajouter le nom_du_module à l
 
 ===== Gestion du pare-feu (firewall) =====
 
-SliTaz fourni un pare-feu très basique, les régles de sécurité du noyau sont lancées au démarrage et les règles d'iptables sont désactivées par défaut. Vous pouvez activer/désactiver son exécution au démarrage, et créer de nouvelles règles via le fichier de configuration : ///etc/firewall.conf//.
+SliTaz fournit un pare-feu très basique, les règles de sécurité du noyau sont lancées au démarrage et les règles d'Iptables sont désactivées par défaut. Vous pouvez activer/désactiver son exécution au démarrage, et créer de nouvelles règles via le fichier de configuration : ///etc/firewall.conf//.
 
-Le script du //firewall// fournit par défaut sur SliTaz commence par configurer les options propre au noyau : les redirections ICMP, les sources de routage, log des adresses impossibles et les filtres contre le //spoofing//. Le script lance ensuite les règles d'Iptables définies dans la fonction //iptables_rules()// du fichier de configuration : ///etc/firewall.conf//. Iptables n'est pas installé par défaut dans Slitaz, vous pouvez l'ajouter avec la commande :
+Le script du //firewall// par défaut sur SliTaz commence par configurer les options propre au noyau : les redirections ICMP, les sources de routage, log des adresses impossibles et les filtres contre le //spoofing//. Le script lance ensuite les règles d'Iptables définies dans la fonction //iptables_rules()// du fichier de configuration : ///etc/firewall.conf//. Iptables n'est pas installé par défaut dans Slitaz, vous pouvez l'ajouter avec la commande :
 
 <code> # tazpkg get-install iptables </code>
 
@@ -187,7 +187,7 @@ Le //firewall// utilise l'application Iptables, il se compose de deux fichiers 
 
 === Démarrer, arrêter, redémarrer le pare-feu ===
 
-Le script ///etc/init.d/firewall// vous permet de démarrer (//start//), redémarrer (//restart//), d'arrêter (//stop//) et d'afficher le statut (//status//) du pare-feu. L'option redémarrer est souvent utilisée pour tester de nouvelles règles, après modification du fichier de configuration. Exemple : 
+Le script ///etc/init.d/firewall// vous permet de démarrer (//start//), redémarrer (//restart//), arrêter (//stop//) et afficher le statut (//status//) du pare-feu. L'option redémarrer est souvent utilisée pour tester de nouvelles règles, après modification du fichier de configuration. Exemple : 
 
 
 <code>
@@ -196,25 +196,25 @@ Le script ///etc/init.d/firewall// vous permet de démarrer (//start//), redéma
 
 === Activer/désactiver le firewall au boot ===
 
-Pour activer/désactiver les options de sécurité propre au noyau, mettez "yes" ou "no" à la variable KERNEL_SECURITY= : 
+Pour activer/désactiver les options de sécurité du noyau, mettez "yes" ou "no" à la variable KERNEL_SECURITY= : 
 
 <file>
 # Enable/disable kernel security at boot time.
 KERNEL_SECURITY="yes"
 </file>
 
-Et pour activer/désactiver les règles d'iptables, il faut modifier la variable IPTABLES_RULES= : 
+Et pour activer/désactiver les règles d'Iptables, il faut modifier la variable IPTABLES_RULES= : 
 
 <file>
 # Enable/disable iptables rules.
 IPTABLES_RULES="yes"
 </file>
 
-=== Ajouter, supprimer, ou modifier les règles d'iptables ===
+=== Ajouter, supprimer, ou modifier les règles d'Iptables ===
 
-En bas du fichier de configuration: ///etc/firewall.conf// vous trouverez une fonction : //iptables_rules()// contenant toutes les commandes d'iptables à lancer lors du démarrage du pare-feu. Pour supprimer une règle, nous vous conseillons de commenter les lignes correspondantes avec : //#//. À noter qu'il ne faut pas laisser cette fonction vide, si vous voulez désactiver les règles d'iptables, il est préférable de mettre "no" à la variable IPTABLES_RULES= du fichier de configuration.
+En bas du fichier de configuration: ///etc/firewall.conf// vous trouverez une fonction : //iptables_rules()// contenant toutes les commandes d'Iptables à lancer lors du démarrage du pare-feu. Pour supprimer une règle, nous vous conseillons de commenter les lignes correspondantes avec : //#//. À noter qu'il ne faut pas laisser cette fonction vide. Si vous voulez désactiver les règles d'Iptables, il est préférable de mettre "no" à la variable IPTABLES_RULES= du fichier de configuration.
 
-Exemple de règles iptables. On refuse toutes les connections entrantes, et sortantes, puis on accepte les connexions sur l'hôte local, le réseau local, les ports 80 et 22 utilisés respectivement par le serveur web HTTP et le serveur sécurisé SSH, et le port 21 pour le FTP. C'est donc un ensemble de règles très restrictif, ceci sert par exemple pour un serveur qui n'utilise que quelques ports : 
+Exemple de règles Iptables. On refuse toutes les connections entrantes, et sortantes, puis on accepte les connexions sur l'hôte local, le réseau local, les ports 80 et 22 utilisés respectivement par le serveur Web HTTP et le serveur sécurisé SSH, et le port 21 pour le FTP. C'est donc un ensemble de règles très restrictif, ceci sert par exemple pour un serveur qui n'utilise que quelques ports : 
 
 <file>
 # Netfilter/iptables rules.
@@ -251,7 +251,7 @@ iptables -A OUTPUT -i $INTERFACE -p tcp --sport 21 -j ACCEPT
 }
 </file>
 
-Voici un autre exemple qui conviendra mieux à un utilisateur qui n'a pas de serveur sur sa machine. Ici aussi, toutes les connections avec l'hôte et le réseau local sont acceptés. Les connections sortantes vers internet sont également toutes acceptées, et les connections entrant ne le sont que si elles répondent à une demande de l'utilisateur. En conséquence, une machine que vous n'avez pas contactée ne pourra pas communiquer avec vous.
+Voici un autre exemple qui conviendra mieux à un utilisateur qui n'a pas de serveur sur sa machine. Ici aussi, toutes les connexions avec l'hôte et le réseau local sont acceptés. Les connexions sortantes vers internet sont également toutes acceptées, et les connexions entrantes ne le sont que si elles répondent à une demande de l'utilisateur. En conséquence, une machine que vous n'avez pas contactée ne pourra pas communiquer avec vous.
 
 <file>
 # Netfilter/iptables rules.
@@ -285,4 +285,4 @@ iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 }
 </file>
 
-Notez que la configuration par défaut du pare-feu de Slitaz est un mélange de ces deux exemples, elle est donc plutôt permissive afin que vous ne soyez pas gêné quelque soit votre utilisation du système. Il est donc conseillé de modifier les règles par défaut pour obtenir un système mieux sécurisé.
+Notez que la configuration par défaut du pare-feu de Slitaz est un mélange de ces deux exemples, elle est donc plutôt permissive afin que vous ne soyez pas gêné quel que soit votre utilisation du système. Il est donc conseillé de modifier les règles par défaut pour obtenir un système mieux sécurisé.

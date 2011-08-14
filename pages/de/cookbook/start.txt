@@ -1,0 +1,32 @@
+====== Kochbuch ======
+
+Das Kochbuch bringt Informationen über das Projekt-Management, Betrieb und Entwicklung der Distribution. Es handelt über das Erstellen von Paketen durch die Verwendung des Wok's und Skripte, die SliTaz starten.
+
+Am Anfang des Kochbuches ist das Scratchbuch [[en:scratchbook:start|Scratchbook]], es enthält die Beschreibung, um eine eigene LiveCD erstellen zu können, die auf Basis der ersten öffentlichen Version von SliTaz vom März 2007 beruht. Das Kochbuch wird von der SliTaz Gemeinschaft verwaltet und wird dadurch ständig verbessert, es bietet  technische Anleitungen über das Projekt die hauptsächlich für Entwickler und fortgeschrittene Anwender gedacht ist.
+
+==== Inhaltsverzeichnis ====
+
+    * [[de:cookbook:receipt|Rezepte]]  - Rezepte zur Erstellung (cooking) von Slitaz Paketen.
+    * [[en:cookbook:wok|Wok]]  - Creating SliTaz packages from source using Tazwok. (Uses a receipt).
+    * [[en:cookbook:buildbot|Build Bot]] - Automated cooking, testing and reporting of Wok packages.
+    * [[en:cookbook:buildhost|Build Host]]  - The SliTaz host.
+    * [[en:cookbook:slitaztools|SliTaz Tools]]  - The Toolbox.
+    * [[en:cookbook:advancedhg|Advanced usage of Mercurial]] - Add extensions to Mercurial and use MQ.
+    * [[en:cookbook:releasetasks|Release Tasks]]  - List of things to do before publishing a new version.
+    * [[en:cookbook:bootscripts|Boot Scripts]]  - The start-up and shut-down scripts.
+    * [[en:cookbook:rootcd|Root cdrom (rootcd)]]  - Descriptions of files contained on the cdrom.
+    * [[en:cookbook:toolchain|Toolchain]] - The SliTaz toolchain used to build the entire system.
+    * [[en:cookbook:cross|Cross Compilation]] - Technical notes about cross compilation on SliTaz (i486, ARM, X86_64).
+---- 
+\\
+^  Page Review Section  ^^ 
+|Quality| Medium  |
+|Review| Minor Updates FIXME |
+|Priority| Medium |
+|Problems| add a [[http://forum.slitaz.org|forum post link]]|
+|:::     | OR add a [[http://labs.slitaz.org/issues |lab issue tracker link ]]|
+|How to Improve| Make all pages in cookbook current as of 3.0|
+|::: |  |
+
+\\
+----

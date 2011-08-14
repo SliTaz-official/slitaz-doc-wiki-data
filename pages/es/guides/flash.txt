@@ -1,0 +1,14 @@
+====== Cómo instalar Flash Player en Slitaz ======
+Para comenzar la instalación, abra una ventana de terminal. Ahora debe convertirse en superusuario.
+<code> $ su
+</code>
+<note>La contraseña de root en Slitaz por defecto es //root//.</note>
+
+Luego escriba y ejecute esto:
+<code># tazpkg get-install get-flash-plugin && get-flash-plugin</code>
+
+En realidad no se instala Flash todavía: se instalará y ejecutará el comando get-flash-plugin para descargar el verdadero complemento, junto a sus dependencias, e instalarlo.
+Con este método, el complemento de Flash se gestionará con tazpkg: si aparece una nueva versión, se actualizará junto a los demás paquetes.
+<note>Si el complemento no funciona en el navegador Midori, puede forzar la reinstalación del navegador así:
+<code># tazpkg get-install midori --forced</code>
+</note>
