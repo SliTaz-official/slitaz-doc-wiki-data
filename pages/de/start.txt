@@ -2,9 +2,9 @@
 
 Dieser Website fasst die offizielle gemeinschaftliche Dokumentation zum  SliTaz GNU/Linux-Projekt zusammen, die jeder anreichern kann. Es handelt sich um ein für jeden offenes Wiki. Wir sind alle für Beiträge sehr dankbar, mit welchen SliTaz einfacher zu benützen wird. Willkommen! Benützen Sie gern den Sandkasten um zu Probieren!
 
-===== Newsletter [en] ======
+===== Newsletter [de] ======
 
-  * [[en:newsletter:start|Newsletter]] - The SliTaz Monthly Newsletter, news, tips and tricks.
+  * [[de:newsletter:start|Newsletter]] - Der Monatliche Slitaz Newsletter, Neuigkeiten, Tips und Tricks.
 
 ===== Nachschlagewerke =====
 
@@ -21,8 +21,7 @@ Alle SliTaz-Hanbücher sind installiert in jeder Slitaz-Distribution und können
 
   * [[de:handbook:start|Handbuch]] - Generelles Referenzwerk für die Systembenützung durch den Anwender, durch den [[de:vocab:root|Verwalter]] sowie durch den Entwickler. Es fasst Referenzschriften, Mini-Handbücher und eine Sammlung von Anweisungen zusammen und bildet somit ein vollständiges Werk hoher Qualität, in welchem man leicht und schnell Rat zu den jeweiligen Fragen findet. Es erklärt, wie man die live-CD benützt, gibt Installationsanweisungen, liefert die Kommando-Zeilen-Parameter, um Pakete zu installieren, live-CD's selbst zu erzeugen, und behandelt auch viele weitere Themen. Wir Empfehlen, zuerst dieses Buch durchzulesen, immer wieder zur Hilfe zu ziehen, bis man den Stoff gut beherrscht, und nahezu auswendig kennt.
   * [[de:cookbook:start|Kochbuch]] - SliTaz Kochbuch. Information zum Management, Funktionsweise und Entwicklung der Distribution. Anleitungen zur Benützung des Woks und von Packetrezepturen, Beschreibungen von boot-Skripten und von rootcd-Dateien, und diverse Hilfsmittel.
-  * [[en:scratchbook:start|Scratchbook]] [en] - SliTaz Scratchbook. Describes the stages of creating the very first SliTaz distribution commencing with instructions on compiling the Linux kernel, installing the graphical server (Xvesa) and GTK applications, etc. It contains techniques requiring time and motivation that enable you to build a GNU/Linux system from source.
-  * [[Dokusommer|Doku-Sommer]]
+  * [[en:scratchbook:start|Scratchbook]] [de] - SliTaz Scratchbook. Beschreibt die Stadien der allerersten Slitaz Distribution, beginnend mit Instruktionen zum Compiling des Linuxkernels, der Installation des Graphik-Servers (Xvesa) und GTK Programmen, etc. Es beinhaltet den Bedarf an Zeit und Motivation sowie technisches Verständnis, um ein eigenes GNU/Linux System aus dem Quellcode zu erschaffen.  * [[Dokusommer|Doku-Sommer]]
 
 ==== Manuals ====
 

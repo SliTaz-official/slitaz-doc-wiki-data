@@ -32,11 +32,16 @@ You can also use a device name (loram=/dev/hda2,this/directory). The device name
 
 This is a mix between a frugal and traditional install. The system runs fully in RAM but the // home // directory is always on the key. You can modify the system (configure, install packages) and then save the new system on the key 8-).
 See [[http://hg.slitaz.org/tazusb/raw-file/tip/doc/tazusb.en.html|tazusb manual]]
-
+<note tip>You can create the USB key from the ISO image
+  # tazusb gen-iso2usb slitaz-cooking.iso
+</note>
 ==== Hybrid ISO ====
 
 This install method will **erase all of your key** and install a **unmodifiable** :-/ SliTaz. You can create a custom system with //tazlito// or //tazlitobox//. Each Slitaz ISO image is [[http://doc.slitaz.org/en:guides:dvd#hybrid-iso|hybrid]].
-
+<note tip>Use fdisk to get back the remining free space on the USB keys. Simply add partition(s).
+  # dd if=slitaz-cooking.iso of=/dev/usbkey
+  # fdisk /dev/usbkey
+</note>
 ===== Floppy install =====
 
 ==== The last resort install ====
@@ -144,7 +149,7 @@ title SliTaz cooking
 </file>
 <note tip>You can extract the bzImage and rootfs.gz from the iso image to avoid map commands and defragmentation.</note>
 
-===== Subdirectory install =====
+===== Subdirectory install in a Posix filesystem =====
 
 If you want install SliTaz on a disk (not a frugal install), and you don't want to create a partition for SliTaz, but you have room in a filesystem for another Unix and you don't know how much space to reserve for SliTaz...
 
@@ -174,6 +179,50 @@ title SliTaz cooking
 Both notes in 'Loop install' section about bzImage extraction and UUID/LABEL also apply here.
 <note tip>The subdirectory install does not use exotic packages from preinit. You can use any SliTaz flavor (except lorams). However this is not recommended because the RAM filesystem is not fully disallocated</note>
 
+===== Subdirectory install in a non-Posix filesystem =====
+You want to install SliTaz in a subdirectory but the filesystem (like [[wp>NTFS]] or [[wp>VFAT]]) does not fully support UNIX features.
+
+Use [[http://mirror.slitaz.org/pkgs/?package=posixovl|posixovl]] !
+<note important>This install method can waste some MB of RAM: it loads a ramdisk from the preinit flavor and doesn't disallocate RAM fully from the ramdisk.
+</note>
+
+==== Root filesystem files installation ====
+
+You need to mount the target subdirectory (say /slitaz) with posixovl **before** installing the files.
+  # mkdir /mnt/slitaz
+  # posixovl /mnt/slitaz
+  # unlzma -c /media/cdrom/boot/rootfs.gz | ( cd /mnt/slitaz ; cpio -idmu )
+
+==== Boot setup ====
+
+Like a loop install, you need a preinit iso file with a matching version.
+The partition (say /dev/hda1) and the path into the partition are defined by the mount, subroot and **posixovl** arguments: 
+<file>
+title SliTaz cooking
+  map (hd0,0)/boot/slitaz-preinit.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage mount=/dev/hda1 subroot=slitaz posixovl
+  initrd (hd1)/boot/rootfs.gz
+</file>
+
+Both notes in 'Loop install' section about bzImage extraction and UUID/LABEL also apply here.
+
+====== TODO ======
+==== Extra setup ====
+You want to see the host partition while running SliTaz like did [[wp>UMSDOS]] with /DOS.
+
+Create the mount point:
+  # mkdir /mnt/slitaz/Windows
+
+And update boot arguments:
+<file>
+title SliTaz cooking
+  map (hd0,0)/boot/slitaz-preinit.iso (hd1)
+  map --hook
+  kernel (hd1)/boot/bzImage mount=/dev/hda1 subroot=slitaz posixovl bindfs=.,slitaz/Windows
+  initrd (hd1)/boot/rootfs.gz
+</file>
+====== TODO ======
 ===== LVM install =====
 
 The Logical Volume Manager can manage (add disks, replace disks ...) and logically freeze any disks for backup (snapshots) without disrupting service. 
