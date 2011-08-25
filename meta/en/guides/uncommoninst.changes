@@ -123,3 +123,9 @@
 1309098585	2.25.40.179	E	en:guides:uncommoninst	linea		
 1309104290	212.198.101.207	E	en:guides:uncommoninst	bellard	[Transfer the ISO image onto hard disk] 	
 1310198387	212.198.101.207	E	en:guides:uncommoninst	bellard	[Unusual install methods] 	
+1314287264	212.198.101.207	e	en:guides:uncommoninst	bellard	[Tazusb] 	
+1314287477	212.198.101.207	e	en:guides:uncommoninst	bellard	[Hybrid ISO] 	
+1314287837	212.198.101.207	e	en:guides:uncommoninst	bellard	[Subdirectory install] 	
+1314288450	212.198.101.207	e	en:guides:uncommoninst	bellard	[LVM install] 	
+1314289567	212.198.101.207	e	en:guides:uncommoninst	bellard	[Subdirectory install in a non-Posix filesystem] 	
+1314290371	212.198.101.207	E	en:guides:uncommoninst	bellard	[TODO] 	
