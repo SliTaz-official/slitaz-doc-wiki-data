@@ -1,5 +1,3 @@
-1313181020	91.22.193.217	E	de:cookbook:receipt	mops	[Variables (optional)] 	
-1313184155	91.22.193.217	C	de:cookbook:start	mops	created	
 1313184293	91.22.193.217	E	de:cookbook:start	mops		
 1313184498	91.22.193.217	E	de:cookbook:receipt	mops		
 1313184967	91.22.193.217	E	de:start	mops	[Handbücher] 	
@@ -18,3 +16,5 @@
 1314288450	212.198.101.207	e	en:guides:uncommoninst	bellard	[LVM install] 	
 1314289567	212.198.101.207	e	en:guides:uncommoninst	bellard	[Subdirectory install in a non-Posix filesystem] 	
 1314290371	212.198.101.207	E	en:guides:uncommoninst	bellard	[TODO] 	
+1314609516	2.28.144.52	E	en:guides:read	linea	edit and remerge with old  README	
+1314610001	2.28.144.52	E	en:guides:uncommoninst	linea	tiny edits	
