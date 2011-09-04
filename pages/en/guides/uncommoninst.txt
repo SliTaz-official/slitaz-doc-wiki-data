@@ -38,7 +38,7 @@ See [[http://hg.slitaz.org/tazusb/raw-file/tip/doc/tazusb.en.html|tazusb manual]
 ==== Hybrid ISO ====
 
 This install method will **erase all of your key** and install a **unmodifiable** :-/ SliTaz. You can create a custom system with //tazlito// or //tazlitobox//. Each Slitaz ISO image is [[http://doc.slitaz.org/en:guides:dvd#hybrid-iso|hybrid]].
-<note tip>Use fdisk to get back the remining free space on the USB keys. Simply add partition(s).
+<note tip>Use fdisk to get back the remining free space on the USB keys. Simply add a partition(s).
   # dd if=slitaz-cooking.iso of=/dev/usbkey
   # fdisk /dev/usbkey
 </note>
@@ -180,10 +180,10 @@ Both notes in 'Loop install' section about bzImage extraction and UUID/LABEL als
 <note tip>The subdirectory install does not use exotic packages from preinit. You can use any SliTaz flavor (except lorams). However this is not recommended because the RAM filesystem is not fully disallocated</note>
 
 ===== Subdirectory install in a non-Posix filesystem =====
-You want to install SliTaz in a subdirectory but the filesystem (like [[wp>NTFS]] or [[wp>VFAT]]) does not fully support UNIX features.
+You want to install SliTaz in a subdirectory but the filesystem ([[wp>NTFS]] or [[wp>VFAT]]) does not fully support UNIX features.
 
 Use [[http://mirror.slitaz.org/pkgs/?package=posixovl|posixovl]] !
-<note important>This install method can waste some MB of RAM: it loads a ramdisk from the preinit flavor and doesn't disallocate RAM fully from the ramdisk.
+<note important>This install method can waste a few MBs of RAM: it loads a ramdisk from the preinit flavor and doesn't disallocate RAM fully from the ramdisk.
 </note>
 
 ==== Root filesystem files installation ====
@@ -209,12 +209,12 @@ Both notes in 'Loop install' section about bzImage extraction and UUID/LABEL als
 
 ====== TODO ======
 ==== Extra setup ====
-You want to see the host partition while running SliTaz like did [[wp>UMSDOS]] with /DOS.
+You want to see the host partition while running SliTaz like [[wp>UMSDOS]] does with /DOS.
 
 Create the mount point:
   # mkdir /mnt/slitaz/Windows
 
-And update boot arguments:
+And update the boot arguments:
 <file>
 title SliTaz cooking
   map (hd0,0)/boot/slitaz-preinit.iso (hd1)
