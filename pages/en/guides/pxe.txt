@@ -180,7 +180,44 @@ Example with current Slitaz Web boot servers :
   $ echo -n "http://mirror.slitaz.org/pxe/pxelinux.0,http://mirror.switch.ch/ftp/mirror/pxe/pxelinux.0,http:
   download.tuxfamily.org/slitaz/pxe/pxelinux.0" | cat - /dev/zero | dd conv=notrunc bs=1 seek=519 count=255 of=gpxe
 
+===== Why use PXE ? The VNC example =====
+
+Let's say that your company is working on some very sensitive data.
+You don't want people copying anything on to removable media such as USB keys.
+Only a few users can use this data.
  
+  * PXELINUX chooses a special configuration by the MAC address in //pxelinux.cfg/<client-mac-address>//
+  * It checks the md5 (or sha256) password of the user boot entry with menu.c32
+  * It sends a kernel and an initramfs with a **fbvnc** package built by http://tiny.slitaz.org/ (total size < 1.44MB)
+  * The client boots in 1 to 5 seconds with a VNC framebuffer client
+  * The VNC server can send any OS display
+  * The client has no media driver and can use 10 year old hardware
+  * The target OS can run in a VM : more scalable and easier to maintain than multiple desktops
+  * No data is stored on the client machine. It may also have no disk. It only needs an ethernet card
+  * Of course, the sessions in the target OS must have a connection timeout and need a username and a password... 
+
+==== Increase security a bit ====
+
+The VNC listens to the network without a password
+(fbvnc has no authentication support) and the VNC traffic is not encrypted on
+the network.
+
+  * Build an initramfs with a **fbvnc-ssh** package on http://tiny.slitaz.org/
+  * On the server, VNC should listen on localhost only
+  * The SSH public key of the client is installed in //$HOME/.ssh/authorized_keys// on the VNC server
+
+==== A quick demo ====
+
+The menu //Tiny SliTaz// -> //Tiny VNC// of the [[http://boot.slitaz.org/|SliTaz Web Boot]] launches the VNC client without ssh
+(you need a VNC server running on your network...).
+<note tip>You can directly download the [[http://mirror.slitaz.org/pxe/tiny/vnc/bzImage.gz|kernel]]
+and then the [[http://mirror.slitaz.org/pxe/tiny/vnc/rootfs.gz|initramfs]] and test it
+on your network or with qemu
+</note>
+<note tip>Try with the cmdline argument **vga=ask** first. This will find the best
+VESA mode to use (example **vga=0x33B**)
+</note>
+
 ---- 
 \\
 ^  Page Review Section  ^^ 

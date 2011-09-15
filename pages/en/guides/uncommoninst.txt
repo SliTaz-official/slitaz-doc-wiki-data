@@ -190,7 +190,7 @@ Use [[http://mirror.slitaz.org/pkgs/?package=posixovl|posixovl]] !
 
 You need to mount the target subdirectory (say /slitaz) with posixovl **before** installing the files.
   # mkdir /mnt/slitaz
-  # posixovl /mnt/slitaz
+  # mount.posixovl /mnt/slitaz
   # unlzma -c /media/cdrom/boot/rootfs.gz | ( cd /mnt/slitaz ; cpio -idmu )
 
 ==== Boot setup ====
@@ -199,7 +199,7 @@ Like a loop install, you need a preinit iso file with a matching version.
 The partition (say /dev/hda1) and the path into the partition are defined by the mount, subroot and **posixovl** arguments: 
 <file>
 title SliTaz cooking
-  map (hd0,0)/boot/slitaz-preinit.iso (hd1)
+  map --mem --heads=0 --sectors-per-track=0 (hd0,0)/boot/slitaz-preinit.iso (hd1)
   map --hook
   kernel (hd1)/boot/bzImage mount=/dev/hda1 subroot=slitaz posixovl
   initrd (hd1)/boot/rootfs.gz
