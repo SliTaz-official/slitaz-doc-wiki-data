@@ -1,6 +1,6 @@
 ====== Handbook ======
 
-Note: The current Handbook is still on the main web site and will be migrated after 3.0 is released. Here we have a copy of the livecd page (to help translators) and some new pages to improve and complete the current Handbook: http://www.slitaz.org/en/doc/handbook/
+Note: The current Handbook is still on the main web site and will be migrated after 4.0 is released. Here we have a copy of the livecd page (to help translators) and some new pages to improve and complete the current Handbook: http://www.slitaz.org/en/doc/handbook/
 
 ===== General =====
 
