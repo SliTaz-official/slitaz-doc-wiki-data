@@ -12,6 +12,10 @@ To display the Kernel's IP routing table, you can use the route command without 
 
 The system wide network configuration file is ///etc/network.conf//. It can be graphically configured with netbox or directly edited by the root administrator.
 
+==== TazPanel - Network ====
+
+TazPanel aims to be the new way to configure your system.  The legacy systems still exist below.  The main network page in TazPanel displays current networking information.  The other two tabs, Ethernet and Wifi allow you to configure each respectivly for your system.
+
 ===== Netbox - Configure the network =====
 
 Netbox is a small GTK+ application to configure a network interface using DCHP or a fixed (static) IP address. The tabs can be used to start/stop the connections and automatically change the values in the system files. Netbox provides a system wide tab from which you can directly edit network configuration files, and tabs to configure PPP/PPPoE username/passwords. Servers such as SSH, DHCP, PXE, DNS, etc can also be configured and it's possible to create your own virtual private network (VPN) using the tools provided. 
