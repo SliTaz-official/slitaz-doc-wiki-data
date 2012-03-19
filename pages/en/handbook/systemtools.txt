@@ -22,6 +22,12 @@ Htop is a system process viewer that displays cpu load, memory state (RAM) and s
 
 <code> # tazpkg get-install htop </code>
 
+===== NMon - Nigels performance Monitor =====
+
+NMon is a cli system resource viewer that displays everything from cpu load to disk io.
+
+<code> # tazpkg get-install nmon </code>
+
 ===== LXTask - Graphical system process viewer =====
 
 LXTask is the default process viewer in SliTaz. It offers the same functionality as Htop, except for the ability to control it remotely. You can start it from the System Tools Menu -> Task Manager.
