@@ -6,15 +6,11 @@ This document gives information and necessary instructions on how to install Sli
 You may also do a [[http://doc.slitaz.org/en:guides:frugal|frugal]] or [[http://doc.slitaz.org/en:guides:uncommoninst|unusual]] install.
 ===== SliTaz Installer =====
 
-SliTaz provides a simple to use Installer which can be launched from the "System Tools" menu. SliTaz 3.0 Installer messages are in English and can be used with these complimentary instructions.
+SliTaz provides a simple to use Installer which can be accessed through TazPanel. SliTaz 4.0 Installer messages are in English and can be used with these complimentary instructions.
 
 === Install Type ===
 
-The first step lets you choose the type of installation: new install or system upgrade. In most cases you will want a new and clean installation. On confirming this the installer will mount the master CD-ROM device and search for the compressed file-system (//rootfs.gz//). If no file-system is found, then the installation will abort.
-
-If you get into trouble because the compressed file-system is not found, please check that SliTaz is in the master CD/DVD device. If the problem persists you can use a downloaded ISO image and mount it on ///media/cdrom// where the installer expects to find it:
-
-<code> # mount -o loop slitaz-3.0.iso /media/cdrom </code>
+The first step lets you choose the type of installation: new install or system upgrade. In most cases you will want a new and clean installation.
 
 === Target Partition ===
 
@@ -24,11 +20,15 @@ For example, if you want to install SliTaz on the second partition of the first 
 
 <file> /dev/hda2 </file>
 
+=== Installation Media ===
+
+This section allows you to choose the source of the installation.  If you booted from a CD or USB device, select the live option respectivly.  If you have a special iso or are having issues using the Live media, you can use a local iso or web iso.
+
 === Formatting ===
 
 <note warning> Formatting a partition **permanently** removes all data from it. Be sure you choose your intended partition carefully as //this action is irreversible//.</note>
 
-The next step lets you format the target partition into ext3. Ext3 is a robust, stable and journalled file-system. If the partition is already formatted you can skip this step, if not just accept.
+The next step lets you format the target partition into ext2, ext3, or ext4. Ext3 is a robust, stable and journalled file-system.
 
 === Hostname ===
 
@@ -36,13 +36,13 @@ Hostname configuration lets you set the machine name. The hostname is used inter
 
 === Boot-Loader (GRUB) ===
 
-When the installation process is finished you have the option to install the GRUB boot-loader. GRUB is capable of booting almost any kind of operating system and can be configured through a human-readable text file; changes to this file are instant and do not require an additional commands to take effect.
+At the end, you have the option to install the GRUB boot-loader. GRUB is capable of booting almost any kind of operating system and can be configured through a human-readable text file; changes to this file are instant and do not require an additional commands to take effect.
 
-If you want to use an existing GRUB installation, skip this step and add the correct lines to your GRUB configuration file (menu.lst); [[installation#grub-boot-loader | see below]] for more information. Note that the SliTaz Installer creates a configuration file on the target which can be used as an example (///mnt/target/boot/grub/menu.lst//).
+If you want to use an existing GRUB installation, ignore this and correct lines in your GRUB configuration file (menu.lst); [[installation#grub-boot-loader | see below]] for more information. Note that the SliTaz Installer creates a configuration file on the target which can be used as an example (///mnt/target/boot/grub/menu.lst//).
 
 === Finishing the Installation ===
 
-When the Installer has finally done its job you have the option to exit or directly reboot your new SliTaz GNU/Linux operating system. First boot is like the LiveCD, you will be prompted for locale, keyboard, sound card and screen selection. Future reboots will not prompt you anymore for configuration details, but all the values can be changed either manually or with the project tools such as //tazlocale// or //tazx//.
+When the Installer has finally done its job you have the option to exit or directly reboot your new SliTaz GNU/Linux operating system. First boot is like the LiveCD, you will be prompted for locale and keyboard selection. Future reboots will not prompt you anymore for configuration details, but all the values can be changed either manually or with the project tools such as //tazlocale// or //tazx//.
 
 ===== Manual ('By Hand') Installation =====
 
@@ -63,7 +63,7 @@ Mount the CD-ROM...
 
 ...or if you are using an ISO image:
 
-<code> # mount -o loop slitaz-3.0.iso /media/cdrom </code>
+<code> # mount -o loop slitaz-4.0.iso /media/cdrom </code>
 
 === Install and Extract ===
 
@@ -107,7 +107,7 @@ You can now create a GRUB configuration file and add the lines which will boot S
 === Example /boot/grub/menu.lst ===
 
 <file>
-title  SliTaz GNU/Linux 3.0 (Kernel 2.6.34-slitaz)
+title  SliTaz GNU/Linux 4.0 (Kernel 2.6.34-slitaz)
        root(hd0,0)
        kernel /boot/vmlinuz-2.6.34-slitaz root=/dev/hda1 vga=normal
 </file>
@@ -143,7 +143,7 @@ If you want to install SliTaz on an USB device, you must give a little "rootdela
 To include this option, edit your menu.lst to include the argument
 :
 <file>
-title  SliTaz GNU/Linux 3.0 (Kernel 2.6.34-slitaz)
+title  SliTaz GNU/Linux 4.0 (Kernel 2.6.34-slitaz)
        root(hd0,0)
        kernel /boot/vmlinuz-2.6.34-slitaz root=/dev/sda1 vga=normal rootdelay=10
 </file>
