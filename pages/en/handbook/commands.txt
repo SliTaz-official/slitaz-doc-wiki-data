@@ -160,7 +160,7 @@ Surf the web quickly and simply with the 'retawq' text-mode web browser. Note th
  
 ===== Talk on IRC =====
 
-To discuss and transfer files via the many IRC servers available, SliTaz provides Rhapsody. The IRC client is simple, fast and lightweight, providing a pleasant, easy to handle ncurses configuration menu. To start the application from a terminal connecting to server (//irc.toile-libre.org//) and joining //#slitaz//:
+To discuss and transfer files via the many IRC servers available, SliTaz provides Rhapsody. The IRC client is simple, fast and lightweight, providing a pleasant, easy to handle ncurses configuration menu. This can be installed through tazpkg.  To start the application from a terminal connecting to server (//irc.toile-libre.org//) and joining //#slitaz//:
 
 <code>
  $ rhapsody
